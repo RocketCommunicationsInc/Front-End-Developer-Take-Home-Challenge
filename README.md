@@ -13,13 +13,13 @@ The contacts.json file consists of a list of contacts (satellites) configured in
 - Display the total number of Contacts.
 - Display the total different Contact states (*contactState*).
 - For each Contact, display Name (*contactName*), Status (*contactStatus*), and Begin/End timestamp (*contactBeginTimestamp/contactEndTimestamp*).
-- Allow sorting on Name.
+- Allow sorting on the name.
 
 The alerts.json file consists of a list of issues with the contacts. For example, an Alerts panel would provide operators with a roll-up of issues across the board. The following should be displayed in the Alerts pane:
 - Display each Alert message (*errorMessage*).
 - Display each Alert category (*errorCategory*).
 - Display each Alert time (*errorTime*).
-- Allow sorting on category.
+- Allow sorting on the category.
 
 **Technical Requirements**
 - This project is to be done in Angular. You can use the Angular CLI (https://cli.angular.io/) to quickly create a default Angular project.
