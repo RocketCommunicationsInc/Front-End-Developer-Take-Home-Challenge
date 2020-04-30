@@ -31,3 +31,7 @@ The alerts.json file consists of a list of issues with the contacts. For example
   - Work on your solution
   - Create a pull request with @github/tblaisde as the reviewer.
 - Have fun and be as creative as you like!
+
+**Timeframe**
+
+There is no mandated timeframe to complete this challenge. You will not be judged on how quickly you complete the challenge.
