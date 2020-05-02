@@ -5,7 +5,7 @@ As the next step in the interview process, we’d like you to complete a take ho
 **The Project**
 
 Let's assume that *contacts.json* and *alerts.json* contain API responses we want to present to a Ground Resources Management (GRM) operator. Every day, GRM operators work with data similar to what you'll find in the provided JSON files. The task is to create a dashboard presenting data found within the provided JSON files in a clear and intuitive manner.
-Please feel free to peruse the Astro UX Design site (https://astrouxds.com/) for ideas or inspiration.
+Please feel free to peruse the Astro UX Design site (https://astrouxds.com/) for ideas or inspiration, but there is no requirement to use Astro or any other Design System.
 
 **Requirements**
 
