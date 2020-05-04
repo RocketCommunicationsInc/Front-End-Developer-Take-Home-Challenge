@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody #tbody>
-            <tr *ngFor="let contact of contacts | async">
+            <tr *ngFor="let contact of contacts | async; trackBy: trackById">
                 <td><i [ngClass]="'status--' + contact.contactStatus"></i></td>
                 <td> {{contact.contactName}} </td>
                 <td> {{contact.contactStatus}}</td>

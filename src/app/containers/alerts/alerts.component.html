@@ -9,8 +9,8 @@
                 <th> Time </th>
             </tr>
         </thead>
-        <tbody>
-            <tr *ngFor="let alert of alerts | async">
+        <tbody #tbody>
+            <tr *ngFor="let alert of alerts | async; trackBy: trackById">
                 <td><i [ngClass]="'status--' + alert.errorSeverity"></i></td>
                 <td> {{alert.errorMessage}} </td>
                 <td> {{alert.errorCategory}}</td>

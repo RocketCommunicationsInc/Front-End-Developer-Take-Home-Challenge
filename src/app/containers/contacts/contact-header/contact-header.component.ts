@@ -1,4 +1,4 @@
-import { IcontactSummary } from './../../../models/contact';
+import { ContactSummary } from './../../../models/contact';
 import { Observable } from 'rxjs';
 import { SubscribeCleaner } from './../../../subscribe-cleaner.component';
 import { ContactsService } from './../../../services/contacts.service';
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactHeaderComponent extends SubscribeCleaner implements OnInit {
 
-  summary: Observable<IcontactSummary>;
+  summary: Observable<ContactSummary>;
 
   constructor(private contactService: ContactsService) {
     super();

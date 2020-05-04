@@ -1,5 +1,6 @@
-import { Isorter } from './../models/sorter';
-import { Ialert, IalertSummary } from './../models/alert';
+import { environment } from './../../environments/environment';
+import { Sorter } from './../models/sorter';
+import { Alert, AlertSummary } from './../models/alert';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { throwError as observableThrowError, Observable, BehaviorSubject, of } from 'rxjs';
@@ -10,10 +11,10 @@ import { map, catchError, tap, distinctUntilChanged, switchMap, filter, shareRep
 })
 export class AlertsService {
 
-  private _alerts: Ialert[];
-  alerts: Observable<Ialert[]>;
-  activeSort: Isorter;
-  private alertsSubject = new BehaviorSubject<Ialert[]>([])
+  private _alerts: Alert[];
+  alerts: Observable<Alert[]>;
+  activeSort: Sorter;
+  private alertsSubject = new BehaviorSubject<Alert[]>([])
 
   constructor(
     private http: HttpClient) {
@@ -28,13 +29,13 @@ export class AlertsService {
 
   }
 
-  load(): Observable<Ialert[]> {
-    return this.http.get<Ialert[]>('https://raw.githubusercontent.com/santhony7/Angular-Developer-Take-Home-Challenge/master/alerts.json')
+  load(): Observable<Alert[]> {
+    return this.http.get<Alert[]>(environment.alertsApi)
       .pipe(
         shareReplay(1),
         tap(res => {
           return this.alertsSubject.next(res.sort((a, b) => {
-            this._alerts = res;
+            this._alerts = [...res];
             if (!this.activeSort) {
               return 1;
             } else if (this.activeSort.direction === 'ASC') {
@@ -43,15 +44,14 @@ export class AlertsService {
               return (a[this.activeSort.property] > b[this.activeSort.property]) ? -1 : 1;
           }
           ))
-        }
-        ),
+        }),
         catchError(errors => {
           return observableThrowError(errors);
         })
       );
   }
 
-  getSummary(): Observable<IalertSummary> {
+  getSummary(): Observable<AlertSummary> {
     return this.alerts
       .pipe(
         switchMap(res => {
@@ -61,7 +61,7 @@ export class AlertsService {
           for (let prop of counts) {
             obj[prop[0]] = prop[1];
           }
-          return of({ total: res.length, severities: obj } as IalertSummary);
+          return of({ total: res.length, severities: obj } as AlertSummary);
         }),
         catchError(errors => {
           return observableThrowError(errors);
@@ -69,8 +69,8 @@ export class AlertsService {
       );
   }
 
-  sort(sorter: Isorter): void {
-    this.activeSort = sorter;
+  sort(sorter: Sorter): void {
+    this.activeSort = {...sorter};
     return this.alertsSubject.next(this._alerts.sort((a, b) => {
       if (!this.activeSort) {
         return 1;

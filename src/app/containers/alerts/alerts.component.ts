@@ -1,5 +1,5 @@
 import { SubscribeCleaner } from './../../subscribe-cleaner.component';
-import { Ialert } from './../../models/alert';
+import { Alert } from './../../models/alert';
 import { Observable } from 'rxjs';
 import { AlertsService } from './../../services/alerts.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -11,9 +11,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class AlertsComponent extends SubscribeCleaner implements OnInit {
 
-  alerts: Observable<Ialert[]>;
+  alerts: Observable<Alert[]>;
 
-  @ViewChild('tbody') tableBody: any;
+  @ViewChild('tbody', {static: true}) tableBody: any;
 
   displayedColumns: string[] = ['severity', 'message', 'category', 'time'];
 
@@ -30,6 +30,10 @@ export class AlertsComponent extends SubscribeCleaner implements OnInit {
   sortit(property) {
     this.tableBody.nativeElement.scrollTop = 0;
     this.alertsService.sort({ direction: !this.alertsService.activeSort || this.alertsService.activeSort.direction === "ASC" ? "DESC" : "ASC", property: property });
+  }
+
+  trackById(index: number, alert: Alert) {
+    return alert.errorId;
   }
 
 }

@@ -1,4 +1,4 @@
-export interface Ialert {
+export interface Alert {
     errorId: string;
     errorSeverity: string;
     errorCategory: string;
@@ -10,12 +10,12 @@ export interface Ialert {
     expanded: boolean;
 }
 
-export interface IalertSummary {
+export interface AlertSummary {
     total: number;
-    severities: IalertSummarySeverities;
+    severities: AlertSummarySeverities;
 }
 
-export interface IalertSummarySeverities {
+export interface AlertSummarySeverities {
     off: number,
     standby: number,
     normal: number,

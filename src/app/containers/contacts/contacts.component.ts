@@ -1,5 +1,5 @@
 import { SubscribeCleaner } from './../../subscribe-cleaner.component';
-import { Icontact } from './../../models/contact';
+import { Contact } from './../../models/contact';
 import { Observable } from 'rxjs';
 import { ContactsService } from './../../services/contacts.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -11,9 +11,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class ContactsComponent extends SubscribeCleaner implements OnInit {
 
-  contacts: Observable<Icontact[]>;
+  contacts: Observable<Contact[]>;
 
-  @ViewChild('tbody') tableBody: any;
+  @ViewChild('tbody', {static: false}) tableBody: any;
 
   constructor(public contactsService: ContactsService) {
     super();
@@ -28,6 +28,10 @@ export class ContactsComponent extends SubscribeCleaner implements OnInit {
   sortit(property) {
     this.tableBody.nativeElement.scrollTop = 0
     this.contactsService.sort({ direction: !this.contactsService.activeSort || this.contactsService.activeSort.direction === "ASC" ? "DESC" : "ASC", property: property })
+  }
+
+  trackById(index: number, contact: Contact) {
+    return contact._id;
   }
 
 }

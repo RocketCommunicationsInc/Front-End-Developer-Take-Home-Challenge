@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  alertsApi: 'https://raw.githubusercontent.com/santhony7/Angular-Developer-Take-Home-Challenge/master/alerts.json',
+  contactsApi: 'https://raw.githubusercontent.com/santhony7/Angular-Developer-Take-Home-Challenge/master/contacts.json'
 };
 
 /*

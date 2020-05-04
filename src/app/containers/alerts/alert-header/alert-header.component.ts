@@ -1,7 +1,7 @@
 import { SubscribeCleaner } from './../../../subscribe-cleaner.component';
 import { Observable } from 'rxjs';
 import { AlertsService } from './../../../services/alerts.service';
-import { Ialert, IalertSummary } from './../../../models/alert';
+import { Alert, AlertSummary } from './../../../models/alert';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -11,7 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AlertHeaderComponent extends SubscribeCleaner implements OnInit {
 
-  summary: Observable<IalertSummary>;
+  summary: Observable<AlertSummary>;
 
   constructor(private alertsService: AlertsService) {
     super();
@@ -21,7 +21,5 @@ export class AlertHeaderComponent extends SubscribeCleaner implements OnInit {
     this.summary = this.alertsService.getSummary();
     this.unsubscribeOnDestroy = this.summary.subscribe();
   }
-
-
 
 }

@@ -1,5 +1,6 @@
-import { Isorter } from './../models/sorter';
-import { Icontact, IcontactSummary } from './../models/contact';
+import { environment } from './../../environments/environment';
+import { Sorter } from './../models/sorter';
+import { Contact, ContactSummary } from './../models/contact';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { throwError as observableThrowError, Observable, BehaviorSubject, Subject, of } from 'rxjs';
@@ -10,9 +11,10 @@ import { map, catchError, tap, distinctUntilChanged, switchMap, filter, shareRep
 })
 export class ContactsService {
 
-  contacts: Observable<Icontact[]>;
-  activeSort: Isorter;
-  private contactsSubject = new BehaviorSubject<Icontact[]>([])
+  private _contacts: Contact[];
+  contacts: Observable<Contact[]>;
+  activeSort: Sorter;
+  private contactsSubject = new BehaviorSubject<Contact[]>([])
 
   constructor(
     private http: HttpClient) {
@@ -27,12 +29,13 @@ export class ContactsService {
 
   }
 
-  load(): Observable<Icontact[]> {
-    return this.http.get<Icontact[]>('https://raw.githubusercontent.com/santhony7/Angular-Developer-Take-Home-Challenge/master/contacts.json')
+  load(): Observable<Contact[]> {
+    return this.http.get<Contact[]>(environment.contactsApi)
       .pipe(
         shareReplay(1),
         tap(res => {
           return this.contactsSubject.next(res.sort((a, b) => {
+            this._contacts = [...res];
             if (!this.activeSort) {
               return 1;
             } else if (this.activeSort.direction === 'ASC') {
@@ -48,8 +51,7 @@ export class ContactsService {
       );
   }
 
-
-  getSummary(): Observable<IcontactSummary> {
+  getSummary(): Observable<ContactSummary> {
     return this.contacts
       .pipe(
         switchMap(res => {
@@ -59,7 +61,7 @@ export class ContactsService {
           for (let prop of counts) {
             obj[prop[0]] = prop[1];
           }
-          return of({ total: res.length, states: obj } as IcontactSummary);
+          return of({ total: res.length, states: obj } as ContactSummary);
         }),
         catchError(errors => {
           return observableThrowError(errors);
@@ -67,9 +69,17 @@ export class ContactsService {
       );
   }
 
-  sort(sorter: Isorter): Observable<Icontact[]> {
-    this.activeSort = sorter;
-    return this.load();
+  sort(sorter: Sorter): void {
+    this.activeSort = { ...sorter };
+    return this.contactsSubject.next(this._contacts.sort((a, b) => {
+      if (!this.activeSort) {
+        return 1;
+      } else if (this.activeSort.direction === 'ASC') {
+        return (a[this.activeSort.property] > b[this.activeSort.property]) ? 1 : -1;
+      } else if (this.activeSort.direction === 'DESC')
+        return (a[this.activeSort.property] > b[this.activeSort.property]) ? -1 : 1;
+    }
+    ))
   }
 
 }

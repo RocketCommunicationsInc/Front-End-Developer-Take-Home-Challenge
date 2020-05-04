@@ -1,4 +1,4 @@
-export interface Icontact {
+export interface Contact {
     "_id": string,
     "contactId": string,
     "contactStatus": string,
@@ -20,12 +20,12 @@ export interface Icontact {
 }
 
 
-export interface IcontactSummary {
+export interface ContactSummary {
     'total': number;
-    'states': IcontactSummarySeverities;
+    'states': ContactSummarySeverities;
 }
 
-export interface IcontactSummarySeverities {
+export interface ContactSummarySeverities {
     'executing': number;
     'failed': number;
 }
