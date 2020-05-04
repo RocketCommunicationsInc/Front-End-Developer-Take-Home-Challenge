@@ -4,7 +4,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './containers/header/header.component';
-import { FooterComponent } from './containers/footer/footer.component';
 import { ToolbarComponent } from './containers/toolbar/toolbar.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { AlertsComponent } from './containers/alerts/alerts.component';
@@ -14,8 +13,6 @@ import { AlertHeaderComponent } from './containers/alerts/alert-header/alert-hea
 import { HomeComponent } from './containers/home/home.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common';
 import { PanelComponent } from './shared/components/panel/panel.component';
 
 
@@ -23,7 +20,6 @@ import { PanelComponent } from './shared/components/panel/panel.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     ToolbarComponent,
     LogoComponent,
     AlertsComponent,

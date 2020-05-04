@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-   //{ path: 'support', loadChildren: () => import('../app/support/support.module').then(m => m.SupportModule) },
+   //{ path: 'support', loadChildren: () => import('../app/some.module').then(m => m.SomeModule) },
   { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent}
 ];
