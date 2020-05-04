@@ -1,0 +1,11 @@
+<ng-container *ngIf="(summary | async) as summary">
+    <div class="summary__total-container">
+        <div class="summary__total-count">{{summary.total}}</div>
+        <div class="summary__total-label">Active Contacts</div>
+    </div>
+    <div class="summary__severity">
+        <!-- TODO: Severity levels should be a const collection. This should loop over to create elements -->
+        <div *ngIf="summary.states.executing"><i class="status--normal"></i><span>Executing: </span><span>{{summary.states.executing}}</span></div>
+        <div *ngIf="summary.states.failed"><i class="status--critical"></i><span>Failed: </span><span>{{summary.states.failed}}</span></div>
+    </div>
+</ng-container>

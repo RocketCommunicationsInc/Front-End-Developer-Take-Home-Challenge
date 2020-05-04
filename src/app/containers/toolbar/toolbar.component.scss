@@ -1,0 +1,16 @@
+@import "variables";
+:host {
+  display: block;
+  background-color: #000;
+  border-top: 1px solid $borderBlueLight;
+  border-bottom: 1px solid $borderBlueLight;
+  height: 30px;
+  margin-bottom: 30px;
+  background: repeating-linear-gradient(
+    45deg,
+    darken($borderBlueLight, 30%),
+     darken($borderBlueLight, 30%) 1px,
+    transparent 2px,
+    transparent 1%
+  );
+}

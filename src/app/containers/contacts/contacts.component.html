@@ -1,0 +1,21 @@
+<app-panel [tabLabel]="'Contacts'">
+    <app-contact-header></app-contact-header>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th (click)="sortit('contactName')"> Name <i class="arrow" *ngIf="contactsService.activeSort" [ngClass]="contactsService.activeSort?.direction === 'ASC' ? 'arrow-up':'arrow-down' "></i></th>
+                <th> Status </th>
+                <th> AOS - LOS </th>
+            </tr>
+        </thead>
+        <tbody #tbody>
+            <tr *ngFor="let contact of contacts | async">
+                <td><i [ngClass]="'status--' + contact.contactStatus"></i></td>
+                <td> {{contact.contactName}} </td>
+                <td> {{contact.contactStatus}}</td>
+                <td> {{ contact.contactBeginTimestamp | date:'HH:mm:ss' }} - {{ contact.contactEndTimestamp | date:'HH:mm:ss' }} </td>
+            </tr>
+        </tbody>
+    </table>
+</app-panel>

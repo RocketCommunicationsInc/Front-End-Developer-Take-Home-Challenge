@@ -1,0 +1,67 @@
+@import "variables";
+
+.tab {
+  height: 40px;
+  width: 150px;
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  border-top: 2px solid $borderBlueLight;
+  border-left: 2px solid $borderBlueLight;
+  border-bottom: 2px solid $borderBlueLight;
+  z-index: 2;
+  background: linear-gradient(to bottom, #87e0fd 0%, #53cbf1 40%, #05abe0 100%);
+}
+
+.tab:before {
+  height: 40px;
+  width: 70px;
+  content: "";
+  position: absolute;
+  left: 104px;
+  top: -2px;
+  transform: skewX(40deg);
+  z-index: -1;
+  border-top: 2px solid $borderBlueLight;
+  border-right: 2px solid $borderBlueLight;
+  border-bottom: 2px solid $borderBlueLight;
+  background: linear-gradient(to bottom, #87e0fd 0%, #53cbf1 40%, #05abe0 100%);
+}
+
+.tab-label {
+  font-size: 21px;
+  padding-top: 8px;
+  padding-left: 5px;
+  color: $blueBG;
+}
+
+.tab-panel {
+  background-color: $panelBG;
+  border: 2px solid $borderBlueLight;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead {
+    background-color: $tableHeaderBG;
+    font-weight: 300;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  tbody {
+    display: block;
+    height: 500px;
+    overflow: auto;
+  }
+  thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  thead {
+    width: calc(100% - 1em);
+  }
+}

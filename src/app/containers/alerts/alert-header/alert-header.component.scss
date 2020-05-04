@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 65px;
+}
+
+.summary__total-container {
+  text-align: center;
+}
+
+.summary__total-count {
+  font-size: 36px;
+  line-height: 28px;
+}
+
+.summary__total-label {
+  font-size: 18px;
+}
+
+.summary__severity {
+  font-size: 14px;
+}
+
+i {
+  margin-right: 5px;
+}

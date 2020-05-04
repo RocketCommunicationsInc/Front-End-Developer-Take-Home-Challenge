@@ -28,9 +28,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -93,9 +98,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./src/scss"
+              ]
+            }
           }
         },
         "lint": {
@@ -124,6 +134,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Angular-Developer-Take-Home-Challenge"
 }

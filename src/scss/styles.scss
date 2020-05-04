@@ -1,0 +1,135 @@
+@import "variables/colors";
+@import "base/defaults";
+
+//Globals
+
+.container {
+  max-width: 1024px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab {
+  height: 40px;
+  width: 150px;
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  border-top: 2px solid $borderBlueLight;
+  border-left: 2px solid $borderBlueLight;
+  border-bottom: 2px solid $borderBlueLight;
+  z-index: 2;
+  background: linear-gradient(to bottom, #87e0fd 0%, #53cbf1 40%, #05abe0 100%);
+}
+
+.tab:before {
+  height: 40px;
+  width: 70px;
+  content: "";
+  position: absolute;
+  left: 104px;
+  top: -2px;
+  transform: skewX(40deg);
+  z-index: -1;
+  border-top: 2px solid $borderBlueLight;
+  border-right: 2px solid $borderBlueLight;
+  border-bottom: 2px solid $borderBlueLight;
+  background: linear-gradient(to bottom, #87e0fd 0%, #53cbf1 40%, #05abe0 100%);
+}
+
+.tab-label {
+  font-size: 21px;
+  padding-top: 8px;
+  padding-left: 5px;
+  color: $blueBG;
+}
+
+.tab-panel {
+  background-color: $panelBG;
+  border: 2px solid $borderBlueLight;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead {
+    background-color: $tableHeaderBG;
+    font-weight: 300;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  tbody {
+    display: block;
+    height: 500px;
+    overflow: auto;
+  }
+  thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  thead {
+    width: calc(100% - 1em);
+  }
+}
+
+i.status {
+  height: 10px;
+  width: 10px;
+  background-color: $statusOff;
+  display: inline-block;
+  border-radius: 50%;
+
+  &--off {
+    @extend i, .status;
+    background-color: $statusOff;
+  }
+
+  &--standby {
+    @extend i, .status;
+    background-color: $statusStandby;
+  }
+
+  &--normal {
+    @extend i, .status;
+    background-color: $statusNormal;
+  }
+
+  &--caution {
+    @extend i, .status;
+    background-color: $statusCaution;
+  }
+
+  &--serious {
+    @extend i, .status;
+    background-color: $statusSerious;
+  }
+
+  &--critical {
+    @extend i, .status;
+    background-color: $statusCritical;
+  }
+}
+
+.arrow {
+  display: inline-block;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid white;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
+}

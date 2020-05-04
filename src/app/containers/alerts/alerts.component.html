@@ -1,0 +1,21 @@
+<app-panel [tabLabel]="'Alerts'">
+    <app-alert-header></app-alert-header>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th> Message </th>
+                <th (click)="sortit('errorCategory')"> Category <i class="arrow" *ngIf="alertsService.activeSort" [ngClass]="alertsService.activeSort?.direction === 'ASC' ? 'arrow-up':'arrow-down' "></i></th>
+                <th> Time </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let alert of alerts | async">
+                <td><i [ngClass]="'status--' + alert.errorSeverity"></i></td>
+                <td> {{alert.errorMessage}} </td>
+                <td> {{alert.errorCategory}}</td>
+                <td> {{ alert.errorTime | date:'HH:mm:ss' }} </td>
+            </tr>
+        </tbody>
+    </table>
+</app-panel>

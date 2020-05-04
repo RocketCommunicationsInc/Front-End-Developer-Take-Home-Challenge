@@ -1,0 +1,32 @@
+@import "variables";
+:host {
+  flex: 1;
+  margin-right: 5px;
+}
+
+thead tr,
+tbody tr {
+  font-size: 12px;
+  height: 25px;
+  > * {
+    text-align: left;
+  }
+
+  > *:nth-child(1) {
+    width: 5%;
+    text-align: center;
+  }
+  > *:nth-child(2) {
+    width: 60%;
+  }
+  > *:nth-child(3) {
+    width: 20%;
+  }
+  > *:nth-child(4) {
+    width: 15%;
+  }
+}
+
+tr th:nth-child(3) {
+  cursor: pointer;
+}
