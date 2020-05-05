@@ -1,0 +1,52 @@
+<div class="panel-container">
+  <div class="row">
+    <div class="col-1">
+      <h2 class="panel-header">Alerts</h2>
+    </div>
+    <div class="col-11">
+      <div class="row float-right">
+        <div class="col panel-count-container">
+          <h3>{{ alertsCount }}</h3>
+          <div class="count-label">Alerts
+          </div>
+        </div>
+        <div class="col panel-count-container">
+          <h3 class="caution">{{ cautionCount }}</h3>
+          <div class="count-label caution">Caution</div>
+        </div>
+        <div class="col panel-count-container">
+          <h3 class="critical">{{ criticalCount }}</h3>
+          <div class="count-label critical">Critical</div>
+        </div>
+        <div class="col panel-count-container">
+          <h3 class="serious">{{ seriousCount }}</h3>
+          <div class="count-label serious">Serious</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <mat-table [dataSource]="alertsDataSource" matSort class="panel-table">
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="message">
+      <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.message}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
+</div>

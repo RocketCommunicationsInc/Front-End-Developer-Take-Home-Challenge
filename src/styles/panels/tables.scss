@@ -1,0 +1,67 @@
+mat-header-row, mat-row {
+    border-color: #062034;
+}
+
+mat-header-cell {
+    font-size: 1.3rem;
+    color: #4267ac;
+}
+
+mat-cell {
+    font-size: 1rem;
+    color: #d4d6d3;
+}
+
+mat-paginator {
+    background-color: rgba($color: #062034, $alpha: 0.3);
+}
+
+.panel-table {
+    background-color: rgba($color: #062034, $alpha: 0.7);
+}
+
+.panel-container {
+    margin: 0;
+    padding: 10px 10px 10px 20px;
+    text-align: center;
+    background-color: rgba($color: #062034, $alpha: 0.7);
+    color: white;
+}
+
+.panel-header {
+    float: left;
+}
+
+.panel-count-container {
+    margin-right: 30px;
+}
+
+h2 {
+    margin-top: 8px;
+}
+
+h3 {
+    color: #fbffff;
+}
+
+.count-label {
+    color: #d4d6d3;
+    line-height: 0;
+    margin-bottom: 10px;
+}
+
+.executing {
+    color: #448344;
+}
+
+.caution {
+    color: #ffff64;
+}
+
+.critical {
+    color: #feb121;
+}
+
+.serious {
+    color: #f1442f;
+}

@@ -1,1 +1,13 @@
-<h1>Hello Rocket</h1>
+<app-header (onAllClicked)="all()" (onContactsClicked)="contacts()" (onAlertsClicked)="alerts()"></app-header>
+<div class="main">
+  <div class="info-pane">
+    <div class="row">
+      <div class="info-section col" *ngIf="toggleAlerts">
+        <app-alerts></app-alerts>
+      </div>
+    <div class="info-section col" *ngIf="toggleContacts">
+      <app-contacts></app-contacts>
+    </div>
+  </div>
+  </div>
+</div>

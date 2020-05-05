@@ -1,0 +1,48 @@
+<div class="panel-container">
+  <div class="row">
+    <div class="col-1">
+      <h2 class="panel-header">Contacts</h2>
+    </div>
+    <div class="col-11">
+      <div class="row float-right">
+        <div class="col panel-count-container">
+          <h3>{{ contactsCount }}</h3>
+          <div class="count-label">Contacts
+        </div>
+        </div>
+        <div class="col panel-count-container">
+          <h3 class="executing">{{ executingCount }}</h3>
+          <div class="count-label executing">Executing</div>
+        </div>
+        <div class="col panel-count-container">
+          <h3 class="serious">{{ failedCount }}</h3>
+          <div class="count-label serious">Failed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <mat-table [dataSource]="contactsDataSource" matSort class="panel-table">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[15, 30, 45]" showFirstLastButtons></mat-paginator>
+</div>

@@ -1,0 +1,51 @@
+.header {
+    background-color: #062034;
+    overflow: hidden;
+}
+
+h1 {
+    color:  white;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
+.grm-text {
+    font-style: italic;
+    color: #fa9488;
+    margin-right: 5px;
+}
+
+.avatar {
+    height: 50px;
+    width: 50px;
+    margin: 0 10px;
+}
+
+.filter {
+    margin-top: 25px;
+    color: white;
+}
+
+.link:hover {
+    color: #faccc7;
+    cursor: pointer;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.name {
+    color: white;
+    font-size: 10px;
+}
+
+.active {
+    color: #fa9488;
+}
+
+.inactive {
+    color: white;
+}
