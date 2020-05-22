@@ -1,0 +1,27 @@
+<!--top bar component-->
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="toggleSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+             <ul fxLayout="row" fxLayoutGap="20px">
+                <li>
+                    <button mat-icon-button [matMenuTriggerFor]="settings"><mat-icon>settings</mat-icon></button>
+                    <mat-menu #settings="matMenu">
+                        <button mat-menu-item (click)="lightTheme()">Light Mode</button>
+                        <button mat-menu-item (click)="darkTheme()">Dark Mode</button>
+                    </mat-menu>
+                </li>
+                 <li>
+                     <button mat-icon-button [matMenuTriggerFor]="nav"><mat-icon>dashboard</mat-icon></button>
+
+                     <mat-menu #nav="matMenu">
+                         <button mat-menu-item routerLink="/">Contacts</button>
+                         <button mat-menu-item routerLink="/alerts">Alerts</button>
+                     </mat-menu>
+                 </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,38 @@
+<!--title component-->
+<app-title value="Alerts"></app-title>
+<!--widget components-->
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+    <app-counter fxFlex="33" title="Total alerts" [value]="dataLength"></app-counter>
+</div>
+<br>
+<!-- alerts table component-->
+<mat-card [class.loaded]="loaded" class="table-element">
+    <div class="error-message" *ngIf="dataError">
+        <p>Problem recieving data</p>
+    </div>
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="" matSort>
+        <!-- Message Column -->
+        <ng-container matColumnDef="errorMessage" >
+            <th mat-header-cell *matHeaderCellDef> Message </th>
+            <td mat-cell *matCellDef="let element"> {{element.errorMessage}} </td>
+        </ng-container>
+        <!-- Category Column -->
+        <ng-container matColumnDef="errorCategory">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> Category </th>
+            <td mat-cell *matCellDef="let element"> {{element.errorCategory}} </td>
+        </ng-container>
+        <!-- Time Column -->
+        <ng-container matColumnDef="errorTime">
+            <th mat-header-cell *matHeaderCellDef> Time </th>
+            <td mat-cell *matCellDef="let element"> {{ element.errorTime | date: ' HH:mm:ss ' : 'UTC' }} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</mat-card>
+

@@ -1,0 +1,83 @@
+// fonts
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans-bold-webfont.woff2") format("woff2"),
+          url("./fonts/opensans-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans-light-webfont.woff2") format("woff2"),
+          url("./fonts/opensans-light-webfont.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans-regular-webfont.woff2") format("woff2"),
+          url("./fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("./fonts/roboto-mono-regular.woff2") format("woff2"),
+          url("./fonts/roboto-mono-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+// colors
+.accentColor
+  background: -webkit-linear-gradient(45deg,#FAA21B, #F58220);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+// global styling
+body
+  footer,h1,h2,h3,h4,h5,p,div,tr,th,button,input
+    font-family 'Open Sans' !important;
+  &.light-theme
+    footer,h1,h2,h3,h4,h5,p,div,tr,th,button,input
+      color: #535353;
+    .logo-image
+      content:url("./assets/img/logo.png");
+  &.dark-theme
+    background-color: #303030;
+    footer
+      color white
+    .logo-image
+      content:url("./assets/img/logo_dark.png");
+
+//global elements styling
+table
+  width: 100%;
+.error-message
+  text-align center
+@media only screen and (max-width: 800px) {
+  mat-drawer.sidebar {
+    position absolute
+    width 100%;
+  }
+  mat-drawer-content.content {
+    margin-left 0 !important;
+    width: 100%
+  }
+}
+mat-drawer-content
+  max-width: calc(100% - 40px);
+mat-card.table-element
+  transition opacity 0.5s
+  opacity 0
+  &.loaded
+    opacity 1
+
+
+
+
+
+
+
+
+

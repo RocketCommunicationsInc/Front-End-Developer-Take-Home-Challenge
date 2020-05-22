@@ -1,0 +1,95 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans-bold-webfont.woff2") format("woff2"), url("./fonts/opensans-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans-light-webfont.woff2") format("woff2"), url("./fonts/opensans-light-webfont.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/opensans-regular-webfont.woff2") format("woff2"), url("./fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("./fonts/roboto-mono-regular.woff2") format("woff2"), url("./fonts/roboto-mono-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+.accentColor {
+  background: -webkit-linear-gradient(45deg, #faa21b, #f58220);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body footer,
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body p,
+body div,
+body tr,
+body th,
+body button,
+body input {
+  font-family: 'Open Sans' !important;
+}
+body.light-theme footer,
+body.light-theme h1,
+body.light-theme h2,
+body.light-theme h3,
+body.light-theme h4,
+body.light-theme h5,
+body.light-theme p,
+body.light-theme div,
+body.light-theme tr,
+body.light-theme th,
+body.light-theme button,
+body.light-theme input {
+  color: #535353;
+}
+body.light-theme .logo-image {
+  content: url("./assets/img/logo.png");
+}
+body.dark-theme {
+  background-color: #303030;
+}
+body.dark-theme footer {
+  color: #fff;
+}
+body.dark-theme .logo-image {
+  content: url("./assets/img/logo_dark.png");
+}
+table {
+  width: 100%;
+}
+.error-message {
+  text-align: center;
+}
+@media only screen and (max-width: 800px) {
+  mat-drawer.sidebar {
+    position: absolute;
+    width: 100%;
+  }
+  mat-drawer-content.content {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+}
+mat-drawer-content {
+  max-width: calc(100% - 40px);
+}
+mat-card.table-element {
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+mat-card.table-element.loaded {
+  opacity: 1;
+}

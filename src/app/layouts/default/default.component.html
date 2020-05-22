@@ -1,0 +1,21 @@
+<!--top toolbar-->
+<app-header (toggleSidebarEvent)="sideBarToggler($event)"></app-header>
+
+<mat-drawer-container>
+    <!--sidebar-->
+    <mat-drawer mode="side" [opened]="sideBarOpen" class="sidebar">
+        <app-sidebar></app-sidebar>
+    </mat-drawer>
+    <!--main content-->
+    <mat-drawer-content class="content" [ngClass]="{'containerClosed' : !sideBarOpen}">
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+        <br><br>
+    </mat-drawer-content>
+
+</mat-drawer-container>
+
+
+<!--footer-->
+<app-footer></app-footer>
