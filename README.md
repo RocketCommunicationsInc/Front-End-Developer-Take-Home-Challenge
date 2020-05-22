@@ -1,5 +1,11 @@
 # Angular-Developer-Take-Home-Challenge
 
+
+To save space, I have not uploaded the node_modules.
+To run the angular project, please install the node_module using npm i.
+
+
+
 As the next step in the interview process, we’d like you to complete a take home challenge.
 
 **The Project**
