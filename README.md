@@ -34,4 +34,4 @@ The alerts.json file consists of a list of issues with the contacts. For example
 
 **Timeframe**
 
-There is no mandated timeframe to complete this challenge. You will not be judged on how quickly you complete the challenge.
+We would like the take home challenge to be completed within two weeks. If you need more time, please reach out to us. You will not be judged on how quickly you complete the challenge.
