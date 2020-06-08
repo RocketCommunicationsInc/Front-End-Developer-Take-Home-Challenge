@@ -1,0 +1,80 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+
+//////////////////
+// #EC1D24 marvel.com
+// http://mcg.mbitson.com/
+// https://stackoverflow.com/questions/41440998/how-can-i-use-custom-theme-palettes-in-angular
+// https://freelancedeveloper.io/angular-material-custom-color-palette/
+/* For use in src/lib/core/theming/_palette.scss */
+$mat-marvel-red: (
+    50 : #fde4e5,
+    100 : #f9bbbd,
+    200 : #f68e92,
+    300 : #f26166,
+    400 : #ef3f45,
+    500 : #ec1d24,
+    600 : #ea1a20,
+    700 : #e7151b,
+    800 : #e41116,
+    900 : #df0a0d,
+    A100 : #ffffff,
+    A200 : #ffd5d6,
+    A400 : #ffa2a3,
+    A700 : #ff898a,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+/////////////////////////////////////////////////////////////
+// Default colors
+$my-app-primary: mat-palette($mat-marvel-red, 500, 100, 900);
+$my-app-accent:  mat-palette($mat-blue, 900, 100, 900);
+$my-app-warn: mat-palette($mat-red);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+
+/////////////////////////////////////////////////////////////
+// Dark theme
+.dark-theme {
+  //color: $light-primary-text;
+  $dark-primary: mat-palette($mat-blue-grey);
+  $dark-accent:  mat-palette($mat-amber);
+  $dark-warn:    mat-palette($mat-red);
+  $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+  .theme-alt-font1 { color: #D7BA7D; }
+  .theme-dark-font { color: #000; }
+  @include angular-material-theme($dark-theme);
+}
+
+/////////////////////////////////////////////////////////////
+// Light theme
+.light-theme {
+  $light-primary: mat-palette($mat-grey, 200, 500, 300);
+  $light-accent: mat-palette($mat-indigo, 800);
+  $light-warn: mat-palette($mat-red);
+  $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+  @include angular-material-theme($light-theme);
+}
+

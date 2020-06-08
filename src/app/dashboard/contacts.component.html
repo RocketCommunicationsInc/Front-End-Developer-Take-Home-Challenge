@@ -1,0 +1,142 @@
+<div class="contacts-meta">
+
+    <div class="halfer">
+        <div *ngIf="contacts" class="pie-chart">
+            <span class="chart-tip">click chart to <br>filter status</span>
+            <div class="chart-wrapper">
+                <canvas baseChart
+                    [data]="pieChartData"
+                    [colors]="pieChartColors"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="halfer">
+        <div class="meta-details">
+            <h3 class="pane-title">Contacts Meta</h3>
+            
+            <div>Executing: {{ totalExe }}</div>
+            <div>Failed: {{ totalFailed }}</div>
+            <div>Total Records: {{ totalRows }}</div>
+        </div>
+    </div>
+
+</div>
+  
+<div class="animation-shadow">
+    <div class="contacts-container">
+        <!-- contacts -->
+        <table mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        matSort
+        (matSortChange)="sortChanged($event)"
+        >
+
+        <ng-container matColumnDef="contactStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let element" @tableCells>
+                <div class="status-holder">
+                    <div class="status-indicator status-{{element.contactStatus}}"></div>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>NAME</th>
+            <td mat-cell *matCellDef="let element" @tableCells>{{element.contactName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactGround">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>GS</th>
+            <td mat-cell *matCellDef="let element" @tableCells>{{ element.contactGround }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactEquipment">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>EQUIPMENT</th>
+            <td mat-cell *matCellDef="let element" @tableCells>{{ element.contactEquipment | truncate:40 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactState">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>STATE</th>
+            <td mat-cell *matCellDef="let element" @tableCells>
+            <span *ngIf="element.contactState === 'executing'">Exe</span>
+            <span *ngIf="element.contactState !== 'executing'">{{ element.contactState }}</span>  
+            (Step: {{ element.contactStep }})
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactBeginTimestamp">
+            <th mat-header-cell *matHeaderCellDef >AOS - LOST</th>
+            <td mat-cell *matCellDef="let element" @tableCells>
+            {{ element.contactBeginTimestamp | date:'hh:mm:ss' }} - {{ element.contactEndTimestamp | date:'hh:mm:ss' }}
+            </td>
+        </ng-container>
+
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail"
+                [@detailExpand]="element.expanded ? 'expanded' : 'collapsed'"
+                >
+                <!-- [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" -->
+
+                <div class="example-element-description theme-alt-font1">
+                    {{ element.contactDetail }}
+                </div>
+            </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="loading">
+            <td mat-footer-cell *matFooterCellDef colspan="6">
+            Loading data...
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="noData">
+            <td mat-footer-cell *matFooterCellDef colspan="6">
+            No data...
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="filter">
+            <td mat-header-cell *matHeaderCellDef colspan="6">
+                <div class="filter-bar">
+                    <div class="info1">You have one or more filters selected!</div>
+                    <button mat-flat-button (click)="removeFilter()">click to remove filter(s)</button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expander(element)"
+            >
+            <!-- (click)="expandedElement = expandedElement === element ? null : element" -->
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        <tr mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></tr>
+        <tr mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && totalRows==0)}"></tr>
+        <tr mat-header-row *matHeaderRowDef="['filter']" [ngClass]="{'hide':!filterStatus}"></tr>
+
+        </table>
+    </div>
+    <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="pageSize"
+        [length]="totalRows"
+      
+        (page)="pageChanged($event)"
+        >
+    </mat-paginator>
+</div>

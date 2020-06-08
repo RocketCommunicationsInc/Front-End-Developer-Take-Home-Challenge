@@ -1,0 +1,55 @@
+.comp-header {
+  
+  .cHeaderTitle {
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 28px;
+    letter-spacing: -1;
+    padding-left: 15px;
+  }
+}
+
+.flex-parent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.contacts-holder {
+  width: 66%;
+  // height: calc(100vh - 65px);
+  padding: 10px 5px;
+}
+
+.alerts-holder {
+  width: 33%;
+  padding: 10px 5px;
+}
+
+//
+@media only screen and (max-width: 1220px) {
+  .contacts-holder {
+    width: 100%;
+  }
+  
+  .alerts-holder {
+    width: 100%;
+  }
+}
+
+// iPad in portrait
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+
+  .contacts-holder {
+    width: 100%;
+  }
+  
+  .alerts-holder {
+    width: 100%;
+  }
+}
+
