@@ -1,6 +1,11 @@
 <div>
   <div class="comp-header">
     <div class="cHeaderTitle">Dashboard</div>
+    <!-- themes -->
+    <div class="theme-holder">
+      <span class="light" matTooltip="Light Theme" #LightTheme="matTooltip" (click)="onSetTheme('default-theme')"></span>
+      <span class="dark" matTooltip="Dark Theme" #DarkTheme="matTooltip" (click)="onSetTheme('dark-theme')"></span>
+    </div>
   </div>
 
   <div class="flex-parent">

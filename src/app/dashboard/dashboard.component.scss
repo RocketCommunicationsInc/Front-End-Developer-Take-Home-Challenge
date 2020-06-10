@@ -27,6 +27,39 @@
   padding: 10px 5px;
 }
 
+
+.theme-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 150px;
+  height: 50px;
+}
+.dark {
+  display: inline-block;
+  border: 1px solid #f1f1f1;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-color: #303030;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.light {
+  display: inline-block;
+  border: 1px solid #303030;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+
 //
 @media only screen and (max-width: 1220px) {
   .contacts-holder {
@@ -52,4 +85,3 @@ and (orientation : portrait) {
     width: 100%;
   }
 }
-

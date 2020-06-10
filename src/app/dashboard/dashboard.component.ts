@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +9,18 @@ import { DashboardService } from './dashboard.service';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private dashboardService: DashboardService,
+
   ) { }
 
   ngOnInit(): void {
     
   }
+
+  onSetTheme(theme) {
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('light-theme', 'dark-theme');
+    body.classList.add(theme);
+  }
+
 
 }

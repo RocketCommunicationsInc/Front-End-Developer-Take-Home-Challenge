@@ -133,7 +133,7 @@ export class ContactsComponent implements OnInit {
   // Get All contacts
   getAllContacts() {
 
-    // This not used in this example, cause we fetch everything here!
+    // This not used in this example, cause we fetch everything!
     // Typically you don't fetch everything...
     const orderBy = (this.sortOrder === 'asc') ? this.sortField : '-' + this.sortField;
 
