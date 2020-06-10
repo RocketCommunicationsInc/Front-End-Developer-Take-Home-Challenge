@@ -129,8 +129,16 @@ table {
   height: 0;
 }
 
+.example-element-detail {
+  height: 0;
+}
+
+.expanded {
+  height: inherit;
+}
+
 .example-element-row {
-  border-top: 1px solid #ddd;
+  // border-top: 1px solid #ddd;
   cursor: pointer;
 }
 
@@ -146,9 +154,9 @@ table {
   background-color: rgba(85, 150, 211, 0.23);
 }
 
-.example-element-row td {
-  border-bottom-width: 0;
-}
+// .example-element-row td {
+//   border-bottom-width: 0;
+// }
 
 .example-element-detail {
   overflow: hidden;

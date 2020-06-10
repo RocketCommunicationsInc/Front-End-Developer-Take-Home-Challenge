@@ -10,8 +10,8 @@ import { MaterialModule } from "./material/material.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //
 import { HttpErrorHandler } from './http-error-handler.service';
-import { ContactsComponent } from './dashboard/contacts.component';
-import { AlertsComponent } from './dashboard/alerts.component';
+import { ContactsComponent } from './dashboard/contacts/contacts.component';
+import { AlertsComponent } from './dashboard/alerts/alerts.component';
 //
 import { ChartsModule } from 'ng2-charts';
 import { TruncatePipe } from './pipes/truncate.pipe';

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DashboardService } from './dashboard.service';
+import { DashboardService } from '../dashboard.service';
 //
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -11,22 +11,32 @@ import { ChartType, ChartOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color } from 'ng2-charts';
 import * as Chart from 'chart.js';
 
-export interface Alert {
-  errorCategory: string,
-  errorId: string,
-  errorMessage: string,
-  errorSeverity: string,
-  errorTime: number,
-  expanded: false,
-  longMessage: string,
-  new: false
-  selected: false
+// Interfaces
+export interface Contact {
+  contactAzimuth: number;
+  contactBeginTimestamp: number;
+  contactDetail: string;
+  contactElevation: number;
+  contactEndTimestamp: number;
+  contactEquipment: string;
+  contactGround: string;
+  contactId: string;
+  contactLatitude: number;
+  contactLongitude: number;
+  contactName: number;
+  contactResolution: string;
+  contactResolutionStatus: string;
+  contactSatellite: string;
+  contactState: string;
+  contactStatus: string;
+  contactStep: string;
+  expanded: boolean;
 }
 
 @Component({
-  selector: 'app-alerts',
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss'],
+  selector: 'app-contacts',
+  templateUrl: './contacts.component.html',
+  styleUrls: ['./contacts.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -44,32 +54,25 @@ export interface Alert {
   ],
 
 })
-export class AlertsComponent implements OnInit {
+export class ContactsComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['select', 'errorSeverity', 'errorCategory', 'errorTime'];
+  displayedColumns: string[] = ['contactStatus', 'contactName', 'contactGround', 'contactEquipment' , 'contactState', 'contactBeginTimestamp'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  alerts: any;
-  sortField = 'errorTime';
-  sortOrder = 'desc';
+  contacts: any;
+  sortField = 'contactName';
+  sortOrder = 'asc';
+  status;
+  states;
   pageNumber = 0;
   pageSize = 10;
   totalRows = 0;
-  totalSoftware = 0;
-  totalHardware = 0;
-  totalSpacecraft = 0;
-  bulkCheckbox = false;
+  totalExe = 0;
+  totalFailed = 0;
   //
-  expandedElement: Alert;
+  expandedElement: Contact | null;
   //
-  severity = [
-    {value: 'all', viewValue: 'All'},
-    {value: 'caution', viewValue: 'Caution'},
-    {value: 'critical', viewValue: 'Critical'},
-    {value: 'serious', viewValue: 'Serious'},
-  ];
-  filterSeverity = 'all'
-  selectedSeverity = 'all';
+  filterStatus: any = null;
 
   // Pie Chart
   public pieChartOptions: ChartOptions = {
@@ -78,24 +81,18 @@ export class AlertsComponent implements OnInit {
     legend: {
       display: true,
       position: 'right',
-      // onHover: (e, chartElement) => {
-      //   console.log('onHover', chartElement);
-      //   //e.target['style'].cursor = chartElement[0] ? 'pointer' : 'default';
-      // },
       onClick: (e, legendItem) => {
-        // console.log('item legend', legendItem);
-        this.filterBySeverity(legendItem.text);
+        this.filterByStatus(legendItem.text);
       }
     },
     onClick: (e, legendItem) => {
-
       if (legendItem.length === 0) { return false; }
-      // console.log('item pie', legendItem[0]['_view'].label);
-      this.filterBySeverity(legendItem[0]['_view'].label);
+      this.filterByStatus(legendItem[0]['_view'].label);
     }
   };
 
   public pieChartLabels: Label[] = [
+    'Normal',
     'Caution',
     'Serious',
     'Critical',
@@ -103,9 +100,8 @@ export class AlertsComponent implements OnInit {
   public pieChartData: SingleDataSet = [];
   public pieChartColors: Color[] = [
     {
-      // borderColor: 'black',
       borderWidth: 0,
-      backgroundColor: [ '#fce83a', '#ffb300', '#ff3838'],
+      backgroundColor: ['#56f000', '#fce83a', '#ffb300', '#ff3838'],
     },
   ];
 
@@ -114,33 +110,31 @@ export class AlertsComponent implements OnInit {
   public pieChartPlugins = [];
 
   setPieData() {
-    // clean this up
-    const caution = this.alerts.filter(o => o.errorSeverity === 'caution');
-    const serious = this.alerts.filter(o => o.errorSeverity === 'serious');
-    const critical = this.alerts.filter(o => o.errorSeverity === 'critical');
-    this.pieChartData = [caution.length, serious.length, critical.length];
+    this.pieChartData = [this.status.normal, this.status.caution, this.status.serious, this.status.critical];
   }
 
   constructor(
     private dashboardService: DashboardService,
-  ) { 
+  ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
   ngOnInit(): void {
-    this.getAllAlerts();
+    this.getAllContacts();
 
-    
     //Defaults
-    this.sort.direction = 'desc';
-    this.sort.active = 'errorTime';
+    this.sort.direction = 'asc';
+    this.sort.active = 'contactName';
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
-  // Get All alerts
-  getAllAlerts() {
+  // Get All contacts
+  getAllContacts() {
+
+    // This not used in this example, cause we fetch everything here!
+    // Typically you don't fetch everything...
     const orderBy = (this.sortOrder === 'asc') ? this.sortField : '-' + this.sortField;
 
     var searchCriteria = {
@@ -150,50 +144,61 @@ export class AlertsComponent implements OnInit {
       // offset: (this.pageNumber - 1) * this.pageSize + 1,
     };
 
-    // if (this.searchKey !== null && this.searchKey !== undefined && this.searchKey !== '') {
-    //   searchCriteria['nameStartsWith'] = this.searchKey.trim();
-    // }
-
-    // console.log('searchCriteria', searchCriteria);
-    this.dashboardService.getAlerts(searchCriteria).subscribe(
+    this.dashboardService.getContacts(searchCriteria).subscribe(
       data => {
-        console.log('alerts', data.body);
+        console.log('contacts', data.body);
         if (this.pageNumber === 0) {
-          this.alerts = data.body;
-
-          // Set Pie Chart
-          this.setPieData();
-
-          const defaultSort = { active: this.sortField, direction: this.sortOrder };
-          this.sortChanged(defaultSort);
-
+          this.contacts = data.body;
           // this.dataSource = new MatTableDataSource(ds);
         } else {
           // concatenate arrays
-          this.alerts = [...this.alerts, ...data.body];
+          // this.contacts = [...this.contacts, ...data.body];
         }
         // Totals
-        this.totalRows = data.body.length;
-        this.totalSoftware = this.alerts.filter(o => o.errorCategory === 'software').length;
-        this.totalHardware = this.alerts.filter(o => o.errorCategory === 'hardware').length;
-        this.totalSpacecraft = this.alerts.filter(o => o.errorCategory === 'spacecraft').length;
-      },
-      error => {
+        this.totalRows = this.contacts.length;
+        this.status = this.getCountOfProperty(this.contacts, 'contactStatus')
+        this.states = this.getCountOfProperty(this.contacts, 'contactState');
+        this.totalExe = this.states.executing;
+        this.totalFailed = this.states.failed;
+        // Set Pie Chart
+        this.setPieData();
+        //
+        const defaultSort = { active: this.sortField, direction: this.sortOrder };
+        this.sortChanged(defaultSort);
 
+
+      }, error => {
+
+      }, () => {
+        //complete
       }
     );
 
   }
 
-  //
-  filterBySeverity(severity) {
-    console.log('filterBySeverity', severity);
-    this.filterSeverity = severity.toLowerCase();
+  // Count array property
+  getCountOfProperty(obj, prop) {
+    let pValue;
+    const items = {};
+    for (const value of obj) {
+      pValue = value[prop];
+      
+      if (!items[pValue]) {
+        items[pValue] = 0;
+      }
+      items[pValue] += 1;
+    }
+    return items;
+  }
 
+  
+  //
+  filterByStatus(status) {
+    this.filterStatus = status.toLowerCase();
     // reset for filter
     this.pageNumber = 0;
     this.paginator.pageIndex = 0;
-
+    
     const filteredDs = this.getPaginatedSlice();
     // console.log('filteredDs', filteredDs);
     this.dataSource = new MatTableDataSource(filteredDs);
@@ -202,42 +207,17 @@ export class AlertsComponent implements OnInit {
   // Clear filter
   removeFilter() {
     // reset for filter
-    this.filterSeverity = 'all';
+    this.filterStatus = null;
     this.pageNumber = 0;
     this.paginator.pageIndex = 0;
-    this.getAllAlerts();
+    this.getAllContacts();
   }
-
-  //Select all files
-  selectAllFiles(event: any) {
-
-    console.log('selectAllFiles', this.dataSource);
-
-    if (!this.bulkCheckbox) {
-      //Mark all files selected
-      this.dataSource.data.forEach(i => { i.selected = true; });
-      this.bulkCheckbox = true;
-    } else {
-      //Mark all files unselected
-      this.dataSource.data.forEach(i => { i.selected = false; });
-      this.bulkCheckbox = false;
-    }
-  }
-
-  //Select Row
-  // selectRow(row, e) {
-  //   // e.stopPropagation();
-
-  //   // Uncheck bulk checkbox
-  //   //this.bulkCheckbox = false;
-  //   row.selected = !row.selected;
-  // }
 
   // Expand row
   expander(element) {
     this.dataSource.data.forEach(i => 
       { 
-        if(element.errorId === i.errorId) {
+        if(element.contactId === i.contactId) {
           element.expanded = !element.expanded;
         } else {
           i.expanded = false; 
@@ -248,14 +228,13 @@ export class AlertsComponent implements OnInit {
 
   // Sort
   sortChanged(e) {
-    // console.log('sortChanged', e);
     this.pageNumber = 0;
     this.paginator.pageIndex = 0;
     //
     this.sortOrder = e.direction;
     this.sortField = e.active;
     // sort local, this should be done on the backend
-    this.alerts.sort(this.sortValues(this.sortField, this.sortOrder));
+    this.contacts.sort(this.sortValues(this.sortField, this.sortOrder));
     const ds = this.getPaginatedSlice();
     this.dataSource = new MatTableDataSource(ds);
 
@@ -270,6 +249,7 @@ export class AlertsComponent implements OnInit {
     // console.log(this.pageNumber + '---' + this.pageSize);
     const ds = this.getPaginatedSlice();
     this.dataSource = new MatTableDataSource(ds);
+
     // this.getAllContacts();
   }
 
@@ -303,23 +283,16 @@ export class AlertsComponent implements OnInit {
   // this should happen on the backend
   // that way you only get the records you asked for, not all
   getPaginatedSlice() {
-    let filtered = this.alerts;
+    let filtered = this.contacts;
 
     // Have a filter?
-    if (this.filterSeverity !== null && this.filterSeverity !== 'all') {
-      // console.log('> haveFilter', this.filterStatus);
-      // console.log('> pageNumber', this.pageNumber);
-      filtered = filtered.filter(o => o.errorSeverity === this.filterSeverity.toLowerCase());
-      this.totalRows = filtered.length;
+    if (this.filterStatus !== null) {
+      filtered = filtered.filter(o => o.contactStatus === this.filterStatus.toLowerCase());
     }
     //
     this.totalRows = filtered.length;
-    this.totalSoftware = filtered.filter(o => o.errorCategory === 'software').length;
-    this.totalHardware = filtered.filter(o => o.errorCategory === 'hardware').length;
-    this.totalSpacecraft = filtered.filter(o => o.errorCategory === 'spacecraft').length;
-
-    // Close expanded on pagination? Sure
-    filtered.forEach(i => { i.expanded = false; }); 
+    this.totalExe = filtered.filter(o => o.contactState === 'executing').length;
+    this.totalFailed = filtered.filter(o => o.contactState === 'failed').length;
 
     const start = (this.pageNumber * this.pageSize);
     const end = (start + this.pageSize);
