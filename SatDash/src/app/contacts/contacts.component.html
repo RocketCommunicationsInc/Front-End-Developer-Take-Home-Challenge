@@ -6,7 +6,7 @@
   </div>
   <div class="all-contacts">
     <ul>
-      <li *ngFor="let contact of contacts">
+      <li *ngFor="let contact of contacts" (click)="onSelect(hero)">
         <!-- ngFor is Angular's repeater directive. it repeats the host element for each element in the list -->
         <div class="contact-container">
           <!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
