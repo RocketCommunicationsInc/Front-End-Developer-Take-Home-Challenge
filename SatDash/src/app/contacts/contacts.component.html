@@ -1,1 +1,15 @@
-{{ contact }}
+<div>
+  <h2>Current Contacts</h2>
+  <div>
+    Number of Contacts, Number Failed(based on status), Number Executing (based
+    on status)
+  </div>
+  <div>
+    <span
+      >{{ contact.contactName }}, {{ contact.contactGround }},
+      {{ contact.contactEquipment }}, {{ contact.contactStatus }},
+      {{ contact.contactBeginTimestamp }}
+      {{ contact.contactEndTimestamp }}</span
+    >
+  </div>
+</div>

@@ -1,6 +1,7 @@
 export interface Contact {
-  id: string;
+  _id: string;
   contactId: string;
+  contactStatus: string;
   contactName: number;
   contactGround: string;
   contactSatellite: string;
@@ -11,6 +12,7 @@ export interface Contact {
   contactBeginTimestamp: number;
   contactEndTimestamp: number;
   contactLatitude: number;
+  contactLongitude: number;
   contactAzimuth: number;
   contactElevation: number;
   contactResolution: string;
