@@ -5,11 +5,16 @@
     on status)
   </div>
   <div>
-    <span
-      >{{ contact.contactName }}, {{ contact.contactGround }},
+    <span>
+      <div>StatusColor</div>
+      <!-- status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
+      {{ contact.contactName }}, {{ contact.contactGround }},
       {{ contact.contactEquipment | uppercase }}, {{ contact.contactStatus }},
-      {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }}
+      {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
       {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}</span
     >
+    <div>
+      <input [(ngModel)] = "contact.description" placeholder="description"
+    </div>
   </div>
 </div>
