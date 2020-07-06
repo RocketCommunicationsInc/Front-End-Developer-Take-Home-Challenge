@@ -9,7 +9,6 @@
       <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
         <!-- listen to the LI for a click event to open up detail view  -->
         <div class="contact-container">
-          <!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
           <div>StatusColor</div>
           <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
           <div>{{ contact.contactEquipment | uppercase }},</div>
@@ -28,9 +27,14 @@
       </li>
     </ul>
     <div>
-      <h2>{{ selectedContact.contactName | uppercase }} Details</h2>
-      <div><span> name: </span>{{ selectedContact.contactName }}</div>
-      <div><span> id: </span>{{ selectedContact.contactId }}</div>
+      <h2>Details</h2>
+      <div *ngIf="selectedContact">
+        <h2>{{ selectedContact.contactName | uppercase }}</h2>
+        <div><span> name: </span>{{ selectedContact.contactName }}</div>
+        <div><span> id: </span>{{ selectedContact.contactId }}</div>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
