@@ -7,9 +7,9 @@
   <div>
     <span
       >{{ contact.contactName }}, {{ contact.contactGround }},
-      {{ contact.contactEquipment }}, {{ contact.contactStatus }},
-      {{ contact.contactBeginTimestamp }}
-      {{ contact.contactEndTimestamp }}</span
+      {{ contact.contactEquipment | uppercase }}, {{ contact.contactStatus }},
+      {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }}
+      {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}</span
     >
   </div>
 </div>
