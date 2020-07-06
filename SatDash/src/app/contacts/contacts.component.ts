@@ -13,6 +13,10 @@ export class ContactsComponent implements OnInit {
   contacts = CONTACTS;
 
   constructor() {}
+  selectedContact: Contact;
+  onSelect(contact: Contact): void {
+    this.selectedContact = contact;
+  }
 
   ngOnInit(): void {}
 }
