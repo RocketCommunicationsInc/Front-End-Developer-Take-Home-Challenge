@@ -4,20 +4,28 @@
     Number of Contacts, Number Failed(based on status), Number Executing (based
     on status)
   </div>
-  <div>
-    <span>
-      <div>StatusColor</div>
-      <!-- status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
-      {{ contact.contactName }}, {{ contact.contactGround }},
-      {{ contact.contactEquipment | uppercase }}, {{ contact.contactStatus }},
-      {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
-      {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}</span
-    >
-    <div>
-      <input
-        [(ngModel)]="contact.contactDetail"
-        placeholder="contact.contactDetail"
-      />
-    </div>
+  <div class="all-contacts">
+    <ul>
+      <li *ngFor="let contact of contacts">
+        <!-- ngFor is Angular's repeater directive. it repeats the host element for each element in the list -->
+        <div class="contact-container">
+          <!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
+          <div>StatusColor</div>
+          <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
+          <div>{{ contact.contactEquipment | uppercase }},</div>
+          <div>{{ contact.contactStatus }},</div>
+          <div>
+            {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
+            {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
+          </div>
+          <div>
+            <input
+              [(ngModel)]="contact.contactDetail"
+              placeholder="contact.contactDetail"
+            />
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>

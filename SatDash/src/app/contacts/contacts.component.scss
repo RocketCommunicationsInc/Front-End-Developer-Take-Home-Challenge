@@ -1,0 +1,21 @@
+ul {
+  max-height: 50vh;
+  overflow: scroll;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.contact-container {
+  display: flex;
+  border: 1px solid rgb(255, 0, 0);
+}
+
+.all-contacts {
+  border: 1px solid black;
+}
+
+.contact-container div {
+  padding: 1rem;
+}

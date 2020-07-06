@@ -8,14 +8,11 @@ import { CONTACTS } from '../mock-contacts';
   templateUrl: './contacts.component.html', // the location of the components template
   styleUrls: ['./contacts.component.scss'], // the location of the components private css styles
 })
-
-// always export the component class so you can import it elsewhere, like in the AppModule file
 export class ContactsComponent implements OnInit {
+  // this previously was a massive object, but now we're referencing a mock object somewhere else, instead of putting the object itself in our component
   contacts = CONTACTS;
 
   constructor() {}
 
-  // this is a lifecycle hook, it angular calls it shortly after creating a component.
-  // good place for initialization logic
   ngOnInit(): void {}
 }
