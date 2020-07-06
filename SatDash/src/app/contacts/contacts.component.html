@@ -14,7 +14,10 @@
       {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}</span
     >
     <div>
-      <input [(ngModel)] = "contact.description" placeholder="description"
+      <input
+        [(ngModel)]="contact.contactDetail"
+        placeholder="contact.contactDetail"
+      />
     </div>
   </div>
 </div>
