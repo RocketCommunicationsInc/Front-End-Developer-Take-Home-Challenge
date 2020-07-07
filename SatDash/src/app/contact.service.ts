@@ -29,9 +29,11 @@ export class ContactService {
     return of(CONTACTS);
   }
 
-  getContact(id: string): Observable<Contact> {
+  getContact(contactName: number): Observable<Contact> {
     // send message after fetching contact
-    this.debuggerService.add(`ContactService: fetched contact name=${name}`);
-    return of(CONTACTS.find((contact) => contact.contactName === name));
+    this.debuggerService.add(
+      `ContactService: fetched the specific contact: ${contactName}`
+    );
+    return of(CONTACTS.find((contact) => contact.contactName === contactName));
   }
 }
