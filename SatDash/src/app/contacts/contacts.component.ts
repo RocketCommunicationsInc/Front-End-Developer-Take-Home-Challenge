@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact } from '../../contacts';
+import { Contact } from '../../contact';
 import { CONTACTS } from '../mock-contacts';
 
 // this is generated each time you use the ng generate component cli command

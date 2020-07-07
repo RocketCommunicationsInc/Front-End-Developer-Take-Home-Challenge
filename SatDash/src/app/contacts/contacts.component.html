@@ -29,16 +29,8 @@
         </div>
       </li>
     </ul>
+    <app-contact-detail [contact]="selectedContact"></app-contact-detail>
 
-    <div>
-      <h2>Details</h2>
-      <div *ngIf="selectedContact">
-        <h2>{{ selectedContact.contactName | uppercase }}</h2>
-        <div><span> name: </span>{{ selectedContact.contactName }}</div>
-        <div><span> id: </span>{{ selectedContact.contactId }}</div>
-      </div>
-    </div>
+    <!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
   </div>
 </div>
-
-<!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
