@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactsComponent } from './contacts/contacts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 // a typical angular route has two properties
 // path: a string that matches url in the browser address bar
@@ -9,7 +10,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   // default route '' to redirect to contacts
   { path: '', redirectTo: 'contacts', pathMatch: 'full' },
+  //parameterized route for contacts, : indicates that :id is a placeholder for a specific contact id
   { path: 'contacts', component: ContactsComponent },
+  { path: 'detail/:id', component: ContactDetailComponent },
   { path: 'dashboard', component: DashboardComponent },
 ];
 
