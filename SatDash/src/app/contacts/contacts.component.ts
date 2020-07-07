@@ -15,7 +15,13 @@ export class ContactsComponent implements OnInit {
 
   constructor(private contactService: ContactService) {}
 
-  ngOnInit(): void {}
+  getContacts(): void {
+    this.contacts = this.contactService.getContacts();
+  }
+
+  ngOnInit(): void {
+    this.getContacts();
+  }
 
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
