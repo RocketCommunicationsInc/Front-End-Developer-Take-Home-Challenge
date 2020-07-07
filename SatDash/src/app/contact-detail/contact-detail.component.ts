@@ -30,6 +30,11 @@ export class ContactDetailComponent implements OnInit {
     this.getContact();
   }
 
+  // go backward one step in browsers history
+  goBack(): void {
+    this.location.back();
+  }
+
   getContact(): void {
     const contactName = +this.route.snapshot.paramMap.get('contactName');
     this.contactService
