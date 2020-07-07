@@ -16,7 +16,9 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService: ContactService) {}
 
   getContacts(): void {
-    this.contacts = this.contactService.getContacts();
+    this.contactService
+      .getContacts()
+      .subscribe((contacts) => (this.contacts = contacts));
   }
 
   ngOnInit(): void {
@@ -27,3 +29,6 @@ export class ContactsComponent implements OnInit {
     this.selectedContact = contact;
   }
 }
+
+// unfortunately, this wont work. the ContactService.getContacts() method has a synchronous signature
+// tldr, it will fail if it can't fetch contacts properly since it's synchronous
