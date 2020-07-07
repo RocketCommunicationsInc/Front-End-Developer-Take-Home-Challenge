@@ -6,21 +6,19 @@
   </div>
   <div>
     <ul class="contacts">
-      <li
-        *ngFor="let contact of contacts"
-        [class.selected]="contact === selectedContact"
-        (click)="onSelect(contact)"
-      >
-        <div>
-          <div>StatusColor</div>
-          <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
-          <div>{{ contact.contactEquipment | uppercase }},</div>
-          <div>{{ contact.contactStatus }},</div>
+      <li *ngFor="let contact of contacts">
+        <a routerLink="/detail/{{ contact.id }}">
           <div>
-            {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
-            {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
+            <div>StatusColor</div>
+            <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
+            <div>{{ contact.contactEquipment | uppercase }},</div>
+            <div>{{ contact.contactStatus }},</div>
+            <div>
+              {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
+              {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
+            </div>
           </div>
-        </div>
+        </a>
       </li>
     </ul>
     <!-- deleting this and replacing it with a route -->
