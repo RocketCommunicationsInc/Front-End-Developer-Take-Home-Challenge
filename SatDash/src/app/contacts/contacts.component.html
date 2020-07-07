@@ -1,14 +1,17 @@
 <div>
-  <h2>Current Contacts</h2>
+  <h2>Contacts</h2>
   <div>
     Number of Contacts, Number Failed(based on status), Number Executing (based
     on status)
   </div>
-  <div class="all-contacts">
-    <ul>
-      <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
-        <!-- listen to the LI for a click event to open up detail view  -->
-        <div class="contact-container">
+  <div>
+    <ul class="contacts">
+      <li
+        *ngFor="let contact of contacts"
+        [class.selected]="contact === selectedContact"
+        (click)="onSelect(contact)"
+      >
+        <div>
           <div>StatusColor</div>
           <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
           <div>{{ contact.contactEquipment | uppercase }},</div>
@@ -26,6 +29,7 @@
         </div>
       </li>
     </ul>
+
     <div>
       <h2>Details</h2>
       <div *ngIf="selectedContact">

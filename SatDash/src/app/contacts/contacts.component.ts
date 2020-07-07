@@ -9,14 +9,14 @@ import { CONTACTS } from '../mock-contacts';
   styleUrls: ['./contacts.component.scss'], // the location of the components private css styles
 })
 export class ContactsComponent implements OnInit {
-  // this previously was a massive object, but now we're referencing a mock object somewhere else, instead of putting the object itself in our component
   contacts = CONTACTS;
+  selectedContact: Contact;
 
   constructor() {}
-  selectedContact: Contact;
+
+  ngOnInit(): void {}
+
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
   }
-
-  ngOnInit(): void {}
 }
