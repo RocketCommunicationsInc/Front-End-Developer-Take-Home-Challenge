@@ -6,9 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { DebuggerComponent } from './debugger/debugger.component';
 
 @NgModule({
-  declarations: [AppComponent, ContactsComponent, ContactDetailComponent],
+  declarations: [AppComponent, ContactsComponent, ContactDetailComponent, DebuggerComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
