@@ -1,1 +1,8 @@
-<p>dashboard works!</p>
+<h3>Watched Contacts</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let contact of contacts" class="col-1-4">
+    <div class="module contact">
+      <h4>{{ contact.name }}</h4>
+    </div>
+  </a>
+</div>
