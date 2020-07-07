@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Contact } from '../contact';
 import { CONTACTS } from './mock-contacts';
 import { Observable, of } from 'rxjs';
+import { DebuggerService } from './debugger.service';
 
 // components shouldnt fetch or save data directly
 // they shouldnt knowingly present fake data, either. they should focus on
@@ -19,7 +20,8 @@ import { Observable, of } from 'rxjs';
 // of(CONTACTS) returns an Observable<Contact[]> that emits a single value, the array of mock contacts.
 export class ContactService {
   getContacts(): Observable<Contact[]> {
+    this.debuggerService.add('ContactService: fetched contacts');
     return of(CONTACTS);
   }
-  constructor() {}
+  constructor(private debuggerService: DebuggerService) {}
 }
