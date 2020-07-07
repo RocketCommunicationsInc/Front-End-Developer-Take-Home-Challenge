@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Contact } from '../../contact';
 // import { CONTACTS } from '../mock-contacts' replacing this with the below ContactService
 import { ContactService } from '../contact.service';
+import { DebuggerService } from '../debugger.service';
 
 // this is generated each time you use the ng generate component cli command
 @Component({

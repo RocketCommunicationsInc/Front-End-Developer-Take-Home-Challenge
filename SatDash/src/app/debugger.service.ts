@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DebuggerService {
-  messages: string[] = [];
+  debuggerMessages: string[] = [];
 
   add(message: string) {
-    this.messages.push(message);
+    this.debuggerMessages.push(message);
   }
 
   clear() {
-    this.messages = [];
+    this.debuggerMessages = [];
   }
 }
