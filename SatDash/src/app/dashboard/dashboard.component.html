@@ -3,7 +3,7 @@
   <a
     *ngFor="let contact of contacts"
     class="col-1-4"
-    routerLink="/detail/{{ contact.id }}"
+    routerLink="/detail/{{ contact.contactName }}"
   >
     <div class="module contact">
       <h4>{{ contact.contactName }}</h4>

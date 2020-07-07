@@ -24,8 +24,14 @@ export class ContactService {
   constructor(private debuggerService: DebuggerService) {}
 
   getContacts(): Observable<Contact[]> {
-    // todo : send the message after fetching heroes
+    // todo : send the message after fetching contacts
     this.debuggerService.add('ContactService: fetched contacts');
     return of(CONTACTS);
+  }
+
+  getContact(id: string): Observable<Contact> {
+    // send message after fetching contact
+    this.debuggerService.add(`ContactService: fetched contact name=${name}`);
+    return of(CONTACTS.find((contact) => contact.contactName === name));
   }
 }

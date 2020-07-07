@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'contacts', pathMatch: 'full' },
   //parameterized route for contacts, : indicates that :id is a placeholder for a specific contact id
   { path: 'contacts', component: ContactsComponent },
-  { path: 'detail/:id', component: ContactDetailComponent },
+  { path: 'detail/:contactName', component: ContactDetailComponent },
   { path: 'dashboard', component: DashboardComponent },
 ];
 

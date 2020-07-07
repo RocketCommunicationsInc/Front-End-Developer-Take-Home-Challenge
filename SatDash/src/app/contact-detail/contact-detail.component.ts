@@ -25,5 +25,14 @@ export class ContactDetailComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getContact();
+  }
+
+  getContact(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.contactService
+      .getContact(name)
+      .subscribe((contact) => (this.contact = contact));
+  }
 }

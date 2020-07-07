@@ -7,7 +7,7 @@
   <div>
     <ul class="contacts">
       <li *ngFor="let contact of contacts">
-        <a routerLink="/detail/{{ contact.id }}">
+        <a routerLink="/detail/{{ contact.contactName }}">
           <div>
             <div>StatusColor</div>
             <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>

@@ -26,6 +26,3 @@ export class ContactsComponent implements OnInit {
       .subscribe((contacts) => (this.contacts = contacts));
   }
 }
-
-// unfortunately, this wont work. the ContactService.getContacts() method has a synchronous signature
-// tldr, it will fail if it can't fetch contacts properly since it's synchronous. we'll replace it with an observable that subscribes to updates so it's async
