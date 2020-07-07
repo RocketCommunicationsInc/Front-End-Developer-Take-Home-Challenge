@@ -20,17 +20,9 @@
             {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
             {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
           </div>
-          <div>
-            <input
-              [(ngModel)]="contact.contactDetail"
-              placeholder="contact.contactDetail"
-            />
-          </div>
         </div>
       </li>
     </ul>
     <app-contact-detail [contact]="selectedContact"></app-contact-detail>
-
-    <!-- TODO: Status color needs to correspond to contact status. I could probably conditionally change the class of the icon, and the class will change the shape, color, and rotation, of the icon -->
   </div>
 </div>

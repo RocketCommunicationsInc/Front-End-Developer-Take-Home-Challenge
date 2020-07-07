@@ -3,7 +3,11 @@
   <div><span> name: </span>{{ contact.contactName }}</div>
   <div><span> id: </span>{{ contact.contactId }}</div>
   <label>
-    name:
-    <input [(ngModel)]="contact.name" placeholder="name" />
+    <div>
+      <input
+        [(ngModel)]="contact.contactDetail"
+        placeholder="contact.contactDetail"
+      />
+    </div>
   </label>
 </div>
