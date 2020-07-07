@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Contact } from '../../contact';
 // import { CONTACTS } from '../mock-contacts' replacing this with the below ContactService
+import { Contact } from '../../contact';
 import { ContactService } from '../contact.service';
 import { DebuggerService } from '../debugger.service';
 
@@ -15,7 +15,10 @@ export class ContactsComponent implements OnInit {
   contacts: Contact[];
   selectedContact: Contact;
 
-  constructor(private contactService: ContactService) {}
+  constructor(
+    private contactService: ContactService,
+    private debuggerService: DebuggerService
+  ) {}
 
   getContacts(): void {
     this.contactService
@@ -29,6 +32,9 @@ export class ContactsComponent implements OnInit {
 
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
+    this.debuggerService.add(
+      `Contact Component: Selected Contact id=${contact._id}`
+    );
   }
 }
 

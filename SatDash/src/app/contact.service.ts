@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+
+import { Observable, of } from 'rxjs';
+
 import { Contact } from '../contact';
 import { CONTACTS } from './mock-contacts';
-import { Observable, of } from 'rxjs';
 import { DebuggerService } from './debugger.service';
 
 // components shouldnt fetch or save data directly
@@ -19,9 +21,11 @@ import { DebuggerService } from './debugger.service';
 
 // of(CONTACTS) returns an Observable<Contact[]> that emits a single value, the array of mock contacts.
 export class ContactService {
+  constructor(private debuggerService: DebuggerService) {}
+
   getContacts(): Observable<Contact[]> {
+    // todo : send the message after fetching heroes
     this.debuggerService.add('ContactService: fetched contacts');
     return of(CONTACTS);
   }
-  constructor(private debuggerService: DebuggerService) {}
 }
