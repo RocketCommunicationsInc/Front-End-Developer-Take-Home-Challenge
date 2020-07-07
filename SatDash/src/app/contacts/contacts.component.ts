@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../contact';
-import { CONTACTS } from '../mock-contacts';
+// import { CONTACTS } from '../mock-contacts' replacing this with the below ContactService
+import { ContactService } from '../contact.service';
 
 // this is generated each time you use the ng generate component cli command
 @Component({
@@ -9,10 +10,10 @@ import { CONTACTS } from '../mock-contacts';
   styleUrls: ['./contacts.component.scss'], // the location of the components private css styles
 })
 export class ContactsComponent implements OnInit {
-  contacts = CONTACTS;
+  contacts: Contact[];
   selectedContact: Contact;
 
-  constructor() {}
+  constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {}
 
