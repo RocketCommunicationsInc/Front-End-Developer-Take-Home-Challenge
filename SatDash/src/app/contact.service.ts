@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
@@ -10,12 +11,19 @@ import { DebuggerService } from './debugger.service';
   providedIn: 'root',
 })
 export class ContactService {
-  constructor(private debuggerService: DebuggerService) {}
+  constructor(
+    private http: HttpClient,
+    private debuggerService: DebuggerService
+  ) {}
+
+  private log(message: string) {
+    this.debuggerService.add(`ContactService: ${message}`);
+  }
+
+  private contactUrl = 'api/contacts'; // URL to web api
 
   getContacts(): Observable<Contact[]> {
-    // todo : send the message after fetching contacts
-    this.debuggerService.add('ContactService: fetched contacts');
-    return of(CONTACTS);
+    return this.http.get<Contact[]>(this.contactUrl);
   }
 
   getContact(contactName: number): Observable<Contact> {
