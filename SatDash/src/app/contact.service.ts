@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { Contact } from '../contact';
 import { CONTACTS } from './mock-contacts';
@@ -23,7 +24,7 @@ export class ContactService {
   private contactUrl = 'api/contacts'; // URL to web api
 
   getContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(this.contactUrl);
+    return this.http.get<Contact[]>(this.contactUrl).pipe(catchError(this.handleError<Contact[]>('getContacts', []))
   }
 
   getContact(contactName: number): Observable<Contact> {
