@@ -25,4 +25,17 @@ export class ContactsComponent implements OnInit {
       .getContacts()
       .subscribe((contacts) => (this.contacts = contacts));
   }
+
+  // edit this later when I repurpose it for messages or a todolist or something
+  // add(contactName: number): void {
+  //   contactName = contactName.trim();
+  //   if (!contactName) {
+  //     return;
+  //   }
+  //   this.contactService
+  //     .addContact({ contactName } as Contact)
+  //     .subscribe((contact) => {
+  //       this.contacts.push(contact);
+  //     });
+  // }
 }

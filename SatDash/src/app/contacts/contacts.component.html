@@ -11,6 +11,14 @@
           <div>
             <div>StatusColor</div>
             <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
+
+            <label>
+              <input #contactName />
+            </label>
+            <!-- (click) passes input value to add() then clears the input -->
+            <button (click)="add(contactName.value); contactName.value = ''">
+              add
+            </button>
             <div>{{ contact.contactEquipment | uppercase }},</div>
             <div>{{ contact.contactStatus }},</div>
             <div>

@@ -30,6 +30,12 @@ export class ContactDetailComponent implements OnInit {
     this.getContact();
   }
 
+  save(): void {
+    this.contactService
+      .updateContact(this.contact)
+      .subscribe(() => this.goBack());
+  }
+
   // go backward one step in browsers history
   goBack(): void {
     this.location.back();
