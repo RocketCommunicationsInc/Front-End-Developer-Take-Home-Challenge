@@ -1,14 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-// location is an angular service for interacting with the browser
 
 import { Contact } from '../../contact';
 import { ContactService } from '../contact.service';
 
-// previously, contacts component set the contact for contactDetail. it doesnt do that anymore
-// instead, it creates a route in response to a url
-// contact detail needs a new way to obtain the contact to display.
 @Component({
   selector: 'app-contact-detail',
   templateUrl: './contact-detail.component.html',

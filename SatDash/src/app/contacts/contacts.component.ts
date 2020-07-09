@@ -14,6 +14,13 @@ import { DebuggerService } from '../debugger.service';
 export class ContactsComponent implements OnInit {
   contacts: Contact[];
 
+  selectedContact: Contact;
+
+  onSelect(contact: Contact): void {
+    this.selectedContact = contact;
+    this.contactService;
+  }
+
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {

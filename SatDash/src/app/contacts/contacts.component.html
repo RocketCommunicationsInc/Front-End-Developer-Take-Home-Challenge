@@ -6,8 +6,9 @@
   </div>
   <div>
     <ul class="contacts">
-      <li *ngFor="let contact of contacts">
-        <a routerLink="/detail/{{ contact.contactName }}">
+      <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
+        <!-- <a routerLink="/detail/{{ contact.contactName }}"> -->
+        <div>
           <div>
             <div>StatusColor</div>
             <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
@@ -17,9 +18,20 @@
               {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
               {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
             </div>
+            <a routerLink="/detail/{{ contact.contactName }}"> Details </a>
           </div>
-        </a>
+        </div>
       </li>
     </ul>
+  </div>
+  <div *ngIf="selectedContact">
+    <h2>Contact {{ selectedContact.contactName }} Details</h2>
+    <div><span>id: </span>{{ selectedContact.id }}</div>
+    <div>
+      <label
+        >name:
+        <input [(ngModel)]="selectedContact.name" placeholder="name" />
+      </label>
+    </div>
   </div>
 </div>
