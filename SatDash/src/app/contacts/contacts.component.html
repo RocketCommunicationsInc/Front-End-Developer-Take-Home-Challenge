@@ -7,7 +7,6 @@
   <div>
     <ul class="contacts">
       <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
-        <!-- <a routerLink="/detail/{{ contact.contactName }}"> -->
         <div>
           <div>
             <div>StatusColor</div>
@@ -26,10 +25,10 @@
   </div>
   <div *ngIf="selectedContact">
     <h2>Contact {{ selectedContact.contactName }} Details</h2>
-    <div><span>id: </span>{{ selectedContact.id }}</div>
+    <div><span>id: </span>{{ selectedContact._id }}</div>
     <div>
       <label
-        >name:
+        >details:
         <input [(ngModel)]="selectedContact.name" placeholder="name" />
       </label>
     </div>

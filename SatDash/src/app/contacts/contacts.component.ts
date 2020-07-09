@@ -5,11 +5,10 @@ import { Contact } from '../../contact';
 import { ContactService } from '../contact.service';
 import { DebuggerService } from '../debugger.service';
 
-// this is generated each time you use the ng generate component cli command
 @Component({
-  selector: 'app-contacts', // components css selector
-  templateUrl: './contacts.component.html', // the location of the components template
-  styleUrls: ['./contacts.component.scss'], // the location of the components private css styles
+  selector: 'app-contacts',
+  templateUrl: './contacts.component.html',
+  styleUrls: ['./contacts.component.scss'],
 })
 export class ContactsComponent implements OnInit {
   contacts: Contact[];
