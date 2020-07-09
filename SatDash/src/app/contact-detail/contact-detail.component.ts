@@ -17,9 +17,6 @@ import { ContactService } from '../contact.service';
 export class ContactDetailComponent implements OnInit {
   @Input() contact: Contact;
 
-  // ActivatedRoute holds information about the route to this instance of the contactDetailComponent
-  // ContactService gets data from the remote server and this component will use it to display the contact
-  // location is an angular service for interacting with the browser.
   constructor(
     private route: ActivatedRoute,
     private contactService: ContactService,
@@ -28,12 +25,6 @@ export class ContactDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContact();
-  }
-
-  save(): void {
-    this.contactService
-      .updateContact(this.contact)
-      .subscribe(() => this.goBack());
   }
 
   // go backward one step in browsers history
