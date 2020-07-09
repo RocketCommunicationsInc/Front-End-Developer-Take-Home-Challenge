@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DebuggerComponent } from './debugger/debugger.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ContactSearchComponent } from './contact-search/contact-search.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
     ContactDetailComponent,
     DebuggerComponent,
     DashboardComponent,
+    ContactSearchComponent,
   ],
 
   // httpClientInMemoryWebApiModule intercepts Http requests and returns simulated server responses.
