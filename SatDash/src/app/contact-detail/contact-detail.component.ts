@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Contact } from '../../contact';
 import { ContactService } from '../contact.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-contact-detail',
@@ -23,7 +24,6 @@ export class ContactDetailComponent implements OnInit {
     this.getContact();
   }
 
-  // go backward one step in browsers history
   goBack(): void {
     this.location.back();
   }
