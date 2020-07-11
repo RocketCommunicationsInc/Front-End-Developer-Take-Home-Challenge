@@ -1,31 +1,31 @@
-<div>
+<div class="app" v>
   <h2>Contacts</h2>
   <div>
     Number of Contacts, Number Failed(based on status), Number Executing (based
     on status)
   </div>
   <div>
-    <ul class="contacts">
-      <li
-        *ngFor="let contact of contacts"
-        (click)="onSelect(contact)"
-        [class.selected]="hero === selectedHero"
-      >
-        <div>
+    <table
+      *ngFor="let contact of contacts"
+      (click)="onSelect(contact)"
+      class="rux-table"
+    >
+      <tr data-selected>
+        <td>StatusColor</td>
+        <td>{{ contact.contactName }}, {{ contact.contactGround }}</td>
+        <td>{{ contact.contactEquipment }} | uppercase</td>
+        <td>{{ contact.contactStatus }}</td>
+        <td>
           <div>
-            <div>StatusColor</div>
-            <div>{{ contact.contactName }}, {{ contact.contactGround }},</div>
-            <div>{{ contact.contactEquipment | uppercase }},</div>
-            <div>{{ contact.contactStatus }},</div>
-            <div>
-              {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
-              {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
-            </div>
-            <a routerLink="/detail/{{ contact.contactName }}"> Details </a>
+            {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
+            {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
           </div>
-        </div>
-      </li>
-    </ul>
+        </td>
+        <td>
+          <a routerLink="/detail/{{ contact.contactName }}"> Details </a>
+        </td>
+      </tr>
+    </table>
   </div>
   <div class="selected-contact-container">
     <div *ngIf="selectedContact">

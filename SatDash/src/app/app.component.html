@@ -1,13 +1,16 @@
-<h1 routerLink="/">{{ title }}</h1>
-<rux-global-status-bar
-  appname="Astro App"
-  version="3.0"
-></rux-global-status-bar>
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align: center;">
+  <div class="app-container">
+    <rux-global-status-bar appname="GRM SatDash" version="1.0">
+      <rux-clock timezone="Pacific/Guam"></rux-clock>
+    </rux-global-status-bar>
 
-<nav>
-  <a routerLink="/contacts">Contacts</a>
-</nav>
-<app-debugger></app-debugger>
-<app-contact-search></app-contact-search>
+    <!-- <nav>
+    <a routerLink="/contacts">Contacts</a>
+  </nav> -->
+    <app-debugger></app-debugger>
+    <app-contact-search></app-contact-search>
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </div>
+</div>

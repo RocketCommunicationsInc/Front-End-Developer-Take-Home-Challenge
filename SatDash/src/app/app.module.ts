@@ -18,6 +18,8 @@ import { DebuggerComponent } from './debugger/debugger.component';
 
 // Astro imports
 import '../../node_modules/@astrouxds/rux-global-status-bar';
+import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
+
 // import '../../node_modules/@astrouxds/rux-clock';
 
 @NgModule({
