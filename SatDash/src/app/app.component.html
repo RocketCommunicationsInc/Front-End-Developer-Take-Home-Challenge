@@ -1,9 +1,13 @@
 <h1 routerLink="/">{{ title }}</h1>
-<!-- app component no longer needs app-contacts because it'll only display ful contacts when the user navigates to it -->
+<rux-global-status-bar
+  appname="Astro App"
+  version="3.0"
+></rux-global-status-bar>
+
 <nav>
   <a routerLink="/contacts">Contacts</a>
-  <a routerLink="/dashboard">Flagged</a>
-  <app-contact-search></app-contact-search>
 </nav>
-<router-outlet></router-outlet>
 <app-debugger></app-debugger>
+<app-contact-search></app-contact-search>
+
+<router-outlet></router-outlet>

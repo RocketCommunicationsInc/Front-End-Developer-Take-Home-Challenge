@@ -3,13 +3,5 @@
   <h2>{{ contact.contactName }}</h2>
   <div><span> name: </span>{{ contact.contactName }}</div>
   <div><span> id: </span>{{ contact._id }}</div>
-  <label>
-    <div>
-      <input
-        [(ngModel)]="contact.contactDetail"
-        placeholder="contact.contactDetail"
-      />
-    </div>
-  </label>
   <button (click)="goBack()">Back</button>
 </div>

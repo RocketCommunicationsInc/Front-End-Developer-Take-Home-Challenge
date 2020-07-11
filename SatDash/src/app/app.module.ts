@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +15,10 @@ import { ContactService } from './contact.service';
 import { ContactSearchComponent } from './contact-search/contact-search.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { DebuggerComponent } from './debugger/debugger.component';
+
+// Astro imports
+import '../../node_modules/@astrouxds/rux-global-status-bar';
+// import '../../node_modules/@astrouxds/rux-clock';
 
 @NgModule({
   imports: [
@@ -38,6 +42,7 @@ import { DebuggerComponent } from './debugger/debugger.component';
     DashboardComponent,
     ContactSearchComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ContactService],
 
   bootstrap: [AppComponent],

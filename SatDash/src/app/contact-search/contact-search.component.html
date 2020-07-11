@@ -1,1 +1,12 @@
-<p>contact-search works!</p>
+<div id="search-component">
+  <h4><label for="search-box">Contact Search</label></h4>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  <!-- The $ is a convention that indicates heroes$ is an Observable, not an array. -->
+  <ul class="search-result">
+    <li *ngFor="let contact of contacts$ | async">
+      <a routerLink="/detail/{{ contact.contactName }}">
+        {{ contact.contactName }}
+      </a>
+    </li>
+  </ul>
+</div>

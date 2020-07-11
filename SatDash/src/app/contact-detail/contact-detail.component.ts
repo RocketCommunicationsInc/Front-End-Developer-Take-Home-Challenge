@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 
 import { Contact } from '../../contact';
 import { ContactService } from '../contact.service';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-contact-detail',

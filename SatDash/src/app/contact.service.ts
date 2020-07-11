@@ -27,11 +27,6 @@ export class ContactService {
     this.debuggerService.add(`DebuggerService: ${message}`);
   }
 
-  getContacts(): Observable<Contact[]> {
-    // return of(CONTACTS);
-    return this.http.get<Contact[]>(this.contactsUrl);
-  }
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       //todo send error log to logging infastructure
@@ -43,26 +38,36 @@ export class ContactService {
     };
   }
 
+  getContacts(): Observable<Contact[]> {
+    return this.http
+      .get<Contact[]>(this.contactsUrl)
+      .pipe(catchError(this.handleError<Contact[]>('getContacts', [])));
+  }
+
   // replacing with server request getcontact
-  getContact(contactName: number): Observable<Contact> {
-    const url = `${this.contactsUrl}/${contactName}`;
+  // constructs a url with the desired contacts ID
+  // server responds with an obserable of contact objects
+  getContact(id: number): Observable<Contact> {
+    const url = `${this.contactsUrl}/${id}`;
     return this.http.get<Contact>(url).pipe(
-      tap((_) => this.log(`fetched contact contactName=${contactName}`)),
-      catchError(
-        this.handleError<Contact>(`getContact contactName=${contactName}`)
-      )
+      tap((_) => this.log(`fetched contact id=${id}`)),
+      catchError(this.handleError<Contact>(`getContact id=${id}`))
     );
   }
 
-  // GET heroes whos name contains a search term
-  // searchContacts(term: string)
-
-  // getContact(contactName: number) Observable<Contact> {
-  //   const url = `${this.contactsUrl}/${contactName}`;
-  //   return this.http.get<Contact>(url).pipe(
-  //     tap(_ => this.log(`fetched specific contact ${contactName}`)),
-  //     catchError(this.handleError<Contact>(`getContact contactName=${contactName}`))
-  //   )
-
-  // }
+  // search contacts where the name matches the search term
+  searchContacts(term: number): Observable<Contact[]> {
+    if (isNaN(term)) {
+      // if not number term, return empty cotact array.
+      return of([]);
+    }
+    return this.http.get<Contact[]>(`${this.contactsUrl}/?name=${term}`).pipe(
+      tap((x) =>
+        isNaN(term)
+          ? this.log(`found contacts matching ${term}`)
+          : this.log(`no contacts matching ${term}`)
+      ),
+      catchError(this.handleError<Contact[]>('searchContacts', []))
+    );
+  }
 }

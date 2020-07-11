@@ -6,7 +6,11 @@
   </div>
   <div>
     <ul class="contacts">
-      <li *ngFor="let contact of contacts" (click)="onSelect(contact)">
+      <li
+        *ngFor="let contact of contacts"
+        (click)="onSelect(contact)"
+        [class.selected]="hero === selectedHero"
+      >
         <div>
           <div>
             <div>StatusColor</div>
@@ -23,14 +27,10 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="selectedContact">
-    <h2>Contact {{ selectedContact.contactName }} Details</h2>
-    <div><span>id: </span>{{ selectedContact._id }}</div>
-    <div>
-      <label
-        >details:
-        <input [(ngModel)]="selectedContact.name" placeholder="name" />
-      </label>
+  <div class="selected-contact-container">
+    <div *ngIf="selectedContact">
+      <h2>Contact {{ selectedContact.contactName }} Details</h2>
+      <div><span>id: </span>{{ selectedContact._id }}</div>
     </div>
   </div>
 </div>
