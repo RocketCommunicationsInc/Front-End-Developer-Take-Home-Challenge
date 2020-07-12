@@ -19,8 +19,8 @@ import { DebuggerComponent } from './debugger/debugger.component';
 // Astro imports
 import '../../node_modules/@astrouxds/rux-global-status-bar';
 import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
-
-// import '../../node_modules/@astrouxds/rux-clock';
+import '../../node_modules/@astrouxds/rux-status/rux-status.js';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   imports: [
@@ -43,6 +43,7 @@ import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
     DebuggerComponent,
     DashboardComponent,
     ContactSearchComponent,
+    AlertComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ContactService],

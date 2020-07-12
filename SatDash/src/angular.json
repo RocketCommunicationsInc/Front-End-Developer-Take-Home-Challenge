@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SatDash": {
+    "astro-angular-boilerplate": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,14 +13,21 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SatDash",
+            "outputPath": "dist/astro-angular-boilerplate",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/css/astro.core.css", "./src/styles.scss"],
+            "aot": false,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/icons"
+            ],
+            "styles": [
+              "src/css/astro.core.min.css",
+              "src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -40,6 +43,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -61,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "SatDash:build"
+            "browserTarget": "astro-angular-boilerplate:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "SatDash:build:production"
+              "browserTarget": "astro-angular-boilerplate:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SatDash:build"
+            "browserTarget": "astro-angular-boilerplate:build"
           }
         },
         "test": {
@@ -82,8 +86,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
             "scripts": []
           }
         },
@@ -95,23 +104,24 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "SatDash:serve"
+            "devServerTarget": "astro-angular-boilerplate:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "SatDash:serve:production"
+              "devServerTarget": "astro-angular-boilerplate:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "SatDash"
+    }},
+  "defaultProject": "astro-angular-boilerplate"
 }
