@@ -17,7 +17,8 @@ export class ContactsComponent implements OnInit {
 
   contactCount: number;
   executingCount: number;
-  failedCount: number;
+  failureCount: number;
+  contactStatus: string;
 
   // this.contactsCount
 
@@ -35,7 +36,14 @@ export class ContactsComponent implements OnInit {
   getContacts(): void {
     this.contactService.getContacts().subscribe((contacts) => {
       this.contacts = contacts;
+      this.contactStatus = this.contactStatus;
       this.contactCount = this.contacts.length;
+      this.executingCount = this.contacts.filter(
+        (contact) => contact.contactState === 'executing'
+      ).length;
+      this.failureCount = this.contacts.filter(
+        (contact) => contact.contactState === 'failed'
+      ).length;
     });
   }
 }

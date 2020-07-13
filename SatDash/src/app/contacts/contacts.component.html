@@ -7,11 +7,11 @@
         <p>Contacts</p>
       </div>
       <div>
-        <h2>12</h2>
+        <h2>{{ failureCount }}</h2>
         <p>Failed</p>
       </div>
       <div>
-        <h2>15</h2>
+        <h2>{{ executingCount }}</h2>
         <p>Executing</p>
       </div>
     </div>
@@ -32,7 +32,9 @@
         class="table-this-is-it"
       >
         <tr data-selected>
-          <td>{{ contact.contactStatus }}</td>
+          <td>
+            <rux-status status="{{ contact.contactStatus }}"></rux-status>
+          </td>
           <td>{{ contact.contactName }}</td>
           <td>{{ contact.contactGround }}</td>
           <td>{{ contact.contactEquipment }}</td>
