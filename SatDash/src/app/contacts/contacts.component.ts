@@ -33,8 +33,9 @@ export class ContactsComponent implements OnInit {
   }
 
   getContacts(): void {
-    this.contactService
-      .getContacts()
-      .subscribe((contacts) => (this.contacts = contacts));
+    this.contactService.getContacts().subscribe((contacts) => {
+      this.contacts = contacts;
+      this.contactCount = this.contacts.length;
+    });
   }
 }
