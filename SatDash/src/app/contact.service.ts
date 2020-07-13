@@ -29,11 +29,8 @@ export class ContactService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      //todo send error log to logging infastructure
       console.log(error);
-      //todo  find better way of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
-      //todo Keep the app running by returning an empty result
       return of(result as T);
     };
   }
