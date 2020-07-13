@@ -1,3 +1,50 @@
 .contact-bin-header {
   display: flex;
 }
+
+.contacts-biggest-box {
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.contact-bin-header {
+  padding: 1rem;
+}
+
+.contact-bin-header div {
+  text-align: center;
+}
+
+.contact-bin-header h2 {
+  margin: 0 2rem;
+  font-weight: 800;
+  font-size: 2.5rem;
+}
+
+.rux-table {
+  position: relative;
+}
+
+.contact-bin-header {
+  position: sticky;
+  width: 1rem;
+  top: 0 !important;
+}
+
+.contact-label {
+  flex: none;
+  background: rgba(20, 31, 44, 1);
+  padding: 10px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.rux-table {
+  display: block;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.rux-table th {
+  position: sticky;
+  top: 0;
+}

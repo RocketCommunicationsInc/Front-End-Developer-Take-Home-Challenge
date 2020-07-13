@@ -15,6 +15,12 @@ export class ContactsComponent implements OnInit {
 
   selectedContact: Contact;
 
+  contactCount: number;
+  executingCount: number;
+  failedCount: number;
+
+  // this.contactsCount
+
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
     this.contactService;

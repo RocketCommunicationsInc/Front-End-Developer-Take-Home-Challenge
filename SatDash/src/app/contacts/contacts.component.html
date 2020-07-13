@@ -1,28 +1,40 @@
-<div>
-  <style include="astro-css"></style>
-  <div class="contact-bin-header">
-    <!-- these three are based on contact count and status -->
-    <h2 class="contact-count">Contacts</h2>
-    <h2 class="contact-count">Failed</h2>
-    <h2 class="contact-count">Executing</h2>
-  </div>
-  <div style="display: flex; padding: 2vh; justify-content: center;">
-    <table class="rux-table" style="margin: 0;">
-      <tr class="rux-table__column-head">
-        <th>Status</th>
-        <th>Name, Ground</th>
-        <th>Equipment</th>
-        <th>State</th>
-        <th>Begin Timestamp - End Timestamp</th>
-        <th>Full</th>
-      </tr>
-      <tbody *ngFor="let contact of contacts" (click)="onSelect(contact)">
-        <tr data-selected>
-          <td>
-            <rux-status status="${contact.contactStatus}"></rux-status>
-          </td>
+<div class="contacts-biggest-box">
+  <h2 class="contact-label">Current Contacts</h2>
+  <div className="contact-container">
+    <div class="contact-bin-header">
+      <div>
+        <h2>32</h2>
+        <p>Contacts</p>
+      </div>
+      <div>
+        <h2>12</h2>
+        <p>Failed</p>
+      </div>
+      <div>
+        <h2>15</h2>
+        <p>Executing</p>
+      </div>
+    </div>
 
-          <td>{{ contact.contactName }}, {{ contact.contactGround }}</td>
+    <table class="rux-table">
+      <tr class="rux-table__column-head">
+        <th></th>
+        <th>Name</th>
+        <th>GS</th>
+        <th>Equipment String</th>
+        <th>Status</th>
+        <th>AOS - LOS</th>
+        <th>Details</th>
+      </tr>
+      <tbody
+        *ngFor="let contact of contacts"
+        (click)="onSelect(contact)"
+        class="table-this-is-it"
+      >
+        <tr data-selected>
+          <td>{{ contact.contactStatus }}</td>
+          <td>{{ contact.contactName }}</td>
+          <td>{{ contact.contactGround }}</td>
           <td>{{ contact.contactEquipment }}</td>
           <td>{{ contact.contactStatus }}</td>
           <td>
@@ -38,10 +50,8 @@
       </tbody>
     </table>
   </div>
-  <div class="selected-contact-container">
-    <div *ngIf="selectedContact">
-      <h2>Contact {{ selectedContact.contactName }} Details</h2>
-      <div><span>id: </span>{{ selectedContact._id }}</div>
-    </div>
+  <div *ngIf="selectedContact">
+    <h2>Contact {{ selectedContact.contactName }} Details</h2>
+    <div><span>id: </span>{{ selectedContact._id }}</div>
   </div>
 </div>

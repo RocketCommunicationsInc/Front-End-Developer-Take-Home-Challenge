@@ -21,6 +21,7 @@ import '../../node_modules/@astrouxds/rux-global-status-bar';
 import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
 import '../../node_modules/@astrouxds/rux-status/rux-status.js';
 import { AlertComponent } from './alert/alert.component';
+import { ContactsCountPipe } from './contacts-count.pipe';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { AlertComponent } from './alert/alert.component';
     DashboardComponent,
     ContactSearchComponent,
     AlertComponent,
+    ContactsCountPipe,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ContactService],
