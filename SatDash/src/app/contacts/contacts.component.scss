@@ -1,15 +1,26 @@
-.contact-bin-header {
-  display: flex;
+.contacts-biggest-box {
+  background-color: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid transparent;
+  margin: 1rem;
 }
 
-.contacts-biggest-box {
-  border: 1px solid rgba(255, 255, 255, 0.125);
+.contacts-search-box span {
+  padding: 1rem;
+  display: inline-block;
+}
+
+.contact-bin-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.numbers {
+  display: flex;
 }
 
 .contact-bin-header {
   padding: 0.5rem;
-  top: 0 !important;
-
+  top: 0;
   width: 100%;
   position: sticky;
 }
@@ -32,6 +43,11 @@
   font-size: 1.2rem;
 }
 
+.table-box-box {
+  height: 400px;
+  overflow-y: scroll;
+}
+
 .rux-table {
   // height: 300px;
   width: 100%;
@@ -42,8 +58,20 @@
 
 .rux-table th {
   top: 0;
+  position: sticky;
 }
 
 .rux-table td {
   padding: 0.5rem;
+}
+
+.dropdowns {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  text-align: left;
+}
+
+.dropdowns label {
+  display: block;
 }

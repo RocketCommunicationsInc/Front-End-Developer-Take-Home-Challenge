@@ -1,59 +1,76 @@
-<div class="contacts-biggest-box">
-  <h2 class="contact-label">Current Contacts</h2>
-  <div className="contact-container">
-    <div class="contact-bin-header">
-      <div>
-        <h2>{{ contactCount }}</h2>
-        <p>Contacts</p>
-      </div>
-      <div>
-        <h2>{{ failureCount }}</h2>
-        <p>Failed</p>
-      </div>
-      <div>
-        <h2>{{ executingCount }}</h2>
-        <p>Executing</p>
-      </div>
-      <rux-push-button class="rux-push-button">All</rux-push-button>
-      <rux-push-button class="rux-push-button">Executing</rux-push-button>
-      <rux-push-button class="rux-push-button">Fixed</rux-push-button>
-    </div>
-
-    <table class="rux-table">
-      <tr class="rux-table__column-head">
-        <th></th>
-        <th>Name</th>
-        <th>GS</th>
-        <th>Equipment String</th>
-        <th>Status</th>
-        <th>AOS - LOS</th>
-        <th>Details</th>
-      </tr>
-      <tbody *ngFor="let contact of contacts" (click)="onSelect(contact)">
-        <tr>
-          <td>
-            <rux-status status="normal"></rux-status>
-            <!-- <rux-status status="{{ contact.contactStatus }}"></rux-status> -->
-          </td>
-          <td>{{ contact.contactName }}</td>
-          <td>{{ contact.contactGround }}</td>
-          <td>{{ contact.contactEquipment }}</td>
-          <td>{{ contact.contactStatus | titlecase }}</td>
-          <td>
+<div>
+  <div class="contacts-search-box">
+    <span>Contacts</span>
+    <span>Equipment</span>
+    <div class="contacts-biggest-box">
+      <h2 class="contact-label">Current Contacts</h2>
+      <div className="contact-container">
+        <div class="contact-bin-header">
+          <div class="numbers">
             <div>
-              {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
-              {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
+              <h2>{{ contactCount }}</h2>
+              <p>Contacts</p>
             </div>
-          </td>
-          <td>
-            <a routerLink="/detail/{{ contact.contactName }}"> Details </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div *ngIf="selectedContact">
-    <h2>Contact {{ selectedContact.contactName }} Details</h2>
-    <div><span>id: </span>{{ selectedContact._id }}</div>
+            <div>
+              <h2>{{ failureCount }}</h2>
+              <p>Failed</p>
+            </div>
+            <div>
+              <h2>{{ executingCount }}</h2>
+              <p>Executing</p>
+            </div>
+          </div>
+          <div class="dropdowns">
+            <label>Status</label>
+            <select class="rux-select">
+              <option>All</option>
+              <option>Normal</option>
+              <option>Executing</option>
+              <option>Failed</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-box-box">
+          <table class="rux-table">
+            <tr class="rux-table__column-head">
+              <th></th>
+              <th>Name</th>
+              <th>GS</th>
+              <th>Equipment String</th>
+              <th>Status</th>
+              <th>AOS - LOS</th>
+              <th>Details</th>
+            </tr>
+            <tbody *ngFor="let contact of contacts" (click)="onSelect(contact)">
+              <tr>
+                <td>
+                  <rux-status status="normal"></rux-status>
+                  <!-- <rux-status status="{{ contact.contactStatus }}"></rux-status> -->
+                </td>
+                <td>{{ contact.contactName }}</td>
+                <td>{{ contact.contactGround }}</td>
+                <td>{{ contact.contactEquipment }}</td>
+                <td>{{ contact.contactStatus | titlecase }}</td>
+                <td>
+                  <div>
+                    {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -
+                    {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
+                  </div>
+                </td>
+                <td>
+                  <a routerLink="/detail/{{ contact.contactName }}">
+                    Details
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="selectedContact">
+          <h2>Contact {{ selectedContact.contactName }} Details</h2>
+          <div><span>id: </span>{{ selectedContact._id }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
