@@ -1,13 +1,14 @@
 .app-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto;
+  position: relative;
 }
 
 .contacts-final {
-  grid-area: contacts;
+  flex-grow: 3;
 }
 
-.alerts {
-  grid-area: alerts;
-  height: 100%;
-  width: 100%;
+.alerts-final {
+  flex-grow: 1;
 }

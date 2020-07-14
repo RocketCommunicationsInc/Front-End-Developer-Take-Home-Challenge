@@ -14,6 +14,9 @@
         <h2>{{ executingCount }}</h2>
         <p>Executing</p>
       </div>
+      <rux-push-button class="rux-push-button">All</rux-push-button>
+      <rux-push-button class="rux-push-button">Executing</rux-push-button>
+      <rux-push-button class="rux-push-button">Fixed</rux-push-button>
     </div>
 
     <table class="rux-table">
@@ -29,7 +32,8 @@
       <tbody *ngFor="let contact of contacts" (click)="onSelect(contact)">
         <tr>
           <td>
-            <rux-status status="{{ contactStatus }}"></rux-status>
+            <rux-status status="normal"></rux-status>
+            <!-- <rux-status status="{{ contact.contactStatus }}"></rux-status> -->
           </td>
           <td>{{ contact.contactName }}</td>
           <td>{{ contact.contactGround }}</td>

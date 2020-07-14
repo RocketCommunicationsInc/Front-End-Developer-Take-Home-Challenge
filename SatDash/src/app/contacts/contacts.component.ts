@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../contact';
 import { ContactService } from '../contact.service';
 import { DebuggerService } from '../debugger.service';
+import { RuxPushButton } from '@astrouxds/rux-push-button/rux-push-button.js';
 
 @Component({
   selector: 'app-contacts',

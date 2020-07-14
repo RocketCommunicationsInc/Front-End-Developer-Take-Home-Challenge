@@ -21,6 +21,7 @@
     "@angular/router": "~10.0.2",
     "@astrouxds/rux-clock": "^4.1.0",
     "@astrouxds/rux-global-status-bar": "^4.0.2",
+    "@astrouxds/rux-push-button": "^4.0.2",
     "@astrouxds/rux-status": "^4.0.2",
     "angular-in-memory-web-api": "^0.11.0",
     "rxjs": "~6.5.5",

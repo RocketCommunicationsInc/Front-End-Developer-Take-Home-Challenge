@@ -2,21 +2,77 @@
   border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
+.alert-table {
+  font-size: 1rem;
+  display: flex;
+  width: 100%;
+}
 .alert-bin-header {
   display: flex;
+  justify-content: center;
 }
 
 .alert-bin-header {
-  padding: 1rem;
+  padding: 0.5rem;
   position: sticky;
-  width: 1rem;
+  z-index: 5;
   top: 0 !important;
+  display: flex;
+  align-content: center;
 }
 
 .rux-table {
-  display: block;
-  height: 70vh;
+  height: 75vh;
   overflow-y: scroll;
+  z-index: 2;
+  width: 100%;
+}
+
+.rux-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.rux-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.alert-bin-header h2 {
+  margin: 0 2rem;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.dropdown-filter-box {
+  display: flex;
+}
+
+.dropdowns select {
+  display: block;
+}
+
+.dropdown-filter-box div {
+  margin: 1rem;
+}
+
+label {
+  font-weight: 700;
+}
+
+.rux-select {
+  margin-top: 0.5rem;
+}
+
+.rux-table {
+  // height: 300px;
+  width: 100%;
+  white-space: nowrap;
+  overflow-y: scroll;
+  table-layout: auto;
 }
 
 .rux-table th {
@@ -24,16 +80,6 @@
   top: 0;
 }
 
-.alert-label {
-  flex: none;
-  background: rgba(20, 31, 44, 1);
-  padding: 10px;
-  color: white;
-  font-size: 1.2rem;
-}
-
-.alert-bin-header h2 {
-  margin: 0 2rem;
-  font-weight: 800;
-  font-size: 2.5rem;
+.rux-table td {
+  padding: 0.5rem;
 }

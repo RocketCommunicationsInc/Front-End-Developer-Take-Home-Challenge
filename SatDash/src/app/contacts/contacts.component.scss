@@ -7,7 +7,11 @@
 }
 
 .contact-bin-header {
-  padding: 1rem;
+  padding: 0.5rem;
+  top: 0 !important;
+
+  width: 100%;
+  position: sticky;
 }
 
 .contact-bin-header div {
@@ -20,16 +24,6 @@
   font-size: 2.5rem;
 }
 
-.rux-table {
-  position: relative;
-}
-
-.contact-bin-header {
-  position: sticky;
-  width: 1rem;
-  top: 0 !important;
-}
-
 .contact-label {
   flex: none;
   background: rgba(20, 31, 44, 1);
@@ -39,12 +33,17 @@
 }
 
 .rux-table {
-  display: block;
-  height: 500px;
+  // height: 300px;
+  width: 100%;
+  white-space: nowrap;
   overflow-y: scroll;
+  table-layout: auto;
 }
 
 .rux-table th {
-  position: sticky;
   top: 0;
+}
+
+.rux-table td {
+  padding: 0.5rem;
 }

@@ -5,37 +5,54 @@
       <p>Active Alerts</p>
     </div>
     <div class="dropdown-filter-box">
-      <div><label>Severity</label> Dropdown</div>
-      <div><label>Category</label> Dropdown</div>
+      <div class="dropdowns">
+        <label>Severity</label>
+        <select class="rux-select">
+          <option>All</option>
+          <option>Critical</option>
+          <option>Serious</option>
+          <option>Caution</option>
+        </select>
+      </div>
+      <div class="dropdowns">
+        <label>Category</label>
+        <select class="rux-select">
+          <option>All</option>
+          <option>Hardware</option>
+          <option>Software</option>
+          <option>Spacecraft</option>
+        </select>
+      </div>
     </div>
   </div>
-
-  <table class="rux-table">
-    <tr class="rux-table__column-head">
-      <th>Select All</th>
-      <th></th>
-      <th>Message</th>
-      <th>Category</th>
-      <th>Time</th>
-    </tr>
-    <tbody
-      *ngFor="let alert of alerts; let i = index"
-      (click)="onSelect(alert)"
-    >
-      <tr>
-        <td>
-          <div class="rux-checkbox">
-            <input type="checkbox" name="checkbox1c" id="checkbox1c{{ i }}" />
-            <label for="checkbox1c{{ i }}"></label>
-          </div>
-        </td>
-        <td>
-          <!-- <rux-status status={{alertStatus}}"></rux-status> -->
-        </td>
-        <td>{{ alert.errorMessage }}</td>
-        <td>{{ alert.errorCategory | titlecase }}</td>
-        <td>{{ alert.errorTime | date: "hh:mm:ss" }}</td>
+  <div class="alert-table">
+    <table class="rux-table">
+      <tr class="rux-table__column-head">
+        <th>Select All</th>
+        <th></th>
+        <th>Message</th>
+        <th>Category</th>
+        <th>Time</th>
       </tr>
-    </tbody>
-  </table>
+      <tbody
+        *ngFor="let alert of alerts; let i = index"
+        (click)="onSelect(alert)"
+      >
+        <tr>
+          <td>
+            <div class="rux-checkbox">
+              <input type="checkbox" name="checkbox1c" id="checkbox1c{{ i }}" />
+              <label for="checkbox1c{{ i }}"></label>
+            </div>
+          </td>
+          <td>
+            <!-- <rux-status status={{alertStatus}}"></rux-status> -->
+          </td>
+          <td>{{ alert.errorMessage }}</td>
+          <td>{{ alert.errorCategory | titlecase }}</td>
+          <td>{{ alert.errorTime | date: "hh:mm:ss" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
