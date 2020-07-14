@@ -34,7 +34,7 @@
           <td>{{ contact.contactName }}</td>
           <td>{{ contact.contactGround }}</td>
           <td>{{ contact.contactEquipment }}</td>
-          <td>{{ contact.contactStatus }}</td>
+          <td>{{ contact.contactStatus | titlecase }}</td>
           <td>
             <div>
               {{ contact.contactBeginTimestamp | date: "hh:mm:ss" }} -

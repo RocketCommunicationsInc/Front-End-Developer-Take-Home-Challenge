@@ -20,7 +20,7 @@ import { DebuggerComponent } from './debugger/debugger.component';
 import '../../node_modules/@astrouxds/rux-global-status-bar';
 import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
 import '../../node_modules/@astrouxds/rux-status/rux-status.js';
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './alerts/alerts.component';
 
 @NgModule({
   imports: [

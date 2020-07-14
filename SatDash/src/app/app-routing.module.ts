@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AlertComponent } from './alerts/alert.component';
+import { AlertComponent } from './alerts/alerts.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'contacts', pathMatch: 'full' },

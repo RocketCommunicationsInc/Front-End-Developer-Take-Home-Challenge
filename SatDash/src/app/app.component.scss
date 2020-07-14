@@ -1,12 +1,5 @@
 .app-container {
-  overflow: hidden !important;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "alerts  contacts contacts"
-    "alerts  contacts contacts"
-    "alerts  detail detail";
+  display: flex;
 }
 
 .contacts-final {
@@ -17,8 +10,4 @@
   grid-area: alerts;
   height: 100%;
   width: 100%;
-}
-
-.detail {
-  grid-area: detail;
 }

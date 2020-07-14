@@ -1,7 +1,8 @@
 <div *ngIf="debuggerService.debuggerMessages.length" class="debugger">
-  <!-- conditionally render the messages component if there are any messages -->
+  <!-- ngIf - conditionally render the messages component if there are any messages -->
   <h2>debugger</h2>
   <button class="clear" (click)="debuggerService.clear()">clear</button>
+  <!-- ngFor - list all the elements -->
   <div *ngFor="let debuggerMessage of debuggerService.debuggerMessages">
     {{ debuggerMessage }}
   </div>

@@ -1,1 +1,41 @@
-<p>alert works!</p>
+<div class="alerts-biggest-box">
+  <div class="alert-bin-header">
+    <div>
+      <h2>{{ alertCount }}</h2>
+      <p>Active Alerts</p>
+    </div>
+    <div class="dropdown-filter-box">
+      <div><label>Severity</label> Dropdown</div>
+      <div><label>Category</label> Dropdown</div>
+    </div>
+  </div>
+
+  <table class="rux-table">
+    <tr class="rux-table__column-head">
+      <th>Select All</th>
+      <th></th>
+      <th>Message</th>
+      <th>Category</th>
+      <th>Time</th>
+    </tr>
+    <tbody
+      *ngFor="let alert of alerts; let i = index"
+      (click)="onSelect(alert)"
+    >
+      <tr>
+        <td>
+          <div class="rux-checkbox">
+            <input type="checkbox" name="checkbox1c" id="checkbox1c{{ i }}" />
+            <label for="checkbox1c{{ i }}"></label>
+          </div>
+        </td>
+        <td>
+          <!-- <rux-status status={{alertStatus}}"></rux-status> -->
+        </td>
+        <td>{{ alert.errorMessage }}</td>
+        <td>{{ alert.errorCategory | titlecase }}</td>
+        <td>{{ alert.errorTime | date: "hh:mm:ss" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
