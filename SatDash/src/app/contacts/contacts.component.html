@@ -29,10 +29,7 @@
       <tbody *ngFor="let contact of contacts" (click)="onSelect(contact)">
         <tr>
           <td>
-            <rux-status
-              class="dark-theme"
-              status="{{ contact.contactStatus }}"
-            ></rux-status>
+            <rux-status status="{{ contactStatus }}"></rux-status>
           </td>
           <td>{{ contact.contactName }}</td>
           <td>{{ contact.contactGround }}</td>
