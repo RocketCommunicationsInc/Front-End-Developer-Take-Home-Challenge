@@ -20,11 +20,9 @@ export class ContactsComponent implements OnInit {
   failureCount: number;
   contactStatus: string;
 
-  // this.contactsCount
-
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
-    this.contactService;
+    // this.contactService;
   }
 
   constructor(private contactService: ContactService) {}
