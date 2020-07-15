@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'contacts', pathMatch: 'full' },
   { path: 'contacts', component: ContactsComponent },
   { path: 'detail/:contactName', component: ContactDetailComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  // { path: 'dashboard', component: DashboardComponent },
+  // { path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

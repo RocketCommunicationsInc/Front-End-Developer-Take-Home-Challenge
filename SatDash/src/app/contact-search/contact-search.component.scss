@@ -1,8 +1,10 @@
 #search-component {
   display: flex;
   align-content: center;
-  height: 4rem;
+  // height: 4rem;
   margin-right: 2rem;
+  flex-direction: column;
+  position: relative;
 }
 
 input {
@@ -10,4 +12,24 @@ input {
   margin: 1rem;
   border-radius: 5px;
   border: 0;
+}
+
+.search-result {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  list-style-type: none;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  top: 2rem;
+  width: 100%;
+  background: rgba(20, 31, 44, 1);
+}
+
+.search-result li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.search-result li:hover {
+  font-weight: 700;
 }

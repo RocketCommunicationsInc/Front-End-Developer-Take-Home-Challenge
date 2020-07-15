@@ -1,7 +1,7 @@
 <div>
   <div class="contacts-search-box">
     <span>Contacts</span>
-    <app-contact-search></app-contact-search>
+    <app-contact-search [(searchModel)]="searchModel"></app-contact-search>
   </div>
   <div>
     <div class="contacts-biggest-box">
@@ -42,9 +42,16 @@
               <th>Equipment String</th>
               <th>Status</th>
               <th>AOS - LOS</th>
-              <th>Details</th>
+              <!-- <th>Details</th> -->
             </tr>
-            <tbody *ngFor="let contact of contacts | contactFilter: term">
+            <!-- <ul *ngIf="results">
+              <li *ngFor="let result of results | slice: 0:9">
+                <a href="{{ result.latest }}" target="_blank">
+                  {{ result.name }}
+                </a>
+              </li>
+            </ul> -->
+            <tbody *ngFor="let contact of contacts">
               <div *ngIf="!contacts.length">
                 none found
               </div>
@@ -70,11 +77,11 @@
                     {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
                   </div>
                 </td>
-                <td>
+                <!-- <td>
                   <a routerLink="/detail/{{ contact.contactName }}">
                     Details
                   </a>
-                </td>
+                </td> -->
               </tr>
             </tbody>
           </table>
@@ -82,6 +89,7 @@
         <div *ngIf="selectedContact">
           <h2>Contact {{ selectedContact.contactName }} Details</h2>
           <div><span>id: </span>{{ selectedContact._id }}</div>
+          <div><span>details: </span>{{ selectedContact.contactDetail }}</div>
         </div>
       </div>
     </div>

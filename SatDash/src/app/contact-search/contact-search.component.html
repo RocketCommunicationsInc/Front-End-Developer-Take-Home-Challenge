@@ -1,9 +1,17 @@
 <div id="search-component">
-  <input
-    type="text"
-    placeholder="Search"
-    [ngModel]="searchModel"
-    (ngModelChange)="updateSearchModel($event)"
-  />
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li
+      *ngFor="let contact of contacts$ | async | slice: 0:4"
+      (click)="onSelect(contact)"
+      class="rux-form-field__text-input search"
+      placeholder="Search …"
+      type="search"
+      #searchBox
+      id="search-box"
+    >
+      {{ contact.contactName }} - {{ contact.contactStatus }}
+    </li>
+  </ul>
 </div>
-<!-- (input)="search(searchBox.value)" -->

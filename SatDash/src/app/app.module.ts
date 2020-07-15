@@ -16,8 +16,6 @@ import { ContactSearchComponent } from './contact-search/contact-search.componen
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { DebuggerComponent } from './debugger/debugger.component';
 
-import { ContactFilterPipe } from './pipes/contact-filter.pipe';
-
 // Astro imports
 import '../../node_modules/@astrouxds/rux-global-status-bar';
 import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
@@ -45,8 +43,6 @@ import { AlertComponent } from './alerts/alerts.component';
     DebuggerComponent,
     DashboardComponent,
     ContactSearchComponent,
-    AlertComponent,
-    ContactFilterPipe,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ContactService],
