@@ -1,7 +1,13 @@
 <div id="search-component">
-  <h4><label for="search-box">Contact Search</label></h4>
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-  <!-- The $ is a convention that indicates heroes$ is an Observable, not an array. -->
+  <input
+    class="rux-form-field__text-input search"
+    placeholder="Search …"
+    type="search"
+    #searchBox
+    id="search-box"
+    (input)="search(searchBox.value)"
+  />
+  <!-- The $ is a convention that indicates contacts$ is an Observable, not an array. -->
   <ul class="search-result">
     <li *ngFor="let contact of contacts$ | async">
       <a routerLink="/detail/{{ contact.contactName }}">

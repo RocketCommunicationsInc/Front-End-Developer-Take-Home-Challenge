@@ -23,10 +23,15 @@ export class ContactsComponent implements OnInit {
 
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
-    // this.contactService;
+    this.debuggerService.add(
+      `Contacts: Selected Contact name = ${contact.contactName}`
+    );
   }
 
-  constructor(private contactService: ContactService) {}
+  constructor(
+    private contactService: ContactService,
+    private debuggerService: DebuggerService
+  ) {}
 
   ngOnInit(): void {
     this.getContacts();

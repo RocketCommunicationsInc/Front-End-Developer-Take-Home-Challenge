@@ -1,5 +1,21 @@
 .debugger {
   position: fixed;
-  top: 0;
-  left: 0;
+  bottom: 1rem;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.308);
+  padding: 1rem 2rem;
+  height: 10rem;
+  width: 30rem;
+  overflow-y: scroll;
+  margin: 1rem;
+  border: 1px solid gray;
+  overflow-anchor: none;
+}
+
+.debugger-header {
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+  margin: 1rem 0;
 }

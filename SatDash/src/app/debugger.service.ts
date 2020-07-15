@@ -7,7 +7,7 @@ export class DebuggerService {
   debuggerMessages: string[] = [];
 
   add(message: string) {
-    this.debuggerMessages.push(message);
+    this.debuggerMessages.unshift(message);
   }
 
   clear() {

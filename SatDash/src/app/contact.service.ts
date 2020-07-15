@@ -36,6 +36,8 @@ export class ContactService {
   }
 
   getContacts(): Observable<Contact[]> {
+    this.debuggerService.add('Alert Service: fetched all contacts');
+
     return this.http
       .get<Contact[]>(this.contactsUrl)
       .pipe(catchError(this.handleError<Contact[]>('getContacts', [])));
