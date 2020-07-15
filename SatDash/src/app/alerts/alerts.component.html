@@ -1,6 +1,6 @@
 <div class="alerts-biggest-box">
   <div class="alert-bin-header">
-    <div>
+    <div class="header-box">
       <h2>{{ alertCount }}</h2>
       <p>Active Alerts</p>
     </div>
@@ -46,7 +46,7 @@
             </div>
           </td>
           <td>
-            <!-- <rux-status status={{alertStatus}}"></rux-status> -->
+            <rux-status status="caution"></rux-status>
           </td>
           <td>{{ alert.errorMessage }}</td>
           <td>{{ alert.errorCategory | titlecase }}</td>
@@ -54,5 +54,13 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="alerts-button-footer">
+    <button class="rux-button" size="large">
+      Dismiss
+    </button>
+    <button class="rux-button" size="large">
+      Acknowledge
+    </button>
   </div>
 </div>

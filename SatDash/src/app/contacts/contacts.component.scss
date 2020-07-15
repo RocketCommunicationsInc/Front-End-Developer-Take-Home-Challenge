@@ -26,7 +26,7 @@
   position: sticky;
 }
 
-.contact-bin-header div {
+.contact-bin-header .numbers div {
   text-align: center;
 }
 
@@ -54,6 +54,7 @@
   width: 100%;
   white-space: nowrap;
   table-layout: auto;
+  font-size: 0.9vw;
 }
 
 .rux-table th {
@@ -65,11 +66,8 @@
   padding: 0.5rem;
 }
 
-.dropdowns {
-  display: flex;
-  justify-content: left;
-  flex-direction: column;
-  text-align: left;
+.table-box-box .dropdowns {
+  text-align: left !important;
 }
 
 .dropdowns label {
