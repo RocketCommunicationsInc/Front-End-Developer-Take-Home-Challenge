@@ -21,12 +21,15 @@ import '../../node_modules/@astrouxds/rux-global-status-bar';
 import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
 import '../../node_modules/@astrouxds/rux-status/rux-status.js';
 import { AlertComponent } from './alerts/alerts.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    Ng2SearchPipeModule,
+
     HttpClientModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
@@ -43,6 +46,7 @@ import { AlertComponent } from './alerts/alerts.component';
     DebuggerComponent,
     DashboardComponent,
     ContactSearchComponent,
+    // ContactSearchPipe,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ContactService],

@@ -22,7 +22,8 @@ export class ContactsComponent implements OnInit {
   contactStatus: string;
   sortByStatus: any;
 
-  term: number;
+  public search: any = '';
+  locked: any[] = [];
 
   onSelect(contact: Contact): void {
     this.selectedContact = contact;

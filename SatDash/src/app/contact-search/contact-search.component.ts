@@ -15,6 +15,7 @@ import { DebuggerService } from '../debugger.service';
 })
 export class ContactSearchComponent implements OnInit {
   contacts: Contact[];
+  term: string;
 
   selectedContact: Contact;
   contacts$: Observable<Contact[]>;
