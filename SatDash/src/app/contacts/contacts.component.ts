@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 // import { CONTACTS } from '../mock-contacts' replacing this with the below ContactService
 import { Contact } from '../../contact';
@@ -20,6 +20,9 @@ export class ContactsComponent implements OnInit {
   executingCount: number;
   failureCount: number;
   contactStatus: string;
+  sortByStatus: any;
+
+  term: number;
 
   onSelect(contact: Contact): void {
     this.selectedContact = contact;
@@ -27,6 +30,9 @@ export class ContactsComponent implements OnInit {
       `Contacts: Selected Contact name = ${contact.contactName}`
     );
   }
+
+  @Input()
+  searchModel: string;
 
   constructor(
     private contactService: ContactService,
@@ -48,6 +54,9 @@ export class ContactsComponent implements OnInit {
       this.failureCount = this.contacts.filter(
         (contact) => contact.contactState === 'failed'
       ).length;
+      // this.sortByStatus = this.contacts.sort((a, b) =>
+      //   a.contactStatus > b.contactStatus ? 1 : -1
+      // );
     });
   }
 }

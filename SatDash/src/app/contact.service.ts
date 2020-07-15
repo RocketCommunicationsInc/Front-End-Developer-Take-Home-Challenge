@@ -55,18 +55,18 @@ export class ContactService {
   }
 
   // search contacts where the name matches the search term
-  searchContacts(term: number): Observable<Contact[]> {
-    if (isNaN(term)) {
-      // if not number term, return empty cotact array.
-      return of([]);
-    }
-    return this.http.get<Contact[]>(`${this.contactsUrl}/?name=${term}`).pipe(
-      tap((x) =>
-        isNaN(term)
-          ? this.log(`found contacts matching ${term}`)
-          : this.log(`no contacts matching ${term}`)
-      ),
-      catchError(this.handleError<Contact[]>('searchContacts', []))
-    );
-  }
+  // searchContacts(term: number): Observable<Contact[]> {
+  //   if (isNaN(term)) {
+  //     // if not number term, return empty cotact array.
+  //     return of([]);
+  //   }
+  //   return this.http.get<Contact[]>(`${this.contactsUrl}/?name=${term}`).pipe(
+  //     tap((x) =>
+  //       isNaN(term)
+  //         ? this.log(`found contacts matching ${term}`)
+  //         : this.log(`no contacts matching ${term}`)
+  //     ),
+  //     catchError(this.handleError<Contact[]>('searchContacts', []))
+  //   );
+  // }
 }

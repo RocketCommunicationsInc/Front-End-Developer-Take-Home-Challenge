@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
@@ -11,26 +11,16 @@ import { ContactService } from '../contact.service';
   styleUrls: ['./contact-search.component.scss'],
 })
 export class ContactSearchComponent implements OnInit {
-  contacts$: Observable<Contact[]>;
-  private searchTerms = new Subject<number>();
+  @Input() searchModel;
 
-  constructor(private contactService: ContactService) {}
+  @Output() searchModelChange: EventEmitter<any> = new EventEmitter();
 
-  // Push a search term into the observable stream.
-  search(term: number): void {
-    this.searchTerms.next(term);
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-    this.contacts$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
+  ngOnInit() {}
 
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: number) => this.contactService.searchContacts(term))
-    );
+  updateSearchModel(value) {
+    this.searchModel = value;
+    this.searchModelChange.emit(this.searchModel);
   }
 }

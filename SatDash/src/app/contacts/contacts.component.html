@@ -44,11 +44,21 @@
               <th>AOS - LOS</th>
               <th>Details</th>
             </tr>
-            <tbody *ngFor="let contact of contacts" (click)="onSelect(contact)">
-              <tr>
+            <tbody *ngFor="let contact of contacts | contactFilter: term">
+              <div *ngIf="!contacts.length">
+                none found
+              </div>
+              <tr (click)="onSelect(contact)">
                 <td>
-                  <rux-status status="normal"></rux-status>
+                  <!-- <rux-status class="rux-status" status="normal"></rux-status> -->
                   <!-- <rux-status status="{{ contact.contactStatus }}"></rux-status> -->
+                  <div class="status-holder">
+                    <div
+                      class="status-indicator status-{{
+                        contact.contactStatus
+                      }}"
+                    ></div>
+                  </div>
                 </td>
                 <td>{{ contact.contactName }}</td>
                 <td>{{ contact.contactGround }}</td>

@@ -1,18 +1,9 @@
 <div id="search-component">
   <input
-    class="rux-form-field__text-input search"
-    placeholder="Search …"
-    type="search"
-    #searchBox
-    id="search-box"
-    (input)="search(searchBox.value)"
+    type="text"
+    placeholder="Search"
+    [ngModel]="searchModel"
+    (ngModelChange)="updateSearchModel($event)"
   />
-  <!-- The $ is a convention that indicates contacts$ is an Observable, not an array. -->
-  <ul class="search-result">
-    <li *ngFor="let contact of contacts$ | async">
-      <a routerLink="/detail/{{ contact.contactName }}">
-        {{ contact.contactName }}
-      </a>
-    </li>
-  </ul>
 </div>
+<!-- (input)="search(searchBox.value)" -->
