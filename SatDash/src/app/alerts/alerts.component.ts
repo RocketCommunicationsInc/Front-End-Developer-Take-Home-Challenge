@@ -11,9 +11,7 @@ import { DebuggerService } from '../debugger.service';
 })
 export class AlertComponent implements OnInit {
   selectedAlert: Alert;
-
   alerts: Alert[];
-
   alertCount: number;
 
   constructor(
@@ -23,6 +21,7 @@ export class AlertComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAlerts();
+    console.log('hello from alerts');
   }
 
   onSelect(alert: Alert): void {

@@ -42,6 +42,7 @@ export class ContactsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContacts();
+    console.log('hello from contacts');
   }
 
   getContacts(): void {

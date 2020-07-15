@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactService } from './contact.service';
+import { AlertComponent } from './alerts/alerts.component';
+
 import { ContactSearchComponent } from './contact-search/contact-search.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { DebuggerComponent } from './debugger/debugger.component';
@@ -20,7 +22,6 @@ import { DebuggerComponent } from './debugger/debugger.component';
 import '../../node_modules/@astrouxds/rux-global-status-bar';
 import '../../node_modules/@astrouxds/rux-clock/rux-clock.js';
 import '../../node_modules/@astrouxds/rux-status/rux-status.js';
-import { AlertComponent } from './alerts/alerts.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
   ],
   declarations: [
     AppComponent,
+    AlertComponent,
     ContactsComponent,
     ContactDetailComponent,
     DebuggerComponent,
