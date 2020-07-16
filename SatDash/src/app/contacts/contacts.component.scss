@@ -1,7 +1,6 @@
 .contacts-biggest-box {
-  border: 1px solid rgba(230, 230, 230, 0.233);
   box-sizing: border-box;
-  background-color: 1px solid rgba(255, 255, 255, 0.125);
+  border: 1px solid rgba(255, 255, 255, 0.125);
   margin: 1rem;
   border-bottom: 4px solid gray;
 }
@@ -87,4 +86,16 @@
 }
 .dropdowns label {
   display: block;
+}
+
+.selected {
+  margin: 1rem;
+}
+
+.selected h2 {
+  margin-bottom: 1rem;
+}
+
+.selected div {
+  margin: 1rem 0;
 }

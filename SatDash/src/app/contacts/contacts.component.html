@@ -44,28 +44,14 @@
               <th>AOS - LOS</th>
               <!-- <th>Details</th> -->
             </tr>
-            <!-- <ul *ngIf="results">
-              <li *ngFor="let result of results | slice: 0:9">
-                <a href="{{ result.latest }}" target="_blank">
-                  {{ result.name }}
-                </a>
-              </li>
-            </ul> -->
             <tbody *ngFor="let contact of contacts">
               <div *ngIf="!contacts.length">
                 none found
               </div>
               <tr (click)="onSelect(contact)">
                 <td>
-                  <!-- <rux-status class="rux-status" status="normal"></rux-status> -->
-                  <!-- <rux-status status="{{ contact.contactStatus }}"></rux-status> -->
-                  <div class="status-holder">
-                    <div
-                      class="status-indicator status-{{
-                        contact.contactStatus
-                      }}"
-                    ></div>
-                  </div>
+                  <!-- wild times not getting contact.contactStatus to work -->
+                  <rux-status status="normal"></rux-status>
                 </td>
                 <td>{{ contact.contactName }}</td>
                 <td>{{ contact.contactGround }}</td>
@@ -77,17 +63,13 @@
                     {{ contact.contactEndTimestamp | date: "hh:mm:ss" }}
                   </div>
                 </td>
-                <!-- <td>
-                  <a routerLink="/detail/{{ contact.contactName }}">
-                    Details
-                  </a>
-                </td> -->
               </tr>
             </tbody>
           </table>
         </div>
-        <div *ngIf="selectedContact">
-          <h2>Contact {{ selectedContact.contactName }} Details</h2>
+        <div *ngIf="selectedContact" class="selected">
+          <h2>Contact Details</h2>
+          <div>Contact Name:{{ selectedContact.contactName }}</div>
           <div><span>id: </span>{{ selectedContact._id }}</div>
           <div><span>details: </span>{{ selectedContact.contactDetail }}</div>
         </div>

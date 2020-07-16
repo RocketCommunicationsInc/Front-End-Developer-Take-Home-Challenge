@@ -23,6 +23,7 @@ export class ContactsComponent implements OnInit {
   sortByStatus: any;
 
   public search: any = '';
+  public selectedStatus;
   locked: any[] = [];
 
   onSelect(contact: Contact): void {

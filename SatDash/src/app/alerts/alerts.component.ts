@@ -21,7 +21,6 @@ export class AlertComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAlerts();
-    console.log('hello from alerts');
   }
 
   onSelect(alert: Alert): void {
