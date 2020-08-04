@@ -1,0 +1,35 @@
+<ul *ngIf="pager.pages && pager.pages.length" class="flex flex-row justify-around h-8 mt-3">
+  <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <div (click)="setPage(1)" class="h-full w-4 text-secondary mt-1">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M10 19l-7-7 7-7"></path>
+          <path d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </div>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <div (click)="setPage(pager.currentPage - 1)" class="h-4 w-4 text-secondary mt-1">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </div>
+  </li>
+  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a (click)="setPage(page)" class="text-secondary">{{page}}</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <div (click)="setPage(pager.currentPage + 1)" class="h-4 w-4 text-secondary mt-1">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M9 5l7 7-7 7"></path>
+        </svg>
+      </div>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <div (click)="setPage(pager.totalPages)" class="h-4 w-4 text-secondary mt-1">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M14 5l7 7-7 7"></path>
+          <path d="M9 5l7 7-7 7"></path>
+        </svg>
+      </div>
+  </li>
+</ul>

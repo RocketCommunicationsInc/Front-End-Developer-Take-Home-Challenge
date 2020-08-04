@@ -1,0 +1,19 @@
+<div class="flex flex-row items-center px-5 py-2">
+  <h2 class="mr-2 h-8">Alerts</h2>
+  <app-sort (sort)="onSort($event)"></app-sort>
+</div>
+<div class="flex flex-row items-center justify-between px-5">
+  <div class="flex"><rux-status status="critical"></rux-status>{{alertStatus.critical}} Critical</div>
+  <div class="flex"><rux-status status="serious"></rux-status>{{alertStatus.serious}} Serious</div>
+  <div class="flex"><rux-status status="caution"></rux-status>{{alertStatus.caution}} Caution</div>
+</div>
+<div class="m-5 mt-2 bg-tertiary-d2">
+  <div class="ml-4 w-full flex flex-row">
+    <div class="w-8"></div>
+    <div class="w-20">Time</div>
+    <div class="mr-2">Status</div>
+    <div>Message</div>
+  </div>
+  <app-alerts-row *ngFor="let item of alertsPage" [alert]="item"></app-alerts-row>
+  <app-pagination [items]="allAlerts" (changePage)="onChangePage($event)"></app-pagination>
+</div>

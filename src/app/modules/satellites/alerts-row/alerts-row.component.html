@@ -1,0 +1,18 @@
+<rux-accordion [attr.open]="alert.expanded ? '' : null">
+  <span slot="label" class="flex">
+    <rux-icon
+      [attr.icon]="alert.icon"
+      [attr.label]="alert.errorCategory"
+      color="var(--colorSecondary)"
+      size="extra-small"
+      library="assets/astro.svg"
+      class="mr-3"
+    ></rux-icon> | 
+    <span class="mx-1">{{alert.errorTime | timestamp}}</span> |
+    <rux-status [attr.status]="alert.errorSeverity" class="mx-3"></rux-status> |
+    {{alert.errorMessage}}
+  </span>
+  <span slot="content">
+    {{alert.longMessage}}
+  </span>
+</rux-accordion>

@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "@astrouxds/rux-css/static/css/astro.css";
+
+:root {
+  --accordionClosedLabelBackground: var(--colorTertiaryDarken2);
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/opensans-bold-webfont.woff2") format("woff2"),
+    url("/assets/fonts/opensans-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/opensans-light-webfont.woff2") format("woff2"),
+    url("/assets/fonts/opensans-light-webfont.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/opensans-regular-webfont.woff2") format("woff2"),
+    url("/assets/fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("/assets/fonts/roboto-mono-regular.woff2") format("woff2"),
+    url("/assets/fonts/roboto-mono-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}

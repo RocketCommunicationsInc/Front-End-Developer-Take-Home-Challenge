@@ -1,0 +1,33 @@
+<rux-accordion [attr.open]="contact.expanded ? '' : null">
+  <span slot="label" class="flex h-6">
+    <span class="w-16">{{contact.contactName}} |</span>
+    <span class="w-20">{{contact.contactSatellite}}</span> |
+    <rux-status [attr.status]="contact.contactStatus" class="mx-3"></rux-status> |
+    {{contact.contactBeginTimestamp | timestamp}}/{{contact.contactEndTimestamp | timestamp}}
+  </span>
+  <span slot="content">
+    {{contact.contactDetail}}
+  </span>
+</rux-accordion>
+
+
+<!--  {
+    "_id": "5c926e56fddac523882598d8",
+    "contactId": "01bb9a28-7f3a-519c-8b47-0481f946b14a",
+    "contactStatus": "normal",
+    "contactName": 64900,
+    "contactGround": "CTS",
+    "contactSatellite": "USA-256",
+    "contactEquipment": "ANT62 VAFB1 SFEP215CH1 ECEU6 WS388 USP182",
+    "contactState": "executing",
+    "contactStep": "Critical Health",
+    "contactDetail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "contactBeginTimestamp": 1563753600,
+    "contactEndTimestamp": 1563754620,
+    "contactLatitude": 6.62334,
+    "contactLongitude": -50.78854,
+    "contactAzimuth": 141.771,
+    "contactElevation": 62.9,
+    "contactResolution": "complete",
+    "contactResolutionStatus": "normal"
+  }, -->
