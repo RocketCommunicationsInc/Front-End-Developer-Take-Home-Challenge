@@ -25,11 +25,11 @@ The alerts.json file consists of a list of issues with the contacts. For example
 - This project is to be done in Angular. You can use the Angular CLI (https://cli.angular.io/) to quickly create a default Angular project.
 - The Angular portion of this challenge is also important for this role. Please consider building/structuring this application as you would any professional Angular application.
 - You are free to use any third-party libraries.
-- Please feel free to reach out to ask any questions (toddb@rocketcom.com).
+- Please feel free to reach out to ask any questions (chris.kerbo@rocketcom.com).
 - Steps to follow:
   - Fork this repository
   - Work on your solution
-  - Create a pull request with @github/tblaisde as the reviewer.
+  - Create a pull request with @github/cskerbo as the reviewer.
 - Have fun and be as creative as you like!
 
 **Timeframe**
