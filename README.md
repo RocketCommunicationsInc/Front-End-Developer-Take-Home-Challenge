@@ -1,3 +1,6 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=iamthechad_Angular-Developer-Take-Home-Challenge&metric=alert_status)](https://sonarcloud.io/dashboard?id=iamthechad_Angular-Developer-Take-Home-Challenge)
+[![Build Status](https://travis-ci.com/iamthechad/Angular-Developer-Take-Home-Challenge.svg?branch=master)](https://travis-ci.com/iamthechad/Angular-Developer-Take-Home-Challenge)
+
 # Grm
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
