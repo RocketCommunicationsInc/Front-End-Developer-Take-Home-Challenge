@@ -5,15 +5,21 @@ import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faSatelliteDish} from "@fortawesome/free-solid-svg-icons";
+import {AgGridModule} from "ag-grid-angular";
+import {ContactsComponent} from "./components/contacts/contacts.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,
-    FontAwesomeModule
+    HttpClientModule,
+    FontAwesomeModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]

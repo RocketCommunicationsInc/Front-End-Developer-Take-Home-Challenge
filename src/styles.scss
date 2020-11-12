@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+body {
+  height: 100vh;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  .cell-status-normal {
+    background: green;
+  }
+  .cell-status-caution {
+    background: yellow;
+  }
+  .cell-status-critical {
+    background: red;
+  }
+  .cell-status-serious {
+    background: orange;
+  }
+}

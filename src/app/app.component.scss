@@ -1,0 +1,9 @@
+.container {
+  height: 100%;
+  width: 100%;
+
+  .content-container {
+    height: calc(100% - 3em);
+    width: 100%;
+  }
+}
