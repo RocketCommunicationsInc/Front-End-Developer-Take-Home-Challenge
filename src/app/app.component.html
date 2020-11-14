@@ -2,5 +2,6 @@
 <app-header></app-header>
   <div class="content-container">
     <app-contacts></app-contacts>
+    <app-alerts *ngIf="alertsService.getAlertsVisible() | async" [@slideInOutAnimation]></app-alerts>
   </div>
 </div>

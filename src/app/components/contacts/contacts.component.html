@@ -1,6 +1,11 @@
 <div class="contacts-container">
-  <div>Number of Contacts: {{contacts?.length}}</div>
-  <div>Contact States: {{contactStates}}</div>
+  <header>
+    <h2>Contacts</h2>
+    <div class="contacts-summary">
+      <span class="summary-item">Number of Contacts: {{contacts?.length}}</span>
+      <span class="summary-item">Contact States: {{contactStates}}</span>
+    </div>
+  </header>
   <ag-grid-angular class="ag-theme-alpine contacts-grid" [columnDefs]="columnDefs" [rowData]="contacts">
   </ag-grid-angular>
 </div>
