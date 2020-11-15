@@ -1,0 +1,44 @@
+$left-gutter-width: 20px;
+
+.alerts-container {
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  header {
+    margin-left: $left-gutter-width;
+    h2 {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .alerts-summary {
+      display: flex;
+
+      .summary-item {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .alerts-content {
+    display: flex;
+    height: 80%;
+
+    .left-gutter {
+      height: 100%;
+      width: $left-gutter-width;
+      display: flex;
+      justify-content: center;
+
+      .interactive {
+        cursor: pointer;
+      }
+    }
+
+    .alerts-grid {
+      height: 100%;
+      width: calc(100% - #{$left-gutter-width});
+    }
+  }
+}

@@ -1,8 +1,22 @@
 .contacts-container {
-  width: 65%;
   height: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
+
+  header {
+    h2 {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .contacts-summary {
+      display: flex;
+
+      .summary-item {
+        margin-right: 10px;
+      }
+    }
+  }
 
   .contacts-grid {
     height: 80%;

@@ -5,5 +5,14 @@
   .content-container {
     height: calc(100% - 3em);
     width: 100%;
+    display: flex;
+
+    app-contacts {
+      flex: 3;
+    }
+
+    app-alerts {
+      flex: 2;
+    }
   }
 }
