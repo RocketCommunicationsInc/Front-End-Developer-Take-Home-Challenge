@@ -1,7 +1,8 @@
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 
 import {ContactsComponent} from "./contacts.component";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {DataLoadModule} from "../../modules/data-load/data-load.module";
+import {AssetsDataModule} from "../../modules/assets-data/assets-data.module";
 
 describe("ContactsComponent", () => {
   let component: ContactsComponent;
@@ -9,7 +10,10 @@ describe("ContactsComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        DataLoadModule,
+        AssetsDataModule
+      ],
       declarations: [ContactsComponent]
     })
     .compileComponents();

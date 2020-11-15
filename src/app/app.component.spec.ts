@@ -1,13 +1,15 @@
 import { TestBed } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import {HeaderComponent} from "./components/header/header.component";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {DataLoadModule} from "./modules/data-load/data-load.module";
+import {AssetsDataModule} from "./modules/assets-data/assets-data.module";
 
 describe("AppComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule
+        DataLoadModule,
+        AssetsDataModule
       ],
       declarations: [
         AppComponent,
