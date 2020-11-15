@@ -16,7 +16,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
     {
       field: "contactName",
       headerName: "Name",
-      sortable: true
+      sortable: true,
+      sort: "asc"
     },
     {
       field: "contactStatus",

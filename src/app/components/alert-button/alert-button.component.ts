@@ -9,7 +9,7 @@ import {takeUntil} from "rxjs/operators";
   styleUrls: ["./alert-button.component.scss"]
 })
 export class AlertButtonComponent implements OnInit, OnDestroy {
-  alertCount = new BehaviorSubject<number>(0);
+  readonly alertCount = new BehaviorSubject<number>(0);
 
   private readonly onDestroy = new Subject<void>();
 

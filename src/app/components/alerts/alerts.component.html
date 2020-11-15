@@ -1,14 +1,14 @@
 <div class="alerts-container">
-  <header>
-    <h2>Alerts</h2>
-    <div class="alerts-summary">
-      <span class="summary-item">Number of Alerts: {{ alertsCount }}</span>
-    </div>
-  </header>
+  <div class="left-gutter">
+    <fa-icon [icon]="['fas', 'times']" (click)="closeAlerts()" class="interactive" [title]="'Close Alerts'"></fa-icon>
+  </div>
   <div class="alerts-content">
-    <div class="left-gutter">
-      <fa-icon [icon]="['fas', 'times']" (click)="closeAlerts()" class="interactive"></fa-icon>
-    </div>
+    <header>
+      <h2>Alerts</h2>
+      <div class="alerts-summary">
+        <span class="summary-item">Number of Alerts: {{ alertsCount }}</span>
+      </div>
+    </header>
     <ag-grid-angular
       class="ag-theme-alpine alerts-grid"
       [columnDefs]="columnDefs"
