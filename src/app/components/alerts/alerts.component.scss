@@ -4,41 +4,38 @@ $left-gutter-width: 20px;
   height: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
+  display: flex;
+  background-color: gray;
 
-  header {
-    margin-left: $left-gutter-width;
-    h2 {
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-
-    .alerts-summary {
-      display: flex;
-
-      .summary-item {
-        margin-right: 10px;
-      }
-    }
+  .left-gutter {
+    height: 100%;
+    width: $left-gutter-width;
+    display: flex;
+    justify-content: center;
   }
 
   .alerts-content {
-    display: flex;
     height: 80%;
+    width: calc(100% - #{$left-gutter-width});
 
-    .left-gutter {
-      height: 100%;
-      width: $left-gutter-width;
-      display: flex;
-      justify-content: center;
+    header {
+      h2 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
 
-      .interactive {
-        cursor: pointer;
+      .alerts-summary {
+        display: flex;
+
+        .summary-item {
+          margin-right: 10px;
+        }
       }
     }
 
     .alerts-grid {
       height: 100%;
-      width: calc(100% - #{$left-gutter-width});
+      width: 100%;
     }
   }
 }

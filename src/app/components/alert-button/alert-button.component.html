@@ -1,4 +1,4 @@
-<fa-layers [fixedWidth]="true" [size]="'3x'">
-  <fa-icon [icon]="['fas', 'bell']" (click)="alertButtonSelected()" class="interactive"></fa-icon>
+<fa-layers [fixedWidth]="true" [size]="'3x'" class="alert-button">
+  <fa-icon [icon]="['fas', 'bell']" (click)="alertButtonSelected()" class="interactive" [title]="'View current alerts'"></fa-icon>
   <fa-layers-counter content="{{ alertCount | async }}"></fa-layers-counter>
 </fa-layers>

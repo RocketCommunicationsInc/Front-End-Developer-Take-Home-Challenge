@@ -22,6 +22,7 @@ export class AlertsComponent implements OnInit, OnDestroy {
       field: "errorCategory",
       headerName: "Category",
       sortable: true,
+      sort: "asc",
       resizable: true
     },
     {
@@ -36,7 +37,7 @@ export class AlertsComponent implements OnInit, OnDestroy {
 
   private readonly onDestroy = new Subject<void>();
 
-  constructor(private alertsService: AlertsService) {
+  constructor(private readonly alertsService: AlertsService) {
   }
 
   ngOnInit(): void {
