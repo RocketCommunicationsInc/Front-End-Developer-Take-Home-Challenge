@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Alert} from "../model/alert";
-import {take} from "rxjs/operators";
-import {HttpClient} from "@angular/common/http";
+import {DataPathsService, DataPathsToken} from "../modules/data-load/model/data-paths.service";
+import {DataService, DataServiceToken} from "../modules/data-load/model/data.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,14 +10,12 @@ import {HttpClient} from "@angular/common/http";
 export class AlertsService {
   private alertsVisible = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
+  constructor(@Inject(DataPathsToken) private readonly dataPaths: DataPathsService,
+              @Inject(DataServiceToken) private readonly dataService: DataService) {
   }
 
   getAlerts(): Observable<Alert[]> {
-    // Load data
-    return this.http.get<Alert[]>("assets/alerts.json").pipe(
-      take(1)
-    );
+    return this.dataService.getData<Alert>(this.dataPaths.getAlertsPath());
   }
 
   setAlertsVisible(visible: boolean): void {

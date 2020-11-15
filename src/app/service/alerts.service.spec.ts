@@ -1,14 +1,18 @@
 import {TestBed} from "@angular/core/testing";
 
 import {AlertsService} from "./alerts.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {DataLoadModule} from "../modules/data-load/data-load.module";
+import {AssetsDataModule} from "../modules/assets-data/assets-data.module";
 
 describe("AlertsService", () => {
   let service: AlertsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [
+        DataLoadModule,
+        AssetsDataModule
+      ]
     });
     service = TestBed.inject(AlertsService);
   });

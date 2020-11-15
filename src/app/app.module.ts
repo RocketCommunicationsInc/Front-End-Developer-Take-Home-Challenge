@@ -7,10 +7,11 @@ import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome
 import {faBell, faSatelliteDish, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {AgGridModule} from "ag-grid-angular";
 import {ContactsComponent} from "./components/contacts/contacts.component";
-import {HttpClientModule} from "@angular/common/http";
 import {AlertsComponent} from "./components/alerts/alerts.component";
 import {AlertButtonComponent} from "./components/alert-button/alert-button.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AssetsDataModule} from "./modules/assets-data/assets-data.module";
+import {DataLoadModule} from "./modules/data-load/data-load.module";
 
 @NgModule({
   declarations: [
@@ -23,11 +24,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     FontAwesomeModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    DataLoadModule,
+    AssetsDataModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

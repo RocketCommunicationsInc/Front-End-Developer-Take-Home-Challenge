@@ -7,11 +7,11 @@
     width: 100%;
     display: flex;
 
-    app-contacts {
-      flex: 3;
+    & > *:first-child {
+      flex: 3
     }
 
-    app-alerts {
+    & > *:last-child {
       flex: 2;
     }
   }
