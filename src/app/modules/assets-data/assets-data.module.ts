@@ -6,6 +6,11 @@ import {AssetsDataPathService} from "./service/assets-data-path.service";
 import {AssetsDataService} from "./service/assets-data.service";
 import {HttpClientModule} from "@angular/common/http";
 
+/**
+ * Sample module showing an implementation of the {@link DataPathsToken} and {@link DataServiceToken} interfaces
+ * to provide pluggable behavior. In this case, the behavior to load data from the "assets" folder using the HTTPClient
+ * module.
+ */
 @NgModule({
   imports: [
     CommonModule,

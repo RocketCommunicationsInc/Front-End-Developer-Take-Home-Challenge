@@ -1,5 +1,8 @@
 import {ChangeDetectionStrategy, Component} from "@angular/core";
 
+/**
+ * Simple header component
+ */
 @Component({
   selector: "app-header",
   changeDetection: ChangeDetectionStrategy.OnPush,
