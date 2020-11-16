@@ -2,6 +2,9 @@ import {ComponentFixture, TestBed} from "@angular/core/testing";
 
 import {HeaderComponent} from "./header.component";
 import {FontAwesomeTestingModule} from "@fortawesome/angular-fontawesome/testing";
+import {AlertButtonComponent} from "../alert-button/alert-button.component";
+import {DataLoadModule} from "../../modules/data-load/data-load.module";
+import {AssetsDataModule} from "../../modules/assets-data/assets-data.module";
 
 describe("HeaderComponent", () => {
   let component: HeaderComponent;
@@ -9,8 +12,12 @@ describe("HeaderComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeTestingModule],
-      declarations: [HeaderComponent]
+      imports: [
+        FontAwesomeTestingModule,
+        DataLoadModule,
+        AssetsDataModule
+      ],
+      declarations: [HeaderComponent, AlertButtonComponent]
     })
     .compileComponents();
   });

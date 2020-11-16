@@ -1,19 +1,14 @@
-<div class="alerts-container">
-  <div class="left-gutter">
-    <fa-icon [icon]="['fas', 'times']" (click)="closeAlerts()" class="interactive" [title]="'Close Alerts'"></fa-icon>
-  </div>
-  <div class="alerts-content">
-    <header>
-      <h2>Alerts</h2>
-      <div class="alerts-summary">
-        <span class="summary-item">Number of Alerts: {{ alertsCount }}</span>
-      </div>
-    </header>
-    <ag-grid-angular
-      class="ag-theme-alpine alerts-grid"
-      [columnDefs]="columnDefs"
-      [rowData]="alerts"
-      (firstDataRendered)="onFirstDataRendered($event)">
-    </ag-grid-angular>
-  </div>
+<div class="alerts-content">
+  <header>
+    <h2>Alerts</h2>
+    <div class="alerts-summary">
+      <span class="summary-item">Number of Alerts: {{ alertsCount }}</span>
+    </div>
+  </header>
+  <ag-grid-angular
+    class="ag-theme-alpine alerts-grid"
+    [columnDefs]="columnDefs"
+    [rowData]="alerts"
+    (firstDataRendered)="onFirstDataRendered($event)">
+  </ag-grid-angular>
 </div>

@@ -1,6 +1,8 @@
-import {Component} from "@angular/core";
-import {AlertsService} from "./service/alerts.service";
+import {Component, OnInit} from "@angular/core";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {EventService} from "./service/event.service";
+import {filter} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
 
 /**
  * Application component
@@ -24,11 +26,22 @@ import {animate, style, transition, trigger} from "@angular/animations";
     )
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  /**
+   * Reflects the open/closed state of the slideout
+   */
+  readonly slideoutVisible = new BehaviorSubject<boolean>(false);
+
   /**
    * ctor
-   * @param alertsService Alerts Service - used in determining if the alerts slide out should be shown
+   * @param eventService
    */
-  constructor(public readonly alertsService: AlertsService) {
+  constructor(private readonly eventService: EventService) {
+  }
+
+  ngOnInit(): void {
+    this.eventService.getEventObservable().pipe(
+      filter(event => event.type === "slideout")
+    ).subscribe(event => this.slideoutVisible.next(event.data));
   }
 }

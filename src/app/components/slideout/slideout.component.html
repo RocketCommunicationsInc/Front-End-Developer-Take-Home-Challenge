@@ -1,0 +1,8 @@
+<div class="slideout-container">
+  <div class="left-gutter">
+    <fa-icon [icon]="['fas', 'times']" (click)="closeSlideout()" class="interactive" [title]="'Close Panel'"></fa-icon>
+  </div>
+  <div class="slideout-content">
+    <ng-content></ng-content>
+  </div>
+</div>

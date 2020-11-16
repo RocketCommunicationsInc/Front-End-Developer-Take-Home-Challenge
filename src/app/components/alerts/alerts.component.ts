@@ -78,13 +78,6 @@ export class AlertsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Called when the "X" is clicked to close the alerts view
-   */
-  closeAlerts(): void {
-    this.alertsService.setAlertsVisible(false);
-  }
-
-  /**
    * ag-grid lifecycle. Called when data is first loaded into the grid to autosize all of the columns for the display
    * width.
    * @param event
