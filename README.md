@@ -1,30 +1,71 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=iamthechad_Angular-Developer-Take-Home-Challenge&metric=alert_status)](https://sonarcloud.io/dashboard?id=iamthechad_Angular-Developer-Take-Home-Challenge)
 [![Build Status](https://travis-ci.com/iamthechad/Angular-Developer-Take-Home-Challenge.svg?branch=master)](https://travis-ci.com/iamthechad/Angular-Developer-Take-Home-Challenge)
 
-# Grm
+# GRM Sample App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
+## Local server
 
-## Development server
+* Run `npm i` to install the dependencies.
+* Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Solution
 
-## Code scaffolding
+For my solution, I created a simple application that has a header and shows the Contacts grid by default. The Alerts view can be shown by clicking the bell icon.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### UI Components
 
-## Build
+#### Header
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The header is very basic. The Alerts button (bell icon) shows a label indicating the current number of alerts. This number is designed to change if the number of alerts changes. Clicking the icon will activate the slideout that contains the Alerts grid.
 
-## Running unit tests
+#### Contacts Grid
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The contacts grid shows Name, Status, Begin Timestamp, and End Timestamp.
 
-## Running end-to-end tests
+The grid is sortable on Name and is sorted in ascending order by default.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+The Status column uses an ag-grid feature to color the cell based on the status string, just as an example.
 
-## Further help
+#### Alerts Grid
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The Alerts grid is shown when the bell icon in the header is selected. It is contained in an element that slides in from the right.
+
+The grid shows Message, Category, and Time. The grid is sortable by Category and is sorted in ascending order by default.
+
+The slideout can be closed by clicking the "X" icon.
+
+### UI Design
+
+The design is very simple. Some basic font changes and a bit of color.
+
+### Design and Tradeoffs
+
+#### Data loading
+
+All data loading is designed to be continuously updated even though the data file is only loaded a single time.
+
+The data loading infrastructure is designed to behave as if it were an external module that the application uses.
+
+#### Angular Library
+
+I thought about creating an Angular library for the data loading modules, but I didn't want to add the extra overhead around the build and running the application.
+
+### Libraries/Technologies Used
+
+#### Used for application
+
+* Angular 10
+* FontAwesome 5
+* ag-grid v24
+* RxJS
+* Custom TSLint ruleset
+
+#### Quality Control/Documentation
+
+* Custom TSLint ruleset
+* Compodoc
+* Integrated with SonarCloud for quality checks
+* Integrated with Travis CI for builds
+* Integrated with GitHub Projects for task management
+
+
