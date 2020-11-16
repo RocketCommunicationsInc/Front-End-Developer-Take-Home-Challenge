@@ -1,17 +1,24 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from "@angular/core";
 import {Alert} from "../../model/alert";
 import {takeUntil} from "rxjs/operators";
 import {ColDef, FirstDataRenderedEvent} from "ag-grid-community";
 import {AlertsService} from "../../service/alerts.service";
 import {Subject} from "rxjs";
 
+/**
+ * Component that shows the current alerts in a table view
+ */
 @Component({
   selector: "app-alerts",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "./alerts.component.html",
   styleUrls: ["./alerts.component.scss"]
 })
 export class AlertsComponent implements OnInit, OnDestroy {
-  columnDefs: ColDef[] = [
+  /**
+   * Column definitions for the table
+   */
+  readonly columnDefs: ColDef[] = [
     {
       field: "errorMessage",
       headerName: "Message",
@@ -32,12 +39,24 @@ export class AlertsComponent implements OnInit, OnDestroy {
     },
   ];
 
+  /**
+   * Current set of alerts to be shown in the table
+   */
   alerts: Alert[];
+  /**
+   * Current count of alerts
+   */
   alertsCount = 0;
 
   private readonly onDestroy = new Subject<void>();
 
-  constructor(private readonly alertsService: AlertsService) {
+  /**
+   * ctor
+   * @param alertsService
+   * @param changeDetectorRef
+   */
+  constructor(private readonly alertsService: AlertsService,
+              private readonly changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -45,8 +64,11 @@ export class AlertsComponent implements OnInit, OnDestroy {
     this.alertsService.getAlerts().pipe(
       takeUntil(this.onDestroy)
     ).subscribe(alerts => {
-      this.alerts = alerts;
-      this.alertsCount = alerts.length;
+      setTimeout(() => {
+        this.alerts = alerts;
+        this.alertsCount = alerts.length;
+        this.changeDetectorRef.markForCheck();
+      });
     });
   }
 
@@ -55,10 +77,18 @@ export class AlertsComponent implements OnInit, OnDestroy {
     this.onDestroy.complete();
   }
 
+  /**
+   * Called when the "X" is clicked to close the alerts view
+   */
   closeAlerts(): void {
     this.alertsService.setAlertsVisible(false);
   }
 
+  /**
+   * ag-grid lifecycle. Called when data is first loaded into the grid to autosize all of the columns for the display
+   * width.
+   * @param event
+   */
   onFirstDataRendered(event: FirstDataRenderedEvent): void {
     const columnIds = event.columnApi.getAllColumns().map(column => column.getColId());
     event.columnApi.autoSizeColumns(columnIds);

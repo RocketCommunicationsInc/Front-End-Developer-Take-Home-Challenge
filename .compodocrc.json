@@ -1,5 +1,6 @@
 {
   "name": "GRM Take Home Challenge",
-  "tsconfig": "tsconfig.app.json",
-  "disablePrivate": true
+  "tsconfig": "tsconfig.doc.json",
+  "disablePrivate": true,
+  "disableLifeCycleHooks": true
 }
