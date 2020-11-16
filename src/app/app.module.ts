@@ -12,6 +12,7 @@ import {AlertButtonComponent} from "./components/alert-button/alert-button.compo
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AssetsDataModule} from "./modules/assets-data/assets-data.module";
 import {DataLoadModule} from "./modules/data-load/data-load.module";
+import {SlideoutComponent} from "./components/slideout/slideout.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {DataLoadModule} from "./modules/data-load/data-load.module";
     HeaderComponent,
     ContactsComponent,
     AlertsComponent,
-    AlertButtonComponent
+    AlertButtonComponent,
+    SlideoutComponent
   ],
   imports: [
     BrowserModule,

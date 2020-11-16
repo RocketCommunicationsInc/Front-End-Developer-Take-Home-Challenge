@@ -2,10 +2,11 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from "@angular/co
 import {BehaviorSubject, Subject} from "rxjs";
 import {AlertsService} from "../../service/alerts.service";
 import {takeUntil} from "rxjs/operators";
+import {EventService} from "../../service/event.service";
 
 /**
  * Component used to show an icon with an overlay of the current number of alerts.
- * Clicking the icon sends a message to the {@link AlertsService} to set the alerts to visible.
+ * Clicking the icon sends a message to the {@link EventService} to set the slideout containing the alerts to visible.
  */
 @Component({
   selector: "app-alert-button",
@@ -23,8 +24,10 @@ export class AlertButtonComponent implements OnInit, OnDestroy {
   /**
    * ctor
    * @param alertsService
+   * @param eventService
    */
-  constructor(private readonly alertsService: AlertsService) {
+  constructor(private readonly alertsService: AlertsService,
+              private readonly eventService: EventService) {
   }
 
   ngOnInit(): void {
@@ -39,10 +42,13 @@ export class AlertButtonComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * When the icon is selected, tell the alerts service to make the alerts visible
+   * When the icon is selected, tell the event service to make the slideout visible
    */
   alertButtonSelected(): void {
-    this.alertsService.setAlertsVisible(true);
+    this.eventService.sendEvent({
+      type: "slideout",
+      data: true
+    });
   }
 
 }
