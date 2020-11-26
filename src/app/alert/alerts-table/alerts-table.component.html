@@ -1,0 +1,16 @@
+<table class="table table--striped">
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th>Category</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let alert of alerts">
+      <td>{{ alert.errorMessage }}</td>
+      <td>{{ alert.errorCategory }}</td>
+      <td>{{ alert.errorTime | date }}</td>
+    </tr>
+  </tbody>
+</table>

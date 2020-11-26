@@ -1,0 +1,18 @@
+<table class="table table--striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Begin</th>
+      <th>End</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of constacts">
+      <td>{{ contact.contactName }}</td>
+      <td>{{ contact.contactStatus }}</td>
+      <td>{{ contact.contactBeginTimestamp | date }}</td>
+      <td>{{ contact.contactEndTimestamp | date }}</td>
+    </tr>
+  </tbody>
+</table>

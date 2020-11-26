@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AlertsTableComponent } from './alerts-table/alerts-table.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [AlertsTableComponent],
   imports: [
-    CommonModule
-  ]
+    SharedModule
+  ],
+  exports: [AlertsTableComponent]
 })
 export class AlertModule { }

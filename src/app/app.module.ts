@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactModule } from './contact/contact.module';
 import { SharedModule } from './shared/shared.module';
+import { AlertModule } from './alert/alert.module';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     SharedModule,
     AppRoutingModule,
-    ContactModule
+    ContactModule,
+    AlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]

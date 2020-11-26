@@ -9,9 +9,10 @@ import { ContactService } from '../contact.service';
 })
 export class ContactMapComponent implements OnInit {
   @ViewChild('gMap', {static: true}) gMap: any;
+  currentPage = 1;
   options: google.maps.MapOptions = {
     center: {lat: 39.5, lng: -98.35},
-    zoom: 2,
+    zoom: 1,
     disableDefaultUI: true
   };
 
@@ -33,11 +34,6 @@ export class ContactMapComponent implements OnInit {
       res.forEach((contact: Contact) => {
         const markerObj = {
           position: {lat: contact.contactLatitude, lng: contact.contactLongitude},
-          label: {
-            color: 'black',
-            text: contact.contactName.toString()
-          },
-          title: contact.contactName.toString(),
           options: {
             icon: 'assets/images/satellite-24.png',
           }
