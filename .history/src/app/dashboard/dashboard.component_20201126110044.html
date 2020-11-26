@@ -1,0 +1,15 @@
+<p>
+  dashboard works!
+</p>
+<p>Total contacts: {{totalContacts}}</p>
+<p>Contact states: {{contactStates}}</p>
+
+<ul *ngIf="contacts">
+  <li *ngFor="let contact of contacts">
+    <p class="name">{{ contact.contactName }}</p>
+    <p class="status">{{ contact.contactStatus }}</p>
+    <p class="begin">{{ contact.contactBeginTimestamp }}</p>
+    <p class="end">{{ contact.contactEndTimestamp }}</p>
+    
+  </li>
+</ul>
