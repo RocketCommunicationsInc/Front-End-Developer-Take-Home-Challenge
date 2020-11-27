@@ -1,5 +1,8 @@
 <div class="panel">
-  <div class="panel__header">Contacts ({{ constacts.length - 1 }})</div>
+  <div class="panel__header">
+    <div>Contacts ({{ contacts.length - 1 }})</div>
+    <div>Contact States ({{ totalStates }})</div>
+  </div>
   <div class="panel__body">
     <div class="table__responsive">
       <table class="table table--striped">
@@ -17,7 +20,7 @@
         <tbody>
           <tr
             *ngFor="
-              let contact of constacts
+              let contact of contacts
                 | paginate: { itemsPerPage: itemsPerPage, currentPage: page }
             "
             [ngClass]="{ selected: contact.contactName === selectedContact }"

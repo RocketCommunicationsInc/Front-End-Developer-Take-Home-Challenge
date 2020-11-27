@@ -8,9 +8,10 @@ import { ContactService } from '../contact.service';
   styleUrls: ['./contacts-table.component.scss']
 })
 export class ContactsTableComponent implements OnInit {
+  totalStates = 0;
   sortDir = 'asc';
   page = 1;
-  constacts: Contact[] = [];
+  contacts: Contact[] = [];
   @Input() itemsPerPage: any;
   @Input() selectedContact: number;
   @Output() pageChanged = new EventEmitter();
@@ -21,7 +22,8 @@ export class ContactsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this._contactService.fetchAll().subscribe((res: Contact[]) => {
-      this.constacts = res;
+      this.contacts = res;
+      this.setTotalContactStates();
     });
   }
 
@@ -34,11 +36,11 @@ export class ContactsTableComponent implements OnInit {
      this.page = 1;
      this.pageChanged.emit(this.page);
      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
-     if (this.sortDir === 'asc'){
-       this.constacts.sort((a: Contact, b: Contact) => a.contactName > b.contactName ? 1 : -1);
-     } else {
-      this.constacts.sort((a: Contact, b: Contact) => a.contactName < b.contactName ? 1 : -1);
-     }
+     this.contacts = this._contactService.sortContacts(this.sortDir);
+   }
+
+   setTotalContactStates(): void{
+     this.totalStates = Array.from(new Set(this.contacts.map((c: Contact) => c.contactState))).length;
    }
 
 }

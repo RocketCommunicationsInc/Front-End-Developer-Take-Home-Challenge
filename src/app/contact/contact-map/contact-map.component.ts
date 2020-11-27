@@ -17,10 +17,11 @@ export class ContactMapComponent implements OnInit {
   @ViewChild('gMap', {static: true}) gMap: any;
   options: google.maps.MapOptions = {
     center: {lat: 39.5, lng: -98.35},
-    zoom: 1,
+    zoom: 2,
     disableDefaultUI: true,
     styles: mapStyles
   };
+
   markers: any[] = [];
 
   statusRef = {
