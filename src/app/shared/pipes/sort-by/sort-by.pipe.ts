@@ -10,7 +10,7 @@ export class SortByPipe implements PipeTransform {
     if (!column || column === '') {
       if (order === 'asc'){return value.sort(); }
       else{return value.sort().reverse(); }
-    } // sort 1d array
+    }
     return orderBy(value, [column], [order]);
   }
 }

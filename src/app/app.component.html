@@ -7,11 +7,13 @@
       <app-contact-map
         [itemsPerPage]="itemsPerPage"
         [currentPage]="currentContactPage"
+        (selectedContact)="selectedContact = $event"
       ></app-contact-map>
     </div>
     <div class="contacts__table">
       <app-contacts-table
         [itemsPerPage]="itemsPerPage"
+        [selectedContact]="selectedContact"
         (pageChanged)="updateContactsPage($event)"
       ></app-contacts-table>
     </div>

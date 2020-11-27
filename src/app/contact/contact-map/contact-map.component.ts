@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { style } from '@angular/animations';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
+import { mapStyles } from './map-styles';
 
 @Component({
   selector: 'app-contact-map',
@@ -10,14 +12,25 @@ import { ContactService } from '../contact.service';
 export class ContactMapComponent implements OnInit {
   @Input() itemsPerPage: any;
   @Input() currentPage: any;
+  @Output() selectedContact = new EventEmitter();
+
   @ViewChild('gMap', {static: true}) gMap: any;
   options: google.maps.MapOptions = {
     center: {lat: 39.5, lng: -98.35},
     zoom: 1,
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    styles: mapStyles
   };
-
   markers: any[] = [];
+
+  statusRef = {
+    off: '#9ea7ac',
+    standby: '#2fccff',
+    normal: '#57f000',
+    caution: '#fce93a',
+    serious: '#ffb300',
+    critical: '#ff3938',
+  };
 
   constructor(
     private _contactService: ContactService
@@ -36,15 +49,23 @@ export class ContactMapComponent implements OnInit {
         const markerObj = {
           position: {lat: contact.contactLatitude, lng: contact.contactLongitude},
           label: {
-            text: contact.contactName.toString()
+            text: contact.contactName.toString(),
+            color: this.statusRef[contact.contactStatus]
           },
           options: {
-            icon: 'assets/images/satellite-24.png',
-          }
+            icon: {
+              url: `assets/images/satellite-${contact.contactStatus}.png`,
+              labelOrigin: { x: 12, y: 35},
+            },
+          },
         };
         this.markers.push(markerObj);
       });
     });
+  }
+
+  onMarkerClick(label: { text: string }): void{
+    this.selectedContact.emit(parseInt(label.text, 10));
   }
 
 }

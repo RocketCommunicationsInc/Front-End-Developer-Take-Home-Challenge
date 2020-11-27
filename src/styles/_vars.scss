@@ -4,11 +4,20 @@ $fonts: (
 );
 
 $theme: (
-  "primary": #00e7ff,
-  "secondary": #f205e2,
-  "third": #6a82f2,
-  "dark-grey": #1d1d1d,
-  "dark": #161616,
+  "dark-blue": #192c3c,
+  "blue": #005b8f,
+  "light-blue": #3a80bf,
+  "table-blue": #1d3040,
+  "panel-header": #172735,
+);
+
+$status: (
+  "off": #9ea7ac,
+  "standby": #2fccff,
+  "normal": #57f000,
+  "caution": #fce93a,
+  "serious": #ffb300,
+  "critical": #ff3938,
 );
 
 $legend: (

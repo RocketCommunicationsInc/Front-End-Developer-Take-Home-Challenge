@@ -8,9 +8,11 @@ import { ContactService } from '../contact.service';
   styleUrls: ['./contacts-table.component.scss']
 })
 export class ContactsTableComponent implements OnInit {
+  sortDir = 'asc';
   page = 1;
   constacts: Contact[] = [];
   @Input() itemsPerPage: any;
+  @Input() selectedContact: number;
   @Output() pageChanged = new EventEmitter();
 
   constructor(
@@ -25,7 +27,18 @@ export class ContactsTableComponent implements OnInit {
 
   onPageChange(page: any): void{
     this.page = page;
-    this.pageChanged.emit(page);
+    this.pageChanged.emit(this.page);
   }
+
+   onChangeSortDir(): void{
+     this.page = 1;
+     this.pageChanged.emit(this.page);
+     this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+     if (this.sortDir === 'asc'){
+       this.constacts.sort((a: Contact, b: Contact) => a.contactName > b.contactName ? 1 : -1);
+     } else {
+      this.constacts.sort((a: Contact, b: Contact) => a.contactName < b.contactName ? 1 : -1);
+     }
+   }
 
 }

@@ -1,0 +1,21 @@
+@import "vars";
+
+.ngx-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  li {
+    a {
+      color: #fff;
+      &:hover {
+        background-color: map-get($theme, "light-blue");
+      }
+    }
+
+    &.current {
+      background-color: transparent;
+      border: 1px solid map-get($theme, "light-blue");
+    }
+  }
+}

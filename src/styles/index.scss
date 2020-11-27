@@ -4,9 +4,27 @@
 @import "mixins";
 @import "table";
 @import "panel";
+@import "pagination";
 
 body {
   position: relative;
   margin: 0px;
   padding: 0px;
+  background-color: map-get($theme, "dark-blue");
+}
+
+* {
+  font-family: "Lato";
+  font-weight: 300;
+}
+
+.text {
+  &--hint {
+    font-size: 10px;
+    margin: 0px;
+    color: #fff;
+  }
+  &__right {
+    text-align: right;
+  }
 }

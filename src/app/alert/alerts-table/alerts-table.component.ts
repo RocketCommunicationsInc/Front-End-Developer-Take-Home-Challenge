@@ -8,15 +8,19 @@ import { AlertService } from '../alert.service';
   styleUrls: ['./alerts-table.component.scss']
 })
 export class AlertsTableComponent implements OnInit {
-  alerts: any [] = [];
+  sortDir = 'asc';
+  alerts: Alert[] = [];
+
   constructor(
     private _alertService: AlertService
   ) { }
 
   ngOnInit(): void {
-    this._alertService.fetchAll().subscribe((res: Alert[]) => {
-      this.alerts = res;
-    });
+    this._alertService.fetchAll().subscribe((res: Alert[]) => this.alerts = res);
+  }
+
+  onChangeSortDir(): void{
+    this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
   }
 
 }

@@ -1,0 +1,16 @@
+@import "../../../styles/vars";
+
+.status {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: grey;
+  border-radius: 50%;
+  margin-right: 5px;
+
+  @each $class, $color in $status {
+    &--#{$class} {
+      background-color: $color;
+    }
+  }
+}

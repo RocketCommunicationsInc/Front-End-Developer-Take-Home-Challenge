@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent{
   itemsPerPage = 10;
   currentContactPage = 1;
+  selectedContact: number;
   constructor() {
   }
 

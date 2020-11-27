@@ -4,11 +4,12 @@ import { ContactMapComponent } from './contact-map/contact-map.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ContactsTableComponent } from './contacts-table/contacts-table.component';
+import { ContactStatusComponent } from './contact-status/contact-status.component';
 
 
 
 @NgModule({
-  declarations: [ContactMapComponent, ContactsTableComponent],
+  declarations: [ContactMapComponent, ContactsTableComponent, ContactStatusComponent],
   imports: [
     SharedModule,
     GoogleMapsModule,

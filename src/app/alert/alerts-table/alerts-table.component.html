@@ -6,15 +6,17 @@
         <thead>
           <tr>
             <th>Message</th>
-            <th>Category</th>
+            <th (click)="onChangeSortDir()">
+              Category <i class="fas fa-sort"></i>
+            </th>
             <th>Time</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let alert of alerts">
+          <tr *ngFor="let alert of alerts | sortBy: sortDir:'errorCategory'">
             <td>{{ alert.errorMessage }}</td>
             <td>{{ alert.errorCategory }}</td>
-            <td>{{ alert.errorTime | date }}</td>
+            <td>{{ alert.errorTime | date: "mediumTime" }}</td>
           </tr>
         </tbody>
       </table>

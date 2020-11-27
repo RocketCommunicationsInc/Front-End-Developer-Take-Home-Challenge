@@ -5,7 +5,10 @@
       <table class="table table--striped">
         <thead>
           <tr>
-            <th>Name</th>
+            <th (click)="onChangeSortDir()">
+              Name
+              <i class="fas fa-sort"></i>
+            </th>
             <th>Status</th>
             <th>Begin</th>
             <th>End</th>
@@ -17,11 +20,17 @@
               let contact of constacts
                 | paginate: { itemsPerPage: itemsPerPage, currentPage: page }
             "
+            [ngClass]="{ selected: contact.contactName === selectedContact }"
           >
             <td>{{ contact.contactName }}</td>
-            <td>{{ contact.contactStatus }}</td>
-            <td>{{ contact.contactBeginTimestamp | date }}</td>
-            <td>{{ contact.contactEndTimestamp | date }}</td>
+            <td>
+              <app-contact-status
+                [status]="contact.contactStatus"
+              ></app-contact-status>
+              {{ contact.contactStatus }}
+            </td>
+            <td>{{ contact.contactBeginTimestamp | date: "short" }}</td>
+            <td>{{ contact.contactEndTimestamp | date: "short" }}</td>
           </tr>
         </tbody>
       </table>

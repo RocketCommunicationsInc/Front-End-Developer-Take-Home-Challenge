@@ -19,6 +19,7 @@ import { SortByPipe } from './pipes/sort-by/sort-by.pipe';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SortByPipe
   ]
 })
 export class SharedModule { }

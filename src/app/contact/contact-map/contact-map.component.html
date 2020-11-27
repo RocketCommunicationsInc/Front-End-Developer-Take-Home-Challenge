@@ -1,4 +1,4 @@
-<google-map width="100%" height="46.5vh" [options]="options" #gMap>
+<google-map width="100%" height="49vh" [options]="options" #gMap>
   <map-marker
     *ngFor="
       let marker of markers
@@ -7,5 +7,9 @@
     [position]="marker.position"
     [label]="marker.label"
     [options]="marker.options"
+    (mapClick)="onMarkerClick(marker.label)"
   ></map-marker>
 </google-map>
+<p class="text--hint text__right">
+  &#42; Click on a satellight to highlight it's reference in a list below
+</p>
