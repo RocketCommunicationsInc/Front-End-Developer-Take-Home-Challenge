@@ -19,18 +19,7 @@ export class DashboardComponent implements OnInit {
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
 
-//   @ViewChild(MatSort) set matSort(sort: MatSort) {
-//     this.dataSource.sort = sort;
-// }
-
- 
-
   constructor(private _data: DataService) { }
-
-  // ngAfterViewInit() {
-  //   // console.log({dataSource:this.dataSource})
-  //   this.dataSource.sort = this.sort;
-  // }
 
   ngOnInit() {
 
@@ -43,13 +32,10 @@ export class DashboardComponent implements OnInit {
       this.contacts = data;
       this.dataSource = new MatTableDataSource(data) ;
       this.dataSource.sort = this.sort ;
-      // this.dataSource = new MatTableDataSource(this.contacts) ;
       this.totalContacts = data.length;
       
       const states = data.map((contact: any) => contact.contactState)
       this.contactStates = Array.from(new Set<string>(states)).join(', ')
-
-      // console.log(this.contactStates)
     })
     
   }
