@@ -1,9 +1,12 @@
+<section style="padding: 0 20px">
 <p>
-  dashboard works!
+  <button mat-raised-button color="primary"
+      matBadge="{{totalContacts}}" matBadgePosition="after" matBadgeColor="accent" matBadgeSize="medium">
+      Total contacts
+  </button>
 </p>
-<p>Total contacts: {{totalContacts}}</p>
-<p>Contact states: {{contactStates}}</p>
-<div class="container">
+<mat-card>Contact states: {{contactStates}}</mat-card>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 contact-table" matSort>
   <ng-container matColumnDef="contactName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
@@ -28,5 +31,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
-</div>
+</section>

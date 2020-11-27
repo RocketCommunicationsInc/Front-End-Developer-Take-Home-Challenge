@@ -1,7 +1,3 @@
-.contact-table, .alert-table {
-    width: 50%;
-  }
-
-.container {
-    display: flex;
+table {
+  width: 100%;
 }
