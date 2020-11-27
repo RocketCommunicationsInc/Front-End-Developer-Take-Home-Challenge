@@ -13,10 +13,10 @@ export class DataService {
   private _contactsUrl = '../contacts.json'
 
   getAlerts() {
-    return this.http.get<[]>(this._alertsUrl)
+    return this.http.get<any[]>(this._alertsUrl)
   }
 
   getContacts() {
-    return this.http.get<[]>(this._contactsUrl)
+    return this.http.get<any[]>(this._contactsUrl)
   }
 }

@@ -10,8 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AlertsComponent implements OnInit {
 
-  alerts: [];
-  contacts: [];
+  alerts: any[];
+  contacts: any[];
   totalContacts: number;
   contactStates: string;
   displayedColumns: string[] = ['errorMessage', 'errorCategory', 'errorTime'];

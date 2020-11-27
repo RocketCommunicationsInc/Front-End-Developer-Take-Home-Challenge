@@ -8,7 +8,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import { ChartsModule } from 'ng2-charts';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ChartsModule, ThemeService } from 'ng2-charts';
 import { 
   MatSortModule,
   MatTableModule 
@@ -34,9 +35,12 @@ import { AlertsComponent } from './alerts/alerts.component';
     MatBadgeModule,
     MatButtonModule,
     MatCardModule,
-    // ChartsModule
+    MatProgressSpinnerModule,
+    ChartsModule
   ],
-  providers: [],
+  providers: [
+    ThemeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
