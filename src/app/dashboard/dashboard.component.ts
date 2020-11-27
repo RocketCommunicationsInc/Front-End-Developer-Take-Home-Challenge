@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit  } from '@angular/core';
 import { stringify } from 'querystring';
 import {DataService} from '../data.service'
 import {MatSort} from '@angular/material/sort';
@@ -17,13 +17,20 @@ export class DashboardComponent implements OnInit {
   contactStates: string;
   displayedColumns: string[] = ['contactName', 'contactStatus', 'contactBeginTimestamp', 'contactEndTimestamp'];
   dataSource: any;
-  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
-  // ngAfterViewInit() {
-  //   this.dataSource.sort = this.sort;
-  // }
+//   @ViewChild(MatSort) set matSort(sort: MatSort) {
+//     this.dataSource.sort = sort;
+// }
+
+ 
 
   constructor(private _data: DataService) { }
+
+  // ngAfterViewInit() {
+  //   // console.log({dataSource:this.dataSource})
+  //   this.dataSource.sort = this.sort;
+  // }
 
   ngOnInit() {
 
@@ -34,14 +41,15 @@ export class DashboardComponent implements OnInit {
 
     this._data.getContacts().subscribe(data => {
       this.contacts = data;
-      this.dataSource = this.contacts ;
+      this.dataSource = new MatTableDataSource(data) ;
+      this.dataSource.sort = this.sort ;
       // this.dataSource = new MatTableDataSource(this.contacts) ;
-      this.totalContacts = this.contacts.length;
+      this.totalContacts = data.length;
       
-      const states = this.contacts.map((contact: any) => contact.contactState)
+      const states = data.map((contact: any) => contact.contactState)
       this.contactStates = Array.from(new Set<string>(states)).join(', ')
 
-      console.log(this.contactStates)
+      // console.log(this.contactStates)
     })
     
   }

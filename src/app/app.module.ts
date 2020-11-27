@@ -4,11 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatSort } from '@angular/material/sort';
 import { 
-  // MatTableDataSource,
+  MatSortModule,
   MatTableModule 
-} from "@angular/material/table";
+} from "@angular/material";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -20,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // MatTableDataSource, 
+    MatSortModule, 
     MatTableModule
   ],
   providers: [],

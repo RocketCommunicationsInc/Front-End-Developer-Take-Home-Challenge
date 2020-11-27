@@ -3,35 +3,30 @@
 </p>
 <p>Total contacts: {{totalContacts}}</p>
 <p>Contact states: {{contactStates}}</p>
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Name Column -->
+<div class="container">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 contact-table" matSort>
   <ng-container matColumnDef="contactName">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
     <td mat-cell *matCellDef="let element"> {{element.contactName}} </td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="contactStatus">
     <th mat-header-cell *matHeaderCellDef> Status </th>
     <td mat-cell *matCellDef="let element"> {{element.contactStatus}} </td>
   </ng-container>
 
-  <!-- Symbol Column -->
   <ng-container matColumnDef="contactBeginTimestamp">
     <th mat-header-cell *matHeaderCellDef> Start </th>
-    <td mat-cell *matCellDef="let element"> {{element.contactBeginTimestamp | date: 'medium'}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.contactBeginTimestamp | date: 'M/d/yy, h:mm:ss a'}} </td>
   </ng-container>
 
   <ng-container matColumnDef="contactEndTimestamp">
     <th mat-header-cell *matHeaderCellDef> End </th>
-    <td mat-cell *matCellDef="let element"> {{element.contactBeginTimestamp | date: 'medium'}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.contactBeginTimestamp | date: 'M/d/yy, h:mm:ss a'}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+</div>
