@@ -1,0 +1,47 @@
+@mixin linear-gradient-text($from, $to) {
+  background: linear-gradient(to right, $from, $to);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@mixin linear-gradient($from, $to) {
+  background: linear-gradient(to right, $from, $to);
+}
+
+@mixin clip-to-text() {
+  background-size: 300% 100%;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin bg($height) {
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-image: url(https://yasio.pl/assets/img/a5d79c8.webp);
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    min-height: $height;
+    width: 100%;
+    filter: grayscale(1) brightness(150%);
+    z-index: -1;
+  }
+}

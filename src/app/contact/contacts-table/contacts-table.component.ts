@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 
@@ -8,7 +8,11 @@ import { ContactService } from '../contact.service';
   styleUrls: ['./contacts-table.component.scss']
 })
 export class ContactsTableComponent implements OnInit {
-  constacts: Contact[] = []
+  page = 1;
+  constacts: Contact[] = [];
+  @Input() itemsPerPage: any;
+  @Output() pageChanged = new EventEmitter();
+
   constructor(
     private _contactService: ContactService
   ) { }
@@ -16,7 +20,12 @@ export class ContactsTableComponent implements OnInit {
   ngOnInit(): void {
     this._contactService.fetchAll().subscribe((res: Contact[]) => {
       this.constacts = res;
-    })
+    });
+  }
+
+  onPageChange(page: any): void{
+    this.page = page;
+    this.pageChanged.emit(page);
   }
 
 }

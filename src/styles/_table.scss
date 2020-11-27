@@ -1,0 +1,15 @@
+.table {
+  width: 100%;
+  padding: 1.25rem 0px;
+  th,
+  td {
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  &__responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+}

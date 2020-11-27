@@ -1,0 +1,59 @@
+$fonts: (
+  "lato": "Lato",
+  "roboto": "Roboto Condensed",
+);
+
+$theme: (
+  "primary": #00e7ff,
+  "secondary": #f205e2,
+  "third": #6a82f2,
+  "dark-grey": #1d1d1d,
+  "dark": #161616,
+);
+
+$legend: (
+  "blue": #007bff,
+  "indigo": #6610f2,
+  "purple": #6f42c1,
+  "pink": #e83e8c,
+  "red": #dc3545,
+  "orange": #fd7e14,
+  "yellow": #ffc107,
+  "green": #28a745,
+  "teal": #20c997,
+  "cyan": #17a2b8,
+  "white": #fff,
+  "gray": #6c757d,
+  "gray-dark": #343a40,
+  "primary": #007bff,
+  "secondary": #6c757d,
+  "success": #28a745,
+  "info": #17a2b8,
+  "warning": #ffc107,
+  "danger": #dc3545,
+  "light": #f8f9fa,
+  "dark": #343a40,
+);
+
+$gradients: (
+  "blue": linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed),
+  "green": linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673),
+  "red": linear-gradient(to right, #f205e2, #ef5ef1, #d14ee1, #df37e2),
+);
+
+$nav-height: 68px;
+
+:root {
+  // @each $class, $color in $theme {
+  //   --#{$class}: #{$color};
+  // }
+  // @each $class, $color in $code {
+  //   --#{$class}-code: #{$color};
+  // }
+  @each $class, $font in $fonts {
+    --#{$class}-font: #{$font};
+  }
+  // @each $class, $gradient in $gradients {
+  //   --#{$class}-grd: #{$gradient};
+  // }
+}

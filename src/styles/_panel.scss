@@ -1,0 +1,23 @@
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+
+  &__header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0px 1.25rem;
+  }
+}

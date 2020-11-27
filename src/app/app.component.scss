@@ -1,0 +1,17 @@
+.mission-control {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  .alerts {
+    flex: 0;
+    padding: 0px 15px;
+  }
+  .contacts {
+    flex: 1;
+    padding: 0px 15px;
+
+    &__map {
+      padding-bottom: 15px;
+    }
+  }
+}

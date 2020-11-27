@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+@import "fonts";
+@import "vars";
+@import "mixins";
+@import "table";
+@import "panel";
+
+body {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+}

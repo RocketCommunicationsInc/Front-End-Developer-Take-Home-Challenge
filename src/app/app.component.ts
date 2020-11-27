@@ -7,7 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent{
-
+  itemsPerPage = 10;
+  currentContactPage = 1;
   constructor() {
+  }
+
+  updateContactsPage(page: any): void{
+    this.currentContactPage = page;
   }
 }

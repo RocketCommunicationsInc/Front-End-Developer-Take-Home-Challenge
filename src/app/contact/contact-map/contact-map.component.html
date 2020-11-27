@@ -1,10 +1,11 @@
-<google-map width="35vw" height="390px" [options]="options" #gMap>
+<google-map width="100%" height="46.5vh" [options]="options" #gMap>
   <map-marker
     *ngFor="
       let marker of markers
-        | paginate: { itemsPerPage: 16, currentPage: currentPage }
+        | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }
     "
     [position]="marker.position"
+    [label]="marker.label"
     [options]="marker.options"
   ></map-marker>
 </google-map>

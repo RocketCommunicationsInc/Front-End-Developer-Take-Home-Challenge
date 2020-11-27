@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 
@@ -8,8 +8,9 @@ import { ContactService } from '../contact.service';
   styleUrls: ['./contact-map.component.scss']
 })
 export class ContactMapComponent implements OnInit {
+  @Input() itemsPerPage: any;
+  @Input() currentPage: any;
   @ViewChild('gMap', {static: true}) gMap: any;
-  currentPage = 1;
   options: google.maps.MapOptions = {
     center: {lat: 39.5, lng: -98.35},
     zoom: 1,
@@ -34,6 +35,9 @@ export class ContactMapComponent implements OnInit {
       res.forEach((contact: Contact) => {
         const markerObj = {
           position: {lat: contact.contactLatitude, lng: contact.contactLongitude},
+          label: {
+            text: contact.contactName.toString()
+          },
           options: {
             icon: 'assets/images/satellite-24.png',
           }

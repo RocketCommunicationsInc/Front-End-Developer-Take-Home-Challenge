@@ -1,0 +1,6 @@
+.panel {
+  &__body {
+    max-height: calc(100vh - 83px);
+    overflow-y: scroll;
+  }
+}

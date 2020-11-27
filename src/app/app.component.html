@@ -4,10 +4,16 @@
   </div>
   <div class="contacts">
     <div class="contacts__map">
-      <app-contact-map></app-contact-map>
+      <app-contact-map
+        [itemsPerPage]="itemsPerPage"
+        [currentPage]="currentContactPage"
+      ></app-contact-map>
     </div>
     <div class="contacts__table">
-      <app-contacts-table></app-contacts-table>
+      <app-contacts-table
+        [itemsPerPage]="itemsPerPage"
+        (pageChanged)="updateContactsPage($event)"
+      ></app-contacts-table>
     </div>
   </div>
 </section>
