@@ -1,7 +1,7 @@
 <div class="panel">
   <div class="panel__header">
-    <div>Contacts ({{ contacts.length - 1 }})</div>
-    <div>Contact States ({{ totalStates }})</div>
+    <div>Contacts ({{ contacts.length }})</div>
+    <div>Contacts States ({{ totalStates }})</div>
   </div>
   <div class="panel__body">
     <div class="table__responsive">
@@ -32,8 +32,8 @@
               ></app-contact-status>
               {{ contact.contactStatus }}
             </td>
-            <td>{{ contact.contactBeginTimestamp | date: "short" }}</td>
-            <td>{{ contact.contactEndTimestamp | date: "short" }}</td>
+            <td>{{ contact.contactBeginTimestamp | date: "mediumTime" }}</td>
+            <td>{{ contact.contactEndTimestamp | date: "mediumTime" }}</td>
           </tr>
         </tbody>
       </table>
