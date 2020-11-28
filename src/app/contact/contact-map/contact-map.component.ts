@@ -1,4 +1,3 @@
-import { style } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
@@ -9,7 +8,7 @@ import { mapStyles } from './map-styles';
   templateUrl: './contact-map.component.html',
   styleUrls: ['./contact-map.component.scss']
 })
-export class ContactMapComponent implements OnInit {
+export class ContactMapComponent implements OnInit{
   @Input() itemsPerPage: any;
   @Input() currentPage: any;
   @Output() selectedContact = new EventEmitter();
@@ -45,28 +44,33 @@ export class ContactMapComponent implements OnInit {
       };
     });
 
-    this._contactService.fetchAll().subscribe((res: Contact[]) => {
-      res.forEach((contact: Contact) => {
-        const markerObj = {
-          position: {lat: contact.contactLatitude, lng: contact.contactLongitude},
-          label: {
-            text: contact.contactName.toString(),
-            color: this.statusRef[contact.contactStatus]
-          },
-          options: {
-            icon: {
-              url: `assets/images/satellite-${contact.contactStatus}.png`,
-              labelOrigin: { x: 12, y: 35},
-            },
-          },
-        };
-        this.markers.push(markerObj);
-      });
-    });
+    this._contactService.fetchAll().subscribe((res: Contact[]) => this.populateMarkers(res));
+    this._contactService.contactsUpdated.subscribe((res: Contact[]) => this.populateMarkers(res));
   }
 
   onMarkerClick(label: { text: string }): void{
     this.selectedContact.emit(parseInt(label.text, 10));
   }
 
+  populateMarkers(contacts: Contact[]): void {
+
+    this.markers = [];
+    contacts.forEach((contact: Contact) => {
+
+      const markerObj = {
+            position: {lat: contact.contactLatitude, lng: contact.contactLongitude},
+            label: {
+              text: contact.contactName.toString(),
+              color: this.statusRef[contact.contactStatus]
+            },
+            options: {
+              icon: {
+                url: `assets/images/satellite-${contact.contactStatus}.png`,
+                labelOrigin: { x: 12, y: 35},
+              },
+            },
+          };
+      this.markers.push(markerObj);
+    });
+  }
 }
