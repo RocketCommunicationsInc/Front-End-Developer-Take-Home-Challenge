@@ -1,0 +1,22 @@
+<header>
+    <div class="intro">
+        <h1>Generic GRM <span class="plus">+</span></h1> 
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openBottomSheet()">
+                <mat-icon>face</mat-icon>
+                <span>Introduction</span>
+            </button>
+        </mat-menu>
+    </div>
+    
+
+    <nav mat-tab-nav-bar [backgroundColor]="background">
+        <a mat-tab-link *ngFor="let link of links"
+           (click)="activeLink = link"
+           [routerLink]="link"
+           [active]="activeLink == link"> {{link | titlecase}} </a>
+    </nav>
+</header>

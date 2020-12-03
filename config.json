@@ -1,0 +1,4 @@
+{
+    "alertsAPI": "/assets/alerts.json",
+    "contactsAPI": "/assets/contacts.json"
+}

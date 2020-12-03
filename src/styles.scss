@@ -1,0 +1,57 @@
+
+// Be sure that you only ever include this mixin once!
+@import './palette';
+@include mat-core();
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($takeHomeDDavis-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
+.mat {
+    &-drawer-container { height: 100%;}
+    &-drawer {
+        overflow: visible;
+    }
+    &-list {
+        display: flex !important;
+        flex-direction: column;
+        &-item-content {
+            justify-content: space-between;
+            .drawer-category {
+                background-color: lightgray;
+                padding: 2px 4px;
+                border-radius: 3px;
+            }
+        }
+    }
+    &-table {
+        background-color: $primary;
+        width: 60vw;
+    }
+    &-cell {
+        color: lightgray;
+    }
+    &-drawer-content {
+        background-color: $accent;
+        color: #ffffff;
+    }
+    &-sort-header-arrow {
+        color: #ffffff;
+    }
+}
+
+.drawer-header {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin: 0;
+}
