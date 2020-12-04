@@ -1,6 +1,5 @@
 <mat-drawer-container>
     <mat-drawer mode="side" opened>
-        <mat-spinner *ngIf="!dataSource"></mat-spinner>
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <ng-container matColumnDef="contactName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Name </th>
