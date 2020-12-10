@@ -1,6 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { Alert } from '@grmAlerts/alerts.model'
 
+/**
+ * A pipe that sorts the Alert list by a given column name and direction
+ * @example alerts | alertSort:'errorCategory':'asc'
+ */
 @Pipe({
   name: 'alertSort'
 })

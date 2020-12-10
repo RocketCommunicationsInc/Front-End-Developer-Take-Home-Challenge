@@ -4,6 +4,9 @@ import { fetchAlertsFailure, fetchAlertsSuccess, addActiveAlert, removeActiveAle
   removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts } from '@grmAlerts/alerts.actions'
 import { AlertsState, defaultAlertsState } from '@grmAlerts/alerts.state'
 
+/**
+ * The alerts reducers
+ */
 export const alertsReducers: ActionReducer<AlertsState> = createReducer(
   defaultAlertsState,
   on(fetchAlerts, (state: AlertsState, { }) => ({

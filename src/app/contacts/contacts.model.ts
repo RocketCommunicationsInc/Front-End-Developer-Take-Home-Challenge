@@ -1,20 +1,23 @@
+/**
+ * The contact model
+ */
 export class Contact {
-  id: string = ''
-  contactId: string = ''
-  contactStatus: string = ''
-  contactName: number = 0
-  contactGround: string = ''
-  contactSatellite: string = ''
-  contactEquipment: string = ''
-  contactState: string = ''
-  contactStep: string = ''
-  contactDetail: string = ''
-  contactBeginTimestamp: number = 0
-  contactEndTimestamp: number = 0
-  contactLatitude: number = 0
-  contactLongitude: number = 0
-  contactAzimuth: number = 0
-  contactElevation: number = 0
-  contactResolution: string = ''
-  contactResolutionStatus: string = ''
+  id: string
+  contactId: string
+  contactStatus: string
+  contactName: number
+  contactGround: string
+  contactSatellite: string
+  contactEquipment: string
+  contactState: string
+  contactStep: string
+  contactDetail: string
+  contactBeginTimestamp: number
+  contactEndTimestamp: number
+  contactLatitude: number
+  contactLongitude: number
+  contactAzimuth: number
+  contactElevation: number
+  contactResolution: string
+  contactResolutionStatus: string
 }

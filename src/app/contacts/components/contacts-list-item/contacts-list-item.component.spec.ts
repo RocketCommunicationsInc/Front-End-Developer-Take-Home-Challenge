@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { ContactsListItemComponent } from '@grmContacts/components/contacts-list-item/contacts-list-item.component'
 
+/**
+ * GRM Contact List Item component tests
+ */
 describe('ContactsListItemComponent', () => {
   let component: ContactsListItemComponent
   let fixture: ComponentFixture<ContactsListItemComponent>

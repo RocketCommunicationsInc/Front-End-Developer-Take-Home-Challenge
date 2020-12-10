@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing'
 import { AlertsService } from '@grmAlerts/alerts.service'
 
+/**
+ * The alerts services tests
+ */
 describe('AlertsService', () => {
   let service: AlertsService
 

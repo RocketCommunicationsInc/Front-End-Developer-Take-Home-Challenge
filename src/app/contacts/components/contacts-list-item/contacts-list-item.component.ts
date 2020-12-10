@@ -7,9 +7,13 @@ import { Contact } from '@grmContacts/contacts.model'
 import { ContactsState, isActiveContactSelector } from '@grmContacts/contacts.state'
 import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
 
+/**
+ * GRM Contact List Item component
+ * @example <grm-contacts-list-item [contact]="contact"></grm-contacts-list-item>
+ */
 @Component({
   selector: 'grm-contacts-list-item',
-  template: '<grm-contacts-list-item-display [contact]="contact" [active]="active$ | async"></grm-contacts-list-item-display>'
+  template: '<grm-contacts-list-item [contact]="contact"></grm-contacts-list-item>'
 })
 export class ContactsListItemComponent implements OnInit {
   @Input() contact: Contact | null = null
@@ -25,6 +29,10 @@ export class ContactsListItemComponent implements OnInit {
   }
 }
 
+/**
+ * GRM Contact List Item display component
+ * @example <grm-contacts-list-item [contact]="contact"></grm-contacts-list-item>
+ */
 @Component({
   selector: 'grm-contacts-list-item-display',
   templateUrl: './contacts-list-item.component.html',
@@ -45,15 +53,28 @@ export class ContactsListItemDisplayComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /**
+   * Gets the status text
+   * @param alert
+   */
   getStatus(contact: Contact): string {
     return `${this.titlecase.transform(contact.contactState)} (Step: ${contact.contactStep})`
   }
 
+  /**
+   * Gets the AOS-LOS text
+   * @param contact
+   */
   getAOSLOS(contact: Contact): string {
     return `${this.formatGRMTimePipe.transform(contact.contactBeginTimestamp)} - ` +
       `${this.formatGRMTimePipe.transform(contact.contactEndTimestamp)}`
   }
 
+  /**
+   * Handles the contact row tap
+   * @param $event
+   * @param contact
+   */
   tapTogglelContactRow($event: any, contact: Contact): void {
     $event.preventDefault()
     $event.stopPropagation()

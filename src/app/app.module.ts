@@ -18,12 +18,15 @@ import { environment } from 'src/environments/environment'
 import '@astrouxds/rux-global-status-bar'
 import '@astrouxds/rux-clock'
 
+// Setup the ngrx store logger
 export const logger = (reducer: ActionReducer<any>) => storeLogger()(reducer)
+
+// Setup the ngrx local storage sync
 export const localStorageSyncReducer = (reducer: ActionReducer<any>) => localStorageSync({
   keys: [
     'app',
     {
-      'alerts': [
+      alerts: [
         'activeAlerts',
         'selectedAlerts',
         'sortColumn',
@@ -31,7 +34,7 @@ export const localStorageSyncReducer = (reducer: ActionReducer<any>) => localSto
       ]
     },
     {
-      'contacts': [
+      contacts: [
         'activeContacts',
         'sortColumn',
         'sortDirection'
@@ -41,6 +44,7 @@ export const localStorageSyncReducer = (reducer: ActionReducer<any>) => localSto
   rehydrate: true
 })(reducer)
 
+// Setup the ngrx metadata reducers
 export const metaReducers: MetaReducer<any>[] = [localStorageSyncReducer]
 
 if (!environment.production) {
