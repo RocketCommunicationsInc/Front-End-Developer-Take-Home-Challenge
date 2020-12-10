@@ -1,21 +1,13 @@
-.contact {
-  border-bottom: 2px solid var(--colorTertiaryDarken3, #101923);
-  cursor: pointer;
+@import 'src/styles/grm-mixins';
 
-  &:hover {
-    background-color: var(--colorSecondaryDarken3, #1d4367);
-  }
+.contact {
+  @include list-item-container;
 
   .contact-row {
-    font-size: 0.95rem;
-    padding: 0.75rem 0.5rem;
-    height: 60px;
+    @include list-item-row;
   }
 
   .contact-details {
-    background-color: var(--colorTertiaryDarken3, #101923);
-    cursor: default;
-    height: auto;
-    padding: 1.25rem 2.5rem;
+    @include list-item-details;
   }
 }

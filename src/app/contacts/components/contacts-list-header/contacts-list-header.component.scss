@@ -1,30 +1,26 @@
+@import 'src/styles/grm-mixins';
+@import 'src/styles/grm-pallet';
+
 :host {
-  border: 1px solid rgba(255, 255, 255, 0.0625);
-  border-width: 1px 0;
+  @include list-header-host;
 }
 
 .contacts-header {
-  padding: 0.75rem 0.5rem;
+  @include list-header-container;
 
   .contacts-header-summary {
-    padding: 1rem 1rem 1.5rem;
-    text-align: center;
+    @include list-header-summary;
 
     &.failed {
-      color: var(--colorSerious, rgb(255, 176, 0));
+      color: $color-serious;
     }
 
     .contact-count {
-      display: block;
-      font-size: 2.75rem;
-      line-height: 2.6rem;
-      font-weight: 600;
+      @include list-header-count;
     }
   }
 
   .contacts-header-columns {
-    color: var(--logHeaderTextColor, rgb(169, 178, 188));
-    font-weight: bold;
-    padding-right: 12px !important;
+    @include list-header-columns;
   }
 }

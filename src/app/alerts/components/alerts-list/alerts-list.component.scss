@@ -1,17 +1,15 @@
+@import 'src/styles/grm-mixins';
+
 :host {
-  display: flex;
-  flex-flow: column;
-  flex-grow: 1;
-  overflow: hidden;
+  @include list-host;
 }
 
 .alerts-list {
-  overflow: hidden;
+  @include list-container;
 }
 
 .alerts-list-items {
-  overflow-y: scroll;
-  overflow-x: hidden;
+  @include list-items;
 }
 
 rux-button {

@@ -1,27 +1,22 @@
+@import 'src/styles/grm-mixins';
+
 :host {
-  border: 1px solid rgba(255, 255, 255, 0.0625);
-  border-width: 1px 0;
+  @include list-header-host;
 }
 
 .alerts-header {
-  padding: 0.75rem 0.5rem;
+  @include list-header-container;
 
   .alerts-header-summary {
-    padding: 1rem 1rem 1.5rem;
-    text-align: center;
+    @include list-header-summary;
 
     .alert-count {
-      display: block;
-      font-size: 2.75rem;
-      line-height: 2.6rem;
-      font-weight: 600;
+      @include list-header-count;
     }
   }
 
   .alerts-header-columns {
-    color: var(--logHeaderTextColor, rgb(169, 178, 188));
-    font-weight: bold;
-    padding-right: 12px !important;
+    @include list-header-columns;
   }
 
   .toggle {

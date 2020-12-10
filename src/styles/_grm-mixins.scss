@@ -1,0 +1,66 @@
+@import 'grm-pallet';
+
+@mixin list-host {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+@mixin list-container {
+  overflow: hidden;
+}
+
+@mixin list-items {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+@mixin list-header-host {
+  border: 1px solid $ui-border;
+  border-width: 1px 0;
+}
+
+@mixin list-header-container {
+  padding: 0.75rem 0.5rem;
+}
+
+@mixin list-header-summary {
+  padding: 1rem 1rem 1.5rem;
+  text-align: center;
+}
+
+@mixin list-header-count {
+  display: block;
+  font-size: 2.75rem;
+  line-height: 2.6rem;
+  font-weight: 600;
+}
+
+@mixin list-header-columns {
+  color: var(--logHeaderTextColor, $ui-header-text-color);
+  font-weight: bold;
+  padding-right: 12px !important;
+}
+
+@mixin list-item-container {
+  border-bottom: 2px solid var(--colorTertiaryDarken3, $ui-color-tertiary-darken3);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--colorSecondaryDarken3, $ui-color-secondary-darken3);
+  }
+}
+
+@mixin list-item-row {
+  font-size: 0.95rem;
+  padding: 0.75rem 0.5rem;
+  height: 60px;
+}
+
+@mixin list-item-details {
+  background-color: var(--colorTertiaryDarken3, $ui-color-tertiary-darken3);
+  cursor: default;
+  height: auto;
+  padding: 1.25rem 2.5rem;
+}
