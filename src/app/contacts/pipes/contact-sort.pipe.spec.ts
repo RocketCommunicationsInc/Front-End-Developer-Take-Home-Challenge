@@ -1,4 +1,4 @@
-import { ContactSortPipe } from './contact-sort.pipe'
+import { ContactSortPipe } from '@grmContacts/pipes/contact-sort.pipe'
 
 describe('ContactSortPipe', () => {
   it('create an instance', () => {

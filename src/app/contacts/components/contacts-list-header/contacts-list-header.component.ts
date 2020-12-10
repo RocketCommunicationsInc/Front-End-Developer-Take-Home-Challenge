@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { ContactsState, executingContactsSelector, failedContactsSelector } from '../../contacts.state'
-import { sortContacts } from '../../contacts.actions'
-import { Contact } from '../../contacts.model'
+import { ContactsState, executingContactsSelector, failedContactsSelector } from '@grmContacts/contacts.state'
+import { sortContacts } from '@grmContacts/contacts.actions'
+import { Contact } from '@grmContacts/contacts.model'
 
 @Component({
   selector: 'grm-contacts-list-header',

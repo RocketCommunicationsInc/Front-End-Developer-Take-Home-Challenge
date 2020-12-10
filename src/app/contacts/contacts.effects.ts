@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store'
 import { map, catchError, mergeMap, withLatestFrom } from 'rxjs/operators'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { addActiveContact, fetchContacts, fetchContactsFailure, fetchContactsSuccess, removeActiveContact,
-  toggleActiveContact } from './contacts.actions'
-import { ContactsService } from './contacts.service'
-import { Contact } from './contacts.model'
-import { activeContactsSelector, ContactsState } from './contacts.state'
+  toggleActiveContact } from '@grmContacts/contacts.actions'
+import { ContactsService } from '@grmContacts/contacts.service'
+import { Contact } from '@grmContacts/contacts.model'
+import { activeContactsSelector, ContactsState } from '@grmContacts/contacts.state'
 
 @Injectable()
 export class ContactsEffects {

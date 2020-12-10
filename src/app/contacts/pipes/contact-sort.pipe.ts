@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import { Contact } from '../contacts.model'
+import { Contact } from '@grmContacts/contacts.model'
 
 @Pipe({
   name: 'contactSort'

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { switchMap } from 'rxjs/operators'
-import { setTitle } from './app.actions'
+import { setTitle } from '@grm/app.actions'
 
 @Injectable()
 export class AppEffects {

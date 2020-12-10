@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { AppState } from 'src/app/app.state'
-import { FetchStatus } from 'src/app/common/enums/status.enums'
-import { ContactsState, errorMessageSelector, fetchStatusSelector } from 'src/app/contacts/contacts.state'
-import { fetchContacts } from '../../contacts.actions'
-import { Contact } from '../../contacts.model'
-import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '../../contacts.state'
+import { AppState } from '@grm/app.state'
+import { FetchStatus } from '@grmCommon/enums/status.enums'
+import { ContactsState, errorMessageSelector, fetchStatusSelector } from '@grmContacts/contacts.state'
+import { fetchContacts } from '@grmContacts/contacts.actions'
+import { Contact } from '@grmContacts/contacts.model'
+import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@grmContacts/contacts.state'
 
 @Component({
   selector: 'grm-contacts-list',

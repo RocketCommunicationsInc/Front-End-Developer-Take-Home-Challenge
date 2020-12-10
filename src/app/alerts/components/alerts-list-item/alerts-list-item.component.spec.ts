@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { AlertsListItemComponent } from './alerts-list-item.component'
+import { AlertsListItemComponent } from '@grmAlerts/components/alerts-list-item/alerts-list-item.component'
 
 describe('AlertsListItemComponent', () => {
   let component: AlertsListItemComponent

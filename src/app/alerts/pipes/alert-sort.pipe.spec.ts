@@ -1,4 +1,4 @@
-import { AlertSortPipe } from './alert-sort.pipe'
+import { AlertSortPipe } from '@grmAlerts/pipes/alert-sort.pipe'
 
 describe('AlertSortPipe', () => {
   it('create an instance', () => {

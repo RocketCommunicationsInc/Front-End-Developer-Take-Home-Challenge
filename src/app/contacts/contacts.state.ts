@@ -1,4 +1,4 @@
-import { Contact } from './contacts.model'
+import { Contact } from '@grmContacts/contacts.model'
 
 export class ContactsState {
   contacts: Contact[] = []

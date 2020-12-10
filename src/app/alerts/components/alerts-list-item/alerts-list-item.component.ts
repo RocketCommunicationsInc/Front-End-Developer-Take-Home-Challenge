@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { toggleActiveAlert, toggleSelectedAlert } from '../../alerts.actions'
-import { Alert } from '../../alerts.model'
-import { AlertsState, isActiveAlertSelector, isSelectedAlertSelector } from '../../alerts.state'
+import { toggleActiveAlert, toggleSelectedAlert } from '@grmAlerts/alerts.actions'
+import { Alert } from '@grmAlerts/alerts.model'
+import { AlertsState, isActiveAlertSelector, isSelectedAlertSelector } from '@grmAlerts/alerts.state'
 
 @Component({
   selector: 'grm-alerts-list-item',

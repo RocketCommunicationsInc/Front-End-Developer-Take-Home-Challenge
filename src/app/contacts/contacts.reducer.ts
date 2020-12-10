@@ -1,8 +1,8 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
-import { FetchStatus } from '../common/enums/status.enums'
+import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { addActiveContact, fetchContacts, fetchContactsFailure, fetchContactsSuccess, removeActiveContact,
-  sortContacts } from './contacts.actions'
-import { ContactsState, defaultContactsState } from './contacts.state'
+  sortContacts } from '@grmContacts/contacts.actions'
+import { ContactsState, defaultContactsState } from '@grmContacts/contacts.state'
 
 export const contactsReducers: ActionReducer<ContactsState> = createReducer(
   defaultContactsState,

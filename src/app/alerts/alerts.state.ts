@@ -1,4 +1,4 @@
-import { Alert } from './alerts.model'
+import { Alert } from '@grmAlerts/alerts.model'
 
 export class AlertsState {
   alerts: Alert[] = []

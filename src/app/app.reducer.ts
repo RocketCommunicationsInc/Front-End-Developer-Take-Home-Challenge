@@ -1,6 +1,6 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
-import { setTitle } from './app.actions'
-import { AppState, defaultAppState } from './app.state'
+import { setTitle } from '@grm/app.actions'
+import { AppState, defaultAppState } from '@grm/app.state'
 
 export const appReducers: ActionReducer<AppState> = createReducer(
   defaultAppState,

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { AlertsService } from './alerts.service'
+import { AlertsService } from '@grmAlerts/alerts.service'
 
 describe('AlertsService', () => {
   let service: AlertsService

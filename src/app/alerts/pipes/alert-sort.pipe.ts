@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import { Alert } from '../alerts.model'
+import { Alert } from '@grmAlerts/alerts.model'
 
 @Pipe({
   name: 'alertSort'

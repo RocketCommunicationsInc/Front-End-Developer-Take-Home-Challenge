@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { AlertsState } from '../../alerts.state'
-import { sortAlerts, toggleSelectAll } from '../../alerts.actions'
-import { Alert } from '../../alerts.model'
+import { AlertsState } from '@grmAlerts/alerts.state'
+import { sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
+import { Alert } from '@grmAlerts/alerts.model'
 
 @Component({
   selector: 'grm-alerts-list-header',

@@ -4,10 +4,10 @@ import { map, catchError, mergeMap, withLatestFrom } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { fetchAlerts, fetchAlertsFailure, fetchAlertsSuccess, toggleActiveAlert, addActiveAlert,
-  removeActiveAlert, toggleSelectedAlert, removeSelectedAlert, addSelectedAlert } from './alerts.actions'
-import { AlertsService } from './alerts.service'
-import { Alert } from './alerts.model'
-import { activeAlertsSelector, AlertsState, selectedAlertsSelector } from './alerts.state'
+  removeActiveAlert, toggleSelectedAlert, removeSelectedAlert, addSelectedAlert } from '@grmAlerts/alerts.actions'
+import { AlertsService } from '@grmAlerts/alerts.service'
+import { Alert } from '@grmAlerts/alerts.model'
+import { activeAlertsSelector, AlertsState, selectedAlertsSelector } from '@grmAlerts/alerts.state'
 
 @Injectable()
 export class AlertsEffects {

@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { Alert } from '../../alerts.model'
+import { Alert } from '@grmAlerts/alerts.model'
 import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector, fetchStatusSelector,
-  errorMessageSelector } from '../../alerts.state'
-import { FetchStatus } from 'src/app/common/enums/status.enums'
-import { AppState } from 'src/app/app.state'
-import { fetchAlerts } from '../../alerts.actions'
+  errorMessageSelector } from '@grmAlerts/alerts.state'
+import { FetchStatus } from '@grmCommon/enums/status.enums'
+import { AppState } from '@grm/app.state'
+import { fetchAlerts } from '@grmAlerts/alerts.actions'
 
 @Component({
   selector: 'grm-alerts-list',

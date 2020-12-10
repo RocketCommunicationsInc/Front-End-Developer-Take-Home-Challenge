@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { ContactsService } from './contacts.service'
+import { ContactsService } from '@grmContacts/contacts.service'
 
 describe('ContactsService', () => {
   let service: ContactsService

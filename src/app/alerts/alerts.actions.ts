@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { Alert } from './alerts.model'
+import { Alert } from '@grmAlerts/alerts.model'
 
 export const fetchAlerts = createAction(
   '[Alerts] Fetch Alerts'

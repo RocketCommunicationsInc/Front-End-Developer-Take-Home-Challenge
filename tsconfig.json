@@ -19,7 +19,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@grm/*": ["src/app/*"],
+      "@grmAlerts/*": ["src/app/alerts/*"],
+      "@grmContacts/*": ["src/app/contacts/*"],
+      "@grmCommon/*": ["src/app/common/*"]
+    }
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

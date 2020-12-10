@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { Contact } from './contacts.model'
+import { Contact } from '@grmContacts/contacts.model'
 
 export const fetchContacts = createAction(
   '[Contacts] Fetch Contacts'

@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core'
 import { TitleCasePipe } from '@angular/common'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { toggleActiveContact } from '../../contacts.actions'
-import { Contact } from '../../contacts.model'
-import { ContactsState, isActiveContactSelector } from '../../contacts.state'
-import { FormatGRMTimePipe } from 'src/app/common/pipes/format-time.pipe'
+import { toggleActiveContact } from '@grmContacts/contacts.actions'
+import { Contact } from '@grmContacts/contacts.model'
+import { ContactsState, isActiveContactSelector } from '@grmContacts/contacts.state'
+import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
 
 @Component({
   selector: 'grm-contacts-list-item',

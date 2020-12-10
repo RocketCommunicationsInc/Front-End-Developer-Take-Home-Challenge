@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { fetchAlerts } from './alerts/alerts.actions'
-import { setTitle } from './app.actions'
-import { AppState, pageTitleSelector } from './app.state'
-import { fetchContacts } from './contacts/contacts.actions'
+import { setTitle } from '@grm/app.actions'
+import { AppState, pageTitleSelector } from '@grm/app.state'
+import { fetchAlerts } from '@grmAlerts/alerts.actions'
+import { fetchContacts } from '@grmContacts/contacts.actions'
 
 @Component({
   selector: 'grm-root',
