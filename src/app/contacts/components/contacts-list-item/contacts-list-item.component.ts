@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { TitleCasePipe } from '@angular/common'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
@@ -14,7 +14,8 @@ import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
  */
 @Component({
   selector: 'grm-contacts-list-item',
-  template: '<grm-contacts-list-item-display [contact]="contact" [active]="active$ | async"></grm-contacts-list-item-display>'
+  template: '<grm-contacts-list-item-display [contact]="contact" [active]="active$ | async" ' +
+    '(toggleActiveContact)="toggleActiveContact($event)"></grm-contacts-list-item-display>'
 })
 export class ContactsListItemComponent implements OnInit {
   @Input() contact: Contact | null
@@ -27,6 +28,15 @@ export class ContactsListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.active$ = this.store.select(isActiveContactSelector, {contactId: this.contact?.contactId})
+  }
+
+  /**
+   * Toggles an active contact
+   *
+   * @param contact
+   */
+  toggleActiveContact(contact: Contact): void {
+    this.store.dispatch(toggleActiveContact({contact}))
   }
 }
 
@@ -47,8 +57,9 @@ export class ContactsListItemDisplayComponent implements OnInit {
   @Input() contact: Contact | null
   @Input() active: boolean | null
 
+  @Output() toggleActiveContact: EventEmitter<Contact> = new EventEmitter<Contact>()
+
   constructor(
-    private store: Store<ContactsState>,
     private titlecase: TitleCasePipe,
     private formatGRMTimePipe: FormatGRMTimePipe
   ) { }
@@ -83,6 +94,6 @@ export class ContactsListItemDisplayComponent implements OnInit {
   tapTogglelContactRow($event: any, contact: Contact): void {
     $event.preventDefault()
     $event.stopPropagation()
-    this.store.dispatch(toggleActiveContact({contact}))
+    this.toggleActiveContact.emit(contact)
   }
 }
