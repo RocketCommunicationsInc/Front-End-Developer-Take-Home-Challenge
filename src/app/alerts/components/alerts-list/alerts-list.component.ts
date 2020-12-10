@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { Alert } from '@grmAlerts/alerts.model'
@@ -17,22 +17,27 @@ import { enableAlertsTester, fetchAlerts } from '@grmAlerts/alerts.actions'
   selector: 'grm-alerts-list',
   template: '<grm-alerts-list-display fxFlex [alerts]="alerts$ | async" [sortColumn]="sortColumn$ | async" ' +
     '[sortDirection]="sortDirection$ | async" [fetchStatus]="fetchStatus$ | async"' +
-    '[errorMessage]="errorMessage$ | async"></grm-alerts-list-display>'
+    '[errorMessage]="errorMessage$ | async" (fetchAlerts)="fetchAlerts()"></grm-alerts-list-display>'
 })
 export class AlertsListComponent implements OnInit {
-  alerts$: Observable<Alert[]> = this.store.select(alertsSelector)
-  sortColumn$: Observable<string> = this.store.select(sortColumnSelector)
-  sortDirection$: Observable<string> = this.store.select(sortDirectionSelector)
-  fetchStatus$: Observable<string> = this.store.select(fetchStatusSelector)
-  errorMessage$: Observable<string> = this.store.select(errorMessageSelector)
+  alerts$: Observable<Alert[]> = this.alertsStore.select(alertsSelector)
+  sortColumn$: Observable<string> = this.alertsStore.select(sortColumnSelector)
+  sortDirection$: Observable<string> = this.alertsStore.select(sortDirectionSelector)
+  fetchStatus$: Observable<string> = this.alertsStore.select(fetchStatusSelector)
+  errorMessage$: Observable<string> = this.alertsStore.select(errorMessageSelector)
 
   constructor(
-    private store: Store<AlertsState>
+    private appStore: Store<AppState>,
+    private alertsStore: Store<AlertsState>
   ) { }
 
   ngOnInit(): void {
     // Use this to enable the alerts tester
     // this.store.dispatch(enableAlertsTester({interval: 20000}))
+  }
+
+  fetchAlerts(): void {
+    this.appStore.dispatch(fetchAlerts())
   }
 }
 
@@ -53,15 +58,15 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @Input() fetchStatus: string | null
   @Input() errorMessage: string | null
 
+  @Output() fetchAlerts: EventEmitter<void> = new EventEmitter<void>()
+
   @ViewChild('alertsFetching') public alertsFetchingTemplateRef: TemplateRef<any>
   @ViewChild('alertsSuccess') public alertsSuccessTemplateRef: TemplateRef<any>
   @ViewChild('alertsFailed') public alertsFailedTemplateRef: TemplateRef<any>
 
   public contentTemplate: TemplateRef<any>
 
-  constructor(
-    private appStore: Store<AppState>
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.fetchStatus = FetchStatus.fetching
@@ -100,6 +105,6 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
    */
   tapRetry($event: any): void {
     $event.preventDefault()
-    this.appStore.dispatch(fetchAlerts())
+    this.fetchAlerts.emit()
   }
 }
