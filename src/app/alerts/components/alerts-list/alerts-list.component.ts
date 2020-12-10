@@ -31,8 +31,8 @@ export class AlertsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Remove this to disable the alerts tester
-    this.store.dispatch(enableAlertsTester({interval: 20000}))
+    // Use this to enable the alerts tester
+    // this.store.dispatch(enableAlertsTester({interval: 20000}))
   }
 }
 

@@ -31,8 +31,8 @@ export class ContactsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Remove this to disable the contacts tester
-    this.store.dispatch(enableContactsTester({interval: 10000}))
+    // Use this to enable the contacts tester
+    // this.store.dispatch(enableContactsTester({interval: 10000}))
   }
 }
 
