@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { AppState } from '@grm/app.state'
@@ -17,7 +17,7 @@ import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@gr
   selector: 'grm-contacts-list',
   template: '<grm-contacts-list-display fxFlex [contacts]="contacts$ | async" [sortColumn]="sortColumn$ | async" ' +
     '[sortDirection]="sortDirection$ | async" [fetchStatus]="fetchStatus$ | async" ' +
-    '[errorMessage]="errorMessage$ | async"></grm-contacts-list-display>'
+    '[errorMessage]="errorMessage$ | async" (fetchContacts)="fetchContacts()"></grm-contacts-list-display>'
 })
 export class ContactsListComponent implements OnInit {
   contacts$: Observable<Contact[]> = this.store.select(contactsSelector)
@@ -33,6 +33,13 @@ export class ContactsListComponent implements OnInit {
   ngOnInit(): void {
     // Use this to enable the contacts tester
     // this.store.dispatch(enableContactsTester({interval: 10000}))
+  }
+
+  /**
+   * Fetches the contacts
+   */
+  fetchContacts(): void {
+    this.store.dispatch(fetchContacts())
   }
 }
 
@@ -53,15 +60,15 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   @Input() fetchStatus: string | null = FetchStatus.fetching
   @Input() errorMessage: string | null
 
+  @Output() fetchContacts: EventEmitter<void> = new EventEmitter<void>()
+
   @ViewChild('contactsFetching') public contactsFetchingTemplateRef: TemplateRef<any>
   @ViewChild('contactsSuccess') public contactsSuccessTemplateRef: TemplateRef<any>
   @ViewChild('contactsFailed') public contactsFailedTemplateRef: TemplateRef<any>
 
   public contentTemplate: TemplateRef<any>
 
-  constructor(
-    private appStore: Store<AppState>
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.contentTemplate = this.contactsFetchingTemplateRef
@@ -99,6 +106,6 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
    */
   tapRetry($event: any): void {
     $event.preventDefault()
-    this.appStore.dispatch(fetchContacts())
+    this.fetchContacts.emit()
   }
 }
