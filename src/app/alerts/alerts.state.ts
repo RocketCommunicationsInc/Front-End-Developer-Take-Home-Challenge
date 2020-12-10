@@ -2,40 +2,24 @@ import { Alert } from './alerts.model'
 
 export class AlertsState {
   alerts: Alert[] = []
-  activeAlerts: string[]
-  selectedAlerts: string[]
-  sortColumn?: string
-  sortDirection: string
-  fetchStatus?: string
+  activeAlerts: string[] = []
+  selectedAlerts: string[] = []
+  sortColumn: string = ''
+  sortDirection: string = ''
+  fetchStatus: string = ''
   error?: any
-  errorMessage?: string
-
-  constructor(
-    alerts: Alert[],
-    activeAlerts: string[],
-    selectedAlerts: string[],
-    sortColumn: string,
-    sortDirection: string,
-    fetchStatus: string,
-    error: any,
-    errorMessage: string
-  ) {
-    this.alerts = alerts
-    this.activeAlerts = activeAlerts
-    this.selectedAlerts = selectedAlerts
-    this.sortColumn = sortColumn
-    this.sortDirection = sortDirection
-    this.fetchStatus = fetchStatus
-    this.error = error
-    this.errorMessage = errorMessage
-  }
+  errorMessage: string = ''
 }
 
 export const defaultAlertsState: AlertsState = {
   alerts: [],
   activeAlerts: [],
   selectedAlerts: [],
-  sortDirection: 'desc'
+  sortColumn: '',
+  sortDirection: 'desc',
+  fetchStatus: '',
+  error: null,
+  errorMessage: ''
 }
 
 // Selectors

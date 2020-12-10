@@ -40,11 +40,11 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   @Input() fetchStatus: string | null = FetchStatus.fetching
   @Input() errorMessage: string | null = ''
 
-  @ViewChild('contactsFetching') public contactsFetchingTemplateRef!: TemplateRef<any> | null
-  @ViewChild('contactsSuccess') public contactsSuccessTemplateRef!: TemplateRef<any> | null
-  @ViewChild('contactsFailed') public contactsFailedTemplateRef!: TemplateRef<any> | null
+  @ViewChild('contactsFetching') public contactsFetchingTemplateRef!: TemplateRef<any>
+  @ViewChild('contactsSuccess') public contactsSuccessTemplateRef!: TemplateRef<any>
+  @ViewChild('contactsFailed') public contactsFailedTemplateRef!: TemplateRef<any>
 
-  public contentTemplate!: TemplateRef<any> | null
+  public contentTemplate!: TemplateRef<any>
 
   constructor(
     private appStore: Store<AppState>

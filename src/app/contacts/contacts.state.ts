@@ -1,46 +1,32 @@
 import { Contact } from './contacts.model'
 
 export class ContactsState {
-  contacts: Contact[]
-  activeContacts: string[]
-  sortColumn?: string
-  sortDirection: string
-  fetchStatus?: string
-  error?: any
-  errorMessage?: string
-
-  constructor(
-    contacts: Contact[],
-    activeContacts: string[],
-    sortColumn: string,
-    sortDirection: string,
-    fetchStatus: string,
-    error: any,
-    errorMessage: string
-  ) {
-    this.contacts = contacts
-    this.activeContacts = activeContacts
-    this.sortColumn = sortColumn
-    this.sortDirection = sortDirection
-    this.fetchStatus = fetchStatus
-    this.error = error
-    this.errorMessage = errorMessage
-  }
+  contacts: Contact[] = []
+  activeContacts: string[] = []
+  sortColumn: string = ''
+  sortDirection: string = ''
+  fetchStatus: string = ''
+  error: any
+  errorMessage?: string = ''
 }
 
 export const defaultContactsState: ContactsState = {
   contacts: [],
   activeContacts: [],
-  sortDirection: 'desc'
+  sortColumn: '',
+  sortDirection: 'desc',
+  fetchStatus: '',
+  error: null,
+  errorMessage: ''
 }
 
 // Selectors
 export const contactsSelector = (state: any) => state.contacts.contacts
-export const failedContactsSelector = (state: any) => state.contacts.contacts
-  .filter((contact: Contact) => contact.contactState === 'failed')
+export const failedContactsSelector = (state: any) => state.contacts.contacts ? state.contacts.contacts
+  .filter((contact: Contact) => contact.contactState === 'failed') : []
 
-export const executingContactsSelector = (state: any) => state.contacts.contacts
-  .filter((contact: Contact) => contact.contactState === 'executing')
+export const executingContactsSelector = (state: any) => state.contacts.contacts ? state.contacts.contacts
+  .filter((contact: Contact) => contact.contactState === 'executing') : []
 
 export const activeContactsSelector = (state: any) => state.contacts.activeContacts
 export const isActiveContactSelector = (state: any, props: any) => state.contacts.activeContacts &&
