@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { ContactsListComponent } from '@grmContacts/components/contacts-list/contacts-list.component'
+import { provideMockStore } from '@ngrx/store/testing'
+import { ContactsListComponent, ContactsListDisplayComponent } from '@grmContacts/components/contacts-list/contacts-list.component'
 
 /**
  * GRM Contacts component tests
@@ -8,9 +9,19 @@ describe('ContactsListComponent', () => {
   let component: ContactsListComponent
   let fixture: ComponentFixture<ContactsListComponent>
 
+  const initialState: any = {
+    contacts: []
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContactsListComponent ]
+      declarations: [
+        ContactsListComponent,
+        ContactsListDisplayComponent
+      ],
+      providers: [
+        provideMockStore({initialState})
+      ]
     })
     .compileComponents()
   })

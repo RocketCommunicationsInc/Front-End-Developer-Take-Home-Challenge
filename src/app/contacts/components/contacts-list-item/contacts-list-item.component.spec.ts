@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { provideMockStore } from '@ngrx/store/testing'
 import { ContactsListItemComponent } from '@grmContacts/components/contacts-list-item/contacts-list-item.component'
 
 /**
@@ -10,7 +11,12 @@ describe('ContactsListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContactsListItemComponent ]
+      declarations: [
+        ContactsListItemComponent
+      ],
+      providers: [
+        provideMockStore({})
+      ]
     })
     .compileComponents()
   })

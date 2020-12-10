@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http'
 import { TestBed } from '@angular/core/testing'
 import { ContactsService } from '@grmContacts/contacts.service'
 
@@ -8,7 +9,15 @@ describe('ContactsService', () => {
   let service: ContactsService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({})
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule
+      ],
+      providers: [
+        ContactsService
+      ]
+    })
+
     service = TestBed.inject(ContactsService)
   })
 

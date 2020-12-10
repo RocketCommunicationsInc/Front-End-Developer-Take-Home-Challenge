@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { AlertsListItemComponent } from '@grmAlerts/components/alerts-list-item/alerts-list-item.component'
+import { provideMockStore } from '@ngrx/store/testing'
+import { AlertsListItemComponent, AlertsListItemDisplayComponent } from '@grmAlerts/components/alerts-list-item/alerts-list-item.component'
 
 /**
  * GRM Alert List Item component tests
@@ -8,9 +9,19 @@ describe('AlertsListItemComponent', () => {
   let component: AlertsListItemComponent
   let fixture: ComponentFixture<AlertsListItemComponent>
 
+  const initialState: any = {
+    activeAlerts: []
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AlertsListItemComponent ]
+      declarations: [
+        AlertsListItemComponent,
+        AlertsListItemDisplayComponent
+      ],
+      providers: [
+        provideMockStore({initialState})
+      ]
     })
     .compileComponents()
   })

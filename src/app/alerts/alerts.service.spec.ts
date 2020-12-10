@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http'
 import { TestBed } from '@angular/core/testing'
 import { AlertsService } from '@grmAlerts/alerts.service'
 
@@ -8,7 +9,15 @@ describe('AlertsService', () => {
   let service: AlertsService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({})
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule
+      ],
+      providers: [
+        AlertsService
+      ]
+    })
+
     service = TestBed.inject(AlertsService)
   })
 
