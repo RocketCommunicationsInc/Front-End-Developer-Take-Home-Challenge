@@ -22,8 +22,21 @@ export const logger = (reducer: ActionReducer<any>) => storeLogger()(reducer)
 export const localStorageSyncReducer = (reducer: ActionReducer<any>) => localStorageSync({
   keys: [
     'app',
-    'alerts',
-    'contacts'
+    {
+      'alerts': [
+        'activeAlerts',
+        'selectedAlerts',
+        'sortColumn',
+        'sortDirection'
+      ]
+    },
+    {
+      'contacts': [
+        'activeContacts',
+        'sortColumn',
+        'sortDirection'
+      ]
+    }
   ],
   rehydrate: true
 })(reducer)
