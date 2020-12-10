@@ -5,6 +5,8 @@ import { environment } from './environments/environment'
 
 if (environment.production) {
   enableProdMode()
+} else {
+  console.log('%cRocket Communications Angular Developer Take-Home Challenge\n---\nAuthor: Scott Carnett\nStack: Angular, NGRX, Astro', 'color: green; font-size: 14px; font-weight: bold; display: block;')
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
