@@ -9,8 +9,14 @@ import { ContactsService } from '@grmContacts/contacts.service'
 import { Contact } from '@grmContacts/contacts.model'
 import { activeContactsSelector, ContactsState } from '@grmContacts/contacts.state'
 
+/**
+ * The contacts effects
+ */
 @Injectable()
 export class ContactsEffects {
+  /**
+   * Fetches the contacts
+   */
   fetchContacts$ = createEffect((): any => this.actions$
     .pipe(
       ofType(fetchContacts),
@@ -26,6 +32,9 @@ export class ContactsEffects {
     )
   )
 
+  /**
+   * Toggles an active contact
+   */
   toggleActiveContact$ = createEffect((): any => this.actions$
     .pipe(
       ofType(toggleActiveContact),

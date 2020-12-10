@@ -4,6 +4,10 @@ import { AlertsState } from '@grmAlerts/alerts.state'
 import { sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
 import { Alert } from '@grmAlerts/alerts.model'
 
+/**
+ * GRM Alerts List Header component
+ * @example <grm-alerts-list-header [alerts]="alerts"></grm-alerts-list-header>
+ */
 @Component({
   selector: 'grm-alerts-list-header',
   template: '<grm-alerts-list-header-display [alerts]="alerts"></grm-alerts-list-header-display>'
@@ -15,6 +19,10 @@ export class AlertsListHeaderComponent implements OnInit {
   ngOnInit(): void { }
 }
 
+/**
+ * GRM Alerts List Header display component
+ * @example <grm-alerts-list-header-display [alerts]="alerts"></grm-alerts-list-header-display>
+ */
 @Component({
   selector: 'grm-alerts-list-header-display',
   templateUrl: './alerts-list-header.component.html',
@@ -29,11 +37,20 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /**
+   * Handles the select all tap
+   * @param $event
+   */
   tapSelectAll($event: any) {
     $event.preventDefault()
     this.store.dispatch(toggleSelectAll())
   }
 
+  /**
+   * Handles the sort tap
+   * @param $event
+   * @param column
+   */
   tapSort($event: any, column: string): void {
     $event.preventDefault()
     this.store.dispatch(sortAlerts({column}))

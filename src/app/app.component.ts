@@ -6,13 +6,17 @@ import { AppState, pageTitleSelector } from '@grm/app.state'
 import { fetchAlerts } from '@grmAlerts/alerts.actions'
 import { fetchContacts } from '@grmContacts/contacts.actions'
 
+/**
+ * GRM application component
+ * @example <grm-root></grm-root>
+ */
 @Component({
   selector: 'grm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  // Example: <div [innerHtml]="title" *ngIf="(title$ | async) as title"></div>
+  // @example <div [innerHtml]="title" *ngIf="(title$ | async) as title"></div>
   title$: Observable<string[]> = this.store.select(pageTitleSelector)
 
   constructor(

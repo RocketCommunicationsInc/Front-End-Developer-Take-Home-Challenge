@@ -9,8 +9,14 @@ import { AlertsService } from '@grmAlerts/alerts.service'
 import { Alert } from '@grmAlerts/alerts.model'
 import { activeAlertsSelector, AlertsState, selectedAlertsSelector } from '@grmAlerts/alerts.state'
 
+/**
+ * The alerts effects
+ */
 @Injectable()
 export class AlertsEffects {
+  /**
+   * Fetches the alerts
+   */
   fetchAlerts$ = createEffect((): any => this.actions$
     .pipe(
       ofType(fetchAlerts),
@@ -26,6 +32,9 @@ export class AlertsEffects {
     )
   )
 
+  /**
+   * Toggles an active alert
+   */
   toggleActiveAlert$ = createEffect((): any =>this.actions$
     .pipe(
       ofType(toggleActiveAlert),
@@ -41,6 +50,9 @@ export class AlertsEffects {
     )
   )
 
+  /**
+   * Toggles a selected alert
+   */
   toggleSelectedAlert$ = createEffect((): any =>this.actions$
     .pipe(
       ofType(toggleSelectedAlert),

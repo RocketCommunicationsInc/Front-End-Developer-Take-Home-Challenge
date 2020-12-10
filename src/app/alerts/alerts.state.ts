@@ -1,5 +1,8 @@
 import { Alert } from '@grmAlerts/alerts.model'
 
+/**
+ * The alerts state
+ */
 export class AlertsState {
   alerts: Alert[]
   activeAlerts: string[]
@@ -11,6 +14,9 @@ export class AlertsState {
   errorMessage?: string
 }
 
+/**
+ * The default alerts state
+ */
 export const defaultAlertsState: AlertsState = {
   alerts: [],
   activeAlerts: [],

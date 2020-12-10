@@ -8,6 +8,10 @@ import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { AppState } from '@grm/app.state'
 import { fetchAlerts } from '@grmAlerts/alerts.actions'
 
+/**
+ * GRM Alerts component
+ * @example <grm-alerts-list></grm-alerts-list>
+ */
 @Component({
   selector: 'grm-alerts-list',
   template: '<grm-alerts-list-display fxFlex [alerts]="alerts$ | async" [sortColumn]="sortColumn$ | async" ' +
@@ -28,6 +32,10 @@ export class AlertsListComponent implements OnInit {
   ngOnInit(): void { }
 }
 
+/**
+ * GRM Alerts display component
+ * @example <grm-alerts-list-display [alerts]="alerts$ | async"></grm-alerts-list-display>
+ */
 @Component({
   selector: 'grm-alerts-list-display',
   templateUrl: './alerts-list.component.html',
@@ -55,7 +63,11 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
     this.contentTemplate = this.alertsFetchingTemplateRef
   }
 
-  // This is used to get around the dreaded ExpressionChangedAfterItHasBeenCheckedError
+  /**
+   * Determines which content template to render based off of the fetch status
+   * This is used to get around the dreaded ExpressionChangedAfterItHasBeenCheckedError
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if ('fetchStatus' in changes) {
       switch (changes.fetchStatus.currentValue) {
@@ -75,6 +87,10 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Handles the retry tap
+   * @param $event
+   */
   tapRetry($event: any): void {
     $event.preventDefault()
     this.appStore.dispatch(fetchAlerts())

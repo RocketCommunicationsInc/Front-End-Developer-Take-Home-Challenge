@@ -1,5 +1,8 @@
 import { Contact } from '@grmContacts/contacts.model'
 
+/**
+ * The contacts state
+ */
 export class ContactsState {
   contacts: Contact[]
   activeContacts: string[]
@@ -10,6 +13,9 @@ export class ContactsState {
   errorMessage?: string
 }
 
+/**
+ * The default contacts state
+ */
 export const defaultContactsState: ContactsState = {
   contacts: [],
   activeContacts: [],

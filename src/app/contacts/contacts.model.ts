@@ -1,3 +1,6 @@
+/**
+ * The contact model
+ */
 export class Contact {
   id: string
   contactId: string

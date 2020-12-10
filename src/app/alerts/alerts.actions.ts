@@ -1,55 +1,88 @@
 import { createAction, props } from '@ngrx/store'
 import { Alert } from '@grmAlerts/alerts.model'
 
+/**
+ * The fetch alerts action
+ */
 export const fetchAlerts = createAction(
   '[Alerts] Fetch Alerts'
 )
 
+/**
+ * The fetch alerts success action
+ */
 export const fetchAlertsSuccess = createAction(
   '[Alerts] Fetch Alerts Success',
   props<{ alerts: Alert[] }>()
 )
 
+/**
+ * The fetch alerts failure action
+ */
 export const fetchAlertsFailure = createAction(
   '[Alerts] Fetch Alerts Failure',
   props<{ error: any; message: string }>()
 )
 
+/**
+ * The toggle active alert action
+ */
 export const toggleActiveAlert = createAction(
   '[Alerts] Toggle Active Alert',
   props<{ alert: Alert }>()
 )
 
+/**
+ * The add active alert action
+ */
 export const addActiveAlert = createAction(
   '[Alerts] Add Active Alert',
   props<{ errorId: string }>()
 )
 
+/**
+ * The remove active alert action
+ */
 export const removeActiveAlert = createAction(
   '[Alerts] Remove Active Alert',
   props<{ errorId: string }>()
 )
 
+/**
+ * The toggle selected alert action
+ */
 export const toggleSelectedAlert = createAction(
   '[Alerts] Toggle Selected Alert',
   props<{ alert: Alert }>()
 )
 
+/**
+ * The add selected alert action
+ */
 export const addSelectedAlert = createAction(
   '[Alerts] Add Selected Alert',
   props<{ errorId: string }>()
 )
 
+/**
+ * The remove selected alert action
+ */
 export const removeSelectedAlert = createAction(
   '[Alerts] Remove Selected Alert',
   props<{ errorId: string }>()
 )
 
+/**
+ * The sort alerts action
+ */
 export const sortAlerts = createAction(
   '[Alerts] Sort Alerts',
   props<{ column: string }>()
 )
 
+/**
+ * The toggle select all action
+ */
 export const toggleSelectAll = createAction(
   '[Alerts] Toggle Select All'
 )

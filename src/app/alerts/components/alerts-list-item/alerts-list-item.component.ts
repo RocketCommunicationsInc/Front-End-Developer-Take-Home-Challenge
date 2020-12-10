@@ -5,6 +5,10 @@ import { toggleActiveAlert, toggleSelectedAlert } from '@grmAlerts/alerts.action
 import { Alert } from '@grmAlerts/alerts.model'
 import { AlertsState, isActiveAlertSelector, isSelectedAlertSelector } from '@grmAlerts/alerts.state'
 
+/**
+ * GRM Alert List Item component
+ * @example <grm-alerts-list-item [alert]="alert"></grm-alerts-list-item>
+ */
 @Component({
   selector: 'grm-alerts-list-item',
   template: '<grm-alerts-list-item-display [alert]="alert" [active]="active$ | async" ' +
@@ -26,6 +30,10 @@ export class AlertsListItemComponent implements OnInit {
   }
 }
 
+/**
+ * GRM Alert List Item display component
+ * @example <grm-alerts-list-item-display [alert]="alert"></grm-alerts-list-item-display>
+ */
 @Component({
   selector: 'grm-alerts-list-item-display',
   templateUrl: './alerts-list-item.component.html',
@@ -42,16 +50,30 @@ export class AlertsListItemDisplayComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /**
+   * Gets an alert id used by the checkboxes
+   * @param alert
+   */
   getAlertId(alert: Alert): string {
     return `alert${alert.errorId}`
   }
 
+  /**
+   * Handles the alert row tap
+   * @param $event
+   * @param alert
+   */
   tapTogglelAlertRow($event: any, alert: Alert): void {
     $event.preventDefault()
     $event.stopPropagation()
     this.store.dispatch(toggleActiveAlert({alert}))
   }
 
+  /**
+   * Handles the alert checkbox tap
+   * @param $event
+   * @param alert
+   */
   tapToggleSelectedAlertRow($event: any, alert: Alert) {
     $event.preventDefault()
     $event.stopPropagation()

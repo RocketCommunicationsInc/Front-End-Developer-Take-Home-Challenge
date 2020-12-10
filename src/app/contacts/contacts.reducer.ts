@@ -4,6 +4,9 @@ import { addActiveContact, fetchContacts, fetchContactsFailure, fetchContactsSuc
   sortContacts } from '@grmContacts/contacts.actions'
 import { ContactsState, defaultContactsState } from '@grmContacts/contacts.state'
 
+/**
+ * The contacts reducers
+ */
 export const contactsReducers: ActionReducer<ContactsState> = createReducer(
   defaultContactsState,
   on(fetchContacts, (state: ContactsState, { }) => ({

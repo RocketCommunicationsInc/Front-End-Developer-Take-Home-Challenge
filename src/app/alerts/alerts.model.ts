@@ -1,3 +1,6 @@
+/**
+ * The alert model
+ */
 export class Alert {
   errorId: string
   errorSeverity: string
