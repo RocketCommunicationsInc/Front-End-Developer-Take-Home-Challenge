@@ -13,12 +13,12 @@ import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
  */
 @Component({
   selector: 'grm-contacts-list-item',
-  template: '<grm-contacts-list-item [contact]="contact"></grm-contacts-list-item>'
+  template: '<grm-contacts-list-item-display [contact]="contact" [active]="active$ | async"></grm-contacts-list-item-display>'
 })
 export class ContactsListItemComponent implements OnInit {
-  @Input() contact: Contact | null = null
+  @Input() contact: Contact | null
 
-  active$!: Observable<boolean>
+  active$: Observable<boolean>
 
   constructor(
     private store: Store<ContactsState>
@@ -42,8 +42,8 @@ export class ContactsListItemComponent implements OnInit {
   ]
 })
 export class ContactsListItemDisplayComponent implements OnInit {
-  @Input() contact: Contact | null = null
-  @Input() active: boolean | null = false
+  @Input() contact: Contact | null
+  @Input() active: boolean | null
 
   constructor(
     private store: Store<ContactsState>,

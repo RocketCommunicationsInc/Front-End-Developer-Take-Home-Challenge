@@ -17,8 +17,8 @@ import { AlertsState, isActiveAlertSelector, isSelectedAlertSelector } from '@gr
 export class AlertsListItemComponent implements OnInit {
   @Input() alert: Alert | null = null
 
-  active$!: Observable<boolean>
-  selected$!: Observable<boolean>
+  active$: Observable<boolean>
+  selected$: Observable<boolean>
 
   constructor(
     private store: Store<AlertsState>
@@ -40,9 +40,9 @@ export class AlertsListItemComponent implements OnInit {
   styleUrls: ['./alerts-list-item.component.scss']
 })
 export class AlertsListItemDisplayComponent implements OnInit {
-  @Input() alert: Alert | null = null
-  @Input() active: boolean | null = false
-  @Input() selected: boolean | null = false
+  @Input() alert: Alert | null
+  @Input() active: boolean | null
+  @Input() selected: boolean | null
 
   constructor(
     private store: Store<AlertsState>

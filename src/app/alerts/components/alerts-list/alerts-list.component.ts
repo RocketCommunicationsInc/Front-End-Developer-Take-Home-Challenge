@@ -48,11 +48,11 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @Input() fetchStatus: string | null
   @Input() errorMessage: string | null
 
-  @ViewChild('alertsFetching') public alertsFetchingTemplateRef!: TemplateRef<any>
-  @ViewChild('alertsSuccess') public alertsSuccessTemplateRef!: TemplateRef<any>
-  @ViewChild('alertsFailed') public alertsFailedTemplateRef!: TemplateRef<any>
+  @ViewChild('alertsFetching') public alertsFetchingTemplateRef: TemplateRef<any>
+  @ViewChild('alertsSuccess') public alertsSuccessTemplateRef: TemplateRef<any>
+  @ViewChild('alertsFailed') public alertsFailedTemplateRef: TemplateRef<any>
 
-  public contentTemplate!: TemplateRef<any>
+  public contentTemplate: TemplateRef<any>
 
   constructor(
     private appStore: Store<AppState>
