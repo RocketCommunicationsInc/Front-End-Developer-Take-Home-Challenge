@@ -55,3 +55,19 @@ export const sortContacts = createAction(
   '[Contacts] Sort Contacts',
   props<{ column: string }>()
 )
+
+/**
+ * The enable contacts tester action
+ */
+export const enableContactsTester = createAction(
+  '[Contacts] Enable Contacts Tester',
+  props<{ interval: number }>()
+)
+
+/**
+ * The add contacts action
+ */
+export const addContacts = createAction(
+  '[Contacts] Add Contacts',
+  props<{ contacts: Contact[] }>()
+)

@@ -6,7 +6,7 @@ import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector,
   errorMessageSelector } from '@grmAlerts/alerts.state'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { AppState } from '@grm/app.state'
-import { fetchAlerts } from '@grmAlerts/alerts.actions'
+import { enableAlertsTester, fetchAlerts } from '@grmAlerts/alerts.actions'
 
 /**
  * GRM Alerts component
@@ -30,7 +30,10 @@ export class AlertsListComponent implements OnInit {
     private store: Store<AlertsState>
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // Remove this to disable the alerts tester
+    this.store.dispatch(enableAlertsTester({interval: 20000}))
+  }
 }
 
 /**

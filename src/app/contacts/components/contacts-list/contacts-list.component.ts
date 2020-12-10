@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { AppState } from '@grm/app.state'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { ContactsState, errorMessageSelector, fetchStatusSelector } from '@grmContacts/contacts.state'
-import { fetchContacts } from '@grmContacts/contacts.actions'
+import { enableContactsTester, fetchContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
 import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@grmContacts/contacts.state'
 
@@ -30,7 +30,10 @@ export class ContactsListComponent implements OnInit {
     private store: Store<ContactsState>
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // Remove this to disable the contacts tester
+    this.store.dispatch(enableContactsTester({interval: 10000}))
+  }
 }
 
 /**

@@ -86,3 +86,19 @@ export const sortAlerts = createAction(
 export const toggleSelectAll = createAction(
   '[Alerts] Toggle Select All'
 )
+
+/**
+ * The enable alerts tester action
+ */
+export const enableAlertsTester = createAction(
+  '[Alerts] Enable Alerts Tester',
+  props<{ interval: number }>()
+)
+
+/**
+ * The add alerts action
+ */
+export const addAlerts = createAction(
+  '[Alerts] Add Alerts',
+  props<{ alerts: Alert[] }>()
+)

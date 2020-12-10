@@ -3,7 +3,7 @@ import { setTitle } from '@grm/app.actions'
 import { AppState, defaultAppState } from '@grm/app.state'
 
 /**
- * The application reducers
+ * The application reducer
  */
 export const appReducers: ActionReducer<AppState> = createReducer(
   defaultAppState,

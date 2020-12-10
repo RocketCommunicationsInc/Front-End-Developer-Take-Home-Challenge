@@ -1,11 +1,11 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { fetchAlertsFailure, fetchAlertsSuccess, addActiveAlert, removeActiveAlert, addSelectedAlert,
-  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts } from '@grmAlerts/alerts.actions'
+  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts, addAlerts } from '@grmAlerts/alerts.actions'
 import { AlertsState, defaultAlertsState } from '@grmAlerts/alerts.state'
 
 /**
- * The alerts reducers
+ * The alerts reducer
  */
 export const alertsReducers: ActionReducer<AlertsState> = createReducer(
   defaultAlertsState,
@@ -48,5 +48,9 @@ export const alertsReducers: ActionReducer<AlertsState> = createReducer(
   on(toggleSelectAll, (state) => ({
     ...state,
     selectedAlerts: (state.selectedAlerts.length === state.alerts.length) ? [] : state.alerts.map(alert => alert.errorId)
+  })),
+  on(addAlerts, (state, { alerts }) => ({
+    ...state,
+    alerts: state.alerts?.concat(alerts)
   }))
 )

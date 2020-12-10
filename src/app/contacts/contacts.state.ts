@@ -31,8 +31,8 @@ export const executingContactsSelector = (state: any) => state.contacts.contacts
   .filter((contact: Contact) => contact.contactState === 'executing') : []
 
 export const activeContactsSelector = (state: any) => state.contacts.activeContacts
-export const isActiveContactSelector = (state: any, props: any) => state.contacts.activeContacts &&
-  state.contacts.activeContacts.find((contactId: string) => contactId === props.contactId)
+export const isActiveContactSelector = (state: any, props: any) => state.contacts ? state.contacts.activeContacts &&
+  state.contacts.activeContacts.find((contactId: string) => contactId === props.contactId) : false
 
 export const sortColumnSelector = (state: any) => state.contacts.sortColumn
 export const sortDirectionSelector = (state: any) => state.contacts.sortDirection

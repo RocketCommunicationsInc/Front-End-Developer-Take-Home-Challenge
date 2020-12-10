@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { provideMockStore } from '@ngrx/store/testing'
-import { ContactsListHeaderComponent, ContactsListHeaderDisplayComponent } from '@grmContacts/components/contacts-list-header/contacts-list-header.component'
+import { ContactsListHeaderComponent,
+  ContactsListHeaderDisplayComponent } from '@grmContacts/components/contacts-list-header/contacts-list-header.component'
 
 /**
  * GRM Contacts List Header component tests

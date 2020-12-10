@@ -27,12 +27,12 @@ export const defaultAlertsState: AlertsState = {
 // Selectors
 export const alertsSelector = (state: any) => state.alerts.alerts
 export const activeAlertsSelector = (state: any) => state.alerts.activeAlerts
-export const isActiveAlertSelector = (state: any, props: any) => state.alerts.activeAlerts
-  .find((errorId: string) => errorId === props.errorId)
+export const isActiveAlertSelector = (state: any, props: any) => state.alerts ? state.alerts.activeAlerts
+  .find((errorId: string) => errorId === props.errorId) : false
 
 export const selectedAlertsSelector = (state: any) => state.alerts.selectedAlerts
-export const isSelectedAlertSelector = (state: any, props: any) => state.alerts.selectedAlerts
-  .find((errorId: string) => errorId === props.errorId)
+export const isSelectedAlertSelector = (state: any, props: any) => state.alerts ? state.alerts.selectedAlerts
+  .find((errorId: string) => errorId === props.errorId) : false
 
 export const sortColumnSelector = (state: any) => state.alerts.sortColumn
 export const sortDirectionSelector = (state: any) => state.alerts.sortDirection

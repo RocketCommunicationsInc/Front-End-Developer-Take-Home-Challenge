@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core'
-import { of } from 'rxjs'
+import { interval, of } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { map, catchError, mergeMap, withLatestFrom } from 'rxjs/operators'
+import { map, catchError, mergeMap, withLatestFrom, switchMap } from 'rxjs/operators'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { addActiveContact, fetchContacts, fetchContactsFailure, fetchContactsSuccess, removeActiveContact,
-  toggleActiveContact } from '@grmContacts/contacts.actions'
+import { addActiveContact, addContacts, enableContactsTester, fetchContacts, fetchContactsFailure, fetchContactsSuccess,
+  removeActiveContact, toggleActiveContact } from '@grmContacts/contacts.actions'
 import { ContactsService } from '@grmContacts/contacts.service'
 import { Contact } from '@grmContacts/contacts.model'
-import { activeContactsSelector, ContactsState } from '@grmContacts/contacts.state'
+import { activeContactsSelector, contactsSelector, ContactsState } from '@grmContacts/contacts.state'
+import { randomBetween } from '@grm/common/utils/rand.utils'
 
 /**
  * The contacts effects
@@ -47,6 +48,30 @@ export class ContactsEffects {
 
         return addActiveContact({contactId: action.contact.contactId})
       })
+    )
+  )
+
+  enableContactsTester$ = createEffect((): any => this.actions$
+    .pipe(
+      ofType(enableContactsTester),
+      switchMap((action) => interval(action.interval)
+        .pipe(
+          withLatestFrom(this.store.select(contactsSelector)),
+          map((contacts) => {
+            const contactList: Contact[] = []
+
+            if (contacts) {
+              const newContactCount: number = randomBetween(1, 10)
+              for (let i = 0; i < newContactCount; i++) {
+                const randomContact: number = Math.floor(Math.random() * contacts.length)
+                contactList.push(contacts[randomContact])
+              }
+            }
+
+            return addContacts({contacts: contactList})
+          })
+        )
+      )
     )
   )
 

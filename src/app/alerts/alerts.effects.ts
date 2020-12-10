@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core'
-import { of } from 'rxjs'
-import { map, catchError, mergeMap, withLatestFrom } from 'rxjs/operators'
+import { interval, of } from 'rxjs'
+import { map, catchError, mergeMap, withLatestFrom, switchMap } from 'rxjs/operators'
 import { Store } from '@ngrx/store'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { fetchAlerts, fetchAlertsFailure, fetchAlertsSuccess, toggleActiveAlert, addActiveAlert,
-  removeActiveAlert, toggleSelectedAlert, removeSelectedAlert, addSelectedAlert } from '@grmAlerts/alerts.actions'
+  removeActiveAlert, toggleSelectedAlert, removeSelectedAlert, addSelectedAlert, enableAlertsTester,
+  addAlerts } from '@grmAlerts/alerts.actions'
 import { AlertsService } from '@grmAlerts/alerts.service'
 import { Alert } from '@grmAlerts/alerts.model'
-import { activeAlertsSelector, AlertsState, selectedAlertsSelector } from '@grmAlerts/alerts.state'
+import { activeAlertsSelector, alertsSelector, AlertsState, selectedAlertsSelector } from '@grmAlerts/alerts.state'
+import { randomBetween } from '@grm/common/utils/rand.utils'
 
 /**
  * The alerts effects
@@ -35,7 +37,7 @@ export class AlertsEffects {
   /**
    * Toggles an active alert
    */
-  toggleActiveAlert$ = createEffect((): any =>this.actions$
+  toggleActiveAlert$ = createEffect((): any => this.actions$
     .pipe(
       ofType(toggleActiveAlert),
       withLatestFrom(this.store.select(activeAlertsSelector)),
@@ -53,7 +55,7 @@ export class AlertsEffects {
   /**
    * Toggles a selected alert
    */
-  toggleSelectedAlert$ = createEffect((): any =>this.actions$
+  toggleSelectedAlert$ = createEffect((): any => this.actions$
     .pipe(
       ofType(toggleSelectedAlert),
       withLatestFrom(this.store.select(selectedAlertsSelector)),
@@ -65,6 +67,30 @@ export class AlertsEffects {
 
         return addSelectedAlert({errorId: action.alert.errorId})
       })
+    )
+  )
+
+  enableAlertsTester$ = createEffect((): any => this.actions$
+    .pipe(
+      ofType(enableAlertsTester),
+      switchMap((action) => interval(action.interval)
+        .pipe(
+          withLatestFrom(this.store.select(alertsSelector)),
+          map((alerts) => {
+            const alertList: Alert[] = []
+
+            if (alerts) {
+              const newAlertCount: number = randomBetween(1, 10)
+              for (let i = 0; i < newAlertCount; i++) {
+                const randomAlert: number = Math.floor(Math.random() * alerts.length)
+                alertList.push(alerts[randomAlert])
+              }
+            }
+
+            return addAlerts({alerts: alertList})
+          })
+        )
+      )
     )
   )
 
