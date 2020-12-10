@@ -1,0 +1,17 @@
+<div fxFlexFill fxLayout="column">
+  <rux-global-status-bar fxFlex="10%" class="dark-theme" [appname]="title" version="3.1" *ngIf="(title$ | async) as title">
+    <rux-clock></rux-clock>
+  </rux-global-status-bar>
+  <div fxFlex>
+    <div fxFlexFill fxLayout="column">
+      <div fxFill fxLayout="row">
+        <div id="alerts" fxFlex>
+          <grm-alerts-list fxFlex></grm-alerts-list>
+        </div>
+        <div id="contacts" fxFlex="60%">
+          <grm-contacts-list fxFlex></grm-contacts-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

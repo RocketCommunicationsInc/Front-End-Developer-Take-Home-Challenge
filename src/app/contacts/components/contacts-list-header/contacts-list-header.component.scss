@@ -1,0 +1,26 @@
+@import 'src/styles/grm-mixins';
+@import 'src/styles/grm-pallet';
+
+:host {
+  @include list-header-host;
+}
+
+.contacts-header {
+  @include list-header-container;
+
+  .contacts-header-summary {
+    @include list-header-summary;
+
+    &.failed {
+      color: $color-serious;
+    }
+
+    .contact-count {
+      @include list-header-count;
+    }
+  }
+
+  .contacts-header-columns {
+    @include list-header-columns;
+  }
+}

@@ -1,0 +1,27 @@
+<div fxFlex class="contacts-header">
+  <div fxLayout="row" class="contacts-header-options">
+    <div class="contacts-header-summary" fxFlex>
+      <span class="contact-count" [innerHtml]="contacts?.length || 0"></span>
+      <span class="contact-count-text" [innerHtml]="'Contacts'"></span>
+    </div>
+    <div class="contacts-header-summary failed" fxFlex>
+      <span class="contact-count" [innerHtml]="failedContacts?.length || 0"></span>
+      <span class="contact-count-text" [innerHtml]="'Failed'"></span>
+    </div>
+    <div class="contacts-header-summary" fxFlex>
+      <span class="contact-count" [innerHtml]="executingContacts?.length || 0"></span>
+      <span class="contact-count-text" [innerHtml]="'Executing'"></span>
+    </div>
+  </div>
+  <div class="contacts-header-columns" fxLayout="row" fxLayoutAlign="start center">
+    <div class="status" fxFlex="5%"></div>
+    <div class="name" fxFlex="10%" *ngIf="hasContacts(contacts)">
+      <a href="#" [innerHtml]="'Name'" (click)="tapSort($event, 'contactName')"></a>
+    </div>
+    <div class="name" fxFlex="10%" [innerHtml]="'Name'" *ngIf="!hasContacts(contacts)"></div>
+    <div class="gs" fxFlex="10%" [innerHtml]="'GS'"></div>
+    <div class="equipment-string" fxFlex="40%" [innerHtml]="'Equipment String'"></div>
+    <div class="status" fxFlex="20%" [innerHtml]="'Status'"></div>
+    <div class="aos-los" fxFlex="15%" [innerHtml]="'AOS - LOS'"></div>
+  </div>
+</div>

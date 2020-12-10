@@ -1,0 +1,17 @@
+@import 'src/styles/grm-mixins';
+
+:host {
+  @include list-host;
+}
+
+.contacts-list {
+  @include list-container;
+}
+
+.contacts-list-items {
+  @include list-items;
+}
+
+rux-button {
+  margin: 1.25rem 0 0 1.25rem;
+}

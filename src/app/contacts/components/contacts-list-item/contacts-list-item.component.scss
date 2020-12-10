@@ -1,0 +1,13 @@
+@import 'src/styles/grm-mixins';
+
+.contact {
+  @include list-item-container;
+
+  .contact-row {
+    @include list-item-row;
+  }
+
+  .contact-details {
+    @include list-item-details;
+  }
+}
