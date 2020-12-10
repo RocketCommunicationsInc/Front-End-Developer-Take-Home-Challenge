@@ -1,0 +1,44 @@
+.alert {
+  border-bottom: 2px solid var(--colorTertiaryDarken3, #101923);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--colorSecondaryDarken3, #1d4367);
+  }
+
+  .alert-row {
+    font-size: 0.95rem;
+    padding: 0.75rem 0.5rem;
+    min-height: 60px;
+  }
+
+  .alert-details {
+    background-color: var(--colorTertiaryDarken3, #101923);
+    cursor: default;
+    height: auto;
+    padding: 1.25rem 2.5rem;
+  }
+
+  .toggle {
+    text-align: center;
+
+    .rux-checkbox {
+      display: inline-flex;
+      margin: 0.5rem;
+      width: 1.4rem;
+      cursor: pointer;
+    }
+  }
+
+  .status {
+    width: 32px;
+  }
+
+  .rux-checkbox {
+    label {
+      &::before {
+        margin: 0;
+      }
+    }
+  }
+}

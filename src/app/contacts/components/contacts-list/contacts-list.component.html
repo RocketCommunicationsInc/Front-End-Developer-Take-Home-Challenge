@@ -1,0 +1,6 @@
+<div fxFlex fxLayout="column" class="contacts-list">
+  <grm-contacts-list-header [contacts]="contacts"></grm-contacts-list-header>
+  <div fxFlex class="contacts-list-items">
+    <grm-contacts-list-item [contact]="contact" *ngFor="let contact of contacts | contactSort:sortColumn:sortDirection"></grm-contacts-list-item>
+  </div>
+</div>

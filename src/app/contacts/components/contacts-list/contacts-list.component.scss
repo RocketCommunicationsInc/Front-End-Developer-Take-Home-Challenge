@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.contacts-list {
+  overflow: hidden;
+}
+
+.contacts-list-items {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

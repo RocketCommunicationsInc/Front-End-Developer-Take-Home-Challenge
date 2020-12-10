@@ -1,0 +1,6 @@
+<div fxFlex fxLayout="column" class="alerts-list">
+  <grm-alerts-list-header [alerts]="alerts"></grm-alerts-list-header>
+  <div fxFlex class="alerts-list-items">
+    <grm-alerts-list-item [alert]="alert" *ngFor="let alert of alerts | alertSort:sortColumn:sortDirection"></grm-alerts-list-item>
+  </div>
+</div>

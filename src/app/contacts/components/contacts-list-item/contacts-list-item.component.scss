@@ -1,0 +1,21 @@
+.contact {
+  border-bottom: 2px solid var(--colorTertiaryDarken3, #101923);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--colorSecondaryDarken3, #1d4367);
+  }
+
+  .contact-row {
+    font-size: 0.95rem;
+    padding: 0.75rem 0.5rem;
+    min-height: 60px;
+  }
+
+  .contact-details {
+    background-color: var(--colorTertiaryDarken3, #101923);
+    cursor: default;
+    height: auto;
+    padding: 1.25rem 2.5rem;
+  }
+}

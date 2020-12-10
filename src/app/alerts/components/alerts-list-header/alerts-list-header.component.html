@@ -1,0 +1,19 @@
+<div fxFlex class="alerts-header">
+  <div fxLayout="row" class="alerts-header-options">
+    <div class="alerts-header-summary" fxFlex>
+      <span class="alert-count" [innerHtml]="alerts?.length || 0"></span>
+      <span class="alert-count-text" [innerHtml]="'Active Alerts'"></span>
+    </div>
+  </div>
+  <div class="alerts-header-columns" fxLayout="row" fxLayoutAlign="start center">
+    <div class="toggle" fxFlex="10%">
+      <a href="#" [innerHtml]="'Select All'" (click)="tapSelectAll($event)"></a>
+    </div>
+    <div class="status"></div>
+    <div class="message" fxFlex [innerHtml]="'Message'"></div>
+    <div class="category" fxFlex="20%">
+      <a href="#" [innerHtml]="'Category'" (click)="tapSort($event, 'errorCategory')"></a>
+    </div>
+    <div class="time" fxFlex="10%" [innerHtml]="'Time'"></div>
+  </div>
+</div>
