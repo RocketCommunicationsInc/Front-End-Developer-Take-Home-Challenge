@@ -13,6 +13,7 @@ import { appReducers } from './app.reducer'
 import { defaultAppState } from './app.state'
 import { AlertsModule } from './alerts/alerts.module'
 import { ContactsModule } from './contacts/contacts.module'
+import { FormatGRMTimePipe } from './common/pipes/format-time.pipe'
 import { environment } from 'src/environments/environment'
 import '@astrouxds/rux-global-status-bar'
 import '@astrouxds/rux-clock'
@@ -34,9 +35,6 @@ if (!environment.production) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -54,7 +52,12 @@ if (!environment.production) {
     AlertsModule,
     ContactsModule
   ],
-  providers: [],
+  declarations: [
+    AppComponent
+  ],
+  providers: [
+    FormatGRMTimePipe
+  ],
   bootstrap: [
     AppComponent
   ],

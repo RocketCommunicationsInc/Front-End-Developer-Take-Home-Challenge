@@ -1,18 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { Alert } from '../../alerts.model'
-import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector } from '../../alerts.state'
+import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector, fetchStatusSelector,
+  errorMessageSelector } from '../../alerts.state'
+import { FetchStatus } from 'src/app/common/enums/status.enums'
+import { AppState } from 'src/app/app.state'
+import { fetchAlerts } from '../../alerts.actions'
 
 @Component({
   selector: 'grm-alerts-list',
   template: '<grm-alerts-list-display fxFlex [alerts]="alerts$ | async" [sortColumn]="sortColumn$ | async" ' +
-    '[sortDirection]="sortDirection$ | async"></grm-alerts-list-display>'
+    '[sortDirection]="sortDirection$ | async" [fetchStatus]="fetchStatus$ | async"' +
+    '[errorMessage]="errorMessage$ | async"></grm-alerts-list-display>'
 })
 export class AlertsListComponent implements OnInit {
   alerts$: Observable<Alert[]> = this.store.select(alertsSelector)
   sortColumn$: Observable<string> = this.store.select(sortColumnSelector)
   sortDirection$: Observable<string> = this.store.select(sortDirectionSelector)
+  fetchStatus$: Observable<string> = this.store.select(fetchStatusSelector)
+  errorMessage$: Observable<string> = this.store.select(errorMessageSelector)
 
   constructor(
     private store: Store<AlertsState>
@@ -26,11 +33,49 @@ export class AlertsListComponent implements OnInit {
   templateUrl: './alerts-list.component.html',
   styleUrls: ['./alerts-list.component.scss']
 })
-export class AlertsListDisplayComponent implements OnInit {
+export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @Input() alerts: Alert[] | null = []
   @Input() sortColumn: string | null = ''
   @Input() sortDirection: string | null = ''
+  @Input() fetchStatus: string | null = FetchStatus.fetching
+  @Input() errorMessage: string | null = ''
 
-  constructor() { }
-  ngOnInit(): void { }
+  @ViewChild('alertsFetching') public alertsFetchingTemplateRef!: TemplateRef<any> | null
+  @ViewChild('alertsSuccess') public alertsSuccessTemplateRef!: TemplateRef<any> | null
+  @ViewChild('alertsFailed') public alertsFailedTemplateRef!: TemplateRef<any> | null
+
+  public contentTemplate!: TemplateRef<any> | null
+
+  constructor(
+    private appStore: Store<AppState>
+  ) { }
+
+  ngOnInit(): void {
+    this.contentTemplate = this.alertsFetchingTemplateRef
+  }
+
+  // This is used to get around the dreaded ExpressionChangedAfterItHasBeenCheckedError
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('fetchStatus' in changes) {
+      switch (changes.fetchStatus.currentValue) {
+        case FetchStatus.fetchSuccess:
+          this.contentTemplate = this.alertsSuccessTemplateRef
+          break
+
+        case FetchStatus.fetchFailed:
+          this.contentTemplate = this.alertsFailedTemplateRef
+          break
+
+        case FetchStatus.fetching:
+        default:
+          this.contentTemplate = this.alertsFetchingTemplateRef
+          break
+      }
+    }
+  }
+
+  tapRetry($event: any): void {
+    $event.preventDefault()
+    this.appStore.dispatch(fetchAlerts())
+  }
 }

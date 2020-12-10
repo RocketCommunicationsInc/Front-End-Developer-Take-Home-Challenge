@@ -63,7 +63,10 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"]
+      }
     }
   ]
 }

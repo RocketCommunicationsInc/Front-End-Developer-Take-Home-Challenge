@@ -11,7 +11,7 @@
     </div>
     <div class="message" fxFlex [innerHtml]="alert.errorMessage"></div>
     <div class="category" fxFlex="20%" [innerHtml]="alert.errorCategory | titlecase"></div>
-    <div class="time" fxFlex="10%" [innerHtml]="alert.errorTime | alertErrorTime"></div>
+    <div class="time" fxFlex="10%" [innerHtml]="alert.errorTime | formatGRMTime"></div>
   </div>
   <div class="alert-details" [innerHtml]="alert.longMessage" *ngIf="active"></div>
 </div>

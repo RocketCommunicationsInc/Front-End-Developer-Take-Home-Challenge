@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(setTitle({title: ['GRM Dashboard']}))
-    this.store.dispatch(fetchContacts())
     this.store.dispatch(fetchAlerts())
+    this.store.dispatch(fetchContacts())
   }
 }

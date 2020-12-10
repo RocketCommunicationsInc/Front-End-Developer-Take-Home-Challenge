@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 import { toggleActiveContact } from '../../contacts.actions'
 import { Contact } from '../../contacts.model'
 import { ContactsState, isActiveContactSelector } from '../../contacts.state'
-import { ContactTimePipe } from '../../pipes/contact-time.pipe'
+import { FormatGRMTimePipe } from 'src/app/common/pipes/format-time.pipe'
 
 @Component({
   selector: 'grm-contacts-list-item',
@@ -30,8 +30,7 @@ export class ContactsListItemComponent implements OnInit {
   templateUrl: './contacts-list-item.component.html',
   styleUrls: ['./contacts-list-item.component.scss'],
   providers: [
-    TitleCasePipe,
-    ContactTimePipe
+    TitleCasePipe
   ]
 })
 export class ContactsListItemDisplayComponent implements OnInit {
@@ -41,7 +40,7 @@ export class ContactsListItemDisplayComponent implements OnInit {
   constructor(
     private store: Store<ContactsState>,
     private titlecase: TitleCasePipe,
-    private contactTimePipe: ContactTimePipe
+    private formatGRMTimePipe: FormatGRMTimePipe
   ) { }
 
   ngOnInit(): void { }
@@ -51,8 +50,8 @@ export class ContactsListItemDisplayComponent implements OnInit {
   }
 
   getAOSLOS(contact: Contact): string {
-    return `${this.contactTimePipe.transform(contact.contactBeginTimestamp)} - ` +
-      `${this.contactTimePipe.transform(contact.contactEndTimestamp)}`
+    return `${this.formatGRMTimePipe.transform(contact.contactBeginTimestamp)} - ` +
+      `${this.formatGRMTimePipe.transform(contact.contactEndTimestamp)}`
   }
 
   tapTogglelContactRow($event: any, contact: Contact): void {

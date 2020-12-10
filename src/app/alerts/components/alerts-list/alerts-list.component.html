@@ -1,6 +1,19 @@
 <div fxFlex fxLayout="column" class="alerts-list">
   <grm-alerts-list-header [alerts]="alerts"></grm-alerts-list-header>
+  <ng-container [ngTemplateOutlet]="contentTemplate || alertsFetching" [ngTemplateOutletContext]="{alerts: alerts, errorMessage: errorMessage}"></ng-container>
+</div>
+
+<ng-template #alertsFetching>
+  <rux-progress></rux-progress>
+</ng-template>
+
+<ng-template #alertsSuccess let-alerts="alerts">
   <div fxFlex class="alerts-list-items">
     <grm-alerts-list-item [alert]="alert" *ngFor="let alert of alerts | alertSort:sortColumn:sortDirection"></grm-alerts-list-item>
   </div>
-</div>
+</ng-template>
+
+<ng-template #alertsFailed let-errorMessage="errorMessage">
+  <rux-notification open [message]="errorMessage" status="critical"></rux-notification>
+  <rux-button [innerHtml]="'Retry'" (click)="tapRetry($event)"></rux-button>
+</ng-template>

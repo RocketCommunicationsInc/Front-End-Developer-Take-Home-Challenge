@@ -5,17 +5,26 @@ export class ContactsState {
   activeContacts: string[]
   sortColumn?: string
   sortDirection: string
+  fetchStatus?: string
+  error?: any
+  errorMessage?: string
 
   constructor(
     contacts: Contact[],
     activeContacts: string[],
     sortColumn: string,
-    sortDirection: string
+    sortDirection: string,
+    fetchStatus: string,
+    error: any,
+    errorMessage: string
   ) {
     this.contacts = contacts
     this.activeContacts = activeContacts
     this.sortColumn = sortColumn
     this.sortDirection = sortDirection
+    this.fetchStatus = fetchStatus
+    this.error = error
+    this.errorMessage = errorMessage
   }
 }
 
@@ -39,3 +48,5 @@ export const isActiveContactSelector = (state: any, props: any) => state.contact
 
 export const sortColumnSelector = (state: any) => state.contacts.sortColumn
 export const sortDirectionSelector = (state: any) => state.contacts.sortDirection
+export const fetchStatusSelector = (state: any) => state.contacts.fetchStatus
+export const errorMessageSelector = (state: any) => state.contacts.errorMessage

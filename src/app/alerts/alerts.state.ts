@@ -6,19 +6,28 @@ export class AlertsState {
   selectedAlerts: string[]
   sortColumn?: string
   sortDirection: string
+  fetchStatus?: string
+  error?: any
+  errorMessage?: string
 
   constructor(
     alerts: Alert[],
     activeAlerts: string[],
     selectedAlerts: string[],
     sortColumn: string,
-    sortDirection: string
+    sortDirection: string,
+    fetchStatus: string,
+    error: any,
+    errorMessage: string
   ) {
     this.alerts = alerts
     this.activeAlerts = activeAlerts
     this.selectedAlerts = selectedAlerts
     this.sortColumn = sortColumn
     this.sortDirection = sortDirection
+    this.fetchStatus = fetchStatus
+    this.error = error
+    this.errorMessage = errorMessage
   }
 }
 
@@ -41,3 +50,5 @@ export const isSelectedAlertSelector = (state: any, props: any) => state.alerts.
 
 export const sortColumnSelector = (state: any) => state.alerts.sortColumn
 export const sortDirectionSelector = (state: any) => state.alerts.sortDirection
+export const fetchStatusSelector = (state: any) => state.alerts.fetchStatus
+export const errorMessageSelector = (state: any) => state.alerts.errorMessage

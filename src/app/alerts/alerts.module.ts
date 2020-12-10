@@ -11,8 +11,11 @@ import { AlertsListComponent, AlertsListDisplayComponent } from './components/al
 import { AlertsListHeaderComponent, AlertsListHeaderDisplayComponent } from './components/alerts-list-header/alerts-list-header.component'
 import { AlertsListItemComponent, AlertsListItemDisplayComponent } from './components/alerts-list-item/alerts-list-item.component'
 import { AlertSortPipe } from './pipes/alert-sort.pipe'
-import { AlertErrorTimePipe } from './pipes/alert-error-time.pipe'
+import { FormatGRMTimePipe } from '../common/pipes/format-time.pipe'
 import '@astrouxds/rux-status'
+import '@astrouxds/rux-notification'
+import '@astrouxds/rux-progress'
+import '@astrouxds/rux-button'
 
 @NgModule({
   imports: [
@@ -33,7 +36,7 @@ import '@astrouxds/rux-status'
     AlertsListItemComponent,
     AlertsListItemDisplayComponent,
     AlertSortPipe,
-    AlertErrorTimePipe
+    FormatGRMTimePipe
   ],
   providers: [
     AlertsService

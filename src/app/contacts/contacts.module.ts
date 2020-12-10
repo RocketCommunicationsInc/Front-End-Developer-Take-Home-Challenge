@@ -13,8 +13,10 @@ import { ContactsListHeaderComponent,
 import { ContactsListItemComponent,
   ContactsListItemDisplayComponent } from './components/contacts-list-item/contacts-list-item.component'
 import { ContactSortPipe } from './pipes/contact-sort.pipe'
-import { ContactTimePipe } from './pipes/contact-time.pipe'
 import '@astrouxds/rux-status'
+import '@astrouxds/rux-notification'
+import '@astrouxds/rux-progress'
+import '@astrouxds/rux-button'
 
 @NgModule({
   imports: [
@@ -34,8 +36,7 @@ import '@astrouxds/rux-status'
     ContactsListHeaderDisplayComponent,
     ContactsListItemComponent,
     ContactsListItemDisplayComponent,
-    ContactSortPipe,
-    ContactTimePipe
+    ContactSortPipe
   ],
   providers: [
     ContactsService

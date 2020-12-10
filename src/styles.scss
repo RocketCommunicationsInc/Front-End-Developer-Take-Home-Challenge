@@ -4,3 +4,19 @@
 html, body {
   height: 100%;
 }
+
+rux-global-status-bar {
+  min-height: 100px;
+}
+
+rux-notification {
+  flex: initial;
+  position: relative;
+}
+
+rux-progress {
+  display: inline-block;
+  height: 5rem;
+  width: 5rem;
+  margin: 2rem auto 0;
+}

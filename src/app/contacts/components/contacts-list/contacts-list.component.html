@@ -1,6 +1,19 @@
 <div fxFlex fxLayout="column" class="contacts-list">
   <grm-contacts-list-header [contacts]="contacts"></grm-contacts-list-header>
+  <ng-container [ngTemplateOutlet]="contentTemplate || contactsFetching" [ngTemplateOutletContext]="{contacts: contacts, errorMessage: errorMessage}"></ng-container>
+</div>
+
+<ng-template #contactsFetching>
+  <rux-progress></rux-progress>
+</ng-template>
+
+<ng-template #contactsSuccess let-contacts="contacts">
   <div fxFlex class="contacts-list-items">
     <grm-contacts-list-item [contact]="contact" *ngFor="let contact of contacts | contactSort:sortColumn:sortDirection"></grm-contacts-list-item>
   </div>
-</div>
+</ng-template>
+
+<ng-template #contactsFailed let-errorMessage="errorMessage">
+  <rux-notification open [message]="errorMessage" status="critical"></rux-notification>
+  <rux-button [innerHtml]="'Retry'" (click)="tapRetry($event)"></rux-button>
+</ng-template>

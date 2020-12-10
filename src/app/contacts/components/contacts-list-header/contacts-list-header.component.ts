@@ -46,4 +46,8 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
     $event.preventDefault()
     this.store.dispatch(sortContacts({column}))
   }
+
+  hasContacts(contacts: Contact[] | null): boolean | null {
+    return contacts && (contacts.length > 0)
+  }
 }

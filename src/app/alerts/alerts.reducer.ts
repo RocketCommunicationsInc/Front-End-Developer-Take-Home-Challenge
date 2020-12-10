@@ -1,18 +1,25 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
+import { FetchStatus } from '../common/enums/status.enums'
 import { fetchAlertsFailure, fetchAlertsSuccess, addActiveAlert, removeActiveAlert, addSelectedAlert,
-  removeSelectedAlert, sortAlerts, toggleSelectAll } from './alerts.actions'
+  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts } from './alerts.actions'
 import { AlertsState, defaultAlertsState } from './alerts.state'
 
 export const alertsReducers: ActionReducer<AlertsState> = createReducer(
   defaultAlertsState,
+  on(fetchAlerts, (state: AlertsState, { }) => ({
+    ...state,
+    fetchStatus: FetchStatus.fetching
+  })),
   on(fetchAlertsSuccess, (state: AlertsState, { alerts }) => ({
     ...state,
-    alerts
+    alerts,
+    fetchStatus: FetchStatus.fetchSuccess
   })),
   on(fetchAlertsFailure, (state, { error, message }) => ({
     ...state,
     error,
-    errorMessage: message
+    errorMessage: message,
+    fetchStatus: FetchStatus.fetchFailed
   })),
   on(addActiveAlert, (state, { errorId }) => ({
     ...state,
