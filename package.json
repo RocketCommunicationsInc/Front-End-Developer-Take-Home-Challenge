@@ -24,6 +24,7 @@
     "@angular/router": "~11.0.3",
     "@astrouxds/rux-clock": "^4.1.1",
     "@astrouxds/rux-global-status-bar": "^4.0.3",
+    "@astrouxds/rux-notification": "^4.0.5",
     "@astrouxds/rux-status": "^4.0.3",
     "@ngrx/effects": "^10.0.1",
     "@ngrx/store": "^10.0.1",
