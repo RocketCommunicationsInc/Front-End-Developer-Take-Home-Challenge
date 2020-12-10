@@ -1,11 +1,11 @@
 export class Alert {
-  errorId: string = ''
-  errorSeverity: string = ''
-  errorCategory: string = ''
-  errorMessage: number = 0
-  longMessage: string = ''
-  errorTime: number = 0
-  selected: boolean = false
-  new: boolean = false
-  expanded: boolean = false
+  errorId: string
+  errorSeverity: string
+  errorCategory: string
+  errorMessage: number
+  longMessage: string
+  errorTime: number
+  selected: boolean
+  new: boolean
+  expanded: boolean
 }

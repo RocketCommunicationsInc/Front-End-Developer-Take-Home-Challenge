@@ -11,7 +11,7 @@ import { Contact } from '@grmContacts/contacts.model'
     '[executingContacts]="executingContacts$ | async"></grm-contacts-list-header-display>'
 })
 export class ContactsListHeaderComponent implements OnInit {
-  @Input() contacts: Contact[] | null = []
+  @Input() contacts: Contact[] | null
 
   failedContacts$!: Observable<Contact[]>
   executingContacts$!: Observable<Contact[]>
@@ -32,9 +32,9 @@ export class ContactsListHeaderComponent implements OnInit {
   styleUrls: ['./contacts-list-header.component.scss']
 })
 export class ContactsListHeaderDisplayComponent implements OnInit {
-  @Input() contacts: Contact[] | null = []
-  @Input() failedContacts: Contact[] | null = []
-  @Input() executingContacts: Contact[] | null = []
+  @Input() contacts: Contact[] | null
+  @Input() failedContacts: Contact[] | null
+  @Input() executingContacts: Contact[] | null
 
   constructor(
     private store: Store<ContactsState>

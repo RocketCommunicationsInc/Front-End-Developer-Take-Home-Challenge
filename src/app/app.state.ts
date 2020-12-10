@@ -1,5 +1,5 @@
 export class AppState {
-  title: string[] = []
+  title: string[]
 }
 
 export const defaultAppState: AppState = {

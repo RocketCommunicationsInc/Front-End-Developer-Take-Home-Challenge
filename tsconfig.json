@@ -25,7 +25,8 @@
       "@grmAlerts/*": ["src/app/alerts/*"],
       "@grmContacts/*": ["src/app/contacts/*"],
       "@grmCommon/*": ["src/app/common/*"]
-    }
+    },
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

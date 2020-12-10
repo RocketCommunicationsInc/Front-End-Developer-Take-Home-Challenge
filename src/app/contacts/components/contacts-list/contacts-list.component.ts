@@ -34,11 +34,11 @@ export class ContactsListComponent implements OnInit {
   styleUrls: ['./contacts-list.component.scss']
 })
 export class ContactsListDisplayComponent implements OnInit, OnChanges {
-  @Input() contacts: Contact[] | null = []
-  @Input() sortColumn: string | null = ''
-  @Input() sortDirection: string | null = ''
+  @Input() contacts: Contact[] | null
+  @Input() sortColumn: string | null
+  @Input() sortDirection: string | null
   @Input() fetchStatus: string | null = FetchStatus.fetching
-  @Input() errorMessage: string | null = ''
+  @Input() errorMessage: string | null
 
   @ViewChild('contactsFetching') public contactsFetchingTemplateRef!: TemplateRef<any>
   @ViewChild('contactsSuccess') public contactsSuccessTemplateRef!: TemplateRef<any>

@@ -34,11 +34,11 @@ export class AlertsListComponent implements OnInit {
   styleUrls: ['./alerts-list.component.scss']
 })
 export class AlertsListDisplayComponent implements OnInit, OnChanges {
-  @Input() alerts: Alert[] | null = []
-  @Input() sortColumn: string | null = ''
-  @Input() sortDirection: string | null = ''
-  @Input() fetchStatus: string | null = FetchStatus.fetching
-  @Input() errorMessage: string | null = ''
+  @Input() alerts: Alert[] | null
+  @Input() sortColumn: string | null
+  @Input() sortDirection: string | null
+  @Input() fetchStatus: string | null
+  @Input() errorMessage: string | null
 
   @ViewChild('alertsFetching') public alertsFetchingTemplateRef!: TemplateRef<any>
   @ViewChild('alertsSuccess') public alertsSuccessTemplateRef!: TemplateRef<any>
@@ -51,6 +51,7 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    this.fetchStatus = FetchStatus.fetching
     this.contentTemplate = this.alertsFetchingTemplateRef
   }
 

@@ -9,7 +9,7 @@ import { Alert } from '@grmAlerts/alerts.model'
   template: '<grm-alerts-list-header-display [alerts]="alerts"></grm-alerts-list-header-display>'
 })
 export class AlertsListHeaderComponent implements OnInit {
-  @Input() alerts: Alert[] | null = []
+  @Input() alerts: Alert[] | null
 
   constructor() { }
   ngOnInit(): void { }
@@ -21,7 +21,7 @@ export class AlertsListHeaderComponent implements OnInit {
   styleUrls: ['./alerts-list-header.component.scss']
 })
 export class AlertsListHeaderDisplayComponent implements OnInit {
-  @Input() alerts: Alert[] | null = []
+  @Input() alerts: Alert[] | null
 
   constructor(
     private store: Store<AlertsState>

@@ -1,25 +1,21 @@
 import { Alert } from '@grmAlerts/alerts.model'
 
 export class AlertsState {
-  alerts: Alert[] = []
-  activeAlerts: string[] = []
-  selectedAlerts: string[] = []
-  sortColumn: string = ''
-  sortDirection: string = ''
-  fetchStatus: string = ''
+  alerts: Alert[]
+  activeAlerts: string[]
+  selectedAlerts: string[]
+  sortColumn?: string
+  sortDirection: string
+  fetchStatus?: string
   error?: any
-  errorMessage: string = ''
+  errorMessage?: string
 }
 
 export const defaultAlertsState: AlertsState = {
   alerts: [],
   activeAlerts: [],
   selectedAlerts: [],
-  sortColumn: '',
-  sortDirection: 'desc',
-  fetchStatus: '',
-  error: null,
-  errorMessage: ''
+  sortDirection: 'desc'
 }
 
 // Selectors

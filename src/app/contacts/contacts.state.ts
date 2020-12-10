@@ -1,23 +1,19 @@
 import { Contact } from '@grmContacts/contacts.model'
 
 export class ContactsState {
-  contacts: Contact[] = []
-  activeContacts: string[] = []
-  sortColumn: string = ''
-  sortDirection: string = ''
-  fetchStatus: string = ''
-  error: any
-  errorMessage?: string = ''
+  contacts: Contact[]
+  activeContacts: string[]
+  sortColumn?: string
+  sortDirection: string
+  fetchStatus?: string
+  error?: any
+  errorMessage?: string
 }
 
 export const defaultContactsState: ContactsState = {
   contacts: [],
   activeContacts: [],
-  sortColumn: '',
-  sortDirection: 'desc',
-  fetchStatus: '',
-  error: null,
-  errorMessage: ''
+  sortDirection: 'desc'
 }
 
 // Selectors
