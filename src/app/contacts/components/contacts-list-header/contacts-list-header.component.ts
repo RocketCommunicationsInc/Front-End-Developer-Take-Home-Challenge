@@ -30,7 +30,7 @@ export class ContactsListHeaderComponent implements OnInit {
   /**
    * Sorts the contacts by column
    *
-   * @param column 
+   * @param column
    */
   sortContacts(column: string): void {
     this.store.dispatch(sortContacts({column}))
