@@ -7,6 +7,7 @@ import { AlertsState, isActiveAlertSelector, isSelectedAlertSelector } from '@gr
 
 /**
  * GRM Alert List Item component
+ *
  * @example <grm-alerts-list-item [alert]="alert"></grm-alerts-list-item>
  */
 @Component({
@@ -32,6 +33,7 @@ export class AlertsListItemComponent implements OnInit {
 
 /**
  * GRM Alert List Item display component
+ *
  * @example <grm-alerts-list-item-display [alert]="alert"></grm-alerts-list-item-display>
  */
 @Component({
@@ -52,6 +54,7 @@ export class AlertsListItemDisplayComponent implements OnInit {
 
   /**
    * Gets an alert id used by the checkboxes
+   *
    * @param alert
    */
   getAlertId(alert: Alert): string {
@@ -60,6 +63,7 @@ export class AlertsListItemDisplayComponent implements OnInit {
 
   /**
    * Handles the alert row tap
+   *
    * @param $event
    * @param alert
    */
@@ -71,6 +75,7 @@ export class AlertsListItemDisplayComponent implements OnInit {
 
   /**
    * Handles the alert checkbox tap
+   *
    * @param $event
    * @param alert
    */

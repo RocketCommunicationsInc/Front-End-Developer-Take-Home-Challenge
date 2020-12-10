@@ -6,6 +6,7 @@ import { Alert } from '@grmAlerts/alerts.model'
 
 /**
  * GRM Alerts List Header component
+ *
  * @example <grm-alerts-list-header [alerts]="alerts"></grm-alerts-list-header>
  */
 @Component({
@@ -21,6 +22,7 @@ export class AlertsListHeaderComponent implements OnInit {
 
 /**
  * GRM Alerts List Header display component
+ *
  * @example <grm-alerts-list-header-display [alerts]="alerts"></grm-alerts-list-header-display>
  */
 @Component({
@@ -39,6 +41,7 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
 
   /**
    * Handles the select all tap
+   *
    * @param $event
    */
   tapSelectAll($event: any) {
@@ -48,6 +51,7 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
 
   /**
    * Handles the sort tap
+   *
    * @param $event
    * @param column
    */

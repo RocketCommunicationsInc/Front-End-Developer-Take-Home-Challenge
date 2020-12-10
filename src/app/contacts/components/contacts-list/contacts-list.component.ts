@@ -10,6 +10,7 @@ import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@gr
 
 /**
  * GRM Contacts component
+ *
  * @example <grm-contacts-list></grm-contacts-list>
  */
 @Component({
@@ -34,6 +35,7 @@ export class ContactsListComponent implements OnInit {
 
 /**
  * GRM Contacts display component
+ *
  * @example <grm-contacts-list-display [contacts]="contacts$ | async"></grm-contacts-list-display>
  */
 @Component({
@@ -65,6 +67,7 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   /**
    * Determines which content template to render based off of the fetch status
    * This is used to get around the dreaded ExpressionChangedAfterItHasBeenCheckedError
+   *
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,6 +91,7 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
 
   /**
    * Handles the retry tap
+   *
    * @param $event
    */
   tapRetry($event: any): void {

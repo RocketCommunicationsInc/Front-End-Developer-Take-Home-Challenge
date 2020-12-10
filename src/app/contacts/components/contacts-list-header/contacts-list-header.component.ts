@@ -7,6 +7,7 @@ import { Contact } from '@grmContacts/contacts.model'
 
 /**
  * GRM Contacts List Header component
+ *
  * @example <grm-contacts-list-header [contacts]="contacts"></grm-contacts-list-header>
  */
 @Component({
@@ -29,6 +30,7 @@ export class ContactsListHeaderComponent implements OnInit {
 
 /**
  * GRM Alerts List Header display component
+ *
  * @example <grm-contacts-list-header-display [contacts]="contacts"></grm-contacts-list-header-display>
  */
 @Component({
@@ -49,6 +51,7 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
 
   /**
    * Handles the sort tap
+   *
    * @param $event
    * @param column
    */
@@ -59,6 +62,7 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
 
   /**
    * Checks to see if any contacts exist
+   *
    * @param contacts
    */
   hasContacts(contacts: Contact[] | null): boolean | null {

@@ -3,6 +3,7 @@ import * as moment from 'moment'
 
 /**
  * A pipe that formats a unix timestamp
+ *
  * @example time | formatGRMTime
  */
 @Pipe({

@@ -8,6 +8,7 @@ import { fetchContacts } from '@grmContacts/contacts.actions'
 
 /**
  * GRM application component
+ *
  * @example <grm-root></grm-root>
  */
 @Component({

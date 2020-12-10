@@ -9,6 +9,7 @@ import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
 
 /**
  * GRM Contact List Item component
+ *
  * @example <grm-contacts-list-item [contact]="contact"></grm-contacts-list-item>
  */
 @Component({
@@ -31,6 +32,7 @@ export class ContactsListItemComponent implements OnInit {
 
 /**
  * GRM Contact List Item display component
+ *
  * @example <grm-contacts-list-item [contact]="contact"></grm-contacts-list-item>
  */
 @Component({
@@ -55,6 +57,7 @@ export class ContactsListItemDisplayComponent implements OnInit {
 
   /**
    * Gets the status text
+   *
    * @param alert
    */
   getStatus(contact: Contact): string {
@@ -63,6 +66,7 @@ export class ContactsListItemDisplayComponent implements OnInit {
 
   /**
    * Gets the AOS-LOS text
+   *
    * @param contact
    */
   getAOSLOS(contact: Contact): string {
@@ -72,6 +76,7 @@ export class ContactsListItemDisplayComponent implements OnInit {
 
   /**
    * Handles the contact row tap
+   *
    * @param $event
    * @param contact
    */

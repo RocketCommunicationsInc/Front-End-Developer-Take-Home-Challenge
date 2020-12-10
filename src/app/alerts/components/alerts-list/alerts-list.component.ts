@@ -10,6 +10,7 @@ import { fetchAlerts } from '@grmAlerts/alerts.actions'
 
 /**
  * GRM Alerts component
+ *
  * @example <grm-alerts-list></grm-alerts-list>
  */
 @Component({
@@ -34,6 +35,7 @@ export class AlertsListComponent implements OnInit {
 
 /**
  * GRM Alerts display component
+ *
  * @example <grm-alerts-list-display [alerts]="alerts$ | async"></grm-alerts-list-display>
  */
 @Component({
@@ -66,6 +68,7 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   /**
    * Determines which content template to render based off of the fetch status
    * This is used to get around the dreaded ExpressionChangedAfterItHasBeenCheckedError
+   *
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -89,6 +92,7 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
 
   /**
    * Handles the retry tap
+   *
    * @param $event
    */
   tapRetry($event: any): void {

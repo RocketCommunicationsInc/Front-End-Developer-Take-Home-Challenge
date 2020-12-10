@@ -3,6 +3,7 @@ import { Contact } from '@grmContacts/contacts.model'
 
 /**
  * A pipe that sorts the Contact list by a given column name and direction
+ *
  * @example contacts | contactSort:'contactName':'asc'
  */
 @Pipe({
