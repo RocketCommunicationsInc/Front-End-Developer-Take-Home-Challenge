@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { AlertsState } from '@grmAlerts/alerts.state'
 import { sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
@@ -11,13 +11,33 @@ import { Alert } from '@grmAlerts/alerts.model'
  */
 @Component({
   selector: 'grm-alerts-list-header',
-  template: '<grm-alerts-list-header-display [alerts]="alerts"></grm-alerts-list-header-display>'
+  template: '<grm-alerts-list-header-display [alerts]="alerts" (toggleSelectAll)="toggleSelectAll()" ' +
+    '(sortAlerts)="sortAlerts($event)"></grm-alerts-list-header-display>'
 })
 export class AlertsListHeaderComponent implements OnInit {
   @Input() alerts: Alert[] | null
 
-  constructor() { }
+  constructor(
+    private store: Store<AlertsState>
+  ) { }
+
   ngOnInit(): void { }
+
+  /**
+   * Toggles the select all
+   */
+  toggleSelectAll(): void {
+    this.store.dispatch(toggleSelectAll())
+  }
+
+  /**
+   * Sorts the alerts by column
+   *
+   * @param column
+   */
+  sortAlerts(column: string): void {
+    this.store.dispatch(sortAlerts({column}))
+  }
 }
 
 /**
@@ -33,10 +53,10 @@ export class AlertsListHeaderComponent implements OnInit {
 export class AlertsListHeaderDisplayComponent implements OnInit {
   @Input() alerts: Alert[] | null
 
-  constructor(
-    private store: Store<AlertsState>
-  ) { }
+  @Output() toggleSelectAll: EventEmitter<void> = new EventEmitter<void>()
+  @Output() sortAlerts: EventEmitter<string> = new EventEmitter<string>()
 
+  constructor() { }
   ngOnInit(): void { }
 
   /**
@@ -46,7 +66,7 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
    */
   tapSelectAll($event: any) {
     $event.preventDefault()
-    this.store.dispatch(toggleSelectAll())
+    this.toggleSelectAll.emit()
   }
 
   /**
@@ -57,6 +77,6 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
    */
   tapSort($event: any, column: string): void {
     $event.preventDefault()
-    this.store.dispatch(sortAlerts({column}))
+    this.sortAlerts.emit(column)
   }
 }
