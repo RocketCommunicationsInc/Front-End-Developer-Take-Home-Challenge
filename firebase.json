@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/grm-dashboard",
+    "public": "dist/rocketcom-angular-developer-take-home-challenge",
     "ignore": [
       "firebase.json",
       "**/.*",
