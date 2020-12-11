@@ -23,6 +23,11 @@
     font-size: 0.75rem;
     font-weight: normal;
     text-align: center;
+    white-space: nowrap;
+
+    @include layout-bp(lt-sm) {
+      font-size: 0.65rem;
+    }
   }
 
   .status {

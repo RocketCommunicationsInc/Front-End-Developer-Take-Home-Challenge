@@ -5,6 +5,10 @@
 
   .contact-row {
     @include list-item-row;
+
+    .contact-status {
+      min-width: 40px !important;
+    }
   }
 
   .contact-details {

@@ -14,8 +14,8 @@
     </div>
   </div>
   <div class="contacts-header-columns" fxLayout="row" fxLayoutAlign="start center">
-    <div class="status" fxFlex="5%"></div>
-    <div class="name" fxFlex="10%" *ngIf="hasContacts(contacts)">
+    <div class="contact-status" fxFlex></div>
+    <div class="name" fxFlex="15%" *ngIf="hasContacts(contacts)">
       <a href="#" [innerHtml]="'Name'" (click)="tapSort($event, 'contactName')"></a>
     </div>
     <div class="name" fxFlex="10%" [innerHtml]="'Name'" *ngIf="!hasContacts(contacts)"></div>

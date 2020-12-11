@@ -22,5 +22,9 @@
 
   .contacts-header-columns {
     @include list-header-columns;
+
+    .contact-status {
+      min-width: 40px !important;
+    }
   }
 }

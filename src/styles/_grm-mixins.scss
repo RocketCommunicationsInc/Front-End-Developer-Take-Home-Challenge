@@ -1,4 +1,5 @@
 @import 'grm-pallet';
+@import '../../node_modules/@angular/flex-layout/mq';
 
 @mixin list-host {
   display: flex;
@@ -28,6 +29,10 @@
 @mixin list-header-summary {
   padding: 1rem 1rem 1.5rem;
   text-align: center;
+
+  @include layout-bp(lt-md) {
+    padding: 0.75rem;
+  }
 }
 
 @mixin list-header-count {
@@ -35,12 +40,29 @@
   font-size: 2.75rem;
   line-height: 2.6rem;
   font-weight: 600;
+
+  @include layout-bp(lt-md) {
+    font-size: 2.25rem;
+    line-height: 2rem;
+  }
+
+  @include layout-bp(lt-sm) {
+    font-size: 2rem;
+    line-height: 1.75rem;
+  }
 }
 
 @mixin list-header-columns {
   color: var(--logHeaderTextColor, $ui-header-text-color);
   font-weight: bold;
-  padding-right: 12px !important;
+
+  @include layout-bp(lt-md) {
+    font-size: 0.75rem;
+  }
+
+  @include layout-bp(lt-sm) {
+    font-size: 0.65rem;
+  }
 }
 
 @mixin list-item-container {
@@ -54,8 +76,20 @@
 
 @mixin list-item-row {
   font-size: 0.95rem;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem;
   height: 60px;
+
+  @include layout-bp(lt-md) {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    height: auto;
+  }
+
+  @include layout-bp(lt-sm) {
+    font-size: 0.65rem;
+    padding: 0.25rem;
+    height: auto;
+  }
 }
 
 @mixin list-item-details {
@@ -63,4 +97,9 @@
   cursor: default;
   height: auto;
   padding: 1.25rem 2.5rem;
+
+  @include layout-bp(lt-md) {
+    font-size: 0.75rem;
+    padding: 1rem 2rem;
+  }
 }
