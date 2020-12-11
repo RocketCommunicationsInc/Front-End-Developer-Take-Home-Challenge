@@ -4,6 +4,11 @@ The overall design for this application uses Astro and was inspired by the GRM A
 
 ---
 
+## Demo
+**https://grm-dashboard.firebaseapp.com/**
+
+---
+
 ## Challenge
 [**Angular-Developer-Take-Home-Challenge**](docs/challenge.md)
 
@@ -19,7 +24,7 @@ npm i
 npm start
 ```
 
-## Run
+## Run Local
 ```
 http://localhost:4200/
 ```
