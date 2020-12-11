@@ -15,13 +15,13 @@
   </div>
   <div class="contacts-header-columns" fxLayout="row" fxLayoutAlign="start center">
     <div class="contact-status" fxFlex></div>
-    <div class="name" fxFlex="15%" *ngIf="hasContacts(contacts)">
+    <div class="name" fxFlex="10%" *ngIf="hasContacts(contacts)">
       <a href="#" [innerHtml]="'Name'" (click)="tapSort($event, 'contactName')"></a>
     </div>
     <div class="name" fxFlex="10%" [innerHtml]="'Name'" *ngIf="!hasContacts(contacts)"></div>
     <div class="gs" fxFlex="10%" [innerHtml]="'GS'"></div>
     <div class="equipment-string" fxFlex="40%" [innerHtml]="'Equipment String'"></div>
     <div class="status" fxFlex="20%" [innerHtml]="'Status'"></div>
-    <div class="aos-los" fxFlex="15%" [innerHtml]="'AOS - LOS'"></div>
+    <div class="aos-los" fxFlex="20%" [innerHtml]="'AOS - LOS'"></div>
   </div>
 </div>

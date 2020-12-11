@@ -24,6 +24,7 @@
     font-weight: normal;
     text-align: center;
     white-space: nowrap;
+    width: 60px;
 
     @include layout-bp(lt-sm) {
       font-size: 0.65rem;
@@ -31,6 +32,6 @@
   }
 
   .status {
-    width: 32px;
+    width: 40px;
   }
 }

@@ -23,15 +23,31 @@
 }
 
 @mixin list-header-container {
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem;
+
+  @include layout-bp(gt-md) {
+    padding-right: 30px !important;
+  }
+
+  @include layout-bp(lt-md) {
+    padding: 0.5rem;
+  }
+
+  @include layout-bp(lt-sm) {
+    padding: 0.25rem;
+  }
 }
 
 @mixin list-header-summary {
-  padding: 1rem 1rem 1.5rem;
+  padding: 0.75rem;
   text-align: center;
 
   @include layout-bp(lt-md) {
-    padding: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  @include layout-bp(lt-sm) {
+    padding: 0.25rem;
   }
 }
 
@@ -75,7 +91,7 @@
 }
 
 @mixin list-item-row {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   padding: 0.75rem;
   height: 60px;
 
@@ -86,9 +102,7 @@
   }
 
   @include layout-bp(lt-sm) {
-    font-size: 0.65rem;
     padding: 0.25rem;
-    height: auto;
   }
 }
 

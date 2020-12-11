@@ -3,11 +3,11 @@
     <div class="contact-status" fxFlex fxLayoutAlign="center center">
       <rux-status [attr.status]="contact.contactStatus"></rux-status>
     </div>
-    <div class="name" fxFlex="15%" [innerHtml]="contact.contactName"></div>
+    <div class="name" fxFlex="10%" [innerHtml]="contact.contactName"></div>
     <div class="gs" fxFlex="10%" [innerHtml]="contact.contactGround"></div>
     <div class="equipment-string" fxFlex="40%" [innerHtml]="contact.contactEquipment"></div>
     <div class="status" fxFlex="20%" [innerHtml]="getStatus(contact)"></div>
-    <div class="aos-los" fxFlex="15%" [innerHtml]="getAOSLOS(contact)"></div>
+    <div class="aos-los" fxFlex="20%" [innerHtml]="getAOSLOS(contact)"></div>
   </div>
   <div class="contact-details" [innerHtml]="contact.contactDetail" *ngIf="active"></div>
 </div>

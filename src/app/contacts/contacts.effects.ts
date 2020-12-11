@@ -23,7 +23,7 @@ export class ContactsEffects {
       ofType(fetchContacts),
       mergeMap((action) => this.contactsService.loadContacts()
         .pipe(
-          map((contacts: Contact[]) => fetchContactsSuccess({contacts})),
+          map((contacts: Contact[]) => fetchContactsSuccess({contacts: contacts.slice(1, 20)})), // TODO! remove slice
           catchError(error => of(fetchContactsFailure({
             error,
             message: 'Unable to fetch contacts, please try again'
