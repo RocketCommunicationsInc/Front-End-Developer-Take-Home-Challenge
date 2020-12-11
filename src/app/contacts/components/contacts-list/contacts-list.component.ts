@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { AppState } from '@grm/app.state'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { ContactsState, errorMessageSelector, fetchStatusSelector } from '@grmContacts/contacts.state'
-import { enableContactsTester, fetchContacts } from '@grmContacts/contacts.actions'
+import { fetchContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
 import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@grmContacts/contacts.state'
 
