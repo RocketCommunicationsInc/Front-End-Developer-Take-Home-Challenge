@@ -1,6 +1,8 @@
 # GRM Dashboard
 
+<!--
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=scarnett_Angular-Developer-Take-Home-Challenge&metric=alert_status)](https://sonarcloud.io/dashboard?id=scarnett_Angular-Developer-Take-Home-Challenge)
+-->
 
 The overall design for this application uses Astro and was inspired by the GRM Administration Demo.
 
