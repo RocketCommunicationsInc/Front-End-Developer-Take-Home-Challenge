@@ -1,12 +1,16 @@
 <div class="contact" [ngClass]="{'active': active}" *ngIf="contact">
-  <div class="contact-row" fxLayout="row" fxLayoutAlign="start center" (click)="tapTogglelContactRow($event, contact)">
-    <div class="contact-status" fxFlex fxLayoutAlign="center center">
+  <div class="contact-row" fxLayout="row" fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center" (click)="tapTogglelContactRow($event, contact)">
+    <div class="contact-status" fxFlex fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center">
       <rux-status [attr.status]="contact.contactStatus"></rux-status>
     </div>
     <div class="name" fxFlex="10%" [innerHtml]="contact.contactName"></div>
     <div class="gs" fxFlex="10%" [innerHtml]="contact.contactGround"></div>
-    <div class="equipment-string" fxFlex="40%" [innerHtml]="contact.contactEquipment"></div>
-    <div class="status" fxFlex="20%" [innerHtml]="getStatus(contact)"></div>
+    <div class="equipment-string" fxFlex="40%" fxHide.lt-md [innerHtml]="contact.contactEquipment"></div>
+    <div class="status" fxFlex="20%" fxHide.lt-md [innerHtml]="getStatus(contact)"></div>
+    <div class="equipment-string-status" fxFlex="60%" fxHide fxShow.lt-md>
+      <div class="equipment-string" [innerHtml]="contact.contactEquipment"></div>
+      <div class="status" [innerHtml]="getStatus(contact)"></div>
+    </div>
     <div class="aos-los" fxFlex="20%" [innerHtml]="getAOSLOS(contact)"></div>
   </div>
   <div class="contact-details" [innerHtml]="contact.contactDetail" *ngIf="active"></div>

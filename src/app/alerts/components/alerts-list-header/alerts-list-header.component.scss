@@ -13,6 +13,10 @@
     .alert-count {
       @include list-header-count;
     }
+
+    .alert-count-text {
+      @include list-header-count-text;
+    }
   }
 
   .alerts-header-columns {
@@ -28,6 +32,7 @@
 
     @include layout-bp(lt-sm) {
       font-size: 0.65rem;
+      width: 40px;
     }
   }
 

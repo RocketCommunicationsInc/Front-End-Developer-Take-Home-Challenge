@@ -20,8 +20,9 @@
     </div>
     <div class="name" fxFlex="10%" [innerHtml]="'Name'" *ngIf="!hasContacts(contacts)"></div>
     <div class="gs" fxFlex="10%" [innerHtml]="'GS'"></div>
-    <div class="equipment-string" fxFlex="40%" [innerHtml]="'Equipment String'"></div>
-    <div class="status" fxFlex="20%" [innerHtml]="'Status'"></div>
+    <div class="equipment-string" fxFlex="40%" fxHide.lt-md [innerHtml]="'Equipment String'"></div>
+    <div class="status" fxFlex="20%" fxHide.lt-md [innerHtml]="'Status'"></div>
+    <div class="equipment-string-status" fxFlex="60%" fxHide fxShow.lt-md [innerHtml]="'Equipment String / Status'"></div>
     <div class="aos-los" fxFlex="20%" [innerHtml]="'AOS - LOS'"></div>
   </div>
 </div>

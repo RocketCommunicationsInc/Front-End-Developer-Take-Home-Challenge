@@ -63,8 +63,18 @@
   }
 
   @include layout-bp(lt-sm) {
-    font-size: 2rem;
-    line-height: 1.75rem;
+    font-size: 1.5rem;
+    line-height: 1.25rem;
+  }
+}
+
+@mixin list-header-count-text {
+  @include layout-bp(lt-sm) {
+    font-size: 0.95rem;
+  }
+
+  @include layout-bp(lt-sm) {
+    font-size: 0.75rem;
   }
 }
 

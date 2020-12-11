@@ -7,14 +7,6 @@ html, body {
 
 rux-global-status-bar {
   min-height: 100px;
-
-  
-}
-
-.dark-theme {
-  h1 {
-    font-size: 10px;
-  }
 }
 
 rux-notification {
@@ -27,4 +19,8 @@ rux-progress {
   height: 5rem;
   width: 5rem;
   margin: 2rem auto 0;
+}
+
+.rux-checkbox {
+  margin: 0 !important;
 }

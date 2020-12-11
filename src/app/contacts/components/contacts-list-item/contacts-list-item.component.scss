@@ -8,6 +8,16 @@
 
     .contact-status {
       min-width: 40px !important;
+
+      @include layout-bp(lt-sm) {
+        min-width: 30px !important;
+      }
+    }
+
+    .status {
+      @include layout-bp(lt-md) {
+        color: var(--logHeaderTextColor, $ui-header-text-color);
+      }
     }
   }
 

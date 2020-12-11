@@ -15,6 +15,10 @@
     text-align: center;
     width: 60px;
 
+    @include layout-bp(lt-sm) {
+      width: 40px;
+    }
+
     .rux-checkbox {
       display: inline-flex;
       margin: 0.5rem;

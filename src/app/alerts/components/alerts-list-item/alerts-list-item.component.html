@@ -1,12 +1,12 @@
 <div class="alert" [ngClass]="{'active': active}" *ngIf="alert">
-  <div class="alert-row" fxLayout="row" fxLayoutAlign="start center" (click)="tapTogglelAlertRow($event, alert)">
+  <div class="alert-row" fxLayout="row" fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center" (click)="tapTogglelAlertRow($event, alert)">
     <div class="toggle">
       <div class="rux-checkbox">
         <input type="checkbox" name="toggleAlert" [id]="getAlertId(alert)" [checked]="selected" />
         <label [for]="getAlertId(alert)" (click)="tapToggleSelectedAlertRow($event, alert)"></label>
       </div>
     </div>
-    <div class="status" fxLayoutAlign="center center">
+    <div class="status" fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center">
       <rux-status [attr.status]="alert.errorSeverity"></rux-status>
     </div>
     <div class="message" fxFlex [innerHtml]="alert.errorMessage"></div>
