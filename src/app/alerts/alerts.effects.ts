@@ -70,6 +70,10 @@ export class AlertsEffects {
     )
   )
 
+  /**
+   * Enables the random alert tester.
+   * This helps to demonstrate how the observables work.
+   */
   enableAlertsTester$ = createEffect((): any => this.actions$
     .pipe(
       ofType(enableAlertsTester),

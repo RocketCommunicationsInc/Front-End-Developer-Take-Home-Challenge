@@ -24,7 +24,6 @@ export const logger = (reducer: ActionReducer<any>) => storeLogger()(reducer)
 // Setup the ngrx local storage sync
 export const localStorageSyncReducer = (reducer: ActionReducer<any>) => localStorageSync({
   keys: [
-    'app',
     {
       alerts: [
         'activeAlerts',

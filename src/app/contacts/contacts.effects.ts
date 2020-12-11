@@ -51,6 +51,10 @@ export class ContactsEffects {
     )
   )
 
+  /**
+   * Enables the random alert tester.
+   * This helps to demonstrate how the observables work.
+   */
   enableContactsTester$ = createEffect((): any => this.actions$
     .pipe(
       ofType(enableContactsTester),
