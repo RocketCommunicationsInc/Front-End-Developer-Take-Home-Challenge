@@ -32,6 +32,12 @@ export class DataTableComponent implements OnInit {
     this.ref.markForCheck();
   }
 
+  trackBy(index, item) {
+    if(item) {
+      return item.name;
+    }
+  }
+
 
   private disableTableEvents(): void {
     window.addEventListener('mouseenter', function (event) {

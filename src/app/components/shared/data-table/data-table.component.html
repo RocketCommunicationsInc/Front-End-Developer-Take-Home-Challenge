@@ -2,7 +2,7 @@
   <th *ngFor="let column of columns" (click)="sortColumn(column.name)">
     {{ column.label }}
   </th>
-  <ng-container *ngFor="let row of data">
+  <ng-container *ngFor="let row of data; trackBy: trackBy()">
     <tr (click)="row.expanded = !row.expanded">
       <td *ngFor="let rowColumn of columns">
         <ng-container *ngIf="rowColumn.cellTemplate">
