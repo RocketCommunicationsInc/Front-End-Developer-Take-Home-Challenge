@@ -1,0 +1,28 @@
+<div class="head" *ngIf="!loading">
+    <div class="alert-count">    
+        <h1>{{ contacts.length }}</h1>
+        <h3>Alerts</h3>
+    </div>
+    <div class="alert-count">    
+        <h1 class="error">{{ criticalErrors }}</h1>
+        <h3>Critical Contacts</h3>
+    </div>
+    <div class="filter">    
+        <a (click)="filterList('all')">all</a>
+        <a *ngFor="let status of availableStatuses" (click)="filterList(status)"> {{ status }} </a>
+    </div>
+    <div>
+        <rux-classification-marking classification="controlled" tag></rux-classification-marking>
+    </div>
+
+</div>
+<div class="table">
+    <app-data-table [data]="filteredContacts" [columns]="columnConfig" [loading]="loading"></app-data-table>
+
+    <ng-template let-value="value" ngx-datatable-cell-template #errorTimeTemplate>
+        {{ value | date: 'HH:mm:ss:SSS'}}
+    </ng-template>
+    <ng-template let-value="value" ngx-datatable-cell-template #contactStatus>
+        <rux-status [attr.status]="value"></rux-status>
+    </ng-template>
+</div>

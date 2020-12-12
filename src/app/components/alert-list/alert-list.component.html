@@ -1,0 +1,20 @@
+<div class="head" *ngIf="!loading">
+    <div class="alert-count">    
+        <h1>{{ alerts.length }}</h1>
+        <h3>Alerts</h3>
+    </div>
+    <div>
+        <rux-classification-marking classification="controlled" tag></rux-classification-marking>
+    </div>
+
+</div>
+<div class="table">
+    <app-data-table [data]="alerts" [columns]="columnConfig" [loading]="loading"></app-data-table>
+
+    <ng-template let-value="value" ngx-datatable-cell-template #errorTimeTemplate>
+        {{ value | date: 'HH:mm:ss'}}
+    </ng-template>
+    <ng-template let-value="value" ngx-datatable-cell-template #errorSeverityTemplate>
+        <rux-status [attr.status]="value"></rux-status>
+    </ng-template>
+</div>
