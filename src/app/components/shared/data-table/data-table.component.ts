@@ -17,11 +17,6 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit() {
     this.disableTableEvents();
-    this.expandDefaultRows();
-  }
-
-  toggleExpandRow(row): void {
-    //this.table.rowDetail.toggleExpandRow(row);
   }
 
   sortColumn(column): void {
@@ -37,13 +32,6 @@ export class DataTableComponent implements OnInit {
     this.ref.markForCheck();
   }
 
-  private expandDefaultRows(): void {
-    this.data.forEach((row) => { 
-      if (row.expanded) { 
-        this.toggleExpandRow(row)
-      } 
-  })
-  }
 
   private disableTableEvents(): void {
     window.addEventListener('mouseenter', function (event) {

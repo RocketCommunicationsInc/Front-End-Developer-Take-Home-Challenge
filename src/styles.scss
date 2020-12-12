@@ -5,15 +5,3 @@ body {
     margin: 0;
     padding: 0;
 }
-
-span {
-    &.critical {
-        color: red;
-    }
-    &.caution {
-        color: yellow;
-    }
-    &.serious {
-        color: orange;
-    }
-} 
