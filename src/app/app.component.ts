@@ -11,6 +11,5 @@ import '@astrouxds/rux-icon';
 
 })
 export class AppComponent {
-  title = 'libracornViewer';
 
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const FILE_PATH = 'assets/alerts.json'
+const FILE_PATH = 'assets/alerts.json';
 
 @Injectable({
   providedIn: 'root'

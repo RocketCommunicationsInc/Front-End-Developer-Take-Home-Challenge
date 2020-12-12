@@ -6,22 +6,18 @@ import '@astrouxds/rux-progress';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent {
   @ViewChild('dataTable', {static: true}) table: any;
   @Input() columns: any[];
   @Input() data: any[] = [];
-  @Input() loading: boolean = true;
-  private sortOrder: number = 1;
+  @Input() loading = true;
+  private sortOrder = 1;
 
   constructor(private ref: ChangeDetectorRef) { }
 
-  ngOnInit() {
-    this.disableTableEvents();
-  }
-
   sortColumn(column): void {
     this.data = this.data.sort((a, b) => {
-      if(typeof a[column] == 'number'){
+      if (typeof a[column] == 'number') {
         return (a[column] - b[column]) * this.sortOrder;
       } else {
         return a[column].localeCompare(b[column]) * this.sortOrder;
@@ -33,22 +29,16 @@ export class DataTableComponent implements OnInit {
   }
 
   trackBy(index, item) {
-    if(item) {
+    if (item) {
       return item.name;
     }
   }
 
-
-  private disableTableEvents(): void {
-    window.addEventListener('mouseenter', function (event) {
-      event.stopPropagation();
-    }, true);
-    window.addEventListener('mousedown', function (event) {
-      event.stopPropagation();
-    }, true);
-    window.addEventListener('mousemove', function (event) {
-      event.stopPropagation();
-    }, true);
+  expandRow(event, row) {
+    event.stopPropagation();
+    event.preventDefault();
+    row.expanded = !row.expanded;
+    this.ref.markForCheck();
   }
 
 }

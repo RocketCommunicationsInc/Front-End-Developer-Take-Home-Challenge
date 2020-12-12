@@ -12,8 +12,8 @@ export class AlertListComponent implements OnInit {
   @ViewChild('errorTimeTemplate', {static: true}) errorTimeTemplate;
   @ViewChild('errorSeverityTemplate', {static: true}) errorSeverityTemplate;
   alerts: Alert[] = [];
-  showError: boolean = false;
-  loading: boolean = true;
+  showError = false;
+  loading = true;
 
   constructor(private service: AlertService, private ref: ChangeDetectorRef) { }
 
@@ -25,34 +25,34 @@ export class AlertListComponent implements OnInit {
   }
 
   get columnConfig(): any[] {
-    let columns = [
+    const columns = [
       {
-        name: "errorSeverity",
+        name: 'errorSeverity',
         cellTemplate: this.errorSeverityTemplate,
-        label: ""
+        label: ''
       },
       {
-        name: "errorCategory",
-        label: "Category"
+        name: 'errorCategory',
+        label: 'Category'
       },
       {
-        name: "errorMessage",
-        label: "Error"
+        name: 'errorMessage',
+        label: 'Error'
       },
       {
-        name: "errorTime",
+        name: 'errorTime',
         cellTemplate: this.errorTimeTemplate,
-        label: "Time"
+        label: 'Time'
       },
     ];
     return columns;
   }
 
   private onSuccess(res: Alert[]): void {
-    res.forEach((alert: Alert)=> {
+    res.forEach((alert: Alert) => {
       alert.details = alert.longMessage;
-    })
-    this.alerts = res
+    });
+    this.alerts = res;
     this.loading = false;
     this.ref.markForCheck();
   }

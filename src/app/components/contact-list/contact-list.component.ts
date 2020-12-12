@@ -14,54 +14,54 @@ export class ContactListComponent implements OnInit {
   contacts: Contact[] = [];
   filteredContacts: Contact[] = [];
   availableStatuses: Set<string>;
-  showError: boolean = false;
-  loading: boolean = true;
+  showError = false;
+  loading = true;
 
   constructor(private service: ContactService, private ref: ChangeDetectorRef) { }
 
   get columnConfig(): any[] {
-    let columns = [
+    const columns = [
       {
-        name: "contactName",
-        label: "Name"
+        name: 'contactName',
+        label: 'Name'
       },
       {
-        name: "contactStatus",
+        name: 'contactStatus',
         cellTemplate: this.contactStatusTemplate,
-        label: ""
+        label: ''
       },
       {
-        name: "contactGround",
-        label: "Ground"
+        name: 'contactGround',
+        label: 'Ground'
       },
       {
-        name: "contactSatellite",
-        label: "Satellite"
+        name: 'contactSatellite',
+        label: 'Satellite'
       },
       {
-        name: "contactState",
-        label: "State"
+        name: 'contactState',
+        label: 'State'
       },
       {
-        name: "contactStep",
-        label: "Step"
+        name: 'contactStep',
+        label: 'Step'
       },
       {
-        name: "contactBeginTimestamp",
+        name: 'contactBeginTimestamp',
         cellTemplate: this.errorTimeTemplate,
-        label: "Start"
+        label: 'Start'
       },
       {
-        name: "contactEndTimestamp",
+        name: 'contactEndTimestamp',
         cellTemplate: this.errorTimeTemplate,
-        label: "End"
+        label: 'End'
       }
     ];
     return columns;
   }
 
   get criticalErrors(): number {
-    return this.contacts.filter(contact => contact.contactStatus =='critical').length;
+    return this.contacts.filter(contact => contact.contactStatus == 'critical').length;
   }
 
   ngOnInit() {
@@ -79,7 +79,7 @@ export class ContactListComponent implements OnInit {
   filterList(status: string): void {
     this.loading = true;
     this.ref.markForCheck();
-    if(status == 'all') {
+    if (status == 'all') {
       this.filteredContacts = this.contacts;
     } else {
       this.filteredContacts = this.contacts.filter(contact => status == contact.contactStatus);
@@ -94,10 +94,10 @@ export class ContactListComponent implements OnInit {
   }
 
   private onSuccess(res: Contact[]): void {
-    res.forEach((contact: Contact)=> {
+    res.forEach((contact: Contact) => {
       contact.contactDuration = contact.contactEndTimestamp = contact.contactBeginTimestamp;
       contact.details = contact.contactDetail;
-    })
+    });
     this.contacts = res;
     this.filteredContacts = res;
     this.setavailableStatuses();

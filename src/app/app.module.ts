@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 
 @NgModule({
-  declarations: [				
+  declarations: [
     AppComponent,
     DataTableComponent,
     AlertListComponent,
