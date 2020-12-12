@@ -18,6 +18,11 @@
       @include layout-bp(lt-md) {
         color: var(--logHeaderTextColor, $ui-header-text-color);
       }
+
+      .step {
+        margin-left: 0.25rem;
+        color: var(--logHeaderTextColor, $ui-header-text-color);
+      }
     }
   }
 

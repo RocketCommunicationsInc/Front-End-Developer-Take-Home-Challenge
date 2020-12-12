@@ -9,6 +9,7 @@ export class AlertsState {
   selectedAlerts: string[]
   sortColumn?: string
   sortDirection: string
+  currentPage: number
   fetchStatus?: string
   error?: any
   errorMessage?: string
@@ -21,7 +22,8 @@ export const defaultAlertsState: AlertsState = {
   alerts: [],
   activeAlerts: [],
   selectedAlerts: [],
-  sortDirection: 'desc'
+  sortDirection: 'desc',
+  currentPage: 0
 }
 
 // Selectors
@@ -36,5 +38,6 @@ export const isSelectedAlertSelector = (state: any, props: any) => state.alerts 
 
 export const sortColumnSelector = (state: any) => state.alerts.sortColumn
 export const sortDirectionSelector = (state: any) => state.alerts.sortDirection
+export const currentPageSelector = (state: any) => state.alerts.currentPage
 export const fetchStatusSelector = (state: any) => state.alerts.fetchStatus
 export const errorMessageSelector = (state: any) => state.alerts.errorMessage

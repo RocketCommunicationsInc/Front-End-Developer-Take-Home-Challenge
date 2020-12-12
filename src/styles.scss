@@ -1,5 +1,6 @@
 @import 'src/styles/grm-pallet';
 @import '~assets/css/astro.min.css';
+@import '../node_modules/@angular/flex-layout/mq';
 
 html, body {
   height: 100%;
@@ -23,4 +24,68 @@ rux-progress {
 
 .rux-checkbox {
   margin: 0 !important;
+}
+
+pagination-controls {
+  display: block;
+
+  pagination-template {
+    display: block;
+
+    .ngx-pagination {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 0;
+  
+      li {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 50px;
+        text-align: center;
+
+        @include layout-bp(lt-sm) {
+          width: 40px;
+        }
+
+        &.disabled {
+          opacity: 0.3;
+        }
+
+        &::after,
+        &::before {
+          margin: 0 !important;
+          padding: 0.75rem !important;
+          font-size: 2rem;
+          font-weight: 300;
+          line-height: 2rem;
+
+          @include layout-bp(lt-sm) {
+            padding: 0.5rem !important;
+          }
+        }
+
+        > a {
+          color: $color-text;
+          margin: 0 !important;
+          padding: 0.75rem !important;
+          font-size: 2rem;
+          font-weight: 300;
+          line-height: 2rem;
+
+          &::before,
+          &::after {
+            padding-bottom: 5px;
+          }
+
+          &:hover {
+            background-color: var(--colorSecondaryDarken3, $ui-color-secondary-darken3);
+          }
+
+          @include layout-bp(lt-sm) {
+            padding: 0.5rem !important;
+          }
+        }
+      }
+    }
+  }
 }

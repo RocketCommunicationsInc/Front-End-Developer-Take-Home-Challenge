@@ -8,6 +8,7 @@ export class ContactsState {
   activeContacts: string[]
   sortColumn?: string
   sortDirection: string
+  currentPage: number
   fetchStatus?: string
   error?: any
   errorMessage?: string
@@ -19,7 +20,8 @@ export class ContactsState {
 export const defaultContactsState: ContactsState = {
   contacts: [],
   activeContacts: [],
-  sortDirection: 'desc'
+  sortDirection: 'desc',
+  currentPage: 0
 }
 
 // Selectors
@@ -36,5 +38,6 @@ export const isActiveContactSelector = (state: any, props: any) => state.contact
 
 export const sortColumnSelector = (state: any) => state.contacts.sortColumn
 export const sortDirectionSelector = (state: any) => state.contacts.sortDirection
+export const currentPageSelector = (state: any) => state.contacts.currentPage
 export const fetchStatusSelector = (state: any) => state.contacts.fetchStatus
 export const errorMessageSelector = (state: any) => state.contacts.errorMessage

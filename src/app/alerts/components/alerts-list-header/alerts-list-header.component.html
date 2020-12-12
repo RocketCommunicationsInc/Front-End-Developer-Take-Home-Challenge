@@ -1,4 +1,16 @@
 <div fxFlex class="alerts-header">
+  <div fxLayout="row" fxLayoutAlign="start center" class="alerts-header-label">
+    <div class="text" fxFlex="50" [innerHtml]="'Alerts'"></div>
+    <div class="options" fxFlex>
+      <pagination-controls
+        id="alerts-controls"
+        [maxSize]="0"
+        [previousLabel]="''"
+        [nextLabel]="''"
+        (pageChange)="setCurrentPage($event)">
+      </pagination-controls>
+    </div>
+  </div>
   <div fxLayout="row" class="alerts-header-options">
     <div class="alerts-header-summary" fxFlex>
       <span class="alert-count" [innerHtml]="alerts?.length || 0"></span>

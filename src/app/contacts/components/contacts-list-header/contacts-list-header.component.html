@@ -1,4 +1,16 @@
 <div fxFlex class="contacts-header">
+  <div fxLayout="row" fxLayoutAlign="start center" class="contacts-header-label">
+    <div class="text" fxFlex="50" [innerHtml]="'Current Contacts'"></div>
+    <div class="options" fxFlex>
+      <pagination-controls
+        id="contacts-controls"
+        [maxSize]="0"
+        [previousLabel]="''"
+        [nextLabel]="''"
+        (pageChange)="setCurrentPage($event)">
+      </pagination-controls>
+    </div>
+  </div>
   <div fxLayout="row" class="contacts-header-options">
     <div class="contacts-header-summary" fxFlex>
       <span class="contact-count" [innerHtml]="contacts?.length || 0"></span>

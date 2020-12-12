@@ -1,7 +1,7 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
-import { addActiveContact, addContacts, fetchContacts, fetchContactsFailure, fetchContactsSuccess, removeActiveContact,
-  sortContacts } from '@grmContacts/contacts.actions'
+import { addActiveContact, addContacts, fetchContacts, fetchContactsFailure, fetchContactsSuccess,
+  removeActiveContact, saveCurrentPage, sortContacts } from '@grmContacts/contacts.actions'
 import { ContactsState, defaultContactsState } from '@grmContacts/contacts.state'
 
 /**
@@ -40,5 +40,9 @@ export const contactsReducers: ActionReducer<ContactsState> = createReducer(
   on(addContacts, (state, { contacts }) => ({
     ...state,
     contacts: state.contacts?.concat(contacts)
+  })),
+  on(saveCurrentPage, (state, { page }) => ({
+    ...state,
+    currentPage: page
   }))
 )

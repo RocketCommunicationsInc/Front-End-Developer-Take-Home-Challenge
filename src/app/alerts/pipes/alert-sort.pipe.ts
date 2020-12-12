@@ -10,7 +10,7 @@ import { Alert } from '@grmAlerts/alerts.model'
   name: 'alertSort'
 })
 export class AlertSortPipe implements PipeTransform {
-  transform(alerts: any[] | null, column: string | null, direction: string | null): Alert[] | null {
+  transform(alerts: any[] | null, column: string | null, direction: string | null): Alert[] {
     if (!alerts) {
       return []
     }

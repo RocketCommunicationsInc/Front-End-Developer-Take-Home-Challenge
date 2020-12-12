@@ -3,7 +3,7 @@ import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { Alert } from '@grmAlerts/alerts.model'
 import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector, fetchStatusSelector,
-  errorMessageSelector } from '@grmAlerts/alerts.state'
+  errorMessageSelector, currentPageSelector } from '@grmAlerts/alerts.state'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { AppState } from '@grm/app.state'
 import { fetchAlerts } from '@grmAlerts/alerts.actions'
@@ -16,13 +16,14 @@ import { fetchAlerts } from '@grmAlerts/alerts.actions'
 @Component({
   selector: 'grm-alerts-list',
   template: '<grm-alerts-list-display fxFlex [alerts]="alerts$ | async" [sortColumn]="sortColumn$ | async" ' +
-    '[sortDirection]="sortDirection$ | async" [fetchStatus]="fetchStatus$ | async"' +
+    '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [fetchStatus]="fetchStatus$ | async"' +
     '[errorMessage]="errorMessage$ | async" (fetchAlerts)="fetchAlerts()"></grm-alerts-list-display>'
 })
 export class AlertsListComponent implements OnInit {
   alerts$: Observable<Alert[]> = this.alertsStore.select(alertsSelector)
   sortColumn$: Observable<string> = this.alertsStore.select(sortColumnSelector)
   sortDirection$: Observable<string> = this.alertsStore.select(sortDirectionSelector)
+  currentPage$: Observable<number> = this.alertsStore.select(currentPageSelector)
   fetchStatus$: Observable<string> = this.alertsStore.select(fetchStatusSelector)
   errorMessage$: Observable<string> = this.alertsStore.select(errorMessageSelector)
 
@@ -58,6 +59,7 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @Input() alerts: Alert[] | null
   @Input() sortColumn: string | null
   @Input() sortDirection: string | null
+  @Input() currentPage: number | null
   @Input() fetchStatus: string | null
   @Input() errorMessage: string | null
 
@@ -68,6 +70,7 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @ViewChild('alertsFailed') public alertsFailedTemplateRef: TemplateRef<any>
 
   public contentTemplate: TemplateRef<any>
+  public itemsPerPage: number = 25
 
   constructor() { }
 

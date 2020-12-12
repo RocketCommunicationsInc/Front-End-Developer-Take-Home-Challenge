@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
+import { NgxPaginationModule } from 'ngx-pagination'
 import { AlertsEffects } from '@grmAlerts/alerts.effects'
 import { AlertsService } from '@grmAlerts/alerts.service'
 import { alertsReducers } from '@grmAlerts/alerts.reducer'
@@ -28,7 +29,8 @@ import '@astrouxds/rux-button'
     EffectsModule.forFeature([
       AlertsEffects
     ]),
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxPaginationModule
   ],
   declarations: [
     AlertsListComponent,

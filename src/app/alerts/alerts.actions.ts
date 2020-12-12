@@ -102,3 +102,11 @@ export const addAlerts = createAction(
   '[Alerts] Add Alerts',
   props<{ alerts: Alert[] }>()
 )
+
+/**
+ * The save current page action
+ */
+export const saveCurrentPage = createAction(
+  '[Alerts] Current Page',
+  props<{ page: number }>()
+)
