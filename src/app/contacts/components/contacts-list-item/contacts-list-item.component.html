@@ -6,10 +6,16 @@
     <div class="name" fxFlex="10%" [innerHtml]="contact.contactName"></div>
     <div class="gs" fxFlex="10%" [innerHtml]="contact.contactGround"></div>
     <div class="equipment-string" fxFlex="40%" fxHide.lt-md [innerHtml]="contact.contactEquipment"></div>
-    <div class="status" fxFlex="20%" fxHide.lt-md [innerHtml]="getStatus(contact)"></div>
+    <div class="status" fxFlex="20%" fxHide.lt-md>
+      <span [innerHtml]="contact.contactState | titlecase"></span>
+      <span class="step" fxHide.lt-md [innerHtml]="getStep(contact)"></span>
+    </div>
     <div class="equipment-string-status" fxFlex="60%" fxHide fxShow.lt-md>
       <div class="equipment-string" [innerHtml]="contact.contactEquipment"></div>
-      <div class="status" [innerHtml]="getStatus(contact)"></div>
+      <div class="status">
+        <span [innerHtml]="contact.contactState | titlecase"></span>
+        <span class="step" [innerHtml]="getStep(contact)"></span>
+      </div>
     </div>
     <div class="aos-los" fxFlex="20%" [innerHtml]="getAOSLOS(contact)"></div>
   </div>

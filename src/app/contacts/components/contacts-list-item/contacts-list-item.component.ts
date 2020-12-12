@@ -67,12 +67,12 @@ export class ContactsListItemDisplayComponent implements OnInit {
   ngOnInit(): void { }
 
   /**
-   * Gets the status text
+   * Gets the step text
    *
    * @param alert
    */
-  getStatus(contact: Contact): string {
-    return `${this.titlecase.transform(contact.contactState)} (Step: ${contact.contactStep})`
+  getStep(contact: Contact): string {
+    return `(Step: ${contact.contactStep})`
   }
 
   /**
