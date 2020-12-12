@@ -8,7 +8,6 @@
 </ng-template>
 
 <ng-template #alertsSuccess let-alerts="alerts" let-itemsPerPage="itemsPerPage" let-currentPage="currentPage">
-  <pagination-controls id="alerts-controls" (pageChange)="setCurrentPage($event)"></pagination-controls>
   <div fxFlex class="alerts-list-items">
     <grm-alerts-list-item [alert]="alert" *ngFor="let alert of alerts | alertSort:sortColumn:sortDirection | paginate:{itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'alerts-controls'}"></grm-alerts-list-item>
   </div>

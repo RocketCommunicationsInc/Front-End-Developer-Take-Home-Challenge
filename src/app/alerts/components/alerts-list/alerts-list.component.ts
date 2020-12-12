@@ -3,11 +3,10 @@ import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { Alert } from '@grmAlerts/alerts.model'
 import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector, fetchStatusSelector,
-  errorMessageSelector, 
-  currentPageSelector} from '@grmAlerts/alerts.state'
+  errorMessageSelector, currentPageSelector } from '@grmAlerts/alerts.state'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { AppState } from '@grm/app.state'
-import { fetchAlerts, saveCurrentPage } from '@grmAlerts/alerts.actions'
+import { fetchAlerts } from '@grmAlerts/alerts.actions'
 
 /**
  * GRM Alerts component
@@ -18,8 +17,7 @@ import { fetchAlerts, saveCurrentPage } from '@grmAlerts/alerts.actions'
   selector: 'grm-alerts-list',
   template: '<grm-alerts-list-display fxFlex [alerts]="alerts$ | async" [sortColumn]="sortColumn$ | async" ' +
     '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [fetchStatus]="fetchStatus$ | async"' +
-    '[errorMessage]="errorMessage$ | async" (fetchAlerts)="fetchAlerts()" ' +
-    '(saveCurrentPage)="saveCurrentPage($event)"></grm-alerts-list-display>'
+    '[errorMessage]="errorMessage$ | async" (fetchAlerts)="fetchAlerts()"></grm-alerts-list-display>'
 })
 export class AlertsListComponent implements OnInit {
   alerts$: Observable<Alert[]> = this.alertsStore.select(alertsSelector)
@@ -45,15 +43,6 @@ export class AlertsListComponent implements OnInit {
   fetchAlerts(): void {
     this.appStore.dispatch(fetchAlerts())
   }
-
-  /**
-   * Saves the current page
-   *
-   * @param page
-   */
-  saveCurrentPage(page: number): void {
-    this.appStore.dispatch(saveCurrentPage({page}))
-  }
 }
 
 /**
@@ -75,7 +64,6 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @Input() errorMessage: string | null
 
   @Output() fetchAlerts: EventEmitter<void> = new EventEmitter<void>()
-  @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
 
   @ViewChild('alertsFetching') public alertsFetchingTemplateRef: TemplateRef<any>
   @ViewChild('alertsSuccess') public alertsSuccessTemplateRef: TemplateRef<any>
@@ -124,14 +112,5 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   tapRetry($event: any): void {
     $event.preventDefault()
     this.fetchAlerts.emit()
-  }
-
-  /**
-   * Sets the current page
-   *
-   * @param $event
-   */
-  setCurrentPage($event: any): void  {
-    this.saveCurrentPage.emit($event)
   }
 }

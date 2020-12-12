@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { ContactsState, currentPageSelector, errorMessageSelector, fetchStatusSelector } from '@grmContacts/contacts.state'
-import { fetchContacts, saveCurrentPage } from '@grmContacts/contacts.actions'
+import { fetchContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
 import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@grmContacts/contacts.state'
 
@@ -16,8 +16,7 @@ import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@gr
   selector: 'grm-contacts-list',
   template: '<grm-contacts-list-display fxFlex [contacts]="contacts$ | async" [sortColumn]="sortColumn$ | async" ' +
     '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [fetchStatus]="fetchStatus$ | async" ' +
-    '[errorMessage]="errorMessage$ | async" (fetchContacts)="fetchContacts()" ' +
-    '(saveCurrentPage)="saveCurrentPage($event)"></grm-contacts-list-display>'
+    '[errorMessage]="errorMessage$ | async" (fetchContacts)="fetchContacts()"></grm-contacts-list-display>'
 })
 export class ContactsListComponent implements OnInit {
   contacts$: Observable<Contact[]> = this.store.select(contactsSelector)
@@ -42,15 +41,6 @@ export class ContactsListComponent implements OnInit {
   fetchContacts(): void {
     this.store.dispatch(fetchContacts())
   }
-
-  /**
-   * Saves the current page
-   *
-   * @param page
-   */
-  saveCurrentPage(page: number): void {
-    this.store.dispatch(saveCurrentPage({page}))
-  }
 }
 
 /**
@@ -72,7 +62,6 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   @Input() errorMessage: string | null
 
   @Output() fetchContacts: EventEmitter<void> = new EventEmitter<void>()
-  @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
 
   @ViewChild('contactsFetching') public contactsFetchingTemplateRef: TemplateRef<any>
   @ViewChild('contactsSuccess') public contactsSuccessTemplateRef: TemplateRef<any>
@@ -120,14 +109,5 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   tapRetry($event: any): void {
     $event.preventDefault()
     this.fetchContacts.emit()
-  }
-
-  /**
-   * Sets the current page
-   *
-   * @param $event
-   */
-  setCurrentPage($event: any): void  {
-    this.saveCurrentPage.emit($event)
   }
 }

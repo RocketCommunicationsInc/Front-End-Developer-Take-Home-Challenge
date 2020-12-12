@@ -6,7 +6,13 @@
 }
 
 .contacts-header {
-  @include list-header-container;
+  .contacts-header-label {
+    @include list-header-label;
+
+    .options {
+      text-align: right;
+    }
+  }
 
   .contacts-header-summary {
     @include list-header-summary;

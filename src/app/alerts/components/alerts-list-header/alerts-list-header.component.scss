@@ -5,7 +5,11 @@
 }
 
 .alerts-header {
-  @include list-header-container;
+  border-right: 1px solid $ui-border;
+  
+  .alerts-header-label {
+    @include list-header-label;
+  }
 
   .alerts-header-summary {
     @include list-header-summary;

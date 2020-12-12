@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { AlertsState } from '@grmAlerts/alerts.state'
-import { sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
+import { AlertsState, currentPageSelector } from '@grmAlerts/alerts.state'
+import { saveCurrentPage, sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
 import { Alert } from '@grmAlerts/alerts.model'
 
 /**
@@ -12,10 +13,12 @@ import { Alert } from '@grmAlerts/alerts.model'
 @Component({
   selector: 'grm-alerts-list-header',
   template: '<grm-alerts-list-header-display [alerts]="alerts" (toggleSelectAll)="toggleSelectAll()" ' +
-    '(sortAlerts)="sortAlerts($event)"></grm-alerts-list-header-display>'
+    '(sortAlerts)="sortAlerts($event)" (saveCurrentPage)="saveCurrentPage($event)"></grm-alerts-list-header-display>'
 })
 export class AlertsListHeaderComponent implements OnInit {
   @Input() alerts: Alert[] | null
+
+  currentPage$: Observable<number> = this.store.select(currentPageSelector)
 
   constructor(
     private store: Store<AlertsState>
@@ -38,6 +41,15 @@ export class AlertsListHeaderComponent implements OnInit {
   sortAlerts(column: string): void {
     this.store.dispatch(sortAlerts({column}))
   }
+
+  /**
+   * Saves the current page
+   *
+   * @param page
+   */
+  saveCurrentPage(page: number): void {
+    this.store.dispatch(saveCurrentPage({page}))
+  }
 }
 
 /**
@@ -55,6 +67,7 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
 
   @Output() toggleSelectAll: EventEmitter<void> = new EventEmitter<void>()
   @Output() sortAlerts: EventEmitter<string> = new EventEmitter<string>()
+  @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
 
   constructor() { }
   ngOnInit(): void { }
@@ -78,5 +91,14 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
   tapSort($event: any, column: string): void {
     $event.preventDefault()
     this.sortAlerts.emit(column)
+  }
+
+  /**
+   * Sets the current page
+   *
+   * @param $event
+   */
+  setCurrentPage($event: any): void  {
+    this.saveCurrentPage.emit($event)
   }
 }

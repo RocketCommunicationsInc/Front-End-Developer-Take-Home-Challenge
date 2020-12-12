@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { ContactsState, executingContactsSelector, failedContactsSelector } from '@grmContacts/contacts.state'
-import { sortContacts } from '@grmContacts/contacts.actions'
+import { ContactsState, currentPageSelector, executingContactsSelector, failedContactsSelector } from '@grmContacts/contacts.state'
+import { saveCurrentPage, sortContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
 
 /**
@@ -13,13 +13,15 @@ import { Contact } from '@grmContacts/contacts.model'
 @Component({
   selector: 'grm-contacts-list-header',
   template: '<grm-contacts-list-header-display [contacts]="contacts" [failedContacts]="failedContacts$ | async" ' +
-    '[executingContacts]="executingContacts$ | async" (sortContacts)="sortContacts($event)"></grm-contacts-list-header-display>'
+    '[executingContacts]="executingContacts$ | async" (sortContacts)="sortContacts($event)" ' +
+    '(saveCurrentPage)="saveCurrentPage($event)"></grm-contacts-list-header-display>'
 })
 export class ContactsListHeaderComponent implements OnInit {
   @Input() contacts: Contact[] | null
 
   failedContacts$: Observable<Contact[]> = this.store.select(failedContactsSelector)
   executingContacts$: Observable<Contact[]> = this.store.select(executingContactsSelector)
+  currentPage$: Observable<number> = this.store.select(currentPageSelector)
 
   constructor(
     private store: Store<ContactsState>
@@ -34,6 +36,15 @@ export class ContactsListHeaderComponent implements OnInit {
    */
   sortContacts(column: string): void {
     this.store.dispatch(sortContacts({column}))
+  }
+
+  /**
+   * Saves the current page
+   *
+   * @param page
+   */
+  saveCurrentPage(page: number): void {
+    this.store.dispatch(saveCurrentPage({page}))
   }
 }
 
@@ -53,6 +64,7 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
   @Input() executingContacts: Contact[] | null
 
   @Output() sortContacts: EventEmitter<string> = new EventEmitter<string>()
+  @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
 
   constructor() { }
   ngOnInit(): void { }
@@ -66,6 +78,15 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
   tapSort($event: any, column: string): void {
     $event.preventDefault()
     this.sortContacts.emit(column)
+  }
+
+  /**
+   * Sets the current page
+   *
+   * @param $event
+   */
+  setCurrentPage($event: any): void  {
+    this.saveCurrentPage.emit($event)
   }
 
   /**
