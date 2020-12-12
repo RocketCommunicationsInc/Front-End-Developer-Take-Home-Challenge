@@ -71,3 +71,11 @@ export const addContacts = createAction(
   '[Contacts] Add Contacts',
   props<{ contacts: Contact[] }>()
 )
+
+/**
+ * The save current page action
+ */
+export const saveCurrentPage = createAction(
+  '[Contacts] Current Page',
+  props<{ page: number }>()
+)

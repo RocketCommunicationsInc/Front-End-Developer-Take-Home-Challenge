@@ -1,15 +1,16 @@
 <div fxFlex fxLayout="column" class="contacts-list">
   <grm-contacts-list-header [contacts]="contacts"></grm-contacts-list-header>
-  <ng-container [ngTemplateOutlet]="contentTemplate || contactsFetching" [ngTemplateOutletContext]="{contacts: contacts, errorMessage: errorMessage}"></ng-container>
+  <ng-container [ngTemplateOutlet]="contentTemplate || contactsFetching" [ngTemplateOutletContext]="{contacts: contacts, itemsPerPage: itemsPerPage, currentPage: currentPage, errorMessage: errorMessage}"></ng-container>
 </div>
 
 <ng-template #contactsFetching>
   <rux-progress></rux-progress>
 </ng-template>
 
-<ng-template #contactsSuccess let-contacts="contacts">
+<ng-template #contactsSuccess let-contacts="contacts" let-itemsPerPage="itemsPerPage" let-currentPage="currentPage">
+  <pagination-controls id="contacts-controls" (pageChange)="setCurrentPage($event)"></pagination-controls>
   <div fxFlex class="contacts-list-items">
-    <grm-contacts-list-item [contact]="contact" *ngFor="let contact of contacts | contactSort:sortColumn:sortDirection"></grm-contacts-list-item>
+    <grm-contacts-list-item [contact]="contact" *ngFor="let contact of contacts | contactSort:sortColumn:sortDirection | paginate:{itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'contacts-controls'}"></grm-contacts-list-item>
   </div>
 </ng-template>
 

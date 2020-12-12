@@ -10,7 +10,7 @@ import { Contact } from '@grmContacts/contacts.model'
   name: 'contactSort'
 })
 export class ContactSortPipe implements PipeTransform {
-  transform(contacts: any[] | null, column: string | null, direction: string | null): Contact[] | null {
+  transform(contacts: any[] | null, column: string | null, direction: string | null): Contact[] {
     if (!contacts) {
       return []
     }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
+import { NgxPaginationModule } from 'ngx-pagination'
 import { ContactsEffects } from '@grmContacts/contacts.effects'
 import { ContactsService } from '@grmContacts/contacts.service'
 import { contactsReducers } from '@grmContacts/contacts.reducer'
@@ -27,7 +28,8 @@ import '@astrouxds/rux-button'
     EffectsModule.forFeature([
       ContactsEffects
     ]),
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxPaginationModule
   ],
   declarations: [
     ContactsListComponent,
