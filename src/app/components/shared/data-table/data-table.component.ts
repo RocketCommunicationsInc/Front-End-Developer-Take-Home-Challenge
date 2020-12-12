@@ -35,8 +35,8 @@ export class DataTableComponent {
   }
 
   expandRow(event, row) {
-    event.stopPropagation();
     event.preventDefault();
+    event.stopImmediatePropagation();
     row.expanded = !row.expanded;
     this.ref.markForCheck();
   }
