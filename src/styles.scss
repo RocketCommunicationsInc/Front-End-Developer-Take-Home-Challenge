@@ -71,6 +71,7 @@ pagination-controls {
           font-size: 2rem;
           font-weight: 300;
           line-height: 2rem;
+          width: 50px;
 
           &::before,
           &::after {
@@ -82,7 +83,7 @@ pagination-controls {
           }
 
           @include layout-bp(lt-sm) {
-            padding: 0.5rem !important;
+            width: 40px;
           }
         }
       }

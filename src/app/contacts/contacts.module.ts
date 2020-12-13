@@ -14,6 +14,7 @@ import { ContactsListHeaderComponent,
 import { ContactsListItemComponent,
   ContactsListItemDisplayComponent } from '@grmContacts/components/contacts-list-item/contacts-list-item.component'
 import { ContactSortPipe } from '@grmContacts/pipes/contact-sort.pipe'
+import { ContactFilterPipe } from '@grmContacts/pipes/contact-filter.pipe'
 import '@astrouxds/rux-status'
 import '@astrouxds/rux-notification'
 import '@astrouxds/rux-progress'
@@ -38,7 +39,8 @@ import '@astrouxds/rux-button'
     ContactsListHeaderDisplayComponent,
     ContactsListItemComponent,
     ContactsListItemDisplayComponent,
-    ContactSortPipe
+    ContactSortPipe,
+    ContactFilterPipe
   ],
   providers: [
     ContactsService

@@ -79,3 +79,11 @@ export const saveCurrentPage = createAction(
   '[Contacts] Current Page',
   props<{ page: number }>()
 )
+
+/**
+ * The selected status action
+ */
+export const selectedStatus = createAction(
+  '[Contacts] Selected Status',
+  props<{ status: string }>()
+)

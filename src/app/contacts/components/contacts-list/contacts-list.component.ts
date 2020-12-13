@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
-import { ContactsState, currentPageSelector, errorMessageSelector, fetchStatusSelector } from '@grmContacts/contacts.state'
+import { ContactsState, currentPageSelector, errorMessageSelector, fetchStatusSelector,
+  selectedStatusSelector } from '@grmContacts/contacts.state'
 import { fetchContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
 import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@grmContacts/contacts.state'
@@ -15,14 +16,16 @@ import { contactsSelector, sortColumnSelector, sortDirectionSelector } from '@gr
 @Component({
   selector: 'grm-contacts-list',
   template: '<grm-contacts-list-display fxFlex [contacts]="contacts$ | async" [sortColumn]="sortColumn$ | async" ' +
-    '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [fetchStatus]="fetchStatus$ | async" ' +
-    '[errorMessage]="errorMessage$ | async" (fetchContacts)="fetchContacts()"></grm-contacts-list-display>'
+    '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [statusFilter]="statusFilter$ | async" ' +
+    '[fetchStatus]="fetchStatus$ | async" [errorMessage]="errorMessage$ | async" ' +
+    '(fetchContacts)="fetchContacts()"></grm-contacts-list-display>'
 })
 export class ContactsListComponent implements OnInit {
   contacts$: Observable<Contact[]> = this.store.select(contactsSelector)
   sortColumn$: Observable<string> = this.store.select(sortColumnSelector)
   sortDirection$: Observable<string> = this.store.select(sortDirectionSelector)
   currentPage$: Observable<number> = this.store.select(currentPageSelector)
+  statusFilter$: Observable<string> = this.store.select(selectedStatusSelector)
   fetchStatus$: Observable<string> = this.store.select(fetchStatusSelector)
   errorMessage$: Observable<string> = this.store.select(errorMessageSelector)
 
@@ -58,6 +61,7 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   @Input() sortColumn: string | null
   @Input() sortDirection: string | null
   @Input() currentPage: number | null
+  @Input() statusFilter: string | null
   @Input() fetchStatus: string | null = FetchStatus.fetching
   @Input() errorMessage: string | null
 

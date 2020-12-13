@@ -1,7 +1,7 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { addActiveContact, addContacts, fetchContacts, fetchContactsFailure, fetchContactsSuccess,
-  removeActiveContact, saveCurrentPage, sortContacts } from '@grmContacts/contacts.actions'
+  removeActiveContact, saveCurrentPage, selectedStatus, sortContacts } from '@grmContacts/contacts.actions'
 import { ContactsState, defaultContactsState } from '@grmContacts/contacts.state'
 
 /**
@@ -13,11 +13,18 @@ export const contactsReducers: ActionReducer<ContactsState> = createReducer(
     ...state,
     fetchStatus: FetchStatus.fetching
   })),
-  on(fetchContactsSuccess, (state: ContactsState, { contacts }) => ({
-    ...state,
-    contacts,
-    fetchStatus: FetchStatus.fetchSuccess
-  })),
+  on(fetchContactsSuccess, (state: ContactsState, { contacts }) => {
+    // Build the status list and filter the duplicates
+    let statusList: string[] = contacts.map(contact => contact.contactStatus)
+    statusList = statusList.filter((status, index) => statusList.indexOf(status) === index)
+
+    return ({
+      ...state,
+      contacts,
+      statusList: statusList,
+      fetchStatus: FetchStatus.fetchSuccess
+    })
+  }),
   on(fetchContactsFailure, (state, { error, message }) => ({
     ...state,
     error,
@@ -44,5 +51,9 @@ export const contactsReducers: ActionReducer<ContactsState> = createReducer(
   on(saveCurrentPage, (state, { page }) => ({
     ...state,
     currentPage: page
+  })),
+  on(selectedStatus, (state, { status }) => ({
+    ...state,
+    selectedStatus: status
   }))
 )

@@ -10,6 +10,10 @@ export class AlertsState {
   sortColumn?: string
   sortDirection: string
   currentPage: number
+  severityList: string[]
+  selectedSeverity?: string
+  categoryList: string[]
+  selectedCategory?: string
   fetchStatus?: string
   error?: any
   errorMessage?: string
@@ -23,7 +27,9 @@ export const defaultAlertsState: AlertsState = {
   activeAlerts: [],
   selectedAlerts: [],
   sortDirection: 'desc',
-  currentPage: 0
+  currentPage: 0,
+  severityList: [],
+  categoryList: []
 }
 
 // Selectors
@@ -39,5 +45,9 @@ export const isSelectedAlertSelector = (state: any, props: any) => state.alerts 
 export const sortColumnSelector = (state: any) => state.alerts.sortColumn
 export const sortDirectionSelector = (state: any) => state.alerts.sortDirection
 export const currentPageSelector = (state: any) => state.alerts.currentPage
+export const severityListSelector = (state: any) => state.alerts.severityList
+export const selectedSeveritySelector = (state: any) => state.alerts.selectedSeverity
+export const categoryListSelector = (state: any) => state.alerts.categoryList
+export const selectedCategorySelector = (state: any) => state.alerts.selectedCategory
 export const fetchStatusSelector = (state: any) => state.alerts.fetchStatus
 export const errorMessageSelector = (state: any) => state.alerts.errorMessage

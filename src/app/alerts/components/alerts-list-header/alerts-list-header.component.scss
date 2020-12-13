@@ -23,6 +23,10 @@
     }
   }
 
+  .alerts-header-options {
+    @include list-header-options;
+  }
+
   .alerts-header-columns {
     @include list-header-columns;
   }

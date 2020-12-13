@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { AlertsState, currentPageSelector } from '@grmAlerts/alerts.state'
-import { saveCurrentPage, sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
+import { AlertsState, categoryListSelector, severityListSelector } from '@grmAlerts/alerts.state'
+import { saveCurrentPage, selectedCategory, selectedSeverity, sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
 import { Alert } from '@grmAlerts/alerts.model'
 
 /**
@@ -12,13 +12,16 @@ import { Alert } from '@grmAlerts/alerts.model'
  */
 @Component({
   selector: 'grm-alerts-list-header',
-  template: '<grm-alerts-list-header-display [alerts]="alerts" (toggleSelectAll)="toggleSelectAll()" ' +
-    '(sortAlerts)="sortAlerts($event)" (saveCurrentPage)="saveCurrentPage($event)"></grm-alerts-list-header-display>'
+  template: '<grm-alerts-list-header-display [alerts]="alerts" [severityList]="severityList$ | async" ' +
+    '[categoryList]="categoryList$ | async" (toggleSelectAll)="toggleSelectAll()" (sortAlerts)="sortAlerts($event)" ' +
+    '(saveCurrentPage)="saveCurrentPage($event)" (selectedSeverity)="selectedSeverity($event)" ' +
+    '(selectedCategory)="selectedCategory($event)"></grm-alerts-list-header-display>'
 })
 export class AlertsListHeaderComponent implements OnInit {
   @Input() alerts: Alert[] | null
 
-  currentPage$: Observable<number> = this.store.select(currentPageSelector)
+  severityList$: Observable<string[]> = this.store.select(severityListSelector)
+  categoryList$: Observable<string[]> = this.store.select(categoryListSelector)
 
   constructor(
     private store: Store<AlertsState>
@@ -50,6 +53,24 @@ export class AlertsListHeaderComponent implements OnInit {
   saveCurrentPage(page: number): void {
     this.store.dispatch(saveCurrentPage({page}))
   }
+
+  /**
+   * Sets the selected severity
+   *
+   * @param severity
+   */
+  selectedSeverity(severity: string): void {
+    this.store.dispatch(selectedSeverity({severity}))
+  }
+
+  /**
+   * Sets the selected category
+   *
+   * @param category
+   */
+  selectedCategory(category: string): void {
+    this.store.dispatch(selectedCategory({category}))
+  }
 }
 
 /**
@@ -64,10 +85,14 @@ export class AlertsListHeaderComponent implements OnInit {
 })
 export class AlertsListHeaderDisplayComponent implements OnInit {
   @Input() alerts: Alert[] | null
+  @Input() severityList: string[] | null
+  @Input() categoryList: string[] | null
 
   @Output() toggleSelectAll: EventEmitter<void> = new EventEmitter<void>()
   @Output() sortAlerts: EventEmitter<string> = new EventEmitter<string>()
   @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
+  @Output() selectedSeverity: EventEmitter<string> = new EventEmitter<string>()
+  @Output() selectedCategory: EventEmitter<string> = new EventEmitter<string>()
 
   constructor() { }
   ngOnInit(): void { }
@@ -100,5 +125,23 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
    */
   setCurrentPage($event: any): void  {
     this.saveCurrentPage.emit($event)
+  }
+
+  /**
+   * Changes the severity filter
+   *
+   * @param $event
+   */
+  changeSeverity($event: any): void {
+    this.selectedSeverity.emit($event.target.value)
+  }
+
+  /**
+   * Changes the category filter
+   *
+   * @param $event
+   */
+  changeCategory($event: any): void {
+    this.selectedCategory.emit($event.target.value)
   }
 }

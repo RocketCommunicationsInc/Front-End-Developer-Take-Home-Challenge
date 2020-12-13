@@ -3,7 +3,7 @@ import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { Alert } from '@grmAlerts/alerts.model'
 import { AlertsState, alertsSelector, sortColumnSelector, sortDirectionSelector, fetchStatusSelector,
-  errorMessageSelector, currentPageSelector } from '@grmAlerts/alerts.state'
+  errorMessageSelector, currentPageSelector, selectedSeveritySelector, selectedCategorySelector } from '@grmAlerts/alerts.state'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { AppState } from '@grm/app.state'
 import { fetchAlerts } from '@grmAlerts/alerts.actions'
@@ -16,14 +16,17 @@ import { fetchAlerts } from '@grmAlerts/alerts.actions'
 @Component({
   selector: 'grm-alerts-list',
   template: '<grm-alerts-list-display fxFlex [alerts]="alerts$ | async" [sortColumn]="sortColumn$ | async" ' +
-    '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [fetchStatus]="fetchStatus$ | async"' +
-    '[errorMessage]="errorMessage$ | async" (fetchAlerts)="fetchAlerts()"></grm-alerts-list-display>'
+    '[sortDirection]="sortDirection$ | async" [currentPage]="currentPage$ | async" [severityFilter]="severityFilter$ | async" ' +
+    '[categoryFilter]="categoryFilter$ | async" [fetchStatus]="fetchStatus$ | async" [errorMessage]="errorMessage$ | async" ' +
+    '(fetchAlerts)="fetchAlerts()"></grm-alerts-list-display>'
 })
 export class AlertsListComponent implements OnInit {
   alerts$: Observable<Alert[]> = this.alertsStore.select(alertsSelector)
   sortColumn$: Observable<string> = this.alertsStore.select(sortColumnSelector)
   sortDirection$: Observable<string> = this.alertsStore.select(sortDirectionSelector)
   currentPage$: Observable<number> = this.alertsStore.select(currentPageSelector)
+  severityFilter$: Observable<string> = this.alertsStore.select(selectedSeveritySelector)
+  categoryFilter$: Observable<string> = this.alertsStore.select(selectedCategorySelector)
   fetchStatus$: Observable<string> = this.alertsStore.select(fetchStatusSelector)
   errorMessage$: Observable<string> = this.alertsStore.select(errorMessageSelector)
 
@@ -60,6 +63,8 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @Input() sortColumn: string | null
   @Input() sortDirection: string | null
   @Input() currentPage: number | null
+  @Input() severityFilter: string | null
+  @Input() categoryFilter: string | null
   @Input() fetchStatus: string | null
   @Input() errorMessage: string | null
 

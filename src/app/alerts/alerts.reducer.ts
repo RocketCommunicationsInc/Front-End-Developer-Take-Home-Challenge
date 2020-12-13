@@ -1,7 +1,7 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { fetchAlertsFailure, fetchAlertsSuccess, addActiveAlert, removeActiveAlert, addSelectedAlert,
-  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts, addAlerts, saveCurrentPage } from '@grmAlerts/alerts.actions'
+  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts, addAlerts, saveCurrentPage, selectedSeverity, selectedCategory } from '@grmAlerts/alerts.actions'
 import { AlertsState, defaultAlertsState } from '@grmAlerts/alerts.state'
 
 /**
@@ -13,11 +13,23 @@ export const alertsReducers: ActionReducer<AlertsState> = createReducer(
     ...state,
     fetchStatus: FetchStatus.fetching
   })),
-  on(fetchAlertsSuccess, (state: AlertsState, { alerts }) => ({
-    ...state,
-    alerts,
-    fetchStatus: FetchStatus.fetchSuccess
-  })),
+  on(fetchAlertsSuccess, (state: AlertsState, { alerts }) => {
+    // Build the severity list and filter the duplicates
+    let severityList: string[] = alerts.map(alert => alert.errorSeverity)
+    severityList = severityList.filter((severity, index) => severityList.indexOf(severity) === index)
+
+    // Build the category list and filter the duplicates
+    let categoryList: string[] = alerts.map(alert => alert.errorCategory)
+    categoryList = categoryList.filter((severity, index) => categoryList.indexOf(severity) === index)
+
+    return ({
+      ...state,
+      alerts,
+      severityList: severityList,
+      categoryList: categoryList,
+      fetchStatus: FetchStatus.fetchSuccess
+    })
+  }),
   on(fetchAlertsFailure, (state, { error, message }) => ({
     ...state,
     error,
@@ -56,5 +68,13 @@ export const alertsReducers: ActionReducer<AlertsState> = createReducer(
   on(saveCurrentPage, (state, { page }) => ({
     ...state,
     currentPage: page
+  })),
+  on(selectedSeverity, (state, { severity }) => ({
+    ...state,
+    selectedSeverity: severity
+  })),
+  on(selectedCategory, (state, { category }) => ({
+    ...state,
+    selectedCategory: category
   }))
 )
