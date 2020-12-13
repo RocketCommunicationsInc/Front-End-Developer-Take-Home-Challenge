@@ -92,24 +92,7 @@ export class ContactListComponent implements OnInit {
 
   }
 
-  private setavailableStatuses(): void {
-    this.availableStatuses = new Set(this.contacts.map(contact => contact.contactStatus));
-  }
-
-  private onSuccess(res: Contact[]): void {
-    this.processTimelineData(res);
-    res.forEach((contact: Contact) => {
-      contact.contactDuration = contact.contactEndTimestamp = contact.contactBeginTimestamp;
-      contact.details = contact.contactDetail;
-    });
-    this.contacts = res;
-    this.filteredContacts = res;
-    this.setavailableStatuses();
-    this.loading = false;
-    this.ref.markForCheck();
-  }
-
-  private processTimelineData(contacts: Contact[]): void {
+  processTimelineData(contacts: Contact[]): void {
 
     let tracks = [];
     contacts.forEach((contact) => {
@@ -143,6 +126,23 @@ export class ContactListComponent implements OnInit {
     })
 
     this.timelineData = tracks;
+  }
+
+  private setavailableStatuses(): void {
+    this.availableStatuses = new Set(this.contacts.map(contact => contact.contactStatus));
+  }
+
+  private onSuccess(res: Contact[]): void {
+    this.processTimelineData(res);
+    res.forEach((contact: Contact) => {
+      contact.contactDuration = contact.contactEndTimestamp = contact.contactBeginTimestamp;
+      contact.details = contact.contactDetail;
+    });
+    this.contacts = res;
+    this.filteredContacts = res;
+    this.setavailableStatuses();
+    this.loading = false;
+    this.ref.markForCheck();
   }
 
   private onFailure(): void {
