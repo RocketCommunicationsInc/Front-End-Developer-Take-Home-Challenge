@@ -27,5 +27,5 @@ jobs:
       run: npm run lint
     - name: Build
       run: npm run build -- --prod
-    - name: Test
-      run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+    - name: Run Karma Tests
+      uses: ahmedrizwan/angular-karma-test-action
