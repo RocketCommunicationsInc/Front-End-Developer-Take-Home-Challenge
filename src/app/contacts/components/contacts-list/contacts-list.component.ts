@@ -72,7 +72,7 @@ export class ContactsListDisplayComponent implements OnInit, OnChanges {
   @ViewChild('contactsFailed') public contactsFailedTemplateRef: TemplateRef<any>
 
   public contentTemplate: TemplateRef<any>
-  public itemsPerPage: number = 25
+  public itemsPerPage = 25
 
   constructor() { }
 

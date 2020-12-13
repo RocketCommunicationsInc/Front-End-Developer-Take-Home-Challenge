@@ -1,7 +1,8 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store'
 import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { fetchAlertsFailure, fetchAlertsSuccess, addActiveAlert, removeActiveAlert, addSelectedAlert,
-  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts, addAlerts, saveCurrentPage, selectedSeverity, selectedCategory } from '@grmAlerts/alerts.actions'
+  removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts, addAlerts, saveCurrentPage, selectedSeverity,
+  selectedCategory } from '@grmAlerts/alerts.actions'
 import { AlertsState, defaultAlertsState } from '@grmAlerts/alerts.state'
 
 /**
@@ -25,8 +26,8 @@ export const alertsReducers: ActionReducer<AlertsState> = createReducer(
     return ({
       ...state,
       alerts,
-      severityList: severityList,
-      categoryList: categoryList,
+      severityList,
+      categoryList,
       fetchStatus: FetchStatus.fetchSuccess
     })
   }),

@@ -75,7 +75,7 @@ export class AlertsListDisplayComponent implements OnInit, OnChanges {
   @ViewChild('alertsFailed') public alertsFailedTemplateRef: TemplateRef<any>
 
   public contentTemplate: TemplateRef<any>
-  public itemsPerPage: number = 25
+  public itemsPerPage = 25
 
   constructor() { }
 

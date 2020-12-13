@@ -21,7 +21,7 @@ export const contactsReducers: ActionReducer<ContactsState> = createReducer(
     return ({
       ...state,
       contacts,
-      statusList: statusList,
+      statusList,
       fetchStatus: FetchStatus.fetchSuccess
     })
   }),
