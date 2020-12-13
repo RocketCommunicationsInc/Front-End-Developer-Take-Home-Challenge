@@ -2,7 +2,7 @@
   <th *ngFor="let column of columns" (click)="sortColumn(column.name)">
     {{ column.label }}
   </th>
-  <ng-container *ngFor="let row of data; trackBy: trackBy()">
+  <ng-container *ngFor="let row of data; trackBy: trackBy">
     <tr (click)="expandRow($event, row)">
       <td *ngFor="let rowColumn of columns">
         <ng-container *ngIf="rowColumn.cellTemplate">
@@ -23,4 +23,4 @@
 
 </table>
 
-<rux-progress *ngIf="loading"></rux-progress>
+<rux-progress *ngIf="loading"></rux-progress> 
