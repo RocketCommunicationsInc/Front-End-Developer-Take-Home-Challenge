@@ -111,5 +111,4 @@ export class ContactListComponent implements OnInit {
     this.showError = true;
   }
 
-
 }
