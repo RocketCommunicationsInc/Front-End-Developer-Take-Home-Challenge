@@ -94,11 +94,11 @@ export class ContactListComponent implements OnInit {
 
   processTimelineData(contacts: Contact[]): void {
 
-    let tracks = [];
+    const tracks = [];
     contacts.forEach((contact) => {
-      let currentTrackIndex = tracks.findIndex(track => track.label === contact.contactGround);
-      let startTime =  new Date(contact.contactBeginTimestamp * 1000)
-      let endTime =  new Date(contact.contactEndTimestamp * 1000)
+      const currentTrackIndex = tracks.findIndex(track => track.label === contact.contactGround);
+      const startTime =  new Date(contact.contactBeginTimestamp * 1000);
+      const endTime =  new Date(contact.contactEndTimestamp * 1000);
 
       // Change Day/Month/Year to today
       // TODO: update docs at https://astro-components.netlify.app/?path=/story/components-timeline--timeline for date range
@@ -109,9 +109,9 @@ export class ContactListComponent implements OnInit {
       endTime.setMonth((new Date()).getMonth());
       endTime.setFullYear((new Date()).getFullYear());
 
-      let region = {
-        startTime: startTime,
-        endTime: endTime,
+      const region = {
+        startTime,
+        endTime,
         label: contact.contactEquipment,
         status: contact.contactStatus
       };
@@ -119,11 +119,11 @@ export class ContactListComponent implements OnInit {
         tracks.push({
           label: contact.contactGround,
           regions: [region]
-        })
+        });
       } else {
-        tracks[currentTrackIndex].regions.push(region)
+        tracks[currentTrackIndex].regions.push(region);
       }
-    })
+    });
 
     this.timelineData = tracks;
   }
