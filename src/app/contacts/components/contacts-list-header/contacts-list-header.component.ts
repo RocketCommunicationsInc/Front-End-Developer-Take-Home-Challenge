@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { ContactsState, executingContactsSelector, failedContactsSelector, statusListSelector } from '@grmContacts/contacts.state'
+import { ContactsState, executingContactsSelector, failedContactsSelector, selectedStatusSelector,
+  statusListSelector } from '@grmContacts/contacts.state'
 import { saveCurrentPage, selectedStatus, sortContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
+import { getContactsCount } from '@grmContacts/contacts.utils'
 
 /**
  * GRM Contacts List Header component
@@ -14,8 +16,8 @@ import { Contact } from '@grmContacts/contacts.model'
   selector: 'grm-contacts-list-header',
   template: '<grm-contacts-list-header-display [contacts]="contacts" [failedContacts]="failedContacts$ | async" ' +
     '[executingContacts]="executingContacts$ | async" [statusList]="statusList$ | async" ' +
-    '(sortContacts)="sortContacts($event)" (saveCurrentPage)="saveCurrentPage($event)" ' +
-    '(selectedStatus)="selectedStatus($event)"></grm-contacts-list-header-display>'
+    '[statusFilter]="statusFilter$ | async" (sortContacts)="sortContacts($event)" ' +
+    '(saveCurrentPage)="saveCurrentPage($event)" (selectedStatus)="selectedStatus($event)"></grm-contacts-list-header-display>'
 })
 export class ContactsListHeaderComponent implements OnInit {
   @Input() contacts: Contact[] | null
@@ -23,6 +25,7 @@ export class ContactsListHeaderComponent implements OnInit {
   failedContacts$: Observable<Contact[]> = this.store.select(failedContactsSelector)
   executingContacts$: Observable<Contact[]> = this.store.select(executingContactsSelector)
   statusList$: Observable<string[]> = this.store.select(statusListSelector)
+  statusFilter$: Observable<string> = this.store.select(selectedStatusSelector)
 
   constructor(
     private store: Store<ContactsState>
@@ -73,6 +76,7 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
   @Input() failedContacts: Contact[] | null
   @Input() executingContacts: Contact[] | null
   @Input() statusList: string[] | null
+  @Input() statusFilter: string | null
 
   @Output() sortContacts: EventEmitter<string> = new EventEmitter<string>()
   @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
@@ -80,6 +84,27 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
 
   constructor() { }
   ngOnInit(): void { }
+
+  /**
+   * Gets the contacts count
+   */
+  getContactsCount(): number {
+    return getContactsCount(this.contacts, this.statusFilter)
+  }
+
+  /**
+   * Gets the failed contacts count
+   */
+  getFailedContactsCount(): number {
+    return getContactsCount(this.failedContacts, this.statusFilter)
+  }
+
+  /**
+   * Gets the executing contacts count
+   */
+  getExecutingContactsCount(): number {
+    return getContactsCount(this.executingContacts, this.statusFilter)
+  }
 
   /**
    * Handles the sort tap

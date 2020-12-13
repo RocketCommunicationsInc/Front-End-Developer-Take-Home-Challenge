@@ -13,15 +13,15 @@
   </div>
   <div fxLayout="row" class="contacts-header-options" fxLayoutAlign="center center">
     <div class="contacts-header-summary" fxFlex>
-      <span class="contact-count" [innerHtml]="contacts?.length || 0"></span>
+      <span class="contact-count" [innerHtml]="getContactsCount()"></span>
       <span class="contact-count-text" [innerHtml]="'Contacts'"></span>
     </div>
     <div class="contacts-header-summary failed" fxFlex>
-      <span class="contact-count" [innerHtml]="failedContacts?.length || 0"></span>
+      <span class="contact-count" [innerHtml]="getFailedContactsCount()"></span>
       <span class="contact-count-text" [innerHtml]="'Failed'"></span>
     </div>
     <div class="contacts-header-summary" fxFlex>
-      <span class="contact-count" [innerHtml]="executingContacts?.length || 0"></span>
+      <span class="contact-count" [innerHtml]="getExecutingContactsCount()"></span>
       <span class="contact-count-text" [innerHtml]="'Executing'"></span>
     </div>
     <div class="contacts-header-status" fxFlex="nogrow">

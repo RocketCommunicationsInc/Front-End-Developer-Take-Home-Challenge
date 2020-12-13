@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { Contact } from '@grmContacts/contacts.model'
+import { getFilteredContacts } from '@grmContacts/contacts.utils'
 
 /**
  * A pipe that filters the Contact list by status
@@ -15,10 +16,6 @@ export class ContactFilterPipe implements PipeTransform {
       return []
     }
 
-    if (statusFilter && statusFilter.trim().length) {
-      contacts = contacts.filter((contact: Contact) => contact.contactStatus === statusFilter)
-    }
-
-    return contacts
+    return getFilteredContacts(contacts, statusFilter)
   }
 }

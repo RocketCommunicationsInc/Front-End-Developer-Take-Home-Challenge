@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { AlertsState, categoryListSelector, severityListSelector } from '@grmAlerts/alerts.state'
+import { AlertsState, categoryListSelector, severityListSelector, selectedSeveritySelector,
+  selectedCategorySelector } from '@grmAlerts/alerts.state'
 import { saveCurrentPage, selectedCategory, selectedSeverity, sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
 import { Alert } from '@grmAlerts/alerts.model'
+import { getActiveAlertsCount } from '@grmAlerts/alerts.utils'
 
 /**
  * GRM Alerts List Header component
@@ -13,7 +15,8 @@ import { Alert } from '@grmAlerts/alerts.model'
 @Component({
   selector: 'grm-alerts-list-header',
   template: '<grm-alerts-list-header-display [alerts]="alerts" [severityList]="severityList$ | async" ' +
-    '[categoryList]="categoryList$ | async" (toggleSelectAll)="toggleSelectAll()" (sortAlerts)="sortAlerts($event)" ' +
+    '[severityFilter]="severityFilter$ | async" [categoryList]="categoryList$ | async" ' +
+    '[categoryFilter]="categoryFilter$ | async" (toggleSelectAll)="toggleSelectAll()" (sortAlerts)="sortAlerts($event)" ' +
     '(saveCurrentPage)="saveCurrentPage($event)" (selectedSeverity)="selectedSeverity($event)" ' +
     '(selectedCategory)="selectedCategory($event)"></grm-alerts-list-header-display>'
 })
@@ -21,7 +24,9 @@ export class AlertsListHeaderComponent implements OnInit {
   @Input() alerts: Alert[] | null
 
   severityList$: Observable<string[]> = this.store.select(severityListSelector)
+  severityFilter$: Observable<string> = this.store.select(selectedSeveritySelector)
   categoryList$: Observable<string[]> = this.store.select(categoryListSelector)
+  categoryFilter$: Observable<string> = this.store.select(selectedCategorySelector)
 
   constructor(
     private store: Store<AlertsState>
@@ -86,7 +91,9 @@ export class AlertsListHeaderComponent implements OnInit {
 export class AlertsListHeaderDisplayComponent implements OnInit {
   @Input() alerts: Alert[] | null
   @Input() severityList: string[] | null
+  @Input() severityFilter: string | null
   @Input() categoryList: string[] | null
+  @Input() categoryFilter: string | null
 
   @Output() toggleSelectAll: EventEmitter<void> = new EventEmitter<void>()
   @Output() sortAlerts: EventEmitter<string> = new EventEmitter<string>()
@@ -96,6 +103,13 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
 
   constructor() { }
   ngOnInit(): void { }
+
+  /**
+   * Gets the active alerts count
+   */
+  getActiveAlertCount(): number {
+    return getActiveAlertsCount(this.alerts, this.severityFilter, this.categoryFilter)
+  }
 
   /**
    * Handles the select all tap

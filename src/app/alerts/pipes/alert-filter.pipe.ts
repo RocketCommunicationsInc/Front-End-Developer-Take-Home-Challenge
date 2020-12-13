@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { Alert } from '@grmAlerts/alerts.model'
+import { getFilteredAlerts } from '@grmAlerts/alerts.utils'
 
 /**
  * A pipe that filters the Alert list by severity and/or category
@@ -15,14 +16,6 @@ export class AlertFilterPipe implements PipeTransform {
       return []
     }
 
-    if (severityFilter && severityFilter.trim().length) {
-      alerts = alerts.filter((alert: Alert) => alert.errorSeverity === severityFilter)
-    }
-
-    if (categoryFilter && categoryFilter.trim().length) {
-      alerts = alerts.filter((alert: Alert) => alert.errorCategory === categoryFilter)
-    }
-
-    return alerts
+    return getFilteredAlerts(alerts, severityFilter, categoryFilter)
   }
 }
