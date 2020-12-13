@@ -22,10 +22,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install dependencies
+      run: sudo apt-get install google-chrome-stable
       run: npm ci
     - name: Lint
       run: npm run lint
     - name: Build
       run: npm run build -- --prod
-    - name: Run Karma Tests
-      uses: ahmedrizwan/angular-karma-test-action
+    - name: Test
+      run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
