@@ -26,4 +26,10 @@
         <rux-status [attr.status]="value"></rux-status>
     </ng-template>
 </div>
- 
+
+<div class="contact-timeline" *ngIf="!loading">
+    <h1>Contact Timeline</h1>
+    <rux-timeline
+    [selected-region]="{}" label="Schedule" [_scale]="1000" [initial-scale]="100" [tracks]="timelineData" [playheadControl]="true" 
+    [duration]="10" label="Schedule"></rux-timeline>
+</div>

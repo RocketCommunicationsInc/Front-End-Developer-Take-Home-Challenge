@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DataTableColumn } from 'src/app/interfaces/column';
 import { ContactService } from 'src/app/services/contact/contact.service';
+import '@astrouxds/rux-timeline';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactListComponent implements OnInit {
 
@@ -17,6 +17,8 @@ export class ContactListComponent implements OnInit {
   availableStatuses: Set<string>;
   showError = false;
   loading = true;
+  startTime = new Date(1563753780000);
+  timelineData = [];
 
   constructor(private service: ContactService, private ref: ChangeDetectorRef) { }
 
@@ -95,6 +97,7 @@ export class ContactListComponent implements OnInit {
   }
 
   private onSuccess(res: Contact[]): void {
+    this.processTimelineData(res);
     res.forEach((contact: Contact) => {
       contact.contactDuration = contact.contactEndTimestamp = contact.contactBeginTimestamp;
       contact.details = contact.contactDetail;
@@ -104,7 +107,42 @@ export class ContactListComponent implements OnInit {
     this.setavailableStatuses();
     this.loading = false;
     this.ref.markForCheck();
+  }
 
+  private processTimelineData(contacts: Contact[]): void {
+
+    let tracks = [];
+    contacts.forEach((contact) => {
+      let currentTrackIndex = tracks.findIndex(track => track.label === contact.contactGround);
+      let startTime =  new Date(contact.contactBeginTimestamp * 1000)
+      let endTime =  new Date(contact.contactEndTimestamp * 1000)
+
+      // Change Day/Month/Year to today
+      // TODO: update docs at https://astro-components.netlify.app/?path=/story/components-timeline--timeline for date range
+      startTime.setDate((new Date()).getDate());
+      startTime.setMonth((new Date()).getMonth());
+      startTime.setFullYear((new Date()).getFullYear());
+      endTime.setDate((new Date()).getDate());
+      endTime.setMonth((new Date()).getMonth());
+      endTime.setFullYear((new Date()).getFullYear());
+
+      let region = {
+        startTime: startTime,
+        endTime: endTime,
+        label: contact.contactEquipment,
+        status: contact.contactStatus
+      };
+      if (currentTrackIndex === -1) {
+        tracks.push({
+          label: contact.contactGround,
+          regions: [region]
+        })
+      } else {
+        tracks[currentTrackIndex].regions.push(region)
+      }
+    })
+
+    this.timelineData = tracks;
   }
 
   private onFailure(): void {
