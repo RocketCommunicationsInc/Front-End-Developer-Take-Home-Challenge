@@ -30,10 +30,10 @@ describe('ContactListComponent', () => {
 
   it('Method: filterList() should filter contacts to the specified status', () => {
     component.contacts = [
-      <any>{contactStatus: 'red'},
+      {contactStatus: 'red'} as any,
       {contactStatus: 'blue'}
     ];
     component.filterList('blue');
-    expect(component.filteredContacts).toEqual([<any>{contactStatus: 'blue'}]);
+    expect(component.filteredContacts).toEqual([{contactStatus: 'blue'} as any]);
   });
 });

@@ -18,7 +18,7 @@ export class DataTableComponent {
 
   sortColumn(column: string): void {
     this.data = this.data.sort((a, b) => {
-      if (typeof a[column] == 'number') {
+      if (typeof a[column] === 'number') {
         return (a[column] - b[column]) * this.sortOrder;
       } else {
         return a[column].localeCompare(b[column]) * this.sortOrder;

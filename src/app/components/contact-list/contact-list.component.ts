@@ -62,7 +62,7 @@ export class ContactListComponent implements OnInit {
   }
 
   get criticalErrors(): number {
-    return this.contacts.filter(contact => contact.contactStatus == 'critical').length;
+    return this.contacts.filter(contact => contact.contactStatus === 'critical').length;
   }
 
   ngOnInit() {
@@ -80,10 +80,10 @@ export class ContactListComponent implements OnInit {
   filterList(status: string): void {
     this.loading = true;
     this.ref.markForCheck();
-    if (status == 'all') {
+    if (status === 'all') {
       this.filteredContacts = this.contacts;
     } else {
-      this.filteredContacts = this.contacts.filter(contact => status == contact.contactStatus);
+      this.filteredContacts = this.contacts.filter(contact => status === contact.contactStatus);
     }
     this.loading = false;
     this.ref.markForCheck();

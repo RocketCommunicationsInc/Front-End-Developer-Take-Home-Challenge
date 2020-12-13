@@ -29,19 +29,19 @@ describe('DataTableComponent', () => {
 
   it('Method: sortColumn() should sort strings correctly', () => {
     component.data = [
-      {sampleColumn: "z"},
-      {sampleColumn: "apple"},
-      {sampleColumn: "d"},
-      {sampleColumn: "f"}
-    ]
+      {sampleColumn: 'z'},
+      {sampleColumn: 'apple'},
+      {sampleColumn: 'd'},
+      {sampleColumn: 'f'}
+    ];
 
     component.sortColumn('sampleColumn');
     console.log(component.data);
     expect(component.data).toEqual([
-      {sampleColumn: "apple"},
-      {sampleColumn: "d"},
-      {sampleColumn: "f"},
-      {sampleColumn: "z"},
+      {sampleColumn: 'apple'},
+      {sampleColumn: 'd'},
+      {sampleColumn: 'f'},
+      {sampleColumn: 'z'},
     ]);
   });
 
@@ -51,7 +51,7 @@ describe('DataTableComponent', () => {
       {sampleColumn: 111111111111111},
       {sampleColumn: 51424242},
       {sampleColumn: 9}
-    ]
+    ];
 
     component.sortColumn('sampleColumn');
     expect(component.data).toEqual([
