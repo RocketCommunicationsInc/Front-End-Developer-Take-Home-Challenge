@@ -6,6 +6,10 @@
   flex-flow: column;
   flex-grow: 1;
   overflow: hidden;
+
+  @include layout-bp(lt-sm) {
+    display: block !important;
+  }
 }
 
 @mixin list-container {
@@ -15,6 +19,11 @@
 @mixin list-items {
   overflow-y: scroll;
   overflow-x: hidden;
+
+  @include layout-bp(lt-sm) {
+    display: block !important;
+    flex: none !important;
+  }
 }
 
 @mixin list-header-host {
@@ -58,7 +67,7 @@
   }
 
   @include layout-bp(lt-sm) {
-    padding: 0.25rem;
+    padding: 0.75rem 0.25rem;
   }
 }
 

@@ -1,4 +1,19 @@
+@import '../../node_modules/@angular/flex-layout/mq';
+
 :host {
   height: 100%;
   display: block;
+}
+
+#container {
+  @include layout-bp(lt-sm) {
+    display: block !important;
+  }
+
+  #alerts,
+  #contacts {
+    @include layout-bp(lt-sm) {
+      display: block !important;
+    }
+  }
 }

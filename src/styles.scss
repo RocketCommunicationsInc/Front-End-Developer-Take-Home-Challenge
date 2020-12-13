@@ -8,6 +8,7 @@ html, body {
 
 rux-global-status-bar {
   min-height: 100px;
+  position: relative;
 }
 
 rux-notification {
@@ -19,7 +20,7 @@ rux-progress {
   display: inline-block;
   height: 5rem;
   width: 5rem;
-  margin: 2rem auto 0;
+  margin: 2rem auto;
 }
 
 .rux-checkbox {
