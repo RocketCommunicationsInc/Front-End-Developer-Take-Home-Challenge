@@ -27,4 +27,13 @@ describe('ContactListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Method: filterList() should filter contacts to the specified status', () => {
+    component.contacts = [
+      <any>{contactStatus: 'red'},
+      {contactStatus: 'blue'}
+    ];
+    component.filterList('blue');
+    expect(component.filteredContacts).toEqual([<any>{contactStatus: 'blue'}]);
+  });
 });
