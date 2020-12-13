@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import '@astrouxds/rux-progress';
+import { DataTableColumn } from 'src/app/interfaces/column';
 
 @Component({
   selector: 'app-data-table',
@@ -8,14 +9,14 @@ import '@astrouxds/rux-progress';
 })
 export class DataTableComponent {
   @ViewChild('dataTable', {static: true}) table: any;
-  @Input() columns: any[];
+  @Input() columns: DataTableColumn[];
   @Input() data: any[] = [];
   @Input() loading = true;
   private sortOrder = 1;
 
   constructor(private ref: ChangeDetectorRef) { }
 
-  sortColumn(column): void {
+  sortColumn(column: string): void {
     this.data = this.data.sort((a, b) => {
       if (typeof a[column] == 'number') {
         return (a[column] - b[column]) * this.sortOrder;

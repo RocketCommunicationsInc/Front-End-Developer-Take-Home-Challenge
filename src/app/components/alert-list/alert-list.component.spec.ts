@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { AlertListComponent } from './alert-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AlertListComponent', () => {
   let component: AlertListComponent;
@@ -11,7 +12,8 @@ describe('AlertListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AlertListComponent ]
+      declarations: [ AlertListComponent ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
   }));

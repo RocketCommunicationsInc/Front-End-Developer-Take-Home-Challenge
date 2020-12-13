@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ContactListComponent } from './contact-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ContactListComponent', () => {
   let component: ContactListComponent;
@@ -11,7 +12,8 @@ describe('ContactListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContactListComponent ]
+      declarations: [ ContactListComponent ],
+      imports: [HttpClientModule]
     })
     .compileComponents();
   }));

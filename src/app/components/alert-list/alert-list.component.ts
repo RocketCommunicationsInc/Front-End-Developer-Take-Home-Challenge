@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import '@astrouxds/rux-classification-marking';
+import { DataTableColumn } from 'src/app/interfaces/column';
 import { AlertService } from 'src/app/services/alert/alert.service';
 @Component({
   selector: 'app-alert-list',
@@ -24,7 +25,7 @@ export class AlertListComponent implements OnInit {
     });
   }
 
-  get columnConfig(): any[] {
+  get columnConfig(): DataTableColumn[] {
     const columns = [
       {
         name: 'errorSeverity',

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DataTableColumn } from 'src/app/interfaces/column';
 import { ContactService } from 'src/app/services/contact/contact.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class ContactListComponent implements OnInit {
 
   constructor(private service: ContactService, private ref: ChangeDetectorRef) { }
 
-  get columnConfig(): any[] {
+  get columnConfig(): DataTableColumn[] {
     const columns = [
       {
         name: 'contactName',
