@@ -1,0 +1,55 @@
+<div *ngIf="isLoading">
+    <h1>Contacts Loading...</h1>
+</div>
+
+<div *ngIf="!isLoading" class="wrapper">
+    <div class="header" *ngIf="error != ''">
+        <p class="header-title">An error has occurred: {{error}}</p>
+    </div>
+    
+    <div class="header" *ngIf="error == ''">
+        <p><span class="header-title">Total Contacts:</span> {{totalContacts}}</p>
+        <p><span class="header-title">Different States:</span> {{totalStates?.length}} ({{totalStates}})</p>
+    </div>
+
+    <div class="table-container">
+        <h2 *ngIf="contacts == null">No Contacts Found.</h2>
+
+        <table *ngIf="contacts != null" class="contacts">
+            <thead>
+                <tr>   
+                    <th width="25"></th>
+                    <th [appSort]="contacts" data-order="desc" data-name="contactName" class="sortable">Name</th>
+                    <th [appSort]="contacts" data-order="desc" data-name="contactStatus" class="sortable">Status</th>
+                    <th [appSort]="contacts" data-order="desc" data-name="contactState" class="sortable">State</th>
+                    <th>Begin/End</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <ng-template ngFor let-contact [ngForOf]="contacts">
+                    <tr>
+                        <td (click)="showDetail(contact._id)" class="pointer" id="showHide_{{contact._id}}">+</td>
+                        <td>{{contact.contactName}}</td>
+                        <td><rux-status class="status" [attr.status]="contact.contactStatus"></rux-status><span class="status-label">{{contact.contactStatus | titlecase}}</span></td>
+                        <td>{{contact.contactState | titlecase}}</td>
+                        <td>{{contact.contactBeginTimestamp | date: 'long'}} <br/>/ {{contact.contactEndTimestamp | date: 'long'}}</td>
+                    </tr>
+
+                    <tr id="{{contact._id}}" class="hidden details">
+                        <td colspan="5">
+                            <p><span class="title">ID:</span> {{contact.contactId}}</p>
+                            <p><span class="title">Step:</span> {{contact.contactStep}}</p>
+                            <p><span class="title">Azimuth:</span> {{contact.contactAzimuth}}</p>
+                            <p><span class="title">Elevation:</span> {{contact.contactElevation}}</p>
+                            <p><span class="title">Location:</span> {{contact.contactLatitude}}, {{contact.contactLongitude}}</p>
+                            <p><span class="title">Satellite:</span> {{contact.contactSatellite}}</p>
+                            <p><span class="title">Equipment:</span> {{contact.contactEquipment}}</p>
+                            <p>{{contact.contactDetail}}</p>
+                        </td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</div>

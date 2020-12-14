@@ -1,0 +1,17 @@
+#contacts,
+#alerts {
+  cursor: pointer;
+}
+
+.dashboard-container {
+  margin: 0 auto;
+  max-width: 1200px;
+
+  .content-container {
+    display: flex;
+  }
+  
+  .tables {
+    width: 70% !important // override element styles on load;
+  }
+}

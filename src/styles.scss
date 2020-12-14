@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@astrouxds/rux-static/css/astro.core.css';
+@import '../node_modules/@astrouxds/rux-static/css/astro.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 2em 10px;
+
+  p:first-of-type {
+    padding-right: 2em;
+  }
+  
+  .header-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+  
+.table-container {
+  max-height: calc(100vh - 211px);
+  overflow-y: scroll;
+  padding: 0 10px;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+
+  thead,
+  tbody {
+    td {
+      border: 1px solid #fff;
+      font-size: 14px;
+    }
+  }
+
+  thead {
+    th {
+      background-color: rgb(62, 138, 204);
+      border: 1px solid #fff;
+      position: sticky;
+      top: -2px;
+      z-index: 2;
+
+      &.sortable {
+        &:hover {
+          cursor: pointer;
+          background-color: darken(rgb(62, 138, 204), 10%);
+        }
+
+        &.desc {
+          &:after {
+            content: '▼';
+            color: #fff;
+            font-size: 8px;
+            position: relative;
+            top: -1px;
+            right: -5px;
+            pointer-events: none;
+          }
+        }
+
+        &.asc {
+          &:after {
+            content: '\25B2';
+            color: #fff;
+            font-size: 8px;
+            position: relative;
+            top: -1px;
+            right: -5px;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+    
+  tbody {
+    td {
+      .status {
+        position: relative;
+        top: 10px;
+      }
+
+      .status-label {
+        position: relative;
+        top: -10px;
+      }
+
+      &.pointer {
+        cursor: pointer;
+      }
+    }
+
+    .details {
+      background-color: rgb(142, 154, 163);
+      font-size: 14px;
+      text-align: left;
+
+      td {
+        padding: 10px;
+      }
+      
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,46 @@
+<div *ngIf="isLoading">
+    <h1>Alerts Loading...</h1>
+</div>
+
+<div *ngIf="!isLoading" class="wrapper">
+    <div class="header" *ngIf="error != ''">
+        <p class="header-title">An error has occurred: {{error}}</p>
+    </div>
+
+    <div class="header" *ngIf="error == ''">
+        <p><span class="header-title">Total Alerts:</span> {{totalAlerts}}</p>
+    </div>
+
+    <div class="table-container">
+        <h2 *ngIf="alerts == null">No Alerts Found.</h2>
+
+        <table *ngIf="alerts != null" class="alerts">
+            <thead>
+                <tr>
+                    <th width="25"></th>
+                    <th>Message</th>
+                    <th [appSort]="alerts" data-order="desc" data-name="errorCategory" class="sortable">Category</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <ng-template ngFor let-alert [ngForOf]="alerts">                
+                    <tr>
+                        <td (click)="showDetail(alert.errorId)" class="pointer" id="showHide_{{alert.errorId}}">+</td>
+                        <td><rux-status class="status" [attr.status]="alert.errorSeverity"></rux-status><span class="status-label">{{alert.errorMessage}}</span></td>
+                        <td>{{alert.errorCategory | titlecase}}</td>
+                        <td>{{alert.errorTime | date: 'long'}}</td>
+                    </tr>
+                    <tr id="{{alert.errorId}}" class="hidden details">
+                        <td colspan="4">
+                            <p><span class="title">ID:</span> {{alert.errorId}}</p>
+                            <p><span class="title">Severity:</span> {{alert.errorSeverity | titlecase}}</p>
+                            <p>{{alert.longMessage}}</p>
+                        </td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</div>
