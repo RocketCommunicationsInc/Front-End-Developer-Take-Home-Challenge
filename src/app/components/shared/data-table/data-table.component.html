@@ -1,26 +1,30 @@
+<cdk-virtual-scroll-viewport itemSize="35" class="viewport">
+
 <table class="rux-table" #dataTable *ngIf="!loading">
   <th *ngFor="let column of columns" (click)="sortColumn(column.name)">
     {{ column.label }}
   </th>
-  <ng-container *ngFor="let row of data; trackBy: trackBy">
-    <tr (click)="expandRow($event, row)">
-      <td *ngFor="let rowColumn of columns">
-        <ng-container *ngIf="rowColumn.cellTemplate">
-          <ng-container *ngTemplateOutlet="rowColumn.cellTemplate; context: { value: row[rowColumn.name] }"></ng-container>
-        </ng-container>
-        <ng-container *ngIf="!rowColumn.cellTemplate">
-          {{ row[rowColumn.name] }}
-        </ng-container>
-      </td>
-    </tr>
-    <tr class="details" *ngIf="row.expanded">
-      <td colspan=10 class="container">
-        <div>{{ row.details }}</div>
-      </td>
-    </tr>
-  </ng-container>
-
+    <ng-container *cdkVirtualFor="let row of data">
+      <tr (click)="expandRow($event, row)">
+        <td *ngFor="let rowColumn of columns">
+          <ng-container *ngIf="rowColumn.cellTemplate">
+            <ng-container *ngTemplateOutlet="rowColumn.cellTemplate; context: { value: row[rowColumn.name] }"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="!rowColumn.cellTemplate">
+            {{ row[rowColumn.name] }}
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="details" *ngIf="row.expanded">
+        <td colspan=10 class="container">
+          <div>{{ row.details }}</div>
+        </td>
+      </tr>
+    </ng-container>
 
 </table>
+</cdk-virtual-scroll-viewport>
+
+
 
 <rux-progress *ngIf="loading"></rux-progress> 

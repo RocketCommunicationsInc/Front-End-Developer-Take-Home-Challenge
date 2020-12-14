@@ -6,6 +6,7 @@ import { AlertListComponent } from './components/alert-list/alert-list.component
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactListComponent } from './components/contact-list/contact-list.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
     BrowserModule,
     CommonModule,
     HttpClientModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent],
