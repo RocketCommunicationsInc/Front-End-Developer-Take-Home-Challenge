@@ -19,7 +19,7 @@
   </div>
   <div class="alerts-header-columns" fxLayout="row" fxLayoutAlign="start center">
     <div class="toggle">
-      <a href="#" [innerHtml]="'Select All'" (click)="tapSelectAll($event)"></a>
+      <a href="#" [innerHtml]="getSelectAllText()" (click)="tapSelectAll($event)"></a>
     </div>
     <div class="status"></div>
     <div class="message" fxFlex [innerHtml]="'Message'"></div>
