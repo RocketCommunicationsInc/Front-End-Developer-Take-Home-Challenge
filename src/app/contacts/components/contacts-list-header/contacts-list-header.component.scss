@@ -30,6 +30,10 @@
     }
   }
 
+  .contacts-header-options {
+    @include list-header-options;
+  }
+
   .contacts-header-columns {
     @include list-header-columns;
 

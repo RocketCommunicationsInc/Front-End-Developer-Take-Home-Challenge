@@ -29,14 +29,17 @@ export const localStorageSyncReducer = (reducer: ActionReducer<any>) => localSto
         'activeAlerts',
         'selectedAlerts',
         'sortColumn',
-        'sortDirection'
+        'sortDirection',
+        'selectedSeverity',
+        'selectedCategory'
       ]
     },
     {
       contacts: [
         'activeContacts',
         'sortColumn',
-        'sortDirection'
+        'sortDirection',
+        'selectedStatus'
       ]
     }
   ],

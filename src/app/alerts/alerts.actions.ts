@@ -110,3 +110,19 @@ export const saveCurrentPage = createAction(
   '[Alerts] Current Page',
   props<{ page: number }>()
 )
+
+/**
+ * The selected severity action
+ */
+export const selectedSeverity = createAction(
+  '[Alerts] Selected Severity',
+  props<{ severity: string }>()
+)
+
+/**
+ * The selected category action
+ */
+export const selectedCategory = createAction(
+  '[Alerts] Selected Category',
+  props<{ category: string }>()
+)

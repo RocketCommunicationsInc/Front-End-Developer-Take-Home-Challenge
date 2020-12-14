@@ -9,7 +9,7 @@ import { fetchAlerts, fetchAlertsFailure, fetchAlertsSuccess, toggleActiveAlert,
 import { AlertsService } from '@grmAlerts/alerts.service'
 import { Alert } from '@grmAlerts/alerts.model'
 import { activeAlertsSelector, alertsSelector, AlertsState, selectedAlertsSelector } from '@grmAlerts/alerts.state'
-import { randomBetween } from '@grm/common/utils/rand.utils'
+import { randomBetween } from '@grmCommon/utils/rand.utils'
 
 /**
  * The alerts effects

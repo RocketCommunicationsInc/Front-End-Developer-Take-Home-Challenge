@@ -8,7 +8,7 @@ import { addActiveContact, addContacts, enableContactsTester, fetchContacts, fet
 import { ContactsService } from '@grmContacts/contacts.service'
 import { Contact } from '@grmContacts/contacts.model'
 import { activeContactsSelector, contactsSelector, ContactsState } from '@grmContacts/contacts.state'
-import { randomBetween } from '@grm/common/utils/rand.utils'
+import { randomBetween } from '@grmCommon/utils/rand.utils'
 
 /**
  * The contacts effects

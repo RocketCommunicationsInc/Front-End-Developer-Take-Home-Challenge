@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { ContactsState, currentPageSelector, executingContactsSelector, failedContactsSelector } from '@grmContacts/contacts.state'
-import { saveCurrentPage, sortContacts } from '@grmContacts/contacts.actions'
+import { ContactsState, executingContactsSelector, failedContactsSelector, selectedStatusSelector,
+  statusListSelector } from '@grmContacts/contacts.state'
+import { saveCurrentPage, selectedStatus, sortContacts } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
+import { getContactsCount } from '@grmContacts/contacts.utils'
 
 /**
  * GRM Contacts List Header component
@@ -13,15 +15,17 @@ import { Contact } from '@grmContacts/contacts.model'
 @Component({
   selector: 'grm-contacts-list-header',
   template: '<grm-contacts-list-header-display [contacts]="contacts" [failedContacts]="failedContacts$ | async" ' +
-    '[executingContacts]="executingContacts$ | async" (sortContacts)="sortContacts($event)" ' +
-    '(saveCurrentPage)="saveCurrentPage($event)"></grm-contacts-list-header-display>'
+    '[executingContacts]="executingContacts$ | async" [statusList]="statusList$ | async" ' +
+    '[statusFilter]="statusFilter$ | async" (sortContacts)="sortContacts($event)" ' +
+    '(saveCurrentPage)="saveCurrentPage($event)" (selectedStatus)="selectedStatus($event)"></grm-contacts-list-header-display>'
 })
 export class ContactsListHeaderComponent implements OnInit {
   @Input() contacts: Contact[] | null
 
   failedContacts$: Observable<Contact[]> = this.store.select(failedContactsSelector)
   executingContacts$: Observable<Contact[]> = this.store.select(executingContactsSelector)
-  currentPage$: Observable<number> = this.store.select(currentPageSelector)
+  statusList$: Observable<string[]> = this.store.select(statusListSelector)
+  statusFilter$: Observable<string> = this.store.select(selectedStatusSelector)
 
   constructor(
     private store: Store<ContactsState>
@@ -46,6 +50,15 @@ export class ContactsListHeaderComponent implements OnInit {
   saveCurrentPage(page: number): void {
     this.store.dispatch(saveCurrentPage({page}))
   }
+
+  /**
+   * Sets the selected status
+   *
+   * @param status
+   */
+  selectedStatus(status: string): void {
+    this.store.dispatch(selectedStatus({status}))
+  }
 }
 
 /**
@@ -62,12 +75,36 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
   @Input() contacts: Contact[] | null
   @Input() failedContacts: Contact[] | null
   @Input() executingContacts: Contact[] | null
+  @Input() statusList: string[] | null
+  @Input() statusFilter: string | null
 
   @Output() sortContacts: EventEmitter<string> = new EventEmitter<string>()
   @Output() saveCurrentPage: EventEmitter<number> = new EventEmitter<number>()
+  @Output() selectedStatus: EventEmitter<string> = new EventEmitter<string>()
 
   constructor() { }
   ngOnInit(): void { }
+
+  /**
+   * Gets the contacts count
+   */
+  getContactsCount(): number {
+    return getContactsCount(this.contacts, this.statusFilter)
+  }
+
+  /**
+   * Gets the failed contacts count
+   */
+  getFailedContactsCount(): number {
+    return getContactsCount(this.failedContacts, this.statusFilter)
+  }
+
+  /**
+   * Gets the executing contacts count
+   */
+  getExecutingContactsCount(): number {
+    return getContactsCount(this.executingContacts, this.statusFilter)
+  }
 
   /**
    * Handles the sort tap
@@ -96,5 +133,14 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
    */
   hasContacts(contacts: Contact[] | null): boolean | null {
     return contacts && (contacts.length > 0)
+  }
+
+  /**
+   * Changes the status filter
+   *
+   * @param $event
+   */
+  changeStatus($event: any): void {
+    this.selectedStatus.emit($event)
   }
 }

@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
@@ -14,6 +15,7 @@ import { ContactsListHeaderComponent,
 import { ContactsListItemComponent,
   ContactsListItemDisplayComponent } from '@grmContacts/components/contacts-list-item/contacts-list-item.component'
 import { ContactSortPipe } from '@grmContacts/pipes/contact-sort.pipe'
+import { ContactFilterPipe } from '@grmContacts/pipes/contact-filter.pipe'
 import '@astrouxds/rux-status'
 import '@astrouxds/rux-notification'
 import '@astrouxds/rux-progress'
@@ -28,6 +30,7 @@ import '@astrouxds/rux-button'
     EffectsModule.forFeature([
       ContactsEffects
     ]),
+    FormsModule,
     FlexLayoutModule,
     NgxPaginationModule
   ],
@@ -38,7 +41,8 @@ import '@astrouxds/rux-button'
     ContactsListHeaderDisplayComponent,
     ContactsListItemComponent,
     ContactsListItemDisplayComponent,
-    ContactSortPipe
+    ContactSortPipe,
+    ContactFilterPipe
   ],
   providers: [
     ContactsService

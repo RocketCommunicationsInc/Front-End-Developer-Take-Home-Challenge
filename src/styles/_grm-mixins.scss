@@ -98,6 +98,29 @@
   }
 }
 
+@mixin list-header-options {
+  label{
+    display: block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+
+    @include layout-bp(lt-sm) {
+      font-size: 0.5rem;
+    }
+  }
+
+  select {
+    margin-right: 1rem;
+
+    @include layout-bp(lt-sm) {
+      font-size: 0.75rem;
+      height: 1.5rem;
+      margin-right: 0.75rem;
+    }
+  }
+}
+
 @mixin list-header-columns {
   color: var(--logHeaderTextColor, $ui-header-text-color);
   font-weight: bold;

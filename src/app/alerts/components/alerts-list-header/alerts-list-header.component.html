@@ -11,10 +11,24 @@
       </pagination-controls>
     </div>
   </div>
-  <div fxLayout="row" class="alerts-header-options">
+  <div fxLayout="row" class="alerts-header-options" fxLayoutAlign="center center">
     <div class="alerts-header-summary" fxFlex>
-      <span class="alert-count" [innerHtml]="alerts?.length || 0"></span>
+      <span class="alert-count" [innerHtml]="getActiveAlertCount()"></span>
       <span class="alert-count-text" [innerHtml]="'Active Alerts'"></span>
+    </div>
+    <div class="alerts-header-severity" fxFlex="nogrow">
+      <label for="alerts-header-severity-menu" [innerHtml]="'Severity'"></label>
+      <select id="alerts-header-severity-menu" class="rux-select" [(ngModel)]="severityFilter" (ngModelChange)="changeSeverity($event)">
+        <option value="all" [innerHtml]="'All'"></option>
+        <option [ngValue]="severity" [innerHtml]="severity | titlecase" *ngFor="let severity of severityList"></option>
+      </select>
+    </div>
+    <div class="alerts-header-category" fxFlex="nogrow">
+      <label for="alerts-header-category-menu" [innerHtml]="'Category'"></label>
+      <select id="alerts-header-category-menu" class="rux-select" [(ngModel)]="categoryFilter" (ngModelChange)="changeCategory($event)">
+        <option value="all" [innerHtml]="'All'"></option>
+        <option [ngValue]="category" [innerHtml]="category | titlecase" *ngFor="let category of categoryList"></option>
+      </select>
     </div>
   </div>
   <div class="alerts-header-columns" fxLayout="row" fxLayoutAlign="start center">

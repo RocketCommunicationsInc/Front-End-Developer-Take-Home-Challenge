@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
@@ -14,6 +15,7 @@ import { AlertsListHeaderComponent,
 import { AlertsListItemComponent,
   AlertsListItemDisplayComponent } from '@grmAlerts/components/alerts-list-item/alerts-list-item.component'
 import { AlertSortPipe } from '@grmAlerts/pipes/alert-sort.pipe'
+import { AlertFilterPipe } from '@grmAlerts/pipes/alert-filter.pipe'
 import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
 import '@astrouxds/rux-status'
 import '@astrouxds/rux-notification'
@@ -29,6 +31,7 @@ import '@astrouxds/rux-button'
     EffectsModule.forFeature([
       AlertsEffects
     ]),
+    FormsModule,
     FlexLayoutModule,
     NgxPaginationModule
   ],
@@ -40,6 +43,7 @@ import '@astrouxds/rux-button'
     AlertsListItemComponent,
     AlertsListItemDisplayComponent,
     AlertSortPipe,
+    AlertFilterPipe,
     FormatGRMTimePipe
   ],
   providers: [

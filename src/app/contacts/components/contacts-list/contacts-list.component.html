@@ -9,7 +9,7 @@
 
 <ng-template #contactsSuccess let-contacts="contacts" let-itemsPerPage="itemsPerPage" let-currentPage="currentPage">
   <div fxFlex class="contacts-list-items">
-    <grm-contacts-list-item [contact]="contact" *ngFor="let contact of contacts | contactSort:sortColumn:sortDirection | paginate:{itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'contacts-controls'}"></grm-contacts-list-item>
+    <grm-contacts-list-item [contact]="contact" *ngFor="let contact of contacts | contactFilter:statusFilter | contactSort:sortColumn:sortDirection | paginate:{itemsPerPage: itemsPerPage, currentPage: currentPage, id: 'contacts-controls'}"></grm-contacts-list-item>
   </div>
 </ng-template>
 

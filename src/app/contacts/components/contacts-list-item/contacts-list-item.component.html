@@ -1,5 +1,5 @@
 <div class="contact" [ngClass]="{'active': active}" *ngIf="contact">
-  <div class="contact-row" fxLayout="row" fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center" (click)="tapTogglelContactRow($event, contact)">
+  <div class="contact-row" [ngClass]="{'failed': isStateFailed(contact)}" fxLayout="row" fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center" (click)="tapTogglelContactRow($event, contact)">
     <div class="contact-status" fxFlex fxLayoutAlign="start" fxLayoutAlign.gt-sm="center center">
       <rux-status [attr.status]="contact.contactStatus"></rux-status>
     </div>
