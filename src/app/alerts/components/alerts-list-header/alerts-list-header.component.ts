@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { AlertsState, categoryListSelector, severityListSelector, selectedSeveritySelector,
-  selectedCategorySelector } from '@grmAlerts/alerts.state'
+  selectedCategorySelector, selectedAlertsSelector} from '@grmAlerts/alerts.state'
 import { saveCurrentPage, selectedCategory, selectedSeverity, sortAlerts, toggleSelectAll } from '@grmAlerts/alerts.actions'
 import { Alert } from '@grmAlerts/alerts.model'
 import { getActiveAlertsCount } from '@grmAlerts/alerts.utils'
@@ -14,8 +14,8 @@ import { getActiveAlertsCount } from '@grmAlerts/alerts.utils'
  */
 @Component({
   selector: 'grm-alerts-list-header',
-  template: '<grm-alerts-list-header-display [alerts]="alerts" [severityList]="severityList$ | async" ' +
-    '[severityFilter]="severityFilter$ | async" [categoryList]="categoryList$ | async" ' +
+  template: '<grm-alerts-list-header-display [alerts]="alerts" [selectedAlerts]="selectedAlerts$ | async" ' +
+    '[severityList]="severityList$ | async" [severityFilter]="severityFilter$ | async" [categoryList]="categoryList$ | async" ' +
     '[categoryFilter]="categoryFilter$ | async" (toggleSelectAll)="toggleSelectAll()" (sortAlerts)="sortAlerts($event)" ' +
     '(saveCurrentPage)="saveCurrentPage($event)" (selectedSeverity)="selectedSeverity($event)" ' +
     '(selectedCategory)="selectedCategory($event)"></grm-alerts-list-header-display>'
@@ -23,6 +23,7 @@ import { getActiveAlertsCount } from '@grmAlerts/alerts.utils'
 export class AlertsListHeaderComponent implements OnInit {
   @Input() alerts: Alert[] | null
 
+  selectedAlerts$: Observable<string[]> = this.store.select(selectedAlertsSelector)
   severityList$: Observable<string[]> = this.store.select(severityListSelector)
   severityFilter$: Observable<string> = this.store.select(selectedSeveritySelector)
   categoryList$: Observable<string[]> = this.store.select(categoryListSelector)
@@ -90,6 +91,8 @@ export class AlertsListHeaderComponent implements OnInit {
 })
 export class AlertsListHeaderDisplayComponent implements OnInit {
   @Input() alerts: Alert[] | null
+
+  @Input() selectedAlerts: string[] | null
   @Input() severityList: string[] | null
   @Input() severityFilter: string | null
   @Input() categoryList: string[] | null
@@ -103,6 +106,17 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
 
   constructor() { }
   ngOnInit(): void { }
+
+  /**
+   * Gets the select all/none text
+   */
+  getSelectAllText(): string {
+    if (this.alerts && this.selectedAlerts && (this.alerts.length === this.selectedAlerts.length)) {
+      return 'Select None'
+    }
+
+    return 'Select All'
+  }
 
   /**
    * Gets the active alerts count
