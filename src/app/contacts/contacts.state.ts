@@ -1,4 +1,5 @@
 import { Contact } from '@grmContacts/contacts.model'
+import { isState } from '@grmContacts/contacts.utils'
 
 /**
  * The contacts state
@@ -31,10 +32,10 @@ export const defaultContactsState: ContactsState = {
 // Selectors
 export const contactsSelector = (state: any) => state.contacts.contacts
 export const failedContactsSelector = (state: any) => state.contacts.contacts ? state.contacts.contacts
-  .filter((contact: Contact) => contact.contactState === 'failed') : []
+  .filter((contact: Contact) => isState(contact, 'failed')) : []
 
 export const executingContactsSelector = (state: any) => state.contacts.contacts ? state.contacts.contacts
-  .filter((contact: Contact) => contact.contactState === 'executing') : []
+  .filter((contact: Contact) => isState(contact, 'executing')) : []
 
 export const activeContactsSelector = (state: any) => state.contacts.activeContacts
 export const isActiveContactSelector = (state: any, props: any) => state.contacts ? state.contacts.activeContacts &&

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { toggleActiveContact } from '@grmContacts/contacts.actions'
 import { Contact } from '@grmContacts/contacts.model'
 import { ContactsState, isActiveContactSelector } from '@grmContacts/contacts.state'
+import { isState } from '@grmContacts/contacts.utils'
 import { FormatGRMTimePipe } from '@grmCommon/pipes/format-time.pipe'
 
 /**
@@ -95,5 +96,14 @@ export class ContactsListItemDisplayComponent implements OnInit {
     $event.preventDefault()
     $event.stopPropagation()
     this.toggleActiveContact.emit(contact)
+  }
+
+  /**
+   * Checks to see if the contact state is 'failed'
+   *
+   * @param contact
+   */
+  isStateFailed(contact: Contact): boolean {
+    return isState(contact, 'failed')
   }
 }

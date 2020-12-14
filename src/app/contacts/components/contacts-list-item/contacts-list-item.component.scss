@@ -6,6 +6,14 @@
   .contact-row {
     @include list-item-row;
 
+    &.failed {
+      color: $color-serious;
+
+      .step {
+        color: $color-serious !important;
+      }
+    }
+
     .contact-status {
       min-width: 40px !important;
 
