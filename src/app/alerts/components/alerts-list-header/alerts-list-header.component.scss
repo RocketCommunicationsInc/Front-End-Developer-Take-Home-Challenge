@@ -6,7 +6,11 @@
 
 .alerts-header {
   border-right: 1px solid $ui-border;
-  
+
+  @include layout-bp(lt-sm) {
+    border-right: none;
+  }
+
   .alerts-header-label {
     @include list-header-label;
   }
