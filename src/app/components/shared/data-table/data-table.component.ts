@@ -17,14 +17,14 @@ export class DataTableComponent {
   constructor(private ref: ChangeDetectorRef) { }
 
   sortColumn(column: string): void {
-    this.data = this.data.sort((a, b) => {
+    this.data = [...this.data.sort((a, b) => {
       if (typeof a[column] === 'number') {
         return (a[column] - b[column]) * this.sortOrder;
       } else {
         return a[column].localeCompare(b[column]) * this.sortOrder;
       }
 
-    });
+    })];
     this.sortOrder = this.sortOrder * -1;
     this.ref.markForCheck();
   }
