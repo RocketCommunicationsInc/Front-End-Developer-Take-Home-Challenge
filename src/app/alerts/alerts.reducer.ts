@@ -3,6 +3,7 @@ import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { fetchAlertsFailure, fetchAlertsSuccess, addActiveAlert, removeActiveAlert, addSelectedAlert,
   removeSelectedAlert, sortAlerts, toggleSelectAll, fetchAlerts, addAlerts, saveCurrentPage } from '@grmAlerts/alerts.actions'
 import { AlertsState, defaultAlertsState } from '@grmAlerts/alerts.state'
+import { SortDirection } from '@grmCommon/enums/sort.enums'
 
 /**
  * The alerts reducer
@@ -43,7 +44,7 @@ export const alertsReducers: ActionReducer<AlertsState> = createReducer(
   on(sortAlerts, (state, { column }) => ({
     ...state,
     sortColumn: column,
-    sortDirection: (state.sortDirection === 'desc') ? 'asc' : 'desc'
+    sortDirection: (state.sortDirection === SortDirection.desc) ? SortDirection.asc : SortDirection.desc
   })),
   on(toggleSelectAll, (state) => ({
     ...state,
