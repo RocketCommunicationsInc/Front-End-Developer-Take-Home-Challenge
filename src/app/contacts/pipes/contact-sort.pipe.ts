@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
+import { SortDirection } from '@grmCommon/enums/sort.enums'
 import { Contact } from '@grmContacts/contacts.model'
 
 /**
@@ -24,11 +25,11 @@ export class ContactSortPipe implements PipeTransform {
       const column1: any = a[column]
       const column2: any = b[column]
       if (column1 > column2) {
-        return (direction === 'desc') ? 1 : -1
+        return (direction === SortDirection.desc) ? 1 : -1
       }
 
       if (column1 < column2) {
-        return (direction === 'desc') ? -1 : 1
+        return (direction === SortDirection.desc) ? -1 : 1
       }
 
       return 0

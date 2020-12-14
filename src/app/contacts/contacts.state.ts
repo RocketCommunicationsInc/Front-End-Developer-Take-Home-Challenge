@@ -1,3 +1,4 @@
+import { SortDirection } from '@grmCommon/enums/sort.enums'
 import { Contact } from '@grmContacts/contacts.model'
 import { isState } from '@grmContacts/contacts.utils'
 
@@ -23,7 +24,7 @@ export class ContactsState {
 export const defaultContactsState: ContactsState = {
   contacts: [],
   activeContacts: [],
-  sortDirection: 'desc',
+  sortDirection: SortDirection.desc,
   currentPage: 0,
   statusList: [],
   selectedStatus: 'all'

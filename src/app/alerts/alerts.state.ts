@@ -1,3 +1,4 @@
+import { SortDirection } from '@grmCommon/enums/sort.enums'
 import { Alert } from '@grmAlerts/alerts.model'
 
 /**
@@ -26,7 +27,7 @@ export const defaultAlertsState: AlertsState = {
   alerts: [],
   activeAlerts: [],
   selectedAlerts: [],
-  sortDirection: 'desc',
+  sortDirection: SortDirection.desc,
   currentPage: 0,
   severityList: [],
   categoryList: [],
