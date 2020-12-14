@@ -1,6 +1,6 @@
-<cdk-virtual-scroll-viewport itemSize="35" class="viewport">
+<cdk-virtual-scroll-viewport itemSize="35" class="viewport" *ngIf="!loading">
 
-<table class="rux-table" #dataTable *ngIf="!loading">
+<table class="rux-table" #dataTable>
   <th *ngFor="let column of columns" (click)="sortColumn(column.name)">
     {{ column.label }}
   </th>
