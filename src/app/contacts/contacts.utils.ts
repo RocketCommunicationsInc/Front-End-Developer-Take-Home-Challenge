@@ -11,7 +11,7 @@ export const getFilteredContacts = (contacts: Contact[] | null, statusFilter: st
     return []
   }
 
-  if (statusFilter && statusFilter.trim().length) {
+  if (statusFilter && statusFilter.trim().length && (statusFilter.trim() != 'all')) {
     contacts = contacts.filter((contact: Contact) => contact.contactStatus === statusFilter)
   }
 

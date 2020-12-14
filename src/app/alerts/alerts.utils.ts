@@ -12,11 +12,11 @@ export const getFilteredAlerts = (alerts: Alert[] | null, severityFilter: string
     return []
   }
 
-  if (severityFilter && severityFilter.trim().length) {
+  if (severityFilter && severityFilter.trim().length && (severityFilter.trim() != 'all')) {
     alerts = alerts.filter((alert: Alert) => alert.errorSeverity === severityFilter)
   }
 
-  if (categoryFilter && categoryFilter.trim().length) {
+  if (categoryFilter && categoryFilter.trim().length && (categoryFilter.trim() != 'all')) {
     alerts = alerts.filter((alert: Alert) => alert.errorCategory === categoryFilter)
   }
 

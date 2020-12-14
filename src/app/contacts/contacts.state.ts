@@ -24,7 +24,8 @@ export const defaultContactsState: ContactsState = {
   activeContacts: [],
   sortDirection: 'desc',
   currentPage: 0,
-  statusList: []
+  statusList: [],
+  selectedStatus: 'all'
 }
 
 // Selectors

@@ -29,7 +29,9 @@ export const defaultAlertsState: AlertsState = {
   sortDirection: 'desc',
   currentPage: 0,
   severityList: [],
-  categoryList: []
+  categoryList: [],
+  selectedSeverity: 'all',
+  selectedCategory: 'all'
 }
 
 // Selectors

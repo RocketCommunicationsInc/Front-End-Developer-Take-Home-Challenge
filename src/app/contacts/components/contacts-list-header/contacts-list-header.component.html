@@ -26,9 +26,9 @@
     </div>
     <div class="contacts-header-status" fxFlex="nogrow">
       <label for="alerts-header-status-menu" [innerHtml]="'Status'"></label>
-      <select id="alerts-header-status-menu" class="rux-select" (change)="changeStatus($event)">
-        <option value="" [innerHtml]="'All'"></option>
-        <option [value]="status" [innerHtml]="status | titlecase" *ngFor="let status of statusList"></option>
+      <select id="alerts-header-status-menu" class="rux-select" [(ngModel)]="statusFilter" (ngModelChange)="changeStatus($event)">
+        <option value="all" [innerHtml]="'All'"></option>
+        <option [ngValue]="status" [innerHtml]="status | titlecase" *ngFor="let status of statusList"></option>
       </select>
     </div>
   </div>

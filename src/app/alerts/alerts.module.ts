@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
@@ -30,6 +31,7 @@ import '@astrouxds/rux-button'
     EffectsModule.forFeature([
       AlertsEffects
     ]),
+    FormsModule,
     FlexLayoutModule,
     NgxPaginationModule
   ],

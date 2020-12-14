@@ -141,6 +141,6 @@ export class ContactsListHeaderDisplayComponent implements OnInit {
    * @param $event
    */
   changeStatus($event: any): void {
-    this.selectedStatus.emit($event.target.value)
+    this.selectedStatus.emit($event)
   }
 }

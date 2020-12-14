@@ -147,7 +147,7 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
    * @param $event
    */
   changeSeverity($event: any): void {
-    this.selectedSeverity.emit($event.target.value)
+    this.selectedSeverity.emit($event)
   }
 
   /**
@@ -156,6 +156,6 @@ export class AlertsListHeaderDisplayComponent implements OnInit {
    * @param $event
    */
   changeCategory($event: any): void {
-    this.selectedCategory.emit($event.target.value)
+    this.selectedCategory.emit($event)
   }
 }

@@ -18,16 +18,16 @@
     </div>
     <div class="alerts-header-severity" fxFlex="nogrow">
       <label for="alerts-header-severity-menu" [innerHtml]="'Severity'"></label>
-      <select id="alerts-header-severity-menu" class="rux-select" (change)="changeSeverity($event)">
-        <option value="" [innerHtml]="'All'"></option>
-        <option [value]="severity" [innerHtml]="severity | titlecase" *ngFor="let severity of severityList"></option>
+      <select id="alerts-header-severity-menu" class="rux-select" [(ngModel)]="severityFilter" (ngModelChange)="changeSeverity($event)">
+        <option value="all" [innerHtml]="'All'"></option>
+        <option [ngValue]="severity" [innerHtml]="severity | titlecase" *ngFor="let severity of severityList"></option>
       </select>
     </div>
     <div class="alerts-header-category" fxFlex="nogrow">
       <label for="alerts-header-category-menu" [innerHtml]="'Category'"></label>
-      <select id="alerts-header-category-menu" class="rux-select" (change)="changeCategory($event)">
-        <option value="" [innerHtml]="'All'"></option>
-        <option [value]="category" [innerHtml]="category | titlecase" *ngFor="let category of categoryList"></option>
+      <select id="alerts-header-category-menu" class="rux-select" [(ngModel)]="categoryFilter" (ngModelChange)="changeCategory($event)">
+        <option value="all" [innerHtml]="'All'"></option>
+        <option [ngValue]="category" [innerHtml]="category | titlecase" *ngFor="let category of categoryList"></option>
       </select>
     </div>
   </div>
