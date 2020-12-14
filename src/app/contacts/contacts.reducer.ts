@@ -3,6 +3,7 @@ import { FetchStatus } from '@grmCommon/enums/status.enums'
 import { addActiveContact, addContacts, fetchContacts, fetchContactsFailure, fetchContactsSuccess,
   removeActiveContact, saveCurrentPage, sortContacts } from '@grmContacts/contacts.actions'
 import { ContactsState, defaultContactsState } from '@grmContacts/contacts.state'
+import { SortDirection } from '@grmCommon/enums/sort.enums'
 
 /**
  * The contacts reducer
@@ -35,7 +36,7 @@ export const contactsReducers: ActionReducer<ContactsState> = createReducer(
   on(sortContacts, (state, { column }) => ({
     ...state,
     sortColumn: column,
-    sortDirection: (state.sortDirection === 'desc') ? 'asc' : 'desc'
+    sortDirection: (state.sortDirection === SortDirection.desc) ? SortDirection.asc : SortDirection.desc
   })),
   on(addContacts, (state, { contacts }) => ({
     ...state,
