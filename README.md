@@ -11,13 +11,12 @@ Please feel free to peruse the Astro UX Design site (https://astrouxds.com/) for
 
 The data.json file consists of a list of contacts (satellites) and any alerts associated with them configured in a GRM application. Contacts can have properties such as name, status, state, etc. Any alerts the contact has will have the properties errorId, errorSeverity, ect. The following should be displayed:
 
-- Display the total number of Contacts.
-- Display the total different Contact states (_contactState_).
-- For each Contact, display Name (_contactName_), Status (_contactStatus_), and Begin/End timestamp (_contactBeginTimestamp/contactEndTimestamp_).
-- For each Contact with alerts:
-  - Display each Alert message (_errorMessage_).
-  - Display each Alert category (_errorCategory_) concatenated with the Alert severity (_errorSeverity_).
-  - Display each Alert time (_errorTime_).
+- For each alert, display the following:
+  - Alert message (_errorMessage_)
+  - Contact name (_contactName_)
+  - Contact time (_contactBeginTimestamp_ - _contactEndTimestamp_)
+- Each alert should have a _Show Details_ option that utilizes `rux-modal` to show the _contactSatellite_ and _contactDetail_ values
+- Alerts should be sorted by error time (_errorTime_)
 
 **Technical Requirements**
 
