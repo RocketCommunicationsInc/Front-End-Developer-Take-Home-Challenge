@@ -1034,6 +1034,17 @@
         "selected": false,
         "new": false,
         "expanded": false
+      },
+      {
+        "errorId": "87035c8d-e5a5-5600-893b-ad243f568054",
+        "errorSeverity": "caution",
+        "errorCategory": "software",
+        "errorMessage": "Red FEP 122 - Offline",
+        "longMessage": "Red FEP 122 is offline at 18:39:15",
+        "errorTime": 1542134355848,
+        "selected": false,
+        "new": false,
+        "expanded": false
       }
     ]
   },
@@ -1792,6 +1803,17 @@
         "selected": false,
         "new": false,
         "expanded": false
+      },
+      {
+        "errorId": "18deg496h-e556-592f-8358-01775dd125f7",
+        "errorSeverity": "critical",
+        "errorCategory": "hardware",
+        "errorMessage": "Antenna DGS 3 - Weak signal",
+        "longMessage": "Antenna DGS 3 has weak signal at 18:38:37",
+        "errorTime": 1542134317799,
+        "selected": false,
+        "new": false,
+        "expanded": false
       }
     ]
   },
@@ -1885,6 +1907,28 @@
         "errorMessage": "USA-177 - Solar panel misalignment",
         "longMessage": "USA-177 experienced solar panel misalignment at 18:38:32",
         "errorTime": 1542134312791,
+        "selected": false,
+        "new": false,
+        "expanded": false
+      },
+      {
+        "errorId": "18deg496h-e556-592f-8358-01775dd125f7",
+        "errorSeverity": "critical",
+        "errorCategory": "hardware",
+        "errorMessage": "Antenna USA 177 - Weak signal",
+        "longMessage": "Antenna USA 177 has weak signal at 18:38:37",
+        "errorTime": 1542134317799,
+        "selected": false,
+        "new": false,
+        "expanded": false
+      },
+      {
+        "errorId": "18deg496h-e556-592f-8358-01775dd125f7",
+        "errorSeverity": "critical",
+        "errorCategory": "hardware",
+        "errorMessage": "Antenna DGS 3 - Weak signal",
+        "longMessage": "Antenna DGS 3 has weak signal at 18:38:37",
+        "errorTime": 1542134317799,
         "selected": false,
         "new": false,
         "expanded": false
