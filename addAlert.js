@@ -1,5 +1,6 @@
 const alerts = require("./alerts.json");
 const contacts = require("./contacts.json");
+const loremIpsum = require("lorem-ipsum").loremIpsum;
 const fs = require("fs");
 
 function addAlertsToContacts(alerts, contacts) {
@@ -8,6 +9,7 @@ function addAlertsToContacts(alerts, contacts) {
   let allAlertsUsed = false;
   contacts.forEach((item) => {
     item.alerts = [];
+    item.contactDetail = loremIpsum();
     if (
       count > 0 &&
       contacts.indexOf(item) % Math.floor(Math.random() * 10) === 0

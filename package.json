@@ -1,0 +1,22 @@
+{
+  "name": "angular-developer-take-home-challenge",
+  "version": "1.0.0",
+  "description": "Developer take home challenge for Rocket Communications",
+  "main": "addAlert.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RocketCommunicationsInc/Angular-Developer-Take-Home-Challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RocketCommunicationsInc/Angular-Developer-Take-Home-Challenge/issues"
+  },
+  "homepage": "https://github.com/RocketCommunicationsInc/Angular-Developer-Take-Home-Challenge#readme",
+  "dependencies": {
+    "lorem-ipsum": "^2.0.4"
+  }
+}
