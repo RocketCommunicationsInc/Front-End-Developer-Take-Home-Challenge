@@ -1,28 +1,58 @@
+import React, { useState } from "react";
 import "./App.css";
-import { RuxProgress } from "@astrouxds/react";
+import {
+  RuxGlobalStatusBar,
+  RuxIcon,
+  RuxTable,
+  RuxTableCell,
+  RuxTableHeader,
+  RuxTableHeaderCell,
+  RuxTableHeaderRow,
+  RuxTableRow,
+} from "@astrouxds/react";
+import * as Contacts from "./data.json";
 
-function App() {
+const App = () => {
+  const [contacts, setContacts] = useState(Contacts.default);
+
+  console.log("------------------------------------");
+  console.log("contacts: ", contacts);
+  console.log("------------------------------------");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          <RuxProgress />
+      <RuxGlobalStatusBar>
+        <RuxIcon slot="left-side" icon="apps" />
+        <div slot="app-meta">
+          <h1>Ground Resource Management Control</h1>
         </div>
-        <p>
-          Welcome to Astro UXDS web components in React! Check out the README.md
-          for more information on getting started.
-        </p>
-        <a
-          className="App-link"
-          href="https://astrouxds.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          astrouxds.com
-        </a>
-      </header>
+      </RuxGlobalStatusBar>
+      <h2>Contacts</h2>
+      <RuxTable>
+        <RuxTableHeaderRow>
+          <RuxTableHeaderCell>Name</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Satellite</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Details</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Status</RuxTableHeaderCell>
+        </RuxTableHeaderRow>
+
+        {contacts.length > 0 ? (
+          contacts.map((contact) => {
+            return (
+              <RuxTableRow key={contact.contactId} className="contact">
+                <RuxTableCell>{contact.contactName}</RuxTableCell>
+                <RuxTableCell>{contact.contactSatellite}</RuxTableCell>
+                <RuxTableCell>{contact.contactDetail}</RuxTableCell>
+                <RuxTableCell>{contact.contactStatus}</RuxTableCell>
+              </RuxTableRow>
+            );
+          })
+        ) : (
+          <p>Contacts not found.</p>
+        )}
+      </RuxTable>
     </div>
   );
-}
+};
 
 export default App;
