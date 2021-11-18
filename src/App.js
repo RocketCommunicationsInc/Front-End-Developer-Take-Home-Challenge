@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./App.css";
 import {
   RuxGlobalStatusBar,
   RuxIcon,
+  RuxStatus,
   RuxTable,
   RuxTableCell,
   RuxTableHeader,
@@ -10,14 +10,13 @@ import {
   RuxTableHeaderRow,
   RuxTableRow,
 } from "@astrouxds/react";
+import { calculateTime } from "./helpers.js";
 import * as Contacts from "./data.json";
+import "./App.css";
 
 const App = () => {
-  const [contacts, setContacts] = useState(Contacts.default);
-
-  console.log("------------------------------------");
-  console.log("contacts: ", contacts);
-  console.log("------------------------------------");
+  const filteredContacts = Contacts.default.filter((c) => c.alerts.length > 0);
+  const [contacts, setContacts] = useState(filteredContacts);
 
   return (
     <div className="App">
@@ -30,20 +29,42 @@ const App = () => {
       <h2>Contacts</h2>
       <RuxTable>
         <RuxTableHeaderRow>
-          <RuxTableHeaderCell>Name</RuxTableHeaderCell>
-          <RuxTableHeaderCell>Satellite</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Alerts</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Contact Name</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Contact Time</RuxTableHeaderCell>
+          {/* <RuxTableHeaderCell>Satellite</RuxTableHeaderCell>
           <RuxTableHeaderCell>Details</RuxTableHeaderCell>
-          <RuxTableHeaderCell>Status</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Status</RuxTableHeaderCell> */}
         </RuxTableHeaderRow>
 
         {contacts.length > 0 ? (
           contacts.map((contact) => {
             return (
               <RuxTableRow key={contact.contactId} className="contact">
+                <RuxTableCell>
+                  {contact.alerts.length > 0
+                    ? contact.alerts.map((alert) => {
+                        return (
+                          <p className={`alert ${alert.errorSeverity}`}>
+                            {alert.errorMessage}
+                          </p>
+                        );
+                      })
+                    : ""}
+                </RuxTableCell>
                 <RuxTableCell>{contact.contactName}</RuxTableCell>
-                <RuxTableCell>{contact.contactSatellite}</RuxTableCell>
+                <RuxTableCell>
+                  {calculateTime(
+                    contact.contactBeginTimestamp,
+                    contact.contactEndTimestamp
+                  )}
+                  <span className="mins"> mins</span>
+                </RuxTableCell>
+                {/* <RuxTableCell>{contact.contactSatellite}</RuxTableCell>
                 <RuxTableCell>{contact.contactDetail}</RuxTableCell>
-                <RuxTableCell>{contact.contactStatus}</RuxTableCell>
+                <RuxTableCell>
+                  <RuxStatus status={contact.contactStatus}></RuxStatus>
+                </RuxTableCell> */}
               </RuxTableRow>
             );
           })

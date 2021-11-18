@@ -16,3 +16,24 @@
 .App-link {
   color: var(--color-primary);
 }
+
+.alert {
+  padding: 8px 8px;
+  margin: 0px 0px 5px;
+  background-color: black;
+}
+
+.critical {
+  background-color: rgb(255, 95, 96);
+}
+
+.serious {
+  background-color: rgb(255, 179, 2);
+  color: black;
+}
+
+.caution {
+  background-color: rgb(253, 237, 97);
+  color: black;
+}
+
