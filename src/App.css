@@ -17,11 +17,7 @@
   color: var(--color-primary);
 }
 
-.alert {
-  padding: 8px 8px;
-  margin: 0px 0px 5px;
-  background-color: black;
-}
+
 
 .critical {
   background-color: rgb(255, 95, 96);
@@ -41,4 +37,5 @@
   background-color: #ced6e4;
   color: black;
 }
+
 

@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RuxGlobalStatusBar,
   RuxIcon,
   RuxStatus,
   RuxTable,
   RuxTableCell,
-  RuxTableHeader,
   RuxTableHeaderCell,
   RuxTableHeaderRow,
   RuxTableRow,
@@ -19,14 +18,46 @@ import "./App.css";
 const App = () => {
   const filteredContacts = Contacts.default.filter((c) => c.alerts.length > 0);
   const [contacts, setContacts] = useState(filteredContacts);
+  var [alerts, setAlerts] = useState([]);
   const [modal, setModal] = useState({
     message: "Loading...",
     title: "Satellite",
     open: false,
   });
 
+  useEffect(() => {
+    getAlerts(contacts);
+  }, [contacts]);
+
   const showModal = (satellite, detail) => {
     setModal({ message: detail, title: satellite, open: true });
+  };
+
+  const getAlerts = (contacts) => {
+    if (contacts) {
+      const allAlerts = [];
+      contacts.forEach(function (item, index, arr) {
+        if (item.alerts) {
+          item.alerts.forEach(function (alert, index, arr) {
+            allAlerts.push({
+              errorId: alert.errorId,
+              errorMessage: alert.errorMessage,
+              errorTime: alert.errorTime,
+              errorSeverity: alert.errorSeverity,
+              contactSatellite: item.contactSatellite,
+              contactName: item.contactName,
+              contactTime: calculateTime(
+                item.contactBeginTimestamp,
+                item.contactEndTimestamp
+              ),
+              contactDetail: item.contactDetail,
+            });
+          });
+        }
+      });
+      setAlerts(allAlerts.sort((a, b) => (a.errorTime > b.errorTime ? 1 : -1)));
+      //console.log(allAlerts);
+    }
   };
 
   return (
@@ -37,51 +68,36 @@ const App = () => {
           <h1>Ground Resource Management Control</h1>
         </div>
       </RuxGlobalStatusBar>
-      <h2>Contact Alerts</h2>
+      <h2>Alerts</h2>
       <RuxTable>
         <RuxTableHeaderRow>
           <RuxTableHeaderCell>Alerts</RuxTableHeaderCell>
+          <RuxTableHeaderCell>Status</RuxTableHeaderCell>
           <RuxTableHeaderCell>Contact Name</RuxTableHeaderCell>
           <RuxTableHeaderCell>Contact Time</RuxTableHeaderCell>
           <RuxTableHeaderCell>Actions</RuxTableHeaderCell>
         </RuxTableHeaderRow>
-        {contacts.length > 0 ? (
-          contacts.map((contact) => {
+        {alerts.length > 0 ? (
+          alerts.map((alert) => {
             return (
-              <RuxTableRow key={contact.contactId} className="contact">
+              <RuxTableRow key={alert.errorId} className="alert">
                 <RuxTableCell>
-                  {contact.alerts.length > 0
-                    ? contact.alerts
-                        .sort((a, b) => (a.errorTime > b.errorTime ? 1 : -1))
-                        .map((alert) => {
-                          return (
-                            <p
-                              key={alert.errorId}
-                              className={`alert ${alert.errorSeverity}`}
-                            >
-                              <span className="alert-message">
-                                {alert.errorMessage}
-                              </span>
-                              <span style={{ float: "right" }}>
-                                ({alert.errorTime})
-                              </span>
-                            </p>
-                          );
-                        })
-                    : ""}
+                  <p key={alert.errorId}>
+                    <span className="alert-message">{alert.errorMessage}</span>
+                  </p>
                 </RuxTableCell>
-                <RuxTableCell>{contact.contactName}</RuxTableCell>
                 <RuxTableCell>
-                  {calculateTime(
-                    contact.contactBeginTimestamp,
-                    contact.contactEndTimestamp
-                  )}
+                  <RuxStatus status={alert.errorSeverity}></RuxStatus>
+                </RuxTableCell>
+                <RuxTableCell>{alert.contactName}</RuxTableCell>
+                <RuxTableCell>
+                  {alert.contactTime}
                   <span className="mins"> mins</span>
                 </RuxTableCell>
                 <RuxTableCell>
                   <RuxButton
                     onClick={() =>
-                      showModal(contact.contactSatellite, contact.contactDetail)
+                      showModal(alert.contactSatellite, alert.contactDetail)
                     }
                   >
                     Show Details
@@ -91,7 +107,7 @@ const App = () => {
             );
           })
         ) : (
-          <p>Contacts not found.</p>
+          <p>Alerts not found.</p>
         )}
       </RuxTable>
       <RuxModal

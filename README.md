@@ -33,3 +33,9 @@ The data.json file consists of a list of contacts (satellites) and any alerts as
 **Timeframe**
 
 We would like the take home challenge to be completed within 3 days. If you need more time, please reach out to us. You will not be judged on how quickly you complete the challenge.
+
+**Tom's Notes**
+
+There a couple of unique key errors for some of the errorIds, which is surprising. I decided to leave these the way they are and not change the data. I'm guessing maybe somebody duplicated the items and forgot to change the IDs to be unique.
+
+I originally had the rows mapped to the contacts and its alerts to one column, but I changed my approach to map to the alerts as the main object.
