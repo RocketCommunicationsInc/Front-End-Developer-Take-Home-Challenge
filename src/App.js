@@ -22,6 +22,7 @@ const App = () => {
   const [modal, setModal] = useState({
     message: "Loading...",
     title: "Satellite",
+    open: false,
   });
 
   const showModal = (satellite, detail) => {
@@ -50,18 +51,23 @@ const App = () => {
               <RuxTableRow key={contact.contactId} className="contact">
                 <RuxTableCell>
                   {contact.alerts.length > 0
-                    ? contact.alerts.map((alert) => {
-                        return (
-                          <p
-                            key={alert.errorId}
-                            className={`alert ${alert.errorSeverity}`}
-                          >
-                            <span className="alert-message">
-                              {alert.errorMessage}
-                            </span>
-                          </p>
-                        );
-                      })
+                    ? contact.alerts
+                        .sort((a, b) => (a.errorTime > b.errorTime ? 1 : -1))
+                        .map((alert) => {
+                          return (
+                            <p
+                              key={alert.errorId}
+                              className={`alert ${alert.errorSeverity}`}
+                            >
+                              <span className="alert-message">
+                                {alert.errorMessage}
+                              </span>
+                              <span style={{ float: "right" }}>
+                                ({alert.errorTime})
+                              </span>
+                            </p>
+                          );
+                        })
                     : ""}
                 </RuxTableCell>
                 <RuxTableCell>{contact.contactName}</RuxTableCell>
