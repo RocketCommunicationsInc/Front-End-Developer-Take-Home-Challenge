@@ -9,14 +9,19 @@ Please feel free to peruse the Astro UX Design site (https://astrouxds.com/) for
 
 **Requirements**
 
-The data.json file consists of a list of contacts (satellites) and any alerts associated with them configured in a GRM application. Contacts can have properties such as name, status, state, etc. Any alerts the contact has will have the properties errorId, errorSeverity, ect. The following should be displayed:
+The data.json file consists of a list of contacts (satellites) and any alerts associated with them configured in a GRM application. Contacts can have properties such as name, status, state, etc. Any alerts the contact has will have the properties errorId, errorSeverity, etc.
 
-- For each alert, display the following:
+- For each alert, I need to know the following:
   - Alert message (_errorMessage_)
   - Contact name (_contactName_)
   - Contact time (_contactBeginTimestamp_ - _contactEndTimestamp_)
-- Each alert should have a _Show Details_ option that utilizes `rux-modal` to show the _contactSatellite_ and _contactDetail_ values
-- Alerts should be sorted by error time (_errorTime_)
+- I need to be able to see the details of an alert by clicking on a button called _Show Details_ that utilizes `rux-modal` to show the _contactSatellite_ and _contactDetail_ values
+- I need the alerts to be sorted by error time with the most recent at the top (_errorTime_)
+- I need to know which alerts I have already acknowledged so that I don’t process the same alert multiple times by mistake. Also once I’ve dealt with an alert, make it clear it’s not something I need to pay attention to again:
+- Only unacknowledged alerts can be acknowledged
+- Acknowledged alerts cannot be unacknowledged
+- Acknowledged alerts must be visually distinct from unacknowledged alerts
+- I want to be able to view alerts by their severity as well so that I can prioritize acknowledging the more severe alerts first.
 
 **Technical Requirements**
 
@@ -27,7 +32,7 @@ The data.json file consists of a list of contacts (satellites) and any alerts as
 - Steps to follow:
   - Fork this repository
   - Work on your solution
-  - Create a pull request with @github/rocket-bensonism as the reviewer.
+  - Create a pull request with @github/rocket-bensonism as the reviewer, if available.
 - Have fun and be as creative as you like!
 
 **Timeframe**
