@@ -1156,7 +1156,7 @@
       },
       {
         "errorId": "1398eq41-34c2-5f64-9e1c-7ae9bbdb50fa",
-        "errorSeverity": "warning",
+        "errorSeverity": "serious",
         "errorCategory": "hardware",
         "errorMessage": "Workstation 203 - Limited disk space",
         "longMessage": "Workstation 203 is running out of disk space at 18:39:05",
