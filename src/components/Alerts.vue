@@ -1,5 +1,5 @@
 <template>
-  <section class="alerts" v-if="alerts.length > 0">
+  <div class="alerts">
     <div class="table-header">
       <div class="table-title">
         <rux-icon size="normal" icon="antenna"></rux-icon>
@@ -41,44 +41,39 @@
         <rux-button>Acknowledge</rux-button>
       </rux-button-group>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
 import { reactive } from 'vue';
+import { useStore } from 'vuex'
 
 import SeverityStats from './SeverityStats.vue'
 
 export default {
   name: 'grm-alerts',
   components: { SeverityStats },
-  props: {
-    alerts: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
-    stats: {
-      type: Object
-    }
-  },
   setup(props) {
     reactive(props)
+    const store = useStore()
+    const { state: { alerts, stats }} = store
+
+    return {
+      alerts,
+      stats: stats.alerts
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .alerts-list {
-    max-height: 60vh;
+    max-height: calc(100vh - 14rem);
     overflow-y: scroll;
     margin: 0 0.5rem;
-    max-width: 42vw;
   }
   .alerts-actions {
     display: flex;
-    min-width: 20rem;
     justify-content: space-evenly;
     padding: 0.625rem 1rem;
   }

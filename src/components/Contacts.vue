@@ -1,5 +1,5 @@
 <template>
-  <section class="contacts" v-if="contacts.length > 0">
+  <div class="contacts">
     <div class="table-header">
       <div class="table-title">
         <rux-icon size="normal" icon="satellite-transmit"></rux-icon>
@@ -31,38 +31,35 @@
         </rux-table-body>
       </rux-table>
     </div>
-    
-  </section>
+  </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
 
 import SeverityStats from './SeverityStats.vue'
 
 export default {
   name: 'grm-contacts',
   components: { SeverityStats },
-  props: {
-    contacts: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
-    stats: {
-      type: Object
-    }
-  },
   setup(props) {
     reactive(props)
+    const store = useStore()
+    const { state: { contacts, stats }} = store
+    
+
+    return {
+      contacts,
+      stats: stats.contacts
+    }
   }
 }
 </script>
 
 <style lang="scss">
   .contacts-list {
-    max-height: 80vh;
+    max-height: calc(100vh - 10rem);
     overflow-y: scroll;
     margin: 0 0.5rem;
   }

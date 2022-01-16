@@ -5,15 +5,21 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 import Header from './components/Header.vue'
 import Dashboard from './pages/Dashboard.vue'
  
 export default {
   components: {Header, Dashboard},
   setup() {
+    const store = useStore()
+    store.commit('loadConfig')
+    store.commit('initializeMock')
+    store.commit('loadStats')
+
     return {
+      
     }
-    
   },
 }
 </script>

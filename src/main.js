@@ -1,4 +1,6 @@
 import { createApp,h } from 'vue'
+
+import { store } from './store'
 import App from './App.vue'
 
 // Import Astro's base styles
@@ -15,4 +17,4 @@ applyPolyfills().then(() => {
 
 createApp({
   render: ()=>h(App)
-}).mount('#app')
+}).use(store).mount('#app')
