@@ -1,9 +1,7 @@
 <template>
   <Header></Header>
     
-  <div class="layout">
-    <Dashboard></Dashboard>
-  </div>
+  <Dashboard></Dashboard>
 </template>
 
 <script>
@@ -21,8 +19,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .layout {
-    display: flex;
-    justify-content: space-between;
-  }
 </style>

@@ -1,6 +1,8 @@
 <template>
-  <Alerts :alerts="resources.alerts"></Alerts>
-  <Contacts :contacts="resources.contacts"></Contacts>
+  <div class="layout">
+    <Alerts :alerts="resources.alerts"></Alerts>
+    <Contacts :contacts="resources.contacts"></Contacts>
+  </div>
 </template>
 
 <script>
@@ -45,6 +47,10 @@ export default {
 </script>
 
 <style lang="scss">
+  .layout {
+    display: flex;
+    justify-content: space-between;
+  }
   
   .table-header {
     display: flex;
