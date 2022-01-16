@@ -3,7 +3,6 @@ import App from './App.vue'
 
 // Import Astro's base styles
 import '@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.css'
-import '@astrouxds/ag-grid-theme/dist/main.css'
 import {
   applyPolyfills,
   defineCustomElements,
