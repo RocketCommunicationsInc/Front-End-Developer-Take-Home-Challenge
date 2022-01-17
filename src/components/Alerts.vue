@@ -49,7 +49,7 @@
     </div>
     <div class="alerts-actions">
       <rux-button-group>
-        <rux-button :disabled="!canAcknowledge">Acknowledge</rux-button>
+        <rux-button :disabled="!canAcknowledge" @click="acknowledgeSelection">Acknowledge</rux-button>
       </rux-button-group>
     </div>
   </div>
@@ -95,13 +95,18 @@ export default {
       store.commit('openAlertModal', alert)
     }
 
+    const acknowledgeSelection = () => {
+      store.commit('acknowledgeSelection')
+    }
+
     return {
       alerts,
       alertStats,
       canAcknowledge,
       changeSelection,
       toggleExpanded,
-      openModal
+      openModal,
+      acknowledgeSelection
     }
   }
 }

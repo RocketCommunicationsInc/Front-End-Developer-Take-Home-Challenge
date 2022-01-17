@@ -69,6 +69,17 @@ export const store = createStore({
         alert.new = false
         console.log(alert.new)
       }
+    },
+    acknowledgeSelection(state) {
+      console.log('Acknowledging all selected alerts')
+      state.contacts.forEach(contact => {
+        contact.alerts.forEach(alert => {
+          if(alert.selected) {
+            alert.new = false
+            alert.selected = false
+          }
+        })
+      })
     }
   }
 });
