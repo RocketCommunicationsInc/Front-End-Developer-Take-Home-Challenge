@@ -19,9 +19,18 @@
           </rux-table-header-row>
         </rux-table-header>
         <rux-table-body>
-          <rux-table-row v-for="alert in alerts" :key="`alert-${alert.errorId}`">
+          <rux-table-row
+            v-for="alert in alerts"
+            :selected="alert.expanded"
+            @click="() => toggleExpanded($event, alert)"
+            :key="`alert-${alert.errorId}`"
+          >
             <rux-table-cell>
-              <rux-checkbox :name="`check-alert-${alert.errorId}`" :checked="alert.selected"></rux-checkbox>
+              <rux-checkbox
+                :name="`check-alert-${alert.errorId}`"
+                :checked.prop="alert.selected"
+                @ruxchange="() => changeSelection($event, alert)"
+              >{{alert.expanded}}</rux-checkbox>
             </rux-table-cell>
             <rux-table-cell>
               <rux-status style="margin: auto;" :status="alert.errorSeverity"></rux-status>
@@ -29,6 +38,9 @@
             <rux-table-cell>{{ alert.contactName }}</rux-table-cell>
             <rux-table-cell>{{ alert.errorMessage }}</rux-table-cell>
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>
+            <div class="table-drawer" v-if="alert.expanded">
+              Drawer
+            </div>
           </rux-table-row>
         </rux-table-body>
       </rux-table>
@@ -65,9 +77,19 @@ export default {
       return loadSeverityStats(alerts.value, 'errorSeverity')
     })
 
+    const changeSelection = (e, alert) => {
+      store.commit('changeSelection', alert)
+    }
+
+    const toggleExpanded = (e, alert) => {
+      store.commit('toggleExpanded', alert)
+    }
+
     return {
       alerts,
-      alertStats
+      alertStats,
+      changeSelection,
+      toggleExpanded
     }
   }
 }
@@ -83,5 +105,13 @@ export default {
     display: flex;
     justify-content: space-evenly;
     padding: 0.625rem 1rem;
+  }
+  rux-table-row {
+    position:relative
+  }
+  .table-drawer {
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
   }
 </style>
