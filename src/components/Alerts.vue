@@ -1,5 +1,18 @@
 <template>
   <div class="alerts">
+    <div v-if="selectedAlert"
+      style="display: flex; flex-flow: column; justify-content: center;">
+      <rux-modal
+        :open="modalIsOpen"
+        :modal-title="`${selectedAlert.contactName}: ${selectedAlert.errorMessage}`"
+        :modal-message="`
+          ${selectedAlert.contactSatellite}
+          ${selectedAlert.contactDetail}
+        `"
+        deny-text="Dismiss"
+        @ruxmodalclosed="dismissModal"
+      ></rux-modal>
+    </div>
     <div class="table-header">
       <div class="table-title">
         <rux-icon size="normal" icon="antenna"></rux-icon>
@@ -40,7 +53,7 @@
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>
             <div class="table-drawer">
               {{ alert.longMessage }}
-              <rux-button>More Info</rux-button>
+              <rux-button @click.stop="() => openModal($event, alert)">Show Details</rux-button>
             </div>
           </rux-table-row>
         </rux-table-body>
@@ -68,7 +81,7 @@ export default {
   setup(props) {
     reactive(props)
     const store = useStore()
-    const { state: { contacts }} = store
+    const { state: { contacts, modals, selection }} = store
 
     const alerts = computed(() => {
       return sortBySeverity(loadAlerts(contacts), 'errorSeverity')
@@ -86,11 +99,31 @@ export default {
       store.commit('toggleExpanded', alert)
     }
 
+    const openModal = (e, alert) => {
+      store.commit('openAlertModal', alert)
+    }
+
+    const modalIsOpen = computed(() => {
+      return modals && modals.alert
+    })
+
+    const dismissModal = () => {
+      store.commit('dismissModal')
+    }
+
+    const selectedAlert = computed(() => {
+      return selection.alert
+    })
+
     return {
       alerts,
       alertStats,
+      modalIsOpen,
+      selectedAlert,
       changeSelection,
-      toggleExpanded
+      toggleExpanded,
+      openModal,
+      dismissModal
     }
   }
 }

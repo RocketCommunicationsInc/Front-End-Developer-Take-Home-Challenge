@@ -13,6 +13,13 @@ export const store = createStore({
       sorting: {
         contacts: null,
         alerts: null
+      },
+      selection: {
+        contact: null,
+        alert: null
+      },
+      modals: {
+        alert: false
       }
     }
   },
@@ -43,6 +50,16 @@ export const store = createStore({
       const alertMatch = contactMatch.alerts.find(a => a.errorId === alert.errorId)
       // Update the alert expanded value on the contact
       alertMatch.expanded = !alertMatch.expanded
+    },
+    openAlertModal(state, alert) {
+      console.log('Opening alert modal for ', alert.errorId)
+      state.modals.alert = true
+      state.selection.alert = alert
+    },
+    dismissModal(state) {
+      console.log('Closing alert modal')
+      state.modals.alert = false
+      state.selection.alert = null
     }
   }
 });

@@ -5,12 +5,20 @@ export const severityScale = ['critical', 'serious', 'caution', 'normal', 'stand
 // Loads array of alert data from contacts, adds some contact props
 export const loadAlerts = contacts => {
   return contacts.map(({
-    alerts, contactId, contactName, contactBeginTimestamp, contactEndTimestamp
+    alerts,
+    contactId,
+    contactName,
+    contactBeginTimestamp,
+    contactEndTimestamp,
+    contactSatellite,
+    contactDetail
   }) => alerts.map(alert => ({
     ...alert,
     contactId,
     contactName,
     contactTime: moment(contactEndTimestamp - contactBeginTimestamp).format('h:mm:ss'),
+    contactSatellite,
+    contactDetail
   }))).flat()
 }
 
