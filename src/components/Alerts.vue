@@ -1,18 +1,6 @@
 <template>
   <div class="alerts">
-    <div v-if="selectedAlert"
-      style="display: flex; flex-flow: column; justify-content: center;">
-      <rux-modal
-        :open="modalIsOpen"
-        :modal-title="`${selectedAlert.contactName}: ${selectedAlert.errorMessage}`"
-        :modal-message="`
-          ${selectedAlert.contactSatellite}
-          ${selectedAlert.contactDetail}
-        `"
-        deny-text="Dismiss"
-        @ruxmodalclosed="dismissModal"
-      ></rux-modal>
-    </div>
+    <AlertModal />
     <div class="table-header">
       <div class="table-title">
         <rux-icon size="normal" icon="antenna"></rux-icon>
@@ -61,8 +49,7 @@
     </div>
     <div class="alerts-actions">
       <rux-button-group>
-        <rux-button>Dismiss</rux-button>
-        <rux-button>Acknowledge</rux-button>
+        <rux-button :disabled="!canAcknowledge">Acknowledge</rux-button>
       </rux-button-group>
     </div>
   </div>
@@ -74,14 +61,15 @@ import { useStore } from 'vuex'
 
 import { loadAlerts, sortBySeverity, loadSeverityStats } from '../helpers/index'
 import SeverityStats from './SeverityStats.vue'
+import AlertModal from './AlertModal.vue'
 
 export default {
   name: 'grm-alerts',
-  components: { SeverityStats },
+  components: { SeverityStats, AlertModal },
   setup(props) {
     reactive(props)
     const store = useStore()
-    const { state: { contacts, modals, selection }} = store
+    const { state: { contacts }} = store
 
     const alerts = computed(() => {
       return sortBySeverity(loadAlerts(contacts), 'errorSeverity')
@@ -89,6 +77,10 @@ export default {
 
     const alertStats = computed(() => {
       return loadSeverityStats(alerts.value, 'errorSeverity')
+    })
+
+    const canAcknowledge = computed(() => {
+      return alerts.value.some(alert => alert.selected)
     })
 
     const changeSelection = (e, alert) => {
@@ -103,27 +95,13 @@ export default {
       store.commit('openAlertModal', alert)
     }
 
-    const modalIsOpen = computed(() => {
-      return modals && modals.alert
-    })
-
-    const dismissModal = () => {
-      store.commit('dismissModal')
-    }
-
-    const selectedAlert = computed(() => {
-      return selection.alert
-    })
-
     return {
       alerts,
       alertStats,
-      modalIsOpen,
-      selectedAlert,
+      canAcknowledge,
       changeSelection,
       toggleExpanded,
-      openModal,
-      dismissModal
+      openModal
     }
   }
 }

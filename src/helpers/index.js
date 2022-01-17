@@ -18,7 +18,8 @@ export const loadAlerts = contacts => {
     contactName,
     contactTime: moment(contactEndTimestamp - contactBeginTimestamp).format('h:mm:ss'),
     contactSatellite,
-    contactDetail
+    contactDetail,
+    new: true
   }))).flat()
 }
 

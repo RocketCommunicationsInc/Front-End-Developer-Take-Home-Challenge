@@ -60,6 +60,15 @@ export const store = createStore({
       console.log('Closing alert modal')
       state.modals.alert = false
       state.selection.alert = null
+    },
+    acknowledgeAlert(state) {
+      const { alert } = state.selection
+      console.log('Acknowledging alert ', alert.errorId)
+      if(alert) {
+        console.log(alert.new)
+        alert.new = false
+        console.log(alert.new)
+      }
     }
   }
 });
