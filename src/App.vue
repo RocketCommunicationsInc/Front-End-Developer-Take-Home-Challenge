@@ -13,9 +13,7 @@ export default {
   components: {Header, Dashboard},
   setup() {
     const store = useStore()
-    store.commit('loadConfig')
     store.commit('initializeMock')
-    store.commit('loadStats')
 
     return {
       

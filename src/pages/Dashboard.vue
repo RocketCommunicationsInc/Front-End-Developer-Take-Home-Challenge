@@ -13,11 +13,9 @@ export default {
   name: 'grm-dashboard',
   components: { Alerts, Contacts },
   setup() {
-
     return {
 
     }
-    
   },
 }
 </script>
@@ -26,9 +24,8 @@ export default {
   .layout {
     display: grid;
     grid-template-columns: minmax(42rem, 28%) auto;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-template-areas: 
-        "alerts contacts"
         "alerts contacts";
     .alerts {
       grid-area: alerts;

@@ -5,7 +5,7 @@
         <rux-icon size="normal" icon="antenna"></rux-icon>
         {{ alerts.length }} Active Alerts
       </div>
-      <SeverityStats :stats="stats" />
+      <SeverityStats :stats="alertStats" />
     </div>
     <div class="alerts-list">
       <rux-table>
@@ -15,7 +15,6 @@
             <rux-table-header-cell></rux-table-header-cell>
             <rux-table-header-cell>Contact</rux-table-header-cell>
             <rux-table-header-cell>Message</rux-table-header-cell>
-            <rux-table-header-cell>Category</rux-table-header-cell>
             <rux-table-header-cell>Time</rux-table-header-cell>
           </rux-table-header-row>
         </rux-table-header>
@@ -29,7 +28,6 @@
             </rux-table-cell>
             <rux-table-cell>{{ alert.contactName }}</rux-table-cell>
             <rux-table-cell>{{ alert.errorMessage }}</rux-table-cell>
-            <rux-table-cell>{{ alert.errorCategory }}</rux-table-cell>
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>
           </rux-table-row>
         </rux-table-body>
@@ -45,9 +43,10 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { useStore } from 'vuex'
 
+import { loadAlerts, sortBySeverity, loadSeverityStats } from '../helpers/index'
 import SeverityStats from './SeverityStats.vue'
 
 export default {
@@ -56,11 +55,19 @@ export default {
   setup(props) {
     reactive(props)
     const store = useStore()
-    const { state: { alerts, stats }} = store
+    const { state: { contacts }} = store
+
+    const alerts = computed(() => {
+      return sortBySeverity(loadAlerts(contacts), 'errorSeverity')
+    })
+
+    const alertStats = computed(() => {
+      return loadSeverityStats(alerts.value, 'errorSeverity')
+    })
 
     return {
       alerts,
-      stats: stats.alerts
+      alertStats
     }
   }
 }

@@ -5,7 +5,7 @@
         <rux-icon size="normal" icon="satellite-transmit"></rux-icon>
         {{ contacts.length }} Contacts
       </div>
-      <SeverityStats :stats="stats" />
+      <SeverityStats :stats="contactStats" />
     </div>
     <div class="contacts-list">
       <rux-table>
@@ -35,8 +35,10 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
+
+import { loadSeverityStats } from '../helpers'
 
 import SeverityStats from './SeverityStats.vue'
 
@@ -46,12 +48,15 @@ export default {
   setup(props) {
     reactive(props)
     const store = useStore()
-    const { state: { contacts, stats }} = store
-    
+    const { state: { contacts }} = store
+
+    const contactStats = computed(() => {
+      return loadSeverityStats(contacts, 'contactStatus')
+    })
 
     return {
       contacts,
-      stats: stats.contacts
+      contactStats
     }
   }
 }
