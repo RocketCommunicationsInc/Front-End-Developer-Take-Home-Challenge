@@ -21,7 +21,7 @@
         <rux-table-body>
           <rux-table-row
             v-for="alert in alerts"
-            :selected="alert.expanded"
+            :selected.prop="alert.expanded"
             @click="() => toggleExpanded($event, alert)"
             :key="`alert-${alert.errorId}`"
           >
@@ -30,7 +30,7 @@
                 :name="`check-alert-${alert.errorId}`"
                 :checked.prop="alert.selected"
                 @ruxchange="() => changeSelection($event, alert)"
-              >{{alert.expanded}}</rux-checkbox>
+              ></rux-checkbox>
             </rux-table-cell>
             <rux-table-cell>
               <rux-status style="margin: auto;" :status="alert.errorSeverity"></rux-status>
@@ -38,8 +38,9 @@
             <rux-table-cell>{{ alert.contactName }}</rux-table-cell>
             <rux-table-cell>{{ alert.errorMessage }}</rux-table-cell>
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>
-            <div class="table-drawer" v-if="alert.expanded">
-              Drawer
+            <div class="table-drawer">
+              {{ alert.longMessage }}
+              <rux-button>More Info</rux-button>
             </div>
           </rux-table-row>
         </rux-table-body>
@@ -107,11 +108,27 @@ export default {
     padding: 0.625rem 1rem;
   }
   rux-table-row {
-    position:relative
-  }
-  .table-drawer {
-    position: absolute;
-    bottom: -1rem;
-    left: 0;
+    position: relative;
+    .table-drawer {
+      cursor: pointer;
+      position: absolute;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      top: 2.5rem;
+      left: 0;
+      padding: 0;
+      height: 0;
+    }
+    &.is-selected {
+      height: 7rem;
+      .table-drawer {
+        height: auto;
+        width: 100%;
+        padding: 1rem 0;
+      }
+    }
+
   }
 </style>
