@@ -4,10 +4,15 @@
     <div class="table-header">
       <div class="table-title">
         <rux-icon size="normal" icon="antenna"></rux-icon>
-        {{ alerts.length }} Active Alerts
+        {{ alerts.length }} Alerts
       </div>
       <div class="sort-by">
-        <rux-select label="Sort By" input-id="sort-alerts-by" label-id="sort-alerts-by" @ruxchange="changeAlertSort">
+        <rux-select
+          label="Sorting"
+          input-id="sort-alerts-by"
+          label-id="sort-alerts-by"
+          @ruxchange="changeAlertSort"
+        >
           <rux-option value="time" selected="" label="Time"></rux-option>
           <rux-option value="severity" label="Severity"></rux-option>
         </rux-select>
@@ -27,10 +32,10 @@
         </rux-table-header>
         <rux-table-body>
           <rux-table-row
-            v-for="alert in alerts"
+            v-for="(alert, index) in alerts"
             :selected.prop="alert.expanded"
             @click="() => toggleExpanded($event, alert)"
-            :key="`alert-${alert.errorId}`"
+            :key="`alert-${alert.errorId}-${index}`"
             :style="{
               'opacity': alert.new ? '1' : '0.75', 
               'color': alert.new ? 'inherit' : 'lightgrey'
@@ -38,7 +43,7 @@
           >
             <rux-table-cell>
               <rux-checkbox
-                v-if="alert.new"
+                :disabled="!alert.new"
                 :name="`check-alert-${alert.errorId}`"
                 :checked.prop="alert.selected"
                 @ruxchange="() => changeSelection($event, alert)"
@@ -52,7 +57,9 @@
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>
             <div class="table-drawer">
               {{ alert.longMessage }}
-              <rux-button @click.stop="() => openModal($event, alert)">Show Details</rux-button>
+              <rux-button
+                @click.stop="() => openModal($event, alert)"
+              >Show Details</rux-button>
             </div>
           </rux-table-row>
         </rux-table-body>
@@ -80,26 +87,36 @@ export default {
   setup(props) {
     reactive(props)
     const store = useStore()
-    const { state: { contacts, sorting }} = store
+    const { state: { contacts, sorting, filters }} = store
+
+    const alertsData = computed(() => {
+      return loadAlerts(contacts)
+    })
 
     const alerts = computed(() => {
-      const allAlerts = loadAlerts(contacts)
-      let sortedAlerts
+      let displayAlerts
+      // Sort alerts by selected sorting method, default time
       switch(sorting.alerts) {
         case 'severity':
-          sortedAlerts = sortBySeverity(allAlerts, 'errorSeverity')
+          displayAlerts = sortBySeverity(alertsData.value, 'errorSeverity')
           break
         case 'time':
         default:
-          sortedAlerts = sortByTime(allAlerts)
+          displayAlerts = sortByTime(alertsData.value)
           break
       }
+
+      if(filters.alerts) {
+        console.log("FILTERING")
+        displayAlerts = displayAlerts.filter(alert => alert.errorSeverity === filters.alerts)
+      }
       
-      return sortByNew(sortedAlerts)
+      return sortByNew(displayAlerts)
     })
 
     const alertStats = computed(() => {
-      return loadSeverityStats(alerts.value, 'errorSeverity')
+      const newAlerts = alertsData.value.filter(alert => alert.new)
+      return loadSeverityStats(newAlerts, 'errorSeverity')
     })
 
     const canAcknowledge = computed(() => {
@@ -154,7 +171,6 @@ export default {
   rux-table-row {
     position: relative;
     .table-drawer {
-      cursor: pointer;
       position: absolute;
       overflow: hidden;
       display: flex;

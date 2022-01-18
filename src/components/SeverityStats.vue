@@ -1,29 +1,35 @@
 <template>
   <div class="stats">
-    <rux-button size="small" secondary="">
-      <span class="status-critical">{{ stats.critical }}</span>
-      <rux-status status="critical"></rux-status>
+    <rux-button
+      v-for="level in scale"
+      :key="`severity-${level}`"
+      size="small"
+      @click.stop="() => select($event, level)"
+      :secondary="!(alertFilter === level)"
+    >
+      <span :class="level">{{ stats[level] }}</span>
+      <rux-status :status="level"></rux-status>
     </rux-button>
-    <rux-button size="small" secondary="">
-      <span class="status-serious">{{ stats.serious }}</span>
-      <rux-status status="serious"></rux-status>
-    </rux-button>
-    <rux-button size="small" secondary="">
-      <span class="status-caution">{{ stats.caution }}</span>
-      <rux-status status="caution"></rux-status>
-    </rux-button>
-    <rux-button size="small" secondary="">
-      <span class="status-normal">{{ stats.normal }}</span>
-      <rux-status status="normal"></rux-status>
+    <rux-button
+      size="small"
+      v-if="alertFilter !== null"
+      @click.stop="() => select($event, null)"
+      secondary=""
+    >
+      <span>reset</span>
     </rux-button>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue'
+import { useStore } from 'vuex'
+
+import { severityScale } from '../helpers'
 
 export default {
   name: 'grm-severity-stats',
+  emits: ['select'],
   props: {
     stats: {
       type: Object,
@@ -32,7 +38,6 @@ export default {
           critical: 0,
           serious: 0,
           caution: 0,
-          warning: 0,
           normal: 0
         }
       }
@@ -40,6 +45,24 @@ export default {
   },
   setup(props) {
     reactive(props)
+    const store = useStore()
+
+    const scale = severityScale.filter(scale => props.stats[scale] > 0)
+
+    const select = (e, filter) => {
+      store.commit('changeAlertFilter', filter)
+      console.log(store.state.filters)
+    }
+
+    const alertFilter = computed(() => {
+      return store.state && store.state.filters.alerts
+    })
+
+    return {
+      scale,
+      select,
+      alertFilter
+    }
   }
 }
 </script>

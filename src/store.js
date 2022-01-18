@@ -14,7 +14,7 @@ export const store = createStore({
         alerts: null
       },
       selection: {
-        alertId: null
+        alert: null
       },
       modals: {
         alert: false
@@ -45,6 +45,10 @@ export const store = createStore({
     changeAlertSort(state, newSort) {
       console.log('Changing sorting method to ', newSort)
       state.sorting.alerts = newSort
+    }, 
+    changeAlertFilter(state, newFilter) {
+      console.log('Changing filter method to ', newFilter)
+      state.filters.alerts = newFilter
     }, 
     openAlertModal(state, alert) {
       console.log('Opening alert modal for ', alert.errorId)

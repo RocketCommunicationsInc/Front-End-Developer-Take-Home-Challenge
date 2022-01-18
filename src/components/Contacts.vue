@@ -5,7 +5,6 @@
         <rux-icon size="normal" icon="satellite-transmit"></rux-icon>
         {{ contacts.length }} Contacts
       </div>
-      <SeverityStats :stats="contactStats" />
     </div>
     <div class="contacts-list">
       <rux-table>
@@ -35,28 +34,20 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import { useStore } from 'vuex'
 
-import { loadSeverityStats } from '../helpers'
 
-import SeverityStats from './SeverityStats.vue'
 
 export default {
   name: 'grm-contacts',
-  components: { SeverityStats },
   setup(props) {
     reactive(props)
     const store = useStore()
     const { state: { contacts }} = store
 
-    const contactStats = computed(() => {
-      return loadSeverityStats(contacts, 'contactStatus')
-    })
-
     return {
-      contacts,
-      contactStats
+      contacts
     }
   }
 }
