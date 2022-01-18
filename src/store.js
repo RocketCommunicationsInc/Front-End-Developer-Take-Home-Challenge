@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 
+import { updateAlert } from './helpers'
 import CONTACTS_DATA from '../data.json'
 
 export const store = createStore({
@@ -15,6 +16,7 @@ export const store = createStore({
         alerts: null
       },
       selection: {
+        // TODO change from reference implementation to id storage with computed
         contact: null,
         alert: null
       },
@@ -27,29 +29,22 @@ export const store = createStore({
     // Loads mock contact data from json to initialize store
     initializeMock(state) {
       console.log('Loading Mock Contact Data')
-      state.contacts = CONTACTS_DATA
+      const contacts = CONTACTS_DATA.map(contact => {
+        // Initialize alerts 'new' property
+        const alerts = contact.alerts.map(alert => ({ ...alert, new: true }))
+        return { ...contact, alerts}
+      })
+      state.contacts = contacts
     },
     // Updates the selected alert within it's parent contact
     changeSelection(state, alert) {
       console.log('Changing selection for ', alert.errorId)
-      alert.selected = !alert.selected
-      // Find contact with alert
-      const contactMatch = state.contacts.find(contact => contact.contactId === alert.contactId)
-      // Find the alert on the contact
-      const alertMatch = contactMatch.alerts.find(a => a.errorId === alert.errorId)
-      // Update the alert selected value on the contact
-      alertMatch.selected = !alertMatch.selected
+      updateAlert(state.contacts, alert, 'selected', !alert.selected)
     },
     // Updates the selected alert within it's parent contact
     toggleExpanded(state, alert) {
       console.log('Toggling expanded details for ', alert.errorId)
-      alert.selected = !alert.selected
-      // Find contact with alert
-      const contactMatch = state.contacts.find(contact => contact.contactId === alert.contactId)
-      // Find the alert on the contact
-      const alertMatch = contactMatch.alerts.find(a => a.errorId === alert.errorId)
-      // Update the alert expanded value on the contact
-      alertMatch.expanded = !alertMatch.expanded
+      updateAlert(state.contacts, alert, 'expanded', !alert.expanded)
     },
     openAlertModal(state, alert) {
       console.log('Opening alert modal for ', alert.errorId)
@@ -64,10 +59,9 @@ export const store = createStore({
     acknowledgeAlert(state) {
       const { alert } = state.selection
       console.log('Acknowledging alert ', alert.errorId)
-      if(alert) {
-        console.log(alert.new)
-        alert.new = false
-        console.log(alert.new)
+      if(alert && alert.new) {
+        updateAlert(state.contacts, alert, 'new', false)
+        updateAlert(state.contacts, alert, 'expanded', false)
       }
     },
     acknowledgeSelection(state) {

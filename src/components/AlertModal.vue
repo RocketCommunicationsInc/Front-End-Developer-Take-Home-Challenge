@@ -8,7 +8,8 @@
         ${selectedAlert.contactSatellite}
         ${selectedAlert.contactDetail}
       `"
-      deny-text="Dismiss"
+      confirm-text="Acknowledge"
+      deny-text="Cancel"
       @ruxmodalclosed="dismissModal"
     ></rux-modal>
   </div>
@@ -49,3 +50,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  rux-modal::part(message) {
+    padding-bottom: 2rem;
+  }
+</style>

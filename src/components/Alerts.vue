@@ -14,6 +14,7 @@
           <rux-table-header-row>
             <rux-table-header-cell></rux-table-header-cell>
             <rux-table-header-cell></rux-table-header-cell>
+            <rux-table-header-cell>New</rux-table-header-cell>
             <rux-table-header-cell>Contact</rux-table-header-cell>
             <rux-table-header-cell>Message</rux-table-header-cell>
             <rux-table-header-cell>Time</rux-table-header-cell>
@@ -36,6 +37,7 @@
             <rux-table-cell>
               <rux-status style="margin: auto;" :status="alert.errorSeverity"></rux-status>
             </rux-table-cell>
+            <rux-table-header-cell>{{ alert.new }}</rux-table-header-cell>
             <rux-table-cell>{{ alert.contactName }}</rux-table-cell>
             <rux-table-cell>{{ alert.errorMessage }}</rux-table-cell>
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>

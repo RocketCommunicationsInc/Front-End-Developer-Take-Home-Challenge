@@ -18,8 +18,7 @@ export const loadAlerts = contacts => {
     contactName,
     contactTime: moment(contactEndTimestamp - contactBeginTimestamp).format('h:mm:ss'),
     contactSatellite,
-    contactDetail,
-    new: true
+    contactDetail
   }))).flat()
 }
 
@@ -39,4 +38,12 @@ export const loadSeverityStats = (collection, prop, scale = severityScale) => {
     stats[item[prop]] += 1
   })
   return stats
+}
+
+export const updateAlert = (contacts, alert, propName, newValue) => {
+  const contactMatch = contacts.find(contact => contact.contactId === alert.contactId)
+  // Find the alert on the contact
+  const alertMatch = contactMatch.alerts.find(a => a.errorId === alert.errorId)
+  // Update the alert value within the contact
+  alertMatch[propName] = newValue
 }
