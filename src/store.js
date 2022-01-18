@@ -8,17 +8,13 @@ export const store = createStore({
     return {
       contacts: [],
       filters: {
-        contacts: null,
         alerts: null
       },
       sorting: {
-        contacts: null,
         alerts: null
       },
       selection: {
-        // TODO change from reference implementation to id storage with computed
-        contact: null,
-        alert: null
+        alertId: null
       },
       modals: {
         alert: false
@@ -46,6 +42,10 @@ export const store = createStore({
       console.log('Toggling expanded details for ', alert.errorId)
       updateAlert(state.contacts, alert, 'expanded', !alert.expanded)
     },
+    changeAlertSort(state, newSort) {
+      console.log('Changing sorting method to ', newSort)
+      state.sorting.alerts = newSort
+    }, 
     openAlertModal(state, alert) {
       console.log('Opening alert modal for ', alert.errorId)
       state.modals.alert = true
@@ -67,12 +67,15 @@ export const store = createStore({
     acknowledgeSelection(state) {
       console.log('Acknowledging all selected alerts')
       state.contacts.forEach(contact => {
-        contact.alerts.forEach(alert => {
-          if(alert.selected) {
-            alert.new = false
-            alert.selected = false
-          }
-        })
+        if(contact.alerts && contact.alerts.length > 0) {
+          contact.alerts.forEach(alert => {
+            if(alert && alert.selected) {
+              alert.new = false
+              alert.selected = false
+              alert.expanded = false
+            }
+          })
+        }
       })
     }
   }

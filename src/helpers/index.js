@@ -22,10 +22,21 @@ export const loadAlerts = contacts => {
   }))).flat()
 }
 
+export const sortByNew = (collection) => {
+  return collection.sort((a, b) => b.new - a.new)
+}
+
 // For Sorting collections by severity props
 export const sortBySeverity = (collection, prop, scale = severityScale) => {
   return collection.sort((a, b) => {
     return scale.indexOf(a[prop]) - scale.indexOf(b[prop])
+  })
+}
+
+// For Sorting collections by severity props
+export const sortByTime = (collection) => {
+  return collection.sort((a, b) => {
+    return b.errorTime - a.errorTime
   })
 }
 
@@ -40,10 +51,16 @@ export const loadSeverityStats = (collection, prop, scale = severityScale) => {
   return stats
 }
 
-export const updateAlert = (contacts, alert, propName, newValue) => {
+export const getAlert = (contacts, alert) => {
   const contactMatch = contacts.find(contact => contact.contactId === alert.contactId)
   // Find the alert on the contact
-  const alertMatch = contactMatch.alerts.find(a => a.errorId === alert.errorId)
-  // Update the alert value within the contact
-  alertMatch[propName] = newValue
+  return contactMatch.alerts.find(a => a.errorId === alert.errorId)
+}
+
+export const updateAlert = (contacts, alert, propName, newValue) => {
+  getAlert(contacts, alert)[propName] = newValue
+}
+
+export const getRandomSuffix = (n = 1000000) => {
+  return Math.floor((Math.random()*n)+1)
 }

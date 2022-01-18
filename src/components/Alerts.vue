@@ -6,6 +6,12 @@
         <rux-icon size="normal" icon="antenna"></rux-icon>
         {{ alerts.length }} Active Alerts
       </div>
+      <div class="sort-by">
+        <rux-select label="Sort By" input-id="sort-alerts-by" label-id="sort-alerts-by" @ruxchange="changeAlertSort">
+          <rux-option value="time" selected="" label="Time"></rux-option>
+          <rux-option value="severity" label="Severity"></rux-option>
+        </rux-select>
+      </div>
       <SeverityStats :stats="alertStats" />
     </div>
     <div class="alerts-list">
@@ -14,7 +20,6 @@
           <rux-table-header-row>
             <rux-table-header-cell></rux-table-header-cell>
             <rux-table-header-cell></rux-table-header-cell>
-            <rux-table-header-cell>New</rux-table-header-cell>
             <rux-table-header-cell>Contact</rux-table-header-cell>
             <rux-table-header-cell>Message</rux-table-header-cell>
             <rux-table-header-cell>Time</rux-table-header-cell>
@@ -26,9 +31,14 @@
             :selected.prop="alert.expanded"
             @click="() => toggleExpanded($event, alert)"
             :key="`alert-${alert.errorId}`"
+            :style="{
+              'opacity': alert.new ? '1' : '0.75', 
+              'color': alert.new ? 'inherit' : 'lightgrey'
+              }"
           >
             <rux-table-cell>
               <rux-checkbox
+                v-if="alert.new"
                 :name="`check-alert-${alert.errorId}`"
                 :checked.prop="alert.selected"
                 @ruxchange="() => changeSelection($event, alert)"
@@ -37,7 +47,6 @@
             <rux-table-cell>
               <rux-status style="margin: auto;" :status="alert.errorSeverity"></rux-status>
             </rux-table-cell>
-            <rux-table-header-cell>{{ alert.new }}</rux-table-header-cell>
             <rux-table-cell>{{ alert.contactName }}</rux-table-cell>
             <rux-table-cell>{{ alert.errorMessage }}</rux-table-cell>
             <rux-table-cell>{{ alert.contactTime }}</rux-table-cell>
@@ -61,7 +70,7 @@
 import { reactive, computed } from 'vue';
 import { useStore } from 'vuex'
 
-import { loadAlerts, sortBySeverity, loadSeverityStats } from '../helpers/index'
+import { loadAlerts, sortByTime, loadSeverityStats, sortBySeverity, sortByNew } from '../helpers/index'
 import SeverityStats from './SeverityStats.vue'
 import AlertModal from './AlertModal.vue'
 
@@ -71,10 +80,22 @@ export default {
   setup(props) {
     reactive(props)
     const store = useStore()
-    const { state: { contacts }} = store
+    const { state: { contacts, sorting }} = store
 
     const alerts = computed(() => {
-      return sortBySeverity(loadAlerts(contacts), 'errorSeverity')
+      const allAlerts = loadAlerts(contacts)
+      let sortedAlerts
+      switch(sorting.alerts) {
+        case 'severity':
+          sortedAlerts = sortBySeverity(allAlerts, 'errorSeverity')
+          break
+        case 'time':
+        default:
+          sortedAlerts = sortByTime(allAlerts)
+          break
+      }
+      
+      return sortByNew(sortedAlerts)
     })
 
     const alertStats = computed(() => {
@@ -101,6 +122,10 @@ export default {
       store.commit('acknowledgeSelection')
     }
 
+    const changeAlertSort = (e) => {
+      store.commit('changeAlertSort', e.target.value)
+    }
+
     return {
       alerts,
       alertStats,
@@ -108,7 +133,8 @@ export default {
       changeSelection,
       toggleExpanded,
       openModal,
-      acknowledgeSelection
+      acknowledgeSelection,
+      changeAlertSort
     }
   }
 }

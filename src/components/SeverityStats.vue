@@ -1,22 +1,22 @@
 <template>
-  <ul>
-    <li class="status-critical">
-      {{ stats.critical }}
+  <div class="stats">
+    <rux-button size="small" secondary="">
+      <span class="status-critical">{{ stats.critical }}</span>
       <rux-status status="critical"></rux-status>
-    </li>
-    <li class="status-serious">
-      {{ stats.serious }}
+    </rux-button>
+    <rux-button size="small" secondary="">
+      <span class="status-serious">{{ stats.serious }}</span>
       <rux-status status="serious"></rux-status>
-    </li>
-    <li class="status-caution">
-      {{ stats.caution }}
+    </rux-button>
+    <rux-button size="small" secondary="">
+      <span class="status-caution">{{ stats.caution }}</span>
       <rux-status status="caution"></rux-status>
-    </li>
-    <li class="status-normal">
-      {{ stats.normal }}
+    </rux-button>
+    <rux-button size="small" secondary="">
+      <span class="status-normal">{{ stats.normal }}</span>
       <rux-status status="normal"></rux-status>
-    </li>
-  </ul>
+    </rux-button>
+  </div>
 </template>
 
 <script>
@@ -46,14 +46,14 @@ export default {
 
 <style lang="scss" scoped>
 
-  ul {
+  .stats {
     margin: 0;
     padding: 0;
     display: flex;
     text-align: center;
-    li {
+    rux-button {
       list-style: none;
-      padding: 0.25rem 0.5rem;
+      padding: 0.25rem 0.15rem;
       
       .status-critical {
         color: $colorCritical
