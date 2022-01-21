@@ -1,0 +1,19 @@
+rux-table-row.unacknowledge.critical {
+  background-color: #ff3838;
+}
+
+rux-table-row.unacknowledge.serious {
+    background-color: #ffb302;
+}
+
+rux-table-row.unacknowledge.warning {
+    background-color: #ffb302;
+}
+
+rux-table-row.unacknowledge.caution {
+    background-color: #fce83a;
+}
+
+rux-table-row.unacknowledge.normal {
+    background-color: #56f000;
+}

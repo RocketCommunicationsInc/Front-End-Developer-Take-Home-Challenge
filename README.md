@@ -38,3 +38,15 @@ The data.json file consists of a list of contacts (satellites) and any alerts as
 **Timeframe**
 
 We would like the take home challenge to be completed within 3 days. If you need more time, please reach out to us. You will not be judged on how quickly you complete the challenge.
+
+- Future Possibilities:
+  - Add option to display all contacts/satellites instead of only alerts
+    - could add two tables, one for contacts/satellites, other for alerts
+    - could add button to switch between alerts and contacts/satellites
+  - Update how unacknowledge is distinguished (currently not the prettiest)
+  - Add search bar to search for specific alerts or contacts/satellites
+    - Add multiquery to search bar to be able to search on multiple fields
+  - Add graph to see percentages of error severities
+    - Pie or graph
+      - clicking on certain error severity displays only those error severitys
+
