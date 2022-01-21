@@ -50,3 +50,9 @@ We would like the take home challenge to be completed within 3 days. If you need
     - Pie or graph
       - clicking on certain error severity displays only those error severitys
 
+# Set Up:
+ - Use preferred IDE (VS Code is my preffered)
+ - run `npm i`
+
+# Running:
+  - run `npm start`
