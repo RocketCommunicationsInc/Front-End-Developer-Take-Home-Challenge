@@ -12,7 +12,7 @@
     <div class="alert-header">
       <div>
         <span class="alert-count">
-          {{ activeAlerts }}
+          {{ activeAlerts || "No" }}
         </span>
         active alerts
       </div>
@@ -28,7 +28,7 @@
             :value="option.value"
             @ruxchange="refilter($event.target)"
           >
-            {{ option.label }}: {{ option.count }}
+            {{ option.label }}: {{ option.count || "none" }}
           </rux-checkbox>
         </rux-checkbox-group>
       </div>
@@ -50,10 +50,14 @@
       </div>
     </div>
     <AlertList
+      :selectedAlerts="this.selectedAlerts"
       :alerts="this.alerts"
       @select-clicked="toggleSelected"
       @show-details-clicked="showDetails"
     />
+    <rux-button @click="acknowledgeSelected" :disabled="!selectedAlerts.length">
+      Acknowledge
+    </rux-button>
   </div>
 </template>
 <script>
@@ -71,6 +75,8 @@ export default {
     modalTitle: "",
     modalMessage: "",
     alerts: [],
+    rawAlerts: [], // TODO: vuex?
+    selectedAlerts: [],
     sortOptions: [
       { label: "Time", value: "errorTime" },
       { label: "Severity", value: "errorSeverity" },
@@ -120,7 +126,7 @@ export default {
           }
           return option;
         }, this)
-        .filter((option) => option.count > 0);
+        .filter((option) => option.name === "new" || option.count > 0);
 
       return filterOptionsList;
     },
@@ -194,7 +200,7 @@ export default {
         },
       };
 
-      let facetedAlerts = this.getRawAlerts;
+      let facetedAlerts = this.rawAlerts || this.getRawAlerts;
 
       if (filters.length) {
         const unionFilters = Object.keys(filterMap)
@@ -206,9 +212,6 @@ export default {
 
         if (Object.entries(unionFilters).length) {
           facetedAlerts = facetedAlerts.filter((alert) => {
-            // TODO: if this passes the test (true), it is kept
-            // if this is in one of the options, show it - so... array.some
-            // TODO: i think this is a union filter, for intersection, i need to refilter
             if (
               Object.keys(unionFilters).some((key) =>
                 unionFilters[key].isFiltered(alert)
@@ -242,7 +245,6 @@ export default {
       let rawAlerts = rawContactsWithAlerts
         .map((contact) =>
           contact.alerts.map((alert) => ({
-            // contactId: contact.contactId, // I could just add the contact data directly...
             contactSatellite: contact.contactSatellite,
             contactName: contact.contactName,
             contactDetail: contact.contactDetail,
@@ -254,7 +256,6 @@ export default {
       // tweak raw data for a richer dataset
       let severityChanged = {};
       rawAlerts = rawAlerts.map((alert) => {
-        // const randomized = Math.floor(Math.random() * (100 - 1 + 1) + 1);
         const randomized = Math.floor(100 + Math.random() * 900);
         alert.errorId = alert.errorId.concat(randomized);
         const changedCount = severityChanged[alert.errorSeverity];
@@ -274,7 +275,7 @@ export default {
     getFacetedAlertCounts() {
       // TODO: faceted counts affected by intersect facet - this context? calling?
       // TODO: temp until moved to store - need to apply to unfiltered, then if new, apply new filter to count (fuuuuuuck)
-      const alertList = this.getRawAlerts;
+      const alertList = this.rawAlerts || this.getRawAlerts;
       const facetCount = {};
       alertList.forEach((alert) => {
         // if this alert has a prop in the template
@@ -301,6 +302,28 @@ export default {
   methods: {
     toggleSelected(alert) {
       console.log(`toggleSelected: ${alert}`);
+      const { checked, value: id } = alert;
+      if (checked) {
+        this.selectedAlerts.push(id);
+      } else {
+        this.selectedAlerts.splice(this.selectedAlerts.indexOf(id), 1);
+      }
+    },
+    // beyond scope: persist b/t loads
+    acknowledgeSelected() {
+      this.selectedAlerts.forEach((id) => {
+        const selectedIndex = this.rawAlerts.findIndex(
+          (alert) => alert.errorId === id
+        );
+        this.rawAlerts.splice(selectedIndex, 1, {
+          ...this.rawAlerts[selectedIndex],
+          new: false,
+        });
+      });
+
+      this.selectedAlerts = [];
+      this.alerts = this.getAlertList;
+      this.filterOptions = this.getFilterOptions;
     },
     showDetails(alert) {
       console.log(`showDetails: ${alert}`);
@@ -309,6 +332,7 @@ export default {
       this.showModal = true;
     },
     init() {
+      this.rawAlerts = this.getRawAlerts;
       this.alerts = this.getAlertList;
       this.filterOptions = this.getFilterOptions;
     },

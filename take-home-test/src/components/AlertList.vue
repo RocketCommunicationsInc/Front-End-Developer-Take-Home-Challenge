@@ -21,8 +21,9 @@
           <rux-checkbox
             v-if="alert.new"
             :name="alert.new"
-            :value="alert.new"
-            @ruxchange="$emit('select-clicked', alert.errorId)"
+            :value="alert.errorId"
+            :checked="isSelected(alert.errorId)"
+            @ruxchange="$emit('select-clicked', $event.target)"
           />
         </rux-table-cell>
         <rux-table-cell> {{ alert.errorTime }} </rux-table-cell>
@@ -50,6 +51,7 @@ export default {
   name: "AlertList",
   components: {},
   props: {
+    selectedAlerts: { type: Array },
     alerts: { type: Array },
   },
   data: () => ({
@@ -74,7 +76,11 @@ export default {
   computed: {
     // TODO: format data here or from a getter?
   },
-  methods: {},
+  methods: {
+    isSelected(id) {
+      return this.selectedAlerts.includes(id);
+    },
+  },
 };
 </script>
 <style>
