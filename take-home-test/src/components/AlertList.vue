@@ -36,7 +36,7 @@
         <rux-table-cell> {{ alert.contactName }} </rux-table-cell>
         <rux-table-cell> {{ alert.contactTime }} </rux-table-cell>
         <rux-table-cell>
-          <rux-button @click="$emit('show-details-clicked', alert.errorId)">
+          <rux-button @click="$emit('show-details-clicked', alert)">
             <!-- <rux-icon icon="details" size="extra-small"></rux-icon> -->
             Show Details
           </rux-button>

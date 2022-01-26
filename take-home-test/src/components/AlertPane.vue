@@ -1,5 +1,14 @@
 <template>
   <div class="alert-pane">
+    <rux-modal
+      :open="showModal"
+      :modal-title="modalTitle"
+      :modal-message="modalMessage"
+      confirm-text="Ok"
+      deny-text=""
+      @ruxmodalclosed="showModal = false"
+    >
+    </rux-modal>
     <div class="alert-header">
       <div>
         <span class="alert-count">
@@ -58,6 +67,9 @@ export default {
     AlertList,
   },
   data: () => ({
+    showModal: false,
+    modalTitle: "",
+    modalMessage: "",
     alerts: [],
     sortOptions: [
       { label: "Time", value: "errorTime" },
@@ -231,6 +243,7 @@ export default {
         .map((contact) =>
           contact.alerts.map((alert) => ({
             // contactId: contact.contactId, // I could just add the contact data directly...
+            contactSatellite: contact.contactSatellite,
             contactName: contact.contactName,
             contactDetail: contact.contactDetail,
             ...alert,
@@ -291,6 +304,9 @@ export default {
     },
     showDetails(alert) {
       console.log(`showDetails: ${alert}`);
+      this.modalTitle = `Satellite: ${alert.contactSatellite}`;
+      this.modalMessage = `${alert.contactDetail}`;
+      this.showModal = true;
     },
     init() {
       this.alerts = this.getAlertList;
