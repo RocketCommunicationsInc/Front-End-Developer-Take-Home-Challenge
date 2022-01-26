@@ -1,5 +1,24 @@
 <template>
   <div class="alert-pane">
+    <div class="alert-header">
+      <div class="alert-sorts">
+        <!-- TODO: looks like these components just take init and emit, but no v-model (i cant figure out how to make rux-select update its model) -->
+        <rux-select
+          label="Sort By"
+          input-id="2"
+          label-id="2"
+          :value="activeSortOrder"
+          @ruxchange="resort($event.target.value)"
+        >
+          <rux-option
+            v-for="option in sortOptions"
+            :key="option.label"
+            :value="option.value"
+            :label="option.label"
+          ></rux-option>
+        </rux-select>
+      </div>
+    </div>
     <AlertList
       :alerts="this.alerts"
       @select-clicked="toggleSelected"
@@ -18,6 +37,21 @@ export default {
   },
   data: () => ({
     alerts: [],
+    sortOptions: [
+      { label: "Time", value: "errorTime" },
+      { label: "Severity", value: "errorSeverity" },
+    ],
+    activeSortOrder: "errorTime",
+    severityOrder: [
+      "critical",
+      "serious",
+      "warning", // 1 found in data.json - https://www.astrouxds.com/components/status-symbol/ maps it to 'serious'
+      "caution",
+      "normal",
+      "standby",
+      "off",
+      // undefined,
+    ],
   }),
   created() {
     console.debug(`${this.$options.name}.created`);
@@ -25,17 +59,50 @@ export default {
   },
   watch: {},
   computed: {
-    // TODO: move this to the store
-    // TODO: when moved to the store, remove params - store will manage sorts/filters
+    // TODO: vuex store
     getAlertList() {
+      const sortOrder = this.activeSortOrder;
+      const sortCompareMap = {
+        errorTime: (a, b) => {
+          if (a.errorTime > b.errorTime) {
+            return -1;
+          }
+          if (a.errorTime < b.errorTime) {
+            return 1;
+          }
+          return 0;
+        },
+        errorSeverity: (a, b) => {
+          if (
+            this.severityOrder.indexOf(a.errorSeverity) <
+            this.severityOrder.indexOf(b.errorSeverity)
+          ) {
+            return -1;
+          }
+          if (
+            this.severityOrder.indexOf(a.errorSeverity) >
+            this.severityOrder.indexOf(b.errorSeverity)
+          ) {
+            return 1;
+          }
+          if (a.errorTime > b.errorTime) {
+            return -1;
+          }
+          if (a.errorTime < b.errorTime) {
+            return 1;
+          }
+          return 0;
+        },
+      };
+
       let facetedAlerts = this.getRawAlerts;
 
-      // TODO: apply mutators
+      facetedAlerts.sort(sortCompareMap[sortOrder]);
 
-      // TODO: should this transform data (timestamp maths) to consumer or an alert component?
+      // TODO: should this transform data (timestamp maths) to consumer or AlertList?
       return facetedAlerts;
     },
-    // TODO: this should be stored so i dont have to reprocess with different random numbers
+    // TODO: vuex store - init
     getRawAlerts() {
       // TODO: rawAlerts will emulate the api response
       let rawAlerts = rawContactsWithAlerts
@@ -52,6 +119,7 @@ export default {
       // tweak raw data for a richer dataset
       let severityChanged = {};
       rawAlerts = rawAlerts.map((alert) => {
+        // const randomized = Math.floor(Math.random() * (100 - 1 + 1) + 1);
         const randomized = Math.floor(100 + Math.random() * 900);
         alert.errorId = alert.errorId.concat(randomized);
         const changedCount = severityChanged[alert.errorSeverity];
@@ -77,6 +145,17 @@ export default {
     },
     init() {
       this.alerts = this.getAlertList;
+    },
+
+    // TODO: debating vuex mapMutations('RESORT') which should update alerts getter
+    resort(sortOrder) {
+      // TODO: more scalable for more sort options
+      console.log(`resort: ${sortOrder}`);
+      if (this.activeSortOrder === sortOrder) {
+        return;
+      }
+      this.activeSortOrder = sortOrder;
+      this.alerts = [...this.getAlertList];
     },
   },
 };
