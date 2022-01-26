@@ -1,6 +1,12 @@
 <template>
   <div class="alert-pane">
     <div class="alert-header">
+      <div>
+        <span class="alert-count">
+          {{ activeAlerts }}
+        </span>
+        active alerts
+      </div>
       <div class="alert-filters">
         <!-- TODO: ux tweaks? - [popup menu, scrollable content]  -->
         <!-- TODO: clear filters button -->
@@ -77,6 +83,9 @@ export default {
   },
   watch: {},
   computed: {
+    activeAlerts() {
+      return this.getFacetedAlertCounts.new;
+    },
     getFilterOptions() {
       const alertCounts = this.getFacetedAlertCounts;
       const useNew = this.activeFilters.includes("new");
