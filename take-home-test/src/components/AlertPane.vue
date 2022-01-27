@@ -10,11 +10,11 @@
     >
     </rux-modal>
     <div class="alert-header">
-      <div>
+      <div class="alert-summary">
         <span class="alert-count">
           {{ activeAlerts || "No" }}
         </span>
-        active alerts
+        New Alerts
       </div>
       <div class="alert-filters">
         <!-- TODO: ux tweaks? - [popup menu, scrollable content]  -->
@@ -35,8 +35,6 @@
       <div class="alert-sorts">
         <rux-select
           label="Sort By"
-          input-id="2"
-          label-id="2"
           :value="activeSortOrder"
           @ruxchange="resort($event.target.value)"
         >
@@ -49,19 +47,27 @@
         </rux-select>
       </div>
     </div>
-    <AlertList
-      :selectedAlerts="this.selectedAlerts"
-      :alerts="this.alerts"
-      @select-clicked="toggleSelected"
-      @show-details-clicked="showDetails"
-    />
-    <rux-button @click="acknowledgeSelected" :disabled="!selectedAlerts.length">
-      Acknowledge
-    </rux-button>
+    <div class="alert-log">
+      <AlertList
+        style="max-height: 90vh"
+        :selectedAlerts="this.selectedAlerts"
+        :alerts="this.alerts"
+        @select-clicked="toggleSelected"
+        @show-details-clicked="showDetails"
+      />
+    </div>
+    <div class="alert-actions">
+      <rux-button
+        @click="acknowledgeSelected"
+        :disabled="!selectedAlerts.length"
+      >
+        Acknowledge
+      </rux-button>
+    </div>
   </div>
 </template>
 <script>
-// TODO: temp - this should be moved closer to backend
+// TODO: temp - vuex?
 import rawContactsWithAlerts from "../../../data.json";
 import AlertList from "@/components/AlertList";
 
@@ -136,8 +142,9 @@ export default {
       const sortOrder = this.activeSortOrder;
       const filters = this.activeFilters;
 
-      // TODO: optimization - if sort order is changed, can work with existing filtered list
+      // TODO: optimization - if only sort order is changed, can work with existing filtered list
 
+      // TODO: these maps are static and should be moved to the appropriate context
       const filterMap = {
         new: {
           intersect: true,
@@ -266,7 +273,7 @@ export default {
       const alerts = this.rawAlerts || this.getRawAlerts;
       const facetCount = {};
       alerts.forEach((alert) => {
-        // if this alert has a prop in the template
+        // TODO: context leak: this should be dynamically build from the filterMap
         const { new: unacknowledged, errorSeverity } = alert;
         if (unacknowledged) {
           facetCount.new = facetCount.new ? facetCount.new + 1 : 1;
@@ -351,3 +358,50 @@ export default {
   },
 };
 </script>
+<style scoped>
+/* .alert-pane {
+  height: 100%;
+  min-height: 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+} */
+.alert-header {
+  padding: 1rem;
+  display: flex;
+
+  /* flex: none;
+  flex-flow: row nowrap; */
+}
+.alert-summary {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-self: center;
+  text-align: center;
+}
+.alert-count {
+  font-size: 3rem;
+  font-weight: 500;
+}
+.alert-filters,
+.alert-sorts {
+  padding: 1rem;
+}
+.alert-log {
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+}
+.alert-actions {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+
+  /* flex: none;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--logHeaderBackgroundColor, rgb(20, 32, 44));
+  box-shadow: 0 -0.5rem 1.25rem rgb(0 0 0 / 25%);
+  margin-top: auto;
+  z-index: 1; */
+}
+</style>

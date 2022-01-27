@@ -46,6 +46,11 @@
   </rux-table>
 </template>
 <script>
+/**
+ * NOTE: would a rux-log be better? I overlooked it until today b/c I thought logs were a subset of icons in the docs tree: Icons > Log
+ * Im noping trying to switch
+ * Im also noping trying to brute force this rux-table to have a sticky header and footer.
+ */
 export default {
   name: "AlertList",
   components: {},
@@ -55,7 +60,6 @@ export default {
   },
   data: () => ({
     // TODO: acknowledged 'select all' button and rows have checkbox (2-step needed)
-    // tableHeaders: [{name: 'Time', key: 'errorTime'}],
     tableHeaders: [
       // "Select All",
       "",
