@@ -1,0 +1,20 @@
+.alert-container {
+  background-color: rgba(102, 112, 167, 0.5);
+  margin: 10px;
+  margin-left: -40px;
+  list-style: none;
+  padding: 20px;
+  width: 400px;
+}
+
+.alert-learnmore {
+  cursor: pointer
+}
+
+.body-container {
+  margin-left: 30px
+}
+
+.filterButton {
+  margin-right: 10px
+}

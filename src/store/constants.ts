@@ -1,0 +1,2 @@
+export const FETCH_ALERTS = 'FETCH_ALERTS';
+export const ACKNOWLEDGE_ALERT = 'ACKNOWLEDGE_ALERT';
