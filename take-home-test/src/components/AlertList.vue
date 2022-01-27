@@ -16,7 +16,6 @@
         :key="`${alert.errorId}`"
         :class="alert.new ? '' : 'acknowledged'"
       >
-        <!-- :key="`${index}.${alert.errorId}`" -->
         <rux-table-cell>
           <rux-checkbox
             v-if="alert.new"
@@ -26,7 +25,7 @@
             @ruxchange="$emit('select-clicked', $event.target)"
           />
         </rux-table-cell>
-        <rux-table-cell> {{ alert.errorTime }} </rux-table-cell>
+        <!-- <rux-table-cell> {{ alert.errorTime }} </rux-table-cell> -->
         <rux-table-cell>
           <rux-status
             style="margin: auto"
@@ -35,7 +34,7 @@
         </rux-table-cell>
         <rux-table-cell> {{ alert.errorMessage }} </rux-table-cell>
         <rux-table-cell> {{ alert.contactName }} </rux-table-cell>
-        <rux-table-cell> {{ alert.contactTime }} </rux-table-cell>
+        <rux-table-cell> {{ contactTime(alert) }} </rux-table-cell>
         <rux-table-cell>
           <rux-button @click="$emit('show-details-clicked', alert)">
             <!-- <rux-icon icon="details" size="extra-small"></rux-icon> -->
@@ -60,11 +59,10 @@ export default {
     tableHeaders: [
       // "Select All",
       "",
-      "Time",
       "",
       "Message",
       "Contact Name",
-      "Contact Time",
+      "Time",
       "",
     ],
     statusIconMap: { warning: "serious" },
@@ -79,6 +77,14 @@ export default {
   methods: {
     isSelected(id) {
       return this.selectedAlerts.includes(id);
+    },
+    contactTime(alert) {
+      const { contactBeginTimestamp, contactEndTimestamp } = alert;
+      const timeLength = contactEndTimestamp - contactBeginTimestamp;
+      const minutes = Math.floor(timeLength / 60);
+      // TODO: just listing minutes as there are no seconds in the test data
+      // const seconds = timeLength - minutes * 60;
+      return `${minutes} min`;
     },
   },
 };

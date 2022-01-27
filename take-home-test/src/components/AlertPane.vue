@@ -75,7 +75,7 @@ export default {
     modalTitle: "",
     modalMessage: "",
     alerts: [],
-    rawAlerts: [], // TODO: vuex?
+    rawAlerts: [], // TODO: temp optimization until vuex?
     selectedAlerts: [],
     sortOptions: [
       { label: "Time", value: "errorTime" },
@@ -185,7 +185,6 @@ export default {
 
       let facetedAlerts = this.rawAlerts || this.getRawAlerts;
 
-      // TODO: rework filters, not reading well
       if (filters.length) {
         const unionFilters = [];
         const intersectFilters = [];
@@ -201,6 +200,7 @@ export default {
           }
         });
         if (intersectFilters.length) {
+          // TODO: optimization candidate if many filters
           intersectFilters.forEach((filter) => {
             facetedAlerts = facetedAlerts.filter((alert) =>
               filter.isFiltered(alert)
@@ -224,16 +224,24 @@ export default {
     },
     // TODO: vuex store - init
     getRawAlerts() {
-      // TODO: rawAlerts will emulate the api response
       let rawAlerts = rawContactsWithAlerts
-        .map((contact) =>
-          contact.alerts.map((alert) => ({
-            contactSatellite: contact.contactSatellite,
-            contactName: contact.contactName,
-            contactDetail: contact.contactDetail,
+        .map((contact) => {
+          const {
+            contactSatellite,
+            contactName,
+            contactDetail,
+            contactBeginTimestamp,
+            contactEndTimestamp,
+          } = contact;
+          return contact.alerts.map((alert) => ({
+            contactSatellite,
+            contactName, // this isnt informative
+            contactDetail,
+            contactBeginTimestamp,
+            contactEndTimestamp,
             ...alert,
-          }))
-        )
+          }));
+        })
         .reduce((acc, curVal) => acc.concat(curVal), []);
 
       // tweak raw data for a richer dataset
