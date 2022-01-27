@@ -92,7 +92,7 @@ export default {
       "off",
       // undefined,
     ],
-    filterOptions: [], // key, checked, name, label, count
+    filterOptions: [],
     activeFilters: ["new"],
   }),
   created() {
@@ -131,33 +131,16 @@ export default {
       return filterOptionsList;
     },
 
-    // TODO: all below here are candidates for vuex store
+    // TODO: all below here are candidates for vuex store, ants across the bridge first...
     getAlertList() {
       const sortOrder = this.activeSortOrder;
       const filters = this.activeFilters;
+
       // TODO: optimization - if sort order is changed, can work with existing filtered list
-      // TODO: i think i can make these templates in the store, then add isFiltered to each? i dont think functions can be observable?
-      // TODO: this can be a map: new: {intersect: true, isFiltered... }, then severityOrder.forEach add props
-      const filterOptions = [
-        {
-          key: "new",
-          intersect: true,
-          isFiltered: (alert) => alert.new === true,
-        },
-      ].concat(
-        this.severityOrder.map((status) => {
-          return {
-            key: status,
-            isFiltered: (alert) => alert.errorSeverity === status,
-          };
-        })
-      );
 
       const filterMap = {
         new: {
           intersect: true,
-          // TODO: TEMP - data.json alert.new = false - confusion
-          // TODO: TEMP - there is one per status key
           isFiltered: (alert) => alert.new === true,
         },
       };
@@ -202,35 +185,35 @@ export default {
 
       let facetedAlerts = this.rawAlerts || this.getRawAlerts;
 
+      // TODO: rework filters, not reading well
       if (filters.length) {
-        const unionFilters = Object.keys(filterMap)
-          .filter((key) => filters.includes(key) && !filterMap[key].intersect)
-          .reduce((obj, key) => {
-            obj[key] = filterMap[key];
-            return obj;
-          }, {});
-
-        if (Object.entries(unionFilters).length) {
+        const unionFilters = [];
+        const intersectFilters = [];
+        filters.forEach((key) => {
+          const filter = filterMap[key];
+          if (!filter) {
+            return;
+          }
+          if (filter.intersect) {
+            intersectFilters.push(filter);
+          } else {
+            unionFilters.push(filter);
+          }
+        });
+        if (intersectFilters.length) {
+          intersectFilters.forEach((filter) => {
+            facetedAlerts = facetedAlerts.filter((alert) =>
+              filter.isFiltered(alert)
+            );
+          });
+        }
+        if (unionFilters.length) {
           facetedAlerts = facetedAlerts.filter((alert) => {
-            if (
-              Object.keys(unionFilters).some((key) =>
-                unionFilters[key].isFiltered(alert)
-              )
-            ) {
+            if (unionFilters.some((filter) => filter.isFiltered(alert))) {
               return true;
             }
             return false;
           });
-        }
-
-        // NOTE: this solution only works for one intersection filter.
-        const intersectFilter = filterOptions.find(
-          (option) => option.intersect && filters.includes(option.key)
-        );
-        if (intersectFilter) {
-          facetedAlerts = facetedAlerts.filter((alert) =>
-            intersectFilter.isFiltered(alert)
-          );
         }
       }
 
@@ -271,13 +254,10 @@ export default {
       });
       return rawAlerts;
     },
-    // TODO: i hope i can consolidate templates for these datastructures, this is getting to be a mess
     getFacetedAlertCounts() {
-      // TODO: faceted counts affected by intersect facet - this context? calling?
-      // TODO: temp until moved to store - need to apply to unfiltered, then if new, apply new filter to count (fuuuuuuck)
-      const alertList = this.rawAlerts || this.getRawAlerts;
+      const alerts = this.rawAlerts || this.getRawAlerts;
       const facetCount = {};
-      alertList.forEach((alert) => {
+      alerts.forEach((alert) => {
         // if this alert has a prop in the template
         const { new: unacknowledged, errorSeverity } = alert;
         if (unacknowledged) {
@@ -354,6 +334,7 @@ export default {
       } else {
         this.activeFilters.splice(this.activeFilters.indexOf(name), 1);
       }
+      // toggling 'new' filter updates other filter options
       if (name === "new") {
         this.filterOptions = [...this.getFilterOptions];
       }
