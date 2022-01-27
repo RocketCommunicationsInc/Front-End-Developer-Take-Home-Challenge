@@ -47,15 +47,12 @@
         </rux-select>
       </div>
     </div>
-    <div class="alert-log">
-      <AlertList
-        style="max-height: 90vh"
-        :selectedAlerts="this.selectedAlerts"
-        :alerts="this.alerts"
-        @select-clicked="toggleSelected"
-        @show-details-clicked="showDetails"
-      />
-    </div>
+    <AlertList
+      :selectedAlerts="this.selectedAlerts"
+      :alerts="this.alerts"
+      @select-clicked="toggleSelected"
+      @show-details-clicked="showDetails"
+    />
     <div class="alert-actions">
       <rux-button
         @click="acknowledgeSelected"
@@ -87,7 +84,7 @@ export default {
       { label: "Time", value: "errorTime" },
       { label: "Severity", value: "errorSeverity" },
     ],
-    activeSortOrder: "errorTime",
+    activeSortOrder: "errorTime", // default
     severityOrder: [
       "critical",
       "serious",
@@ -99,7 +96,7 @@ export default {
       // undefined,
     ],
     filterOptions: [],
-    activeFilters: ["new"],
+    activeFilters: ["new"], // default
   }),
   created() {
     console.debug(`${this.$options.name}.created`);
@@ -137,7 +134,7 @@ export default {
       return filterOptionsList;
     },
 
-    // TODO: all below here are candidates for vuex store, ants across the bridge first...
+    // @returns the list of alerts with sorters/filters applied
     getAlertList() {
       const sortOrder = this.activeSortOrder;
       const filters = this.activeFilters;
@@ -226,7 +223,6 @@ export default {
 
       facetedAlerts.sort(sortCompareMap[sortOrder]);
 
-      // TODO: should this transform data (timestamp maths) to consumer or AlertList?
       return facetedAlerts;
     },
     // TODO: vuex store - init
@@ -295,6 +291,11 @@ export default {
     },
   },
   methods: {
+    init() {
+      this.rawAlerts = this.getRawAlerts;
+      this.alerts = this.getAlertList;
+      this.filterOptions = this.getFilterOptions;
+    },
     toggleSelected(alert) {
       console.log(`toggleSelected: ${alert}`);
       const { checked, value: id } = alert;
@@ -319,6 +320,23 @@ export default {
       this.selectedAlerts = [];
       this.alerts = this.getAlertList;
       this.filterOptions = this.getFilterOptions;
+      this.unfilterHiddenOptions();
+    },
+    // ensures hidden filters aren't applied to the dataset
+    unfilterHiddenOptions() {
+      const visibleActiveFilters = this.activeFilters.filter((key) => {
+        if (key === "new") {
+          return true;
+        }
+        return this.filterOptions.some((option) => {
+          return option.count > 0 && option.name === key;
+        });
+      });
+      if (this.activeFilters.length === visibleActiveFilters.length) {
+        return;
+      }
+      this.activeFilters = visibleActiveFilters;
+      this.alerts = this.getAlertList;
     },
     showDetails(alert) {
       console.log(`showDetails: ${alert}`);
@@ -326,13 +344,6 @@ export default {
       this.modalMessage = `${alert.contactDetail}`;
       this.showModal = true;
     },
-    init() {
-      this.rawAlerts = this.getRawAlerts;
-      this.alerts = this.getAlertList;
-      this.filterOptions = this.getFilterOptions;
-    },
-
-    // TODO: debating vuex mapMutations([RESORT,REFILTER]) which should update alerts getter
     resort(sortOrder) {
       // TODO: more scalable for more sort options
       console.log(`resort: ${sortOrder}`);
@@ -359,18 +370,9 @@ export default {
 };
 </script>
 <style scoped>
-/* .alert-pane {
-  height: 100%;
-  min-height: 0px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-} */
 .alert-header {
   padding: 1rem;
   display: flex;
-
-  /* flex: none;
-  flex-flow: row nowrap; */
 }
 .alert-summary {
   flex: 1 1 auto;
@@ -387,21 +389,9 @@ export default {
 .alert-sorts {
   padding: 1rem;
 }
-.alert-log {
-  display: flex;
-  flex-flow: column;
-  overflow: hidden;
-}
 .alert-actions {
   display: flex;
   justify-content: center;
   padding: 2rem;
-
-  /* flex: none;
-  flex-wrap: wrap;
-  border-top: 1px solid var(--logHeaderBackgroundColor, rgb(20, 32, 44));
-  box-shadow: 0 -0.5rem 1.25rem rgb(0 0 0 / 25%);
-  margin-top: auto;
-  z-index: 1; */
 }
 </style>
