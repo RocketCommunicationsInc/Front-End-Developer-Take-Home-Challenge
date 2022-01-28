@@ -1,19 +1,20 @@
 import { RuxModal } from "@astrouxds/react";
 
 const AlertDetails = (props) => {
-    if(props.modalOpen) {
+    const { openModal, setOpenModal, data } = props; 
+    let satellite = `Satellite: ${data.contactSatellite}`;
+    let details = data.contactDetail; 
+    
         return (
-            <RuxModal
-                open={props.modalOpen}
-                onRuxmodalclosed={() => props.setModalOpen(null)}
-                confirmText="OK"
-                denyText=""
-                modalTitle={props.contactName}
-                modalMessage={props.contactDetails}
-            />
+                <RuxModal
+                        open={openModal}
+                        onRuxmodalclosed={() => setOpenModal(false)}
+                        confirmText='OK'
+                        denyText=''
+                        modalTitle={satellite}
+                        modalMessage={details}
+                    />
         )
-    }
-    return null; 
 }
 
 export default AlertDetails; 
