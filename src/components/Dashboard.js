@@ -21,6 +21,11 @@ const Dashboard = () => {
     const [checked, setChecked] = useState({}); 
 
     let newContacts = contacts.filter((data) => data.alerts.length > 0)
+    
+    // most recent alerts sorted to top 
+    newContacts.sort((a, b) => {
+        return (a.contactEndTimestamp - a.contactBeginTimestamp) - (b.contactEndTimestamp - b.contactBeginTimestamp)
+    }); 
  
     // const filterByCritical = () => {
     //     return contacts.filter((data) => data.alerts[0].errorSeverity === 'critical')
@@ -38,13 +43,13 @@ const Dashboard = () => {
                         <RuxTableHeaderCell>State</RuxTableHeaderCell>
                         <RuxTableHeaderCell>Step</RuxTableHeaderCell>
                         <RuxTableHeaderCell>Alert Message</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Error Severity
-                            {""}
+                        <RuxTableHeaderCell>
                             <RuxSelect label="" input-id="1" label-id="1">
                                 <RuxOption value="" selected="" label="Filter By"></RuxOption>
                             </RuxSelect>
                         </RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Details</RuxTableHeaderCell>
+                        <RuxTableHeaderCell>Category</RuxTableHeaderCell>
+                        <RuxTableHeaderCell></RuxTableHeaderCell>
                         <RuxTableHeaderCell></RuxTableHeaderCell>
                     </RuxTableRow>
                 </RuxTableHeader>
@@ -60,13 +65,14 @@ const Dashboard = () => {
                         <RuxTableCell>{contact.contactStep}</RuxTableCell>
                         <RuxTableCell>{contact.alerts[0].errorMessage}</RuxTableCell>
                         <RuxTableCell>{contact.alerts[0].errorSeverity[0].toUpperCase() + contact.alerts[0].errorSeverity.substring(1)}</RuxTableCell>
+                        <RuxTableCell>{contact.alerts[0].errorCategory[0].toUpperCase() + contact.alerts[0].errorCategory.substring(1)}</RuxTableCell>
                         <RuxTableCell><RuxButton
                                 onClick={() => {
                                     setData(contact);
                                     setOpenModal(true);
                                 }}
                             >
-                            View
+                            Show Details
                             </RuxButton>
                         </RuxTableCell> 
                         <RuxTableCell>
