@@ -7,94 +7,83 @@ import {
     RuxTableCell,
     RuxButton,
     RuxCheckbox,
-    RuxSelect,
-    RuxOption
 } from '@astrouxds/react' 
-
-import { useState } from 'react'; 
+import { useState, useMemo } from 'react'; 
 import contacts from '../data.json';
-import AlertDetails from './AlertDetails'; 
+import Dropdown from './Dropdown';
+import Modal from './Modal'; 
+import TableHeader from './TableHeaders';
+import TableCell from './TableCells';
 
 const Dashboard = () => {
     const [openModal, setOpenModal] = useState(false); 
     const [data, setData] = useState([]); 
-    const [checked, setChecked] = useState({}); 
+    const [checked, setChecked] = useState(false); 
+    const [value, setValue] = useState("")
 
+    // filtering by contacts that contact alerts 
     let newContacts = contacts.filter((data) => data.alerts.length > 0)
     
     // most recent alerts sorted to top 
     newContacts.sort((a, b) => {
-        return (a.contactEndTimestamp - a.contactBeginTimestamp) - (b.contactEndTimestamp - b.contactBeginTimestamp)
+        return (a.contactEndTimestamp - a.contactBeginTimestamp) - (b.contactEndTimestamp - b.contactBeginTimestamp); 
     }); 
- 
-    // const filterByCritical = () => {
-    //     return contacts.filter((data) => data.alerts[0].errorSeverity === 'critical')
-    // }
 
+    // let critical = newContacts.filter((data) => data.alerts[0].errorSeverity === 'critical')
+    // let serious = newContacts.filter((data) => data.alerts[0].errorSeverity === 'serious')
+    // let caution = newContacts.filter((data) => data.alerts[0].errorSeverity === 'caution')
+
+    const filteredContacts = useMemo(() => {
+        if(!value || value === "All") return newContacts
+        
+        return newContacts.filter(item => item.alerts[0].errorSeverity === value)
+    }, [value, newContacts]);
+    
     return (
         <>
             <RuxTable>
                 <RuxTableHeader>
                     <RuxTableRow>
-                        <RuxTableHeaderCell>Name</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Ground</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Time</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Status</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>State</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Step</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Alert Message</RuxTableHeaderCell>
+                        <TableHeader/>
                         <RuxTableHeaderCell>
-                            <RuxSelect label="" input-id="1" label-id="1">
-                                <RuxOption value="" selected="" label="Filter By"></RuxOption>
-                            </RuxSelect>
+                            <Dropdown value={value} onChange={e => setValue(e.value)}/>
                         </RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Category</RuxTableHeaderCell>
                         <RuxTableHeaderCell></RuxTableHeaderCell>
                         <RuxTableHeaderCell></RuxTableHeaderCell>
                     </RuxTableRow>
                 </RuxTableHeader>
                 <RuxTableBody>
-                {newContacts.map((contact) => { 
+                {filteredContacts.map((contact) => { 
                     return (
-                        <RuxTableRow key={contact._id} selected="false">
-                        <RuxTableCell>{contact.contactName}</RuxTableCell>
-                        <RuxTableCell>{contact.contactGround}</RuxTableCell>
-                        <RuxTableCell>{contact.contactEndTimestamp - contact.contactBeginTimestamp}</RuxTableCell>
-                        <RuxTableCell>{contact.contactStatus[0].toUpperCase() + contact.contactStatus.substring(1)}</RuxTableCell>
-                        <RuxTableCell>{contact.contactState[0].toUpperCase() + contact.contactState.substring(1)}</RuxTableCell>
-                        <RuxTableCell>{contact.contactStep}</RuxTableCell>
-                        <RuxTableCell>{contact.alerts[0].errorMessage}</RuxTableCell>
-                        <RuxTableCell>{contact.alerts[0].errorSeverity[0].toUpperCase() + contact.alerts[0].errorSeverity.substring(1)}</RuxTableCell>
-                        <RuxTableCell>{contact.alerts[0].errorCategory[0].toUpperCase() + contact.alerts[0].errorCategory.substring(1)}</RuxTableCell>
-                        <RuxTableCell><RuxButton
-                                onClick={() => {
-                                    setData(contact);
-                                    setOpenModal(true);
-                                }}
-                            >
-                            Show Details
-                            </RuxButton>
-                        </RuxTableCell> 
-                        <RuxTableCell>
-                            {checked.id === contact._id ? 
-                            (<RuxCheckbox 
-                                checked=''
-                                name={contact.contactName}
-                                onClick={(e) => {setChecked(contact)}}>
-                            </RuxCheckbox>) : 
-                            (<RuxCheckbox 
-                                name={contact.contactName}
-                                onClick={(e) => {setChecked(contact)}}>
-                            </RuxCheckbox>)
-                            }
-                        </RuxTableCell>
-                    </RuxTableRow>
+                        <RuxTableRow key={contact._id} selected='false'>
+                            <TableCell data={contact}/>
+                            <RuxTableCell><RuxButton
+                                    onClick={() => {
+                                        setData(contact);
+                                        setOpenModal(true);
+                                    }}
+                                >
+                                Show Details
+                                </RuxButton>
+                            </RuxTableCell> 
+                            <RuxTableCell>
+                                <RuxCheckbox 
+                                    name={contact.contactName}
+                                    onChange={(e => setChecked(e.target.checked))}
+                                    onClick={() => setChecked(!checked)}
+                                >
+                               </RuxCheckbox>
+                            </RuxTableCell>
+                        </RuxTableRow>
                 )})}
             </RuxTableBody> 
             </RuxTable>
-            {openModal && <AlertDetails openModal={openModal} setOpenModal={setOpenModal} data={data}/>}
+            {openModal && <Modal openModal={openModal} setOpenModal={setOpenModal} data={data}/>}
         </>
     )
 }
 
 export default Dashboard; 
+
+
+

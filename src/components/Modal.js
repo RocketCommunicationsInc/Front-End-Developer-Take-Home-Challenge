@@ -1,10 +1,10 @@
 import { RuxModal } from "@astrouxds/react";
 
-const AlertDetails = (props) => {
+const Modal = (props) => {
     const { openModal, setOpenModal, data } = props; 
     let satellite = `Satellite: ${data.contactSatellite}`;
     let details = data.contactDetail; 
-    
+
         return (
                 <RuxModal
                         open={openModal}
@@ -17,4 +17,4 @@ const AlertDetails = (props) => {
         )
 }
 
-export default AlertDetails; 
+export default Modal; 
