@@ -11,7 +11,7 @@ const TableCell = (data) => {
             <RuxTableCell>{data.data.contactStep}</RuxTableCell>
             <RuxTableCell>{data.data.alerts[0].errorMessage}</RuxTableCell>
             <RuxTableCell>{data.data.alerts[0].errorCategory[0].toUpperCase() + data.data.alerts[0].errorCategory.substring(1)}</RuxTableCell>
-            <RuxTableCell>{data.data.alerts[0].errorSeverity[0].toUpperCase() + data.data.alerts[0].errorSeverity.substring(1)}</RuxTableCell>
+            <RuxTableCell id="error">{data.data.alerts[0].errorSeverity[0].toUpperCase() + data.data.alerts[0].errorSeverity.substring(1)}</RuxTableCell>
         </>
     )
 }

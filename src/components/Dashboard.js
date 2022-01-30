@@ -7,10 +7,12 @@ import {
     RuxTableCell,
     RuxButton,
     RuxCheckbox,
+    RuxSelect,
+    RuxOption
 } from '@astrouxds/react' 
 import { useState, useMemo } from 'react'; 
 import contacts from '../data.json';
-import Dropdown from './Dropdown';
+// import Dropdown from './Dropdown';
 import Modal from './Modal'; 
 import TableHeader from './TableHeaders';
 import TableCell from './TableCells';
@@ -19,7 +21,7 @@ const Dashboard = () => {
     const [openModal, setOpenModal] = useState(false); 
     const [data, setData] = useState([]); 
     const [checked, setChecked] = useState(false); 
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState(false); 
 
     // filtering by contacts that contact alerts 
     let newContacts = contacts.filter((data) => data.alerts.length > 0)
@@ -28,17 +30,18 @@ const Dashboard = () => {
     newContacts.sort((a, b) => {
         return (a.contactEndTimestamp - a.contactBeginTimestamp) - (b.contactEndTimestamp - b.contactBeginTimestamp); 
     }); 
-
-    // let critical = newContacts.filter((data) => data.alerts[0].errorSeverity === 'critical')
-    // let serious = newContacts.filter((data) => data.alerts[0].errorSeverity === 'serious')
-    // let caution = newContacts.filter((data) => data.alerts[0].errorSeverity === 'caution')
-
+  
+   
     const filteredContacts = useMemo(() => {
-        if(!value || value === "All") return newContacts
-        
+        if(!value || value === "All") return newContacts 
+
         return newContacts.filter(item => item.alerts[0].errorSeverity === value)
     }, [value, newContacts]);
-    
+
+    // if(checked === true) {
+    //     console.log('im true')
+    // }
+
     return (
         <>
             <RuxTable>
@@ -46,10 +49,27 @@ const Dashboard = () => {
                     <RuxTableRow>
                         <TableHeader/>
                         <RuxTableHeaderCell>
-                            <Dropdown value={value} onChange={e => setValue(e.value)}/>
+                        <RuxSelect value={value} onMouseLeave={(e) => setValue(e.target.value)}>
+                                <RuxOption 
+                                    value=''
+                                    label='All'>
+                                </RuxOption>
+                                <RuxOption 
+                                    value='critical'
+                                    label='Critical'>
+                                </RuxOption>
+                                <RuxOption 
+                                    value='serious'
+                                    label='Serious'>
+                                </RuxOption> 
+                                <RuxOption 
+                                    value='caution'
+                                    label='Caution'>
+                                </RuxOption> 
+                        </RuxSelect>
                         </RuxTableHeaderCell>
-                        <RuxTableHeaderCell></RuxTableHeaderCell>
-                        <RuxTableHeaderCell></RuxTableHeaderCell>
+                        <RuxTableHeaderCell>Details</RuxTableHeaderCell>
+                        <RuxTableHeaderCell>Acknowledged</RuxTableHeaderCell>
                     </RuxTableRow>
                 </RuxTableHeader>
                 <RuxTableBody>
@@ -69,7 +89,6 @@ const Dashboard = () => {
                             <RuxTableCell>
                                 <RuxCheckbox 
                                     name={contact.contactName}
-                                    onChange={(e => setChecked(e.target.checked))}
                                     onClick={() => setChecked(!checked)}
                                 >
                                </RuxCheckbox>
@@ -85,5 +104,23 @@ const Dashboard = () => {
 
 export default Dashboard; 
 
+
+
+ // if(newContacts.alerts[0].errorSeverity === 'critical') {
+    //     return document.getElementsById('error').style.color = 'pink'
+    // }
+
+    // const changeHandler = e => {
+    //     const value = e.target.value; 
+    //     if(value === "All") {
+    //         return newContacts
+    //     } else if (value === "critical") {
+    //         setFilteredContacts(newContacts.filter((data) => data.alerts[0].errorSeverity === 'critical'));
+    //     } else if (value === "serious") {
+    //         setFilteredContacts(newContacts.filter((data) => data.alerts[0].errorSeverity === 'serious'));
+    //     } else if (value === "caution") {
+    //         setFilteredContacts(newContacts.filter((data) => data.alerts[0].errorSeverity === 'caution')); 
+    //     }
+    // }
 
 

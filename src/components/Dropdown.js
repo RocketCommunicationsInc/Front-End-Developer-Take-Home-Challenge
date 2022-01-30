@@ -5,14 +5,14 @@ const Dropdown = ({ value }) => {
     console.log(value)
 
     return (
-        <>  <RuxSelect>
-                <RuxOption value="All" label="All"></RuxOption>
-                <RuxOption value="critical" label="Critical"></RuxOption>
-                <RuxOption value="serious" label="Serious"></RuxOption>
-                <RuxOption value="caution" label="Caution"></RuxOption>
-            </RuxSelect>
-          
-        </>
+        <>  
+            <RuxSelect label="Select Menu" input-id="1" label-id="1">
+                <RuxOption value="" selected="" label="Select an option"></RuxOption>
+                <RuxOption value="1.1" label="Option 1.1"></RuxOption>
+                <RuxOption value="1.2" label="Option 1.2"></RuxOption>
+                <RuxOption value="1.3" label="Option 1.3"></RuxOption>
+                <RuxOption value="1.4" label="Option 1.4"></RuxOption>
+            </RuxSelect></>
     )
 }
 
