@@ -80,9 +80,9 @@ const Dashboard = () => {
                     </RuxTableRow>
                 </RuxTableHeader>
                 <RuxTableBody>
-                    {filteredContacts.map((contact, name) => { 
+                    {filteredContacts.map((contact, index) => { 
                         return (
-                            <RuxTableRow key={name} selected={checked[name] === true ? '' : 'false'}>
+                            <RuxTableRow key={index} selected={checked[index] === true ? '' : 'false'}>
                                 <TableCell data={contact}/>
                                 <RuxTableCell>
                                     <RuxButton
@@ -99,8 +99,8 @@ const Dashboard = () => {
                                         type="checkbox" 
                                         value={contacts._id}
                                         name={contacts._id}
-                                        onChange={() => handleCheckbox(name)}
-                                        checked={checked[name]}
+                                        onChange={() => handleCheckbox(index)}
+                                        checked={checked[index]}
                                     />                               
                                 </RuxTableCell>
                             </RuxTableRow>
