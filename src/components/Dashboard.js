@@ -6,13 +6,12 @@ import {
     RuxTableBody,
     RuxTableCell,
     RuxButton,
-    RuxCheckbox,
     RuxSelect,
-    RuxOption
+    RuxOption,
+    RuxCheckbox
 } from '@astrouxds/react' 
 import { useState, useMemo } from 'react'; 
 import contacts from '../data.json';
-// import Dropdown from './Dropdown';
 import Modal from './Modal'; 
 import TableHeader from './TableHeaders';
 import TableCell from './TableCells';
@@ -21,7 +20,7 @@ const Dashboard = () => {
     const [openModal, setOpenModal] = useState(false); 
     const [data, setData] = useState([]); 
     const [checked, setChecked] = useState(false); 
-    const [value, setValue] = useState(false); 
+    const [value, setValue] = useState('All'); 
 
     // filtering by contacts that contact alerts 
     let newContacts = contacts.filter((data) => data.alerts.length > 0)
@@ -31,16 +30,17 @@ const Dashboard = () => {
         return (a.contactEndTimestamp - a.contactBeginTimestamp) - (b.contactEndTimestamp - b.contactBeginTimestamp); 
     }); 
   
-   
     const filteredContacts = useMemo(() => {
-        if(!value || value === "All") return newContacts 
+        if(!value || value === 'All') return newContacts 
 
         return newContacts.filter(item => item.alerts[0].errorSeverity === value)
     }, [value, newContacts]);
 
-    // if(checked === true) {
-    //     console.log('im true')
-    // }
+    const handleCheckbox = (event) => {
+        setChecked(event.target.value); 
+    }
+
+    console.log(checked)
 
     return (
         <>
@@ -75,9 +75,10 @@ const Dashboard = () => {
                 <RuxTableBody>
                 {filteredContacts.map((contact) => { 
                     return (
-                        <RuxTableRow key={contact._id} selected='false'>
-                            <TableCell data={contact}/>
-                            <RuxTableCell><RuxButton
+                        <RuxTableRow selected={checked === contact._id ? '' : 'false'}>
+                            <TableCell data={contact} key={contact._id}/>
+                            <RuxTableCell>
+                                <RuxButton
                                     onClick={() => {
                                         setData(contact);
                                         setOpenModal(true);
@@ -87,11 +88,14 @@ const Dashboard = () => {
                                 </RuxButton>
                             </RuxTableCell> 
                             <RuxTableCell>
-                                <RuxCheckbox 
-                                    name={contact.contactName}
-                                    onClick={() => setChecked(!checked)}
+                                <RuxCheckbox
+                                 type="checkbox" 
+                                 className="acknowledged" 
+                                 value={contact._id}
+                                 onClick={handleCheckbox}
+                                 key={contact._id}
                                 >
-                               </RuxCheckbox>
+                                </RuxCheckbox>
                             </RuxTableCell>
                         </RuxTableRow>
                 )})}
@@ -104,23 +108,9 @@ const Dashboard = () => {
 
 export default Dashboard; 
 
-
-
- // if(newContacts.alerts[0].errorSeverity === 'critical') {
-    //     return document.getElementsById('error').style.color = 'pink'
-    // }
-
-    // const changeHandler = e => {
-    //     const value = e.target.value; 
-    //     if(value === "All") {
-    //         return newContacts
-    //     } else if (value === "critical") {
-    //         setFilteredContacts(newContacts.filter((data) => data.alerts[0].errorSeverity === 'critical'));
-    //     } else if (value === "serious") {
-    //         setFilteredContacts(newContacts.filter((data) => data.alerts[0].errorSeverity === 'serious'));
-    //     } else if (value === "caution") {
-    //         setFilteredContacts(newContacts.filter((data) => data.alerts[0].errorSeverity === 'caution')); 
-    //     }
-    // }
-
-
+{/* <input 
+type="checkbox" 
+className="acknowledged" 
+value={contact._id}
+onChange={handleCheckbox}
+/> */}

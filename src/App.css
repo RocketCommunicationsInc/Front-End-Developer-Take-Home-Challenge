@@ -2,6 +2,14 @@ rux-table-row:hover {
   color: #4eadfe; 
 }
 
-/* rux-table-row {
-  background-color: pink;
-} */
+.critical {
+  color: #ff3838; 
+}
+
+.serious {
+  color: #ffb302;
+}
+
+.caution {
+  color: #fce83a;
+}
