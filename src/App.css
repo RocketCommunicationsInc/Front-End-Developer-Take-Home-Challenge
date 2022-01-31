@@ -13,3 +13,9 @@ rux-table-row:hover {
 .caution {
   color: #fce83a;
 }
+
+input[type=checkbox] {
+  accent-color: #4eadfe;
+  height: 1.2rem; 
+  width: 1.2rem;
+}
