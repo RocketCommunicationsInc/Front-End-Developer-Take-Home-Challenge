@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Global Classes */
+
+.content-header {
+  margin-bottom: 1rem;
+}
+
+.dashboard {
+  height: 100vh;
+  width: 100vw;
+  background: var(--color-background);
+}
+
+
+/* 
+=======================================
+Header
+=======================================
+*/
+
+.dashboard-header {
+  height: 15vh;
+  display: flex;
+}
+
+.header-title {
+  margin: auto auto;
+}
+
+
+/* 
+=======================================
+Alert & Contact Container
+=======================================
+*/
+
+.alert-contact-container {
+  display: flex;
+  width: 100vw;
+  height: 85vh;
+}
+
+
+/* 
+=======================================
+Alert
+=======================================
+*/
+
+.dashboard-alert {
+  padding: 1rem 0;
+  text-align: center;
+  flex: 0 0 50%;
+}
+
+
+/* .alert-header {
+  margin-bottom: 1rem;
+} */
+
+.alert-header-cell {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.alert-table {
+  max-height: 378px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.rux-cell-select {
+  width: 5rem;
+  padding-left: 1rem;
+}
+
+.rux-cell-name {
+  width: 6rem;
+  padding: 0 1rem;
+}
+
+.rux-cell-time {
+  width: 6rem;
+  padding: 0 1rem;
+}
+
+.alert-table-row {
+  border-style: none;
+  margin-bottom: none;
+  margin-top: none;
+  padding: 0.25rem 0.5rem;
+  width: 5rem;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  width: 5rem;
+  padding: 0.5 1rem;
+
+}
+
+.message {
+  width: 25rem;
+}
+
+.name {
+  width: 7rem;
+}
+
+.time {
+  width: 7rem;
+}
+
+
+/* 
+=======================================
+Contacts
+=======================================
+*/
+
+.dashboard-contacts {
+  padding: 1rem 0;
+  text-align: center;
+}
+
+
+/* .contact-header {
+  margin-bottom: 1rem;
+} */
+
+.dashboard-contacts {
+  flex: 0 0 50%;
+}
+
+
+/* 
+@media screen and (min-width: 992px) {
+  .about-center {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .about-img,
+  .about-info {
+    flex: 0 0 calc(50% - 2rem);
+    margin-bottom: 0;
+    align-self: center;
+  }
+}   
+*/
+
+
+/* 
+<div className="App">
+  <header className="App-header">
+    <div>
+      <RuxProgress />
+    </div>
+    <p>
+      Welcome to Astro UXDS web components in React! Check out the README.md
+      for more information on getting started.
+    </p>
+    <a
+      className="App-link"
+      href="https://astrouxds.com"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      astrouxds.com
+    </a>
+    <RuxButton>Hello</RuxButton>
+  </header>
+</div>
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: var(--color-primary);
+}
+*/
