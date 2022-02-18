@@ -1,11 +1,12 @@
-import { RuxProgress, RuxButton } from '@astrouxds/react';
 import Header from './components/Header';
 import Alerts from './components/Alerts';
 import Contacts from './components/Contacts';
+import Modal from './components/Modal';
 
 function App() {
   return (
     <div className="dashboard">
+      <Modal />
       <Header />
       <div className="alert-contact-container">
         <Alerts />

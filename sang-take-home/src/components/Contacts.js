@@ -3,6 +3,7 @@ import {
   RuxTable,
   RuxTableHeaderRow,
   RuxTableHeaderCell,
+  RuxTableBody,
 } from '@astrouxds/react';
 
 /*
@@ -30,6 +31,24 @@ const Contacts = () => {
           </RuxTableHeaderCell>
         </RuxTableHeaderRow>
       </RuxTable>
+      <article className="alert-table">
+        <RuxTableBody>
+          {/* <RuxTableRow>
+            <RuxCheckbox className="alert-table-row checkbox"></RuxCheckbox>
+            <RuxTableCell className="alert-table-row message">
+              Test
+            </RuxTableCell>
+            <RuxTableCell className="alert-table-row name">Test</RuxTableCell>
+            <RuxTableCell className="alert-table-row time">Test</RuxTableCell>
+          </RuxTableRow>
+          <RuxTableRow>
+            <RuxCheckbox className="alert-table-row checkbox"></RuxCheckbox>
+            <RuxTableCell>Test</RuxTableCell>
+            <RuxTableCell>Test</RuxTableCell>
+            <RuxTableCell>Test</RuxTableCell>
+          </RuxTableRow> */}
+        </RuxTableBody>
+      </article>
     </section>
   );
 };

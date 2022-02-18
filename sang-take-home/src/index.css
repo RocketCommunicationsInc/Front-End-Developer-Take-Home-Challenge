@@ -66,6 +66,12 @@ Alert
   flex: 0 0 50%;
 }
 
+.details-btn {
+  padding: 0.25rem 0.25rem;
+  width: 4rem;
+
+}
+
 
 /* .alert-header {
   margin-bottom: 1rem;
@@ -74,33 +80,33 @@ Alert
 .alert-header-cell {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+  text-align: center;
+  width: 50%;
 }
 
 .alert-table {
-  max-height: 378px;
+  max-height: 60%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .rux-cell-select {
   width: 5rem;
-  padding-left: 1rem;
 }
 
 .rux-cell-name {
-  width: 6rem;
-  padding: 0 1rem;
+  width: 20%;
+  padding-left: 4rem;
 }
 
 .rux-cell-time {
-  width: 6rem;
-  padding: 0 1rem;
+  width: 20%;
 }
 
 .alert-table-row {
   border-style: none;
-  margin-bottom: none;
   margin-top: none;
+  margin-bottom: none;
   padding: 0.25rem 0.5rem;
   width: 5rem;
 }
@@ -110,19 +116,22 @@ Alert
   justify-content: center;
   width: 5rem;
   padding: 0.5 1rem;
-
 }
 
 .message {
-  width: 25rem;
+  width: 60%;
 }
 
 .name {
-  width: 7rem;
+  width: 20%;
 }
 
 .time {
-  width: 7rem;
+  width: 20%;
+}
+
+.alert-btn-container {
+  padding: 4rem 2rem;
 }
 
 
@@ -146,6 +155,19 @@ Contacts
   flex: 0 0 50%;
 }
 
+
+/* 
+=======================================
+Modal
+=======================================
+*/
+
+/* .modal {
+  color: white;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+} */
 
 /* 
 @media screen and (min-width: 992px) {
