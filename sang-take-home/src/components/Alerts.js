@@ -12,23 +12,10 @@ import {
 import { useGlobalContext } from '../context';
 
 const Alerts = () => {
-  const { alertList, openModal, modalInfo } = useGlobalContext();
+  const { alertList, openModal, modalInfo, singleAcknowledge } =
+    useGlobalContext();
   const [acknowledged, setAcknowledge] = useState([]);
   const [checkList, setCheckList] = useState([]);
-  /*
-   * when the checkbox is checked
-   * we need to first check the id of the row and make sure it disappears
-   */
-
-  const selectItem = (e, id) => {
-    const checked = e.target.checked;
-    if (!checked) {
-      setCheckList([...checkList, id]);
-      console.log(checkList);
-    }
-  };
-
-  const handleAcknowledge = () => {};
 
   const renderTime = (time) => {
     // time is a number type
@@ -48,8 +35,6 @@ const Alerts = () => {
   /* 
   * When selecting alertItem with multiple alerts
   * We just need to have the single alertItem and the list of alerts greater than 1
-  * We need to create forEach? And create variable i = 0 and increment at the end
-  * of the logic?
 
   * When selecting alertItem with just 1 alert
   */
@@ -66,23 +51,26 @@ const Alerts = () => {
     return alertList.map((alert) => {
       if (alert.alerts.length > 1) {
         const {
-          _id: id,
+          _id,
           contactName,
           contactSatellite,
           contactDetail,
           contactBeginTimestamp,
           contactEndTimestamp,
         } = alert;
-        let alertItem = alert.alerts.map((a) => {
-          const { errorMessage } = a;
+        let alertItem = alert.alerts.map((individualAlert) => {
+          const { errorMessage, id } = individualAlert;
           let time = contactEndTimestamp - contactBeginTimestamp;
           time = renderTime(time);
           return (
             <RuxTableRow key={id}>
-              <RuxCheckbox
-                onClick={(e) => selectItem(e, id)}
-                className="alert-table-row checkbox"
-              ></RuxCheckbox>
+              <RuxButton
+                size="small"
+                className="acknowledge-btn"
+                onClick={() => singleAcknowledge(_id, id)}
+              >
+                Acknowledge
+              </RuxButton>
               <RuxTableCell className="alert-table-row message">
                 {errorMessage}
                 <RuxButton
@@ -106,9 +94,9 @@ const Alerts = () => {
         });
         return alertItem;
       } else {
-        const { errorMessage } = alert.alerts[0];
+        const { errorMessage, id } = alert.alerts[0];
         const {
-          _id: id,
+          _id,
           contactName,
           contactSatellite,
           contactDetail,
@@ -119,10 +107,13 @@ const Alerts = () => {
         time = renderTime(time);
         return (
           <RuxTableRow key={id}>
-            <RuxCheckbox
-              onClick={(e) => selectItem(e, id)}
-              className="alert-table-row checkbox"
-            ></RuxCheckbox>
+            <RuxButton
+              size="small"
+              className="acknowledge-btn"
+              onClick={() => singleAcknowledge(_id, id)}
+            >
+              Acknowledge
+            </RuxButton>
             <RuxTableCell className="alert-table-row message">
               {errorMessage}
               <RuxButton
@@ -215,7 +206,7 @@ const Alerts = () => {
         <RuxTableBody>{renderAlerts()}</RuxTableBody>
       </article>
       <article className="alert-btn-container">
-        <RuxButton onClick={() => handleAcknowledge()}>Acknowledge</RuxButton>
+        <RuxButton>Severity</RuxButton>
       </article>
     </section>
   );
