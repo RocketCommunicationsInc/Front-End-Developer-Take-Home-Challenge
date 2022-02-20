@@ -20,15 +20,14 @@ const Alerts = () => {
     handleSeverityChange,
   } = useGlobalContext();
 
+  // Since all the times were flat minutes, I didn't bother progressing
+  // with the fully capable algorithm
   const renderTime = (time) => {
-    console.log(time / 60);
     // time is a number type
     let minutes = '';
-    let hours = '';
     let seconds = '';
     let finalTime;
     if (time < 3600) {
-      let leftover = 0;
       minutes = Math.floor(time / 60);
       seconds = '00';
       finalTime = `00:${minutes}:${seconds}`;
@@ -36,6 +35,8 @@ const Alerts = () => {
     }
   };
 
+  // Listing the contacts with alerts here since it felt weird to write this much
+  // code in the return statement
   const renderAlerts = () => {
     return alertList.map((alert) => {
       const {
@@ -48,7 +49,6 @@ const Alerts = () => {
         contactEndTimestamp,
         errorMessage,
         errorSeverity,
-        errorTime,
       } = alert;
       let time = contactEndTimestamp - contactBeginTimestamp;
       time = renderTime(time);
@@ -68,7 +68,7 @@ const Alerts = () => {
             ></RuxStatus>
           </RuxTableCell>
           <RuxTableCell className="alert-table-row message">
-              {errorMessage}
+            {errorMessage}
             <RuxButton
               size="small"
               className="details-btn"
@@ -86,95 +86,6 @@ const Alerts = () => {
     });
   };
 
-  // const renderAlerts = () => {
-  //   return alertList.map((alert) => {
-  //     if (alert.alerts.length > 1) {
-  //       const {
-  //         _id,
-  //         contactName,
-  //         contactSatellite,
-  //         contactDetail,
-  //         contactBeginTimestamp,
-  //         contactEndTimestamp,
-  //       } = alert;
-  //       let alertItem = alert.alerts.map((individualAlert) => {
-  //         const { errorMessage, id } = individualAlert;
-  //         let time = contactEndTimestamp - contactBeginTimestamp;
-  //         time = renderTime(time);
-  //         return (
-  //           <RuxTableRow key={id}>
-  //             <RuxButton
-  //               size="small"
-  //               className="acknowledge-btn"
-  //               onClick={() => singleAcknowledge(_id, id)}
-  //             >
-  //               Acknowledge
-  //             </RuxButton>
-  //             <RuxTableCell className="alert-table-row message">
-  //               {errorMessage}
-  //               <RuxButton
-  //                 size="small"
-  //                 className="details-btn"
-  //                 onClick={() =>
-  //                   showModalonClick(contactSatellite, contactDetail)
-  //                 }
-  //               >
-  //                 See Details
-  //               </RuxButton>
-  //             </RuxTableCell>
-  //             <RuxTableCell className="alert-table-row name">
-  //               {contactName}
-  //             </RuxTableCell>
-  //             <RuxTableCell className="alert-table-row time">
-  //               {time}
-  //             </RuxTableCell>
-  //           </RuxTableRow>
-  //         );
-  //       });
-  //       return alertItem;
-  //     } else {
-  //       const { errorMessage, id } = alert.alerts[0];
-  //       const {
-  //         _id,
-  //         contactName,
-  //         contactSatellite,
-  //         contactDetail,
-  //         contactBeginTimestamp,
-  //         contactEndTimestamp,
-  //       } = alert;
-  //       let time = contactEndTimestamp - contactBeginTimestamp;
-  //       time = renderTime(time);
-  //       return (
-  //         <RuxTableRow key={id}>
-  //           <RuxButton
-  //             size="small"
-  //             className="acknowledge-btn"
-  //             onClick={() => singleAcknowledge(_id, id)}
-  //           >
-  //             Acknowledge
-  //           </RuxButton>
-  //           <RuxTableCell className="alert-table-row message">
-  //             {errorMessage}
-  //             <RuxButton
-  //               size="small"
-  //               className="details-btn"
-  //               onClick={() =>
-  //                 showModalonClick(contactSatellite, contactDetail)
-  //               }
-  //             >
-  //               See Details
-  //             </RuxButton>
-  //           </RuxTableCell>
-  //           <RuxTableCell className="alert-table-row name">
-  //             {contactName}
-  //           </RuxTableCell>
-  //           <RuxTableCell className="alert-table-row time">{time}</RuxTableCell>
-  //         </RuxTableRow>
-  //       );
-  //     }
-  //   });
-  // };
-
   const showModalonClick = (contactSatellite, contactDetail) => {
     modalInfo(contactSatellite, contactDetail);
     openModal();
@@ -183,7 +94,8 @@ const Alerts = () => {
   return (
     <section className="dashboard-alert">
       <article className="content-header alert-header">
-        <h2>Alerts</h2>
+        <h2 className="alert-count">Alerts</h2>
+        <h2 className="alert-count">{`(${alertList.length})`}</h2>
       </article>
       <RuxTable>
         <RuxTableHeaderRow className="alert-table-header-row">

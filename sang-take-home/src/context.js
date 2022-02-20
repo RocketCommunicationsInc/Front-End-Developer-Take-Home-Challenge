@@ -10,24 +10,10 @@ const AppProvider = ({ children }) => {
   const [nonAlertList, setNonAlertList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({});
-  const [alertCount, setAlertCount] = useState(0);
-  // const [severityList, setSeverityList] = useState(['a', 'b', 'c', 'd']);
   const [severityList, setSeverityList] = useState(null);
 
-  // need 2 sort methods
-  // 1. sort by error time
-  // 2. sort by severity
-  // 3. still have to factor in ack / unack
-
-  // let severityRank = {
-  //   "severe": 0,
-  //   // ...
-  // }
-
   const getContactsWithAlerts = () => {
-    /* note about massaging the data to have create an array
-    with objects with ONLY the details I need 
-    */
+    // massagin the data to get the only things I need from the the json data
     let alertsData = grmData
       .filter((contact) => {
         // picking contacts with alert(s) only
@@ -61,36 +47,17 @@ const AppProvider = ({ children }) => {
         });
       })
       .flat();
-    // array.flatten before you sort
-    // alertsData = alertsData.flat();
-    // console.log(alertsData);
-
-    /*old way of injecting id into the alert object
-    let alertsData = grmData.filter((data) => data.alerts.length !== 0);
-    // Injecting my own ID into each of the alerts object
-    alertsData.forEach((contact) => {
-      if (contact.alerts.length > 1) {
-        contact.alerts.forEach((alert) => {
-          alert.id = uuid();
-        });
-      } else {
-        contact.alerts[0].id = uuid();
-      }
-    });
-    */
 
     let sortedAlertsData = alertsData.sort((a, b) => {
+      // Noticed a pattern where the first few numbers in the errorTime were the
+      // same and didn't want javascript to be unable to parse a large number.
+      // Therefore I start comparing numbers towards the middle and the end
       let stringA = a.errorTime.toString();
       a = +stringA.slice(6, stringA.length);
       let stringB = b.errorTime.toString();
       b = +stringB.slice(6, stringB.length);
-      // if b-a == 0 {
-      //   return severityRank[b.rank] - severityrank[a.rank]
-      // }
       return b - a;
     });
-
-    // console.log('Viewing ID for each alerts', sortedAlertsData);
     setAlertList(sortedAlertsData);
   };
 
@@ -117,24 +84,6 @@ const AppProvider = ({ children }) => {
   };
 
   const singleAcknowledge = (_id, alertId) => {
-    // let newAlertList = [];
-    // for (let i = 0; i < alertList.length; i++) {
-    //   if (alertList[i].alerts.length === 1 && alertList[i]._id === _id) {
-    //     continue;
-    //   } else if (alertList[i].alerts.length > 1 && alertList[i]._id === _id) {
-    //     let newAlerts = [];
-    //     for (let j = 0; j < alertList[i].alerts.length; j++) {
-    //       if (alertList[i].alerts[j].id !== id) {
-    //         newAlerts.push(alertList[i].alerts[j]);
-    //       }
-    //     }
-    //     alertList[i].alerts = newAlerts;
-    //   } else {
-    //     newAlertList.push(alertList[i]);
-    //   }
-    // }
-    // console.log('Acknowledge Update', newAlertList);
-    // setAlertList(newAlertList);
     setAlertList(alertList.filter((alert) => alert.alertId !== alertId));
   };
 
@@ -214,11 +163,10 @@ export { AppContext, AppProvider };
 /*
 * Out of the grmData, we need to check if there are alerts provided for
 each data
-* Make another state for the data with alerts
-* Make another state for data without alerts
+* Make a state for the contact with alerts
+* Make another state for contact without alerts
 
 * By default loading, the most recent alerts should be at the top
 
 * create an option to allow the user to view the severity
-
 */

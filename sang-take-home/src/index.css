@@ -77,6 +77,9 @@ Alert
   color: white;
 }
 
+.alert-count {
+  display: inline;
+}
 
 .alert-header-cell {
   padding-top: 0.75rem;
@@ -150,7 +153,6 @@ Contacts
 .contact-table {
   max-height: 60%;
   overflow-y: scroll;
-  /* overflow-x: scroll; */
 }
 
 .dashboard-contacts {
@@ -159,21 +161,10 @@ Contacts
 }
 
 
-/* .contact-header {
-  margin-bottom: 1rem;
-} */
-
 .dashboard-contacts {
   flex: 0 0 50%;
 }
 
-.content-row-table {}
-
-
-/* .contact-equipment-header {
-  width: 60%;
-  padding: 0 auto;
-} */
 
 .contact-table-cell {
   border-style: none;
@@ -191,7 +182,6 @@ Contacts
 
 .contact-alert-name {
   padding-left: 4rem;
-  /* text-align: center; */
 }
 
 .contact-alert-equipment {

@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 import { RuxModal } from '@astrouxds/react';
 
 const Modal = () => {
-  const { isModalOpen, closeModal, modalContent } = useGlobalContext();
+  const { isModalOpen, modalContent } = useGlobalContext();
   const { contactSatellite, contactDetail } = modalContent;
   return (
     <div className="modal">

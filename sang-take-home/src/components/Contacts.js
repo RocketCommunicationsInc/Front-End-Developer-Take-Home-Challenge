@@ -8,10 +8,9 @@ import {
   RuxTableCell,
 } from '@astrouxds/react';
 import { useGlobalContext } from '../context';
-/*
-TODO: 
--fix classNames of the RuxTableHeaderCells and its parents
--fix the margin/padding to match
+
+/* Note to reviewers
+  Contacts component just carries the first 100 contacts which have 0 alerts
 */
 
 const Contacts = () => {

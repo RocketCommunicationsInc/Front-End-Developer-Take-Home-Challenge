@@ -18,8 +18,3 @@ function App() {
 
 export default App;
 
-/* Todo Check list
-1. place the soon to be dashboard in the center of the page
-2. figure out how you want to layout each data from the data.json while using README from rocket comm
-
-*/
