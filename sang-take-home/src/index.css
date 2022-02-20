@@ -24,6 +24,12 @@ body {
   background: var(--color-background);
 }
 
+.content-table {
+  max-height: 60%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 
 /* 
 =======================================
@@ -68,17 +74,9 @@ Alert
 
 .details-btn {
   padding: 0.25rem 0.25rem;
-  width: 4rem;
-
+  color: white;
 }
 
-.acknowledge-btn {
-  
-}
-
-/* .alert-header {
-  margin-bottom: 1rem;
-} */
 
 .alert-header-cell {
   padding-top: 0.75rem;
@@ -87,23 +85,23 @@ Alert
   width: 50%;
 }
 
-.alert-table {
-  max-height: 60%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.rux-cell-select {
+.alert-cell-select {
   width: 5rem;
+  padding-left: 2rem;
 }
 
-.rux-cell-name {
-  width: 20%;
-  padding-left: 4rem;
+.alert-cell-message {
+  padding-left: 10rem;
 }
 
-.rux-cell-time {
+.alert-cell-name {
   width: 20%;
+  padding-left: 6rem;
+}
+
+.alert-cell-time {
+  width: 20%;
+  padding-right: 1rem;
 }
 
 .alert-table-row {
@@ -114,6 +112,11 @@ Alert
   width: 5rem;
 }
 
+.alert-icon {
+  margin: 0 auto;
+  margin-left: 1rem;
+}
+
 .checkbox {
   display: flex;
   justify-content: center;
@@ -122,7 +125,7 @@ Alert
 }
 
 .message {
-  width: 60%;
+  width: 50%;
 }
 
 .name {
@@ -144,6 +147,12 @@ Contacts
 =======================================
 */
 
+.contact-table {
+  max-height: 60%;
+  overflow-y: scroll;
+  /* overflow-x: scroll; */
+}
+
 .dashboard-contacts {
   padding: 1rem 0;
   text-align: center;
@@ -158,75 +167,37 @@ Contacts
   flex: 0 0 50%;
 }
 
+.content-row-table {}
 
-/* 
-=======================================
-Modal
-=======================================
-*/
 
-/* .modal {
-  color: white;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
+/* .contact-equipment-header {
+  width: 60%;
+  padding: 0 auto;
 } */
 
-/* 
-@media screen and (min-width: 992px) {
-  .about-center {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  .about-img,
-  .about-info {
-    flex: 0 0 calc(50% - 2rem);
-    margin-bottom: 0;
-    align-self: center;
-  }
-}   
-*/
+.contact-table-cell {
+  border-style: none;
+  margin-top: none;
+  margin-bottom: none;
+  padding: 0.5rem 0.5rem;
+  width: 5rem;
+}
 
-
-/* 
-<div className="App">
-  <header className="App-header">
-    <div>
-      <RuxProgress />
-    </div>
-    <p>
-      Welcome to Astro UXDS web components in React! Check out the README.md
-      for more information on getting started.
-    </p>
-    <a
-      className="App-link"
-      href="https://astrouxds.com"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      astrouxds.com
-    </a>
-    <RuxButton>Hello</RuxButton>
-  </header>
-</div>
-
-.App {
+.contact-header-cell {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.contact-alert-name {
+  padding-left: 4rem;
+  /* text-align: center; */
 }
 
-.App-link {
-  color: var(--color-primary);
+.contact-alert-equipment {
+  padding-left: 10rem;
 }
-*/
+
+.contact-alert-state {
+  padding-left: 7rem;
+}
