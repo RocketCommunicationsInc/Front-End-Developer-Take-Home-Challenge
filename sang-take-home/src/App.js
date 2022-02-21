@@ -8,10 +8,10 @@ function App() {
     <div className="dashboard">
       <Modal />
       <Header />
-      <div className="alert-and-contact-container">
+      <section className="alert-and-contact-container">
         <Alerts />
         <Contacts />
-      </div>
+      </section>
     </div>
   );
 }

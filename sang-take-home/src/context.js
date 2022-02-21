@@ -2,11 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import data from './data.json';
 import { v4 as uuid } from 'uuid';
 
-// *********** Note to Reviewiers ***********
-// Throughout the app, I definitely could've made more files(components and helpers)
-// to differentiate them but I decided to keep them in the same place since the app
-// wasn't too large, and for easier viewing
-
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -34,6 +29,7 @@ const AppProvider = ({ children }) => {
           contactEndTimestamp,
         } = contact;
         return contact.alerts.map((alert) => {
+          // inserting my own unique id for the alert
           alert.alertId = uuid();
           const { errorMessage, errorSeverity, errorTime, alertId } = alert;
           // picking out only the relevant items for the construction of the new object.
@@ -53,8 +49,8 @@ const AppProvider = ({ children }) => {
       })
       .flat();
 
-    // Noticed a pattern where the first few numbers of different errorTime(s) were the
-    // same (e.g. started with 1542134...) and didn't want javascript to be unable to parse a large number.
+    // Noticed a pattern where the first few numbers of errorTime(s) were the same
+    // (e.g. started with 1542134...) and didn't want javascript to be unable to parse a large number.
     // Therefore I started comparing numbers towards the middle and the end
     const sortedAlertsData = alertsData.sort((a, b) => {
       const stringA = a.errorTime.toString();
@@ -132,12 +128,14 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     getContactsWithAlerts();
     getContactsWithNoAlerts();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (severityList === true || severityList === false) {
       organizeSeverity();
     }
+    // eslint-disable-next-line
   }, [severityList]);
 
   return (

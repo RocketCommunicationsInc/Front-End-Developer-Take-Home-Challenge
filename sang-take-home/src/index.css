@@ -117,6 +117,10 @@ Alert
   width: 5rem;
 }
 
+.acknowledge-btn {
+  margin-left: 0.25rem;
+}
+
 .alert-icon {
   margin: 0 auto;
   margin-left: 1rem;
