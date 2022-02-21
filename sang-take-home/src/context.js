@@ -2,6 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import data from './data.json';
 import { v4 as uuid } from 'uuid';
 
+// *********** Note to Reviewiers ***********
+// Throughout the app, I definitely could've made more files(components and helpers)
+// to differentiate them but I decided to keep them in the same place since the app
+// wasn't too large, and for easier viewing
+
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -14,7 +19,7 @@ const AppProvider = ({ children }) => {
 
   const getContactsWithAlerts = () => {
     // massaging the data to get the only things I need from the the json data
-    let alertsData = grmData
+    const alertsData = grmData
       .filter((contact) => {
         // picking contacts with alert(s) only
         return contact.alerts.length > 0;
@@ -31,9 +36,8 @@ const AppProvider = ({ children }) => {
         return contact.alerts.map((alert) => {
           alert.alertId = uuid();
           const { errorMessage, errorSeverity, errorTime, alertId } = alert;
+          // picking out only the relevant items for the construction of the new object.
           return {
-            // picking out only the relevant items for the construction of the
-            // new object.
             _id,
             alertId,
             contactDetail,
@@ -49,13 +53,13 @@ const AppProvider = ({ children }) => {
       })
       .flat();
 
-    // Noticed a pattern where the first few numbers in the errorTime were the
-    // same and didn't want javascript to be unable to parse a large number.
-    // Therefore I start comparing numbers towards the middle and the end
-    let sortedAlertsData = alertsData.sort((a, b) => {
-      let stringA = a.errorTime.toString();
+    // Noticed a pattern where the first few numbers of different errorTime(s) were the
+    // same (e.g. started with 1542134...) and didn't want javascript to be unable to parse a large number.
+    // Therefore I started comparing numbers towards the middle and the end
+    const sortedAlertsData = alertsData.sort((a, b) => {
+      const stringA = a.errorTime.toString();
       a = +stringA.slice(6, stringA.length);
-      let stringB = b.errorTime.toString();
+      const stringB = b.errorTime.toString();
       b = +stringB.slice(6, stringB.length);
       return b - a;
     });
@@ -97,31 +101,31 @@ const AppProvider = ({ children }) => {
   };
 
   const organizeSeverity = () => {
-    let newAlertList = [];
-    // organizing alert list from "critical" to "caution"
+    let organizedAlertList = [];
+    // organizing alert list from most severe to least severe "critical" -> "caution"
     if (severityList) {
       let warningLevels = ['critical', 'serious', 'warning', 'caution'];
       while (warningLevels.length !== 0) {
         for (let i = 0; i < alertList.length; i++) {
           if (alertList[i].errorSeverity === warningLevels[0]) {
-            newAlertList.push(alertList[i]);
+            organizedAlertList.push(alertList[i]);
           }
         }
         warningLevels = warningLevels.slice(1);
       }
-      setAlertList(newAlertList);
-      // organizing alert list from "caution" to "critical"
+      setAlertList(organizedAlertList);
+      // organizing alert list from least severe to most severe "caution" -> "critical"
     } else if (!severityList) {
       let warningLevels = ['caution', 'warning', 'serious', 'critical'];
       while (warningLevels.length !== 0) {
         for (let i = 0; i < alertList.length; i++) {
           if (alertList[i].errorSeverity === warningLevels[0]) {
-            newAlertList.push(alertList[i]);
+            organizedAlertList.push(alertList[i]);
           }
         }
         warningLevels = warningLevels.slice(1);
       }
-      setAlertList(newAlertList);
+      setAlertList(organizedAlertList);
     }
   };
 

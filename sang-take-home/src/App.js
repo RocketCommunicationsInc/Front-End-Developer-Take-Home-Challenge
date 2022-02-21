@@ -8,7 +8,7 @@ function App() {
     <div className="dashboard">
       <Modal />
       <Header />
-      <div className="alert-contact-container">
+      <div className="alert-and-contact-container">
         <Alerts />
         <Contacts />
       </div>
