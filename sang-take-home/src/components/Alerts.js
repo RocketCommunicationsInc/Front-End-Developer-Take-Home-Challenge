@@ -35,8 +35,9 @@ const Alerts = () => {
     }
   };
 
-  // Listing the contacts with alerts here since it felt weird to write this much
-  // code in the return statement
+  // Listing the contacts with alerts here since it felt like a very long statement.
+  // Could have also written another component for it, but decided to keep all
+  // on the same page.
   const renderAlerts = () => {
     return alertList.map((alert) => {
       const {
@@ -114,6 +115,7 @@ const Alerts = () => {
         </RuxTableHeaderRow>
       </RuxTable>
       <article className="content-table">
+        {/* renderAlerts function above return statement */}
         <RuxTableBody>{renderAlerts()}</RuxTableBody>
       </article>
       <article className="alert-btn-container">

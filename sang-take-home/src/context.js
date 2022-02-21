@@ -13,7 +13,7 @@ const AppProvider = ({ children }) => {
   const [severityList, setSeverityList] = useState(null);
 
   const getContactsWithAlerts = () => {
-    // massagin the data to get the only things I need from the the json data
+    // massaging the data to get the only things I need from the the json data
     let alertsData = grmData
       .filter((contact) => {
         // picking contacts with alert(s) only
@@ -23,8 +23,8 @@ const AppProvider = ({ children }) => {
         const {
           _id,
           contactName,
-          contactSatellite,
           contactDetail,
+          contactSatellite,
           contactBeginTimestamp,
           contactEndTimestamp,
         } = contact;
@@ -32,26 +32,27 @@ const AppProvider = ({ children }) => {
           alert.alertId = uuid();
           const { errorMessage, errorSeverity, errorTime, alertId } = alert;
           return {
-            // picking out only the relevant items for the construction of data
-            errorSeverity,
+            // picking out only the relevant items for the construction of the
+            // new object.
             _id,
             alertId,
-            contactName,
-            contactSatellite,
             contactDetail,
+            contactSatellite,
+            contactName,
             contactBeginTimestamp,
             contactEndTimestamp,
             errorMessage,
+            errorSeverity,
             errorTime,
           };
         });
       })
       .flat();
 
+    // Noticed a pattern where the first few numbers in the errorTime were the
+    // same and didn't want javascript to be unable to parse a large number.
+    // Therefore I start comparing numbers towards the middle and the end
     let sortedAlertsData = alertsData.sort((a, b) => {
-      // Noticed a pattern where the first few numbers in the errorTime were the
-      // same and didn't want javascript to be unable to parse a large number.
-      // Therefore I start comparing numbers towards the middle and the end
       let stringA = a.errorTime.toString();
       a = +stringA.slice(6, stringA.length);
       let stringB = b.errorTime.toString();
@@ -97,6 +98,7 @@ const AppProvider = ({ children }) => {
 
   const organizeSeverity = () => {
     let newAlertList = [];
+    // organizing alert list from "critical" to "caution"
     if (severityList) {
       let warningLevels = ['critical', 'serious', 'warning', 'caution'];
       while (warningLevels.length !== 0) {
@@ -107,8 +109,8 @@ const AppProvider = ({ children }) => {
         }
         warningLevels = warningLevels.slice(1);
       }
-      console.log(newAlertList);
       setAlertList(newAlertList);
+      // organizing alert list from "caution" to "critical"
     } else if (!severityList) {
       let warningLevels = ['caution', 'warning', 'serious', 'critical'];
       while (warningLevels.length !== 0) {
@@ -119,7 +121,6 @@ const AppProvider = ({ children }) => {
         }
         warningLevels = warningLevels.slice(1);
       }
-      console.log(newAlertList);
       setAlertList(newAlertList);
     }
   };
