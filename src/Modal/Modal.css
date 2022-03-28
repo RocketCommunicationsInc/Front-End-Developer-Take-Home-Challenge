@@ -1,0 +1,14 @@
+.modal-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    min-height: 300px;
+    width: 100%;
+    z-index: 1000;
+}
+
+rux-modal::part(header){
+width: 408px;
+}
+
