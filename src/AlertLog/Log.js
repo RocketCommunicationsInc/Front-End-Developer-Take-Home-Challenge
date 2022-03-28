@@ -9,14 +9,17 @@ import {
 } from '@astrouxds/react'
 import data from '../data.json'
 import './Log.css'
-import Modal from '../Modal/Modal'
 import Row from '../Row/Row'
-// current issues:
-// button event in Modal wont trigger func toggleModal to switch state back to false
+
 const Log = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [rowViewed, setRowViewed] = useState(false)
 
+    /**
+     * renderRows returns a rux-table-row for every object in data
+     * State and functions are passed as params to the children nested in the Rows component.
+     * renderRows is called in the RuxTableBody el
+     */
     const renderRows = () =>
         data.map((item, index) => {
             return (
@@ -27,10 +30,14 @@ const Log = () => {
                     toggleModal={toggleModal}
                     toggleViewed={toggleViewed}
                     timeFormatter={timeFormatter}
+                    isOpen={isOpen}
                 />
             )
         })
 
+    /**
+     * timeFormatter simply formats the unix timestamp from data into something more legible
+     */
     const timeFormatter = (unixTimeStamp) => {
         var date = new Date(unixTimeStamp * 1000)
         // Hours part from the timestamp
@@ -44,42 +51,26 @@ const Log = () => {
     }
 
     const toggleModal = () => {
-        console.log('before', isOpen)
-        // issue with state setting state to false on first click
         isOpen === false ? setIsOpen(true) : setIsOpen(false)
-        console.log('after', isOpen)
     }
 
+    /**
+     * toggleViewed handles state for setRowViewed.
+     * the func is passed down to Row and assigned to the param selected in RuxTableRow
+     * Distinguishes if Row has triggered modal with  details RuxButton
+     */
     const toggleViewed = () => {
-        console.log('view before', rowViewed)
-        // issue with state setting state to false on first click
         setRowViewed(true)
-        console.log('view after', rowViewed)
     }
 
     return (
         <div className="alert-log">
-            {/* {isOpen? <Modal openModal={toggleModal}/> : null}
             <RuxTable>
                 <RuxTableHeader>
                     <RuxTableHeaderRow>
-                        <RuxTableHeaderCell id='name'>Name</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Status</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Message</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Contact time:</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>Start</RuxTableHeaderCell>
-                        <RuxTableHeaderCell>End</RuxTableHeaderCell>
-                    </RuxTableHeaderRow>
-                </RuxTableHeader>
-                <RuxTableBody className="body">{renderRows()}</RuxTableBody>
-            </RuxTable>
-            {isOpen ? (
-                <Modal isOpen={isOpen} toggleModal={toggleModal} />
-            ) : null} */}
-            <RuxTable>
-                <RuxTableHeader>
-                    <RuxTableHeaderRow>
-                        <RuxTableHeaderCell>Name</RuxTableHeaderCell>
+                        <RuxTableHeaderCell className="cell-name">
+                            Name
+                        </RuxTableHeaderCell>
                         <RuxTableHeaderCell>Status</RuxTableHeaderCell>
                         <RuxTableHeaderCell>Message</RuxTableHeaderCell>
                         {/* <RuxTableHeaderCell className='spacer'></RuxTableHeaderCell> */}
@@ -89,9 +80,6 @@ const Log = () => {
                     </RuxTableHeaderRow>
                 </RuxTableHeader>
                 <RuxTableBody>{renderRows()}</RuxTableBody>
-                {isOpen ? (
-                <Modal isOpen={isOpen} toggleModal={toggleModal} />
-            ) : null}
             </RuxTable>
         </div>
     )

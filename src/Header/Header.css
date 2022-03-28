@@ -4,14 +4,12 @@
     align-items: center;
     width: 100vw;
     height: 15vh;
-    border-bottom: 1px solid white;
 }
 
 .header-logo-cell{
     margin-left: 10px ;
     display: flex;
     align-items: center;
-    border: 1px solid white;
     min-width: 33%;
     height: 90%;
 }
@@ -25,7 +23,6 @@
     justify-content: center;
     align-items: center;
     min-width: 33%;
-    border: 1px solid white;
     height: 100%;
     /* margin-top: 5px; */
 }
@@ -34,7 +31,6 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid white;
     min-width: 33%;
     height: 100%;
 }
@@ -51,7 +47,6 @@
 display: flex;
 justify-content: space-around;
 align-items: center;
-border: 1px solid white;
 width: 50%;
 }
 

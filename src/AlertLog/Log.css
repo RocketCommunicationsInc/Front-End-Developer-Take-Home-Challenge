@@ -3,7 +3,7 @@ overflow-y: scroll;
 height: 100%;
 }
 
-.cell-name{
+/* .cell-name{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -12,7 +12,7 @@ height: 100%;
     font-size: 18px;
     font-weight: 500;
     border: 1px solid white;
-}
+} */
 
 .cell-status {
     display: flex;
@@ -26,19 +26,8 @@ height: 100%;
 
 
 rux-table-body{
-overflow-y: scroll;
-/* background-color: aquamarine; */
-max-height: 1%;
 }
 
 rux-table-header-row{
     height: 40px;
 }
-.test {
-    overflow-y: scroll;
-}
-
-/* .spacer{
-    width: 40px;
-    border: 1px solid white;
-} */
