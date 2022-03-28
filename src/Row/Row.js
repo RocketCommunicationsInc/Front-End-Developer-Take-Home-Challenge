@@ -7,7 +7,7 @@ import {
 } from '@astrouxds/react'
 import './Row.css'
 import Modal from '../Modal/Modal'
-//  rearrange, reorganize props
+
 const Row = ({
     rowViewed,
     item,
@@ -35,7 +35,7 @@ const Row = ({
                     <RuxButton
                         size="small"
                         type="button"
-                        onClick={(e) => {
+                        onClick={() => {
                             toggleModal()
                             changePreview()
                         }}

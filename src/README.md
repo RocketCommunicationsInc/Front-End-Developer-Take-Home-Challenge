@@ -1,3 +1,8 @@
+**INSTRUCTIONS**
+- clone/branch and run npm install
+
+
+
 **The Project**
 [1] The idea was to mimic a similar style to the GRM Dashboard https://www.astrouxds.com/grm-service-ux-design/grm-dashboard/
 [2] My goal was to incorporate as many AstroUXDS components as possible. I went ahead and took a top down design approach to cleanly funnel data through all the components.
