@@ -1,0 +1,20 @@
+.modal-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    min-height: 300px;
+    width: 100%;
+    /* background-color: rgba(125, 125, 125, 0.66);; */
+    /* border: 1px solid white; */
+}
+
+rux-modal::part(header){
+width: 408px;
+}
+
+.test-modal{
+background-color: white;
+height: 100px;
+width: 100px;
+}

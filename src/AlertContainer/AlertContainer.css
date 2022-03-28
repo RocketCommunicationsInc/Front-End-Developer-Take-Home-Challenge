@@ -1,0 +1,15 @@
+.AlertContainer {
+    height: 100vh;
+    width: 100vw;
+}
+
+.AlertContainer-header{
+    border-bottom: 1px solid #273850;
+    border-top: 1px solid #273850;
+    width: 100%;
+    height: 15vh;
+    background-color: #192638;
+}
+
+.alert-list{
+    display: flex; flex-flow: column; justify-content: center;}
