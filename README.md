@@ -1,40 +1,85 @@
-# Developer-Take-Home-Challenge
+# Astro Web Components in React
 
-As the next step in the interview process, we’d like you to complete a take home challenge.
+This starter kit was intitialized with `create-react-app` and scaffolded with the dependencies needed to use Astro web components in React.
 
-**The Project**
+## Getting Started
 
-Let's assume that _data.json_ contains API responses we want to present to a Ground Resources Management (GRM) operator. Every day, GRM operators work with data similar to what you'll find in the provided JSON file. The task is to create a dashboard presenting data found within the provided JSON file in a clear and intuitive manner.
-Please feel free to peruse the Astro UX Design site (https://astrouxds.com/) for ideas or inspiration.
+`npm install`
 
-**Requirements**
+Import any desired Astro components the same way you would any other React component.
 
-The data.json file consists of a list of contacts (satellites) and any alerts associated with them configured in a GRM application. Contacts can have properties such as name, status, state, etc. Any alerts the contact has will have the properties errorId, errorSeverity, etc.
+`import { RuxProgress } from '@astrouxds/react`
 
-- For each alert, I need to know the following:
-  - Alert message (_errorMessage_)
-  - Contact name (_contactName_)
-  - Contact time (_contactBeginTimestamp_ - _contactEndTimestamp_)
-- I need to be able to see the details of an alert by clicking on a button called _Show Details_ that utilizes `rux-modal` to show the _contactSatellite_ and _contactDetail_ values
-- I need the alerts to be sorted by error time with the most recent at the top (_errorTime_)
-- I need to know which alerts I have already acknowledged so that I don’t process the same alert multiple times by mistake. Also once I’ve dealt with an alert, make it clear it’s not something I need to pay attention to again:
-- Only unacknowledged alerts can be acknowledged
-- Acknowledged alerts cannot be unacknowledged
-- Acknowledged alerts must be visually distinct from unacknowledged alerts
-- I want to be able to view alerts by their severity as well so that I can prioritize acknowledging the more severe alerts first.
+You can now use astro-components as regular React components.
 
-**Technical Requirements**
+```
+import React from 'react';
 
-- This project can be done in any framework of your choice.
-- This project should make use of the [Astro component library.](https://astro-components.netlify.app/)
-- You are free to use any third-party libraries.
-- Please feel free to reach out to ask any questions (jeremy.benson@rocketcom.com).
-- Steps to follow:
-  - Fork this repository
-  - Work on your solution
-  - Create a pull request with @github/rocket-bensonism as the reviewer, if available.
-- Have fun and be as creative as you like!
+const MyComp = () => {
+    return (
+        <div>
+            <RuxProgress />
+        </div>
+    )
+}
 
-**Timeframe**
+export default MyComp;
+```
 
-We would like the take home challenge to be completed within 5 days. If you need more time, please reach out to us. You will not be judged on how quickly you complete the challenge.
+### Dependencies
+
+- [`@astrouxds/react`](https://www.npmjs.com/package/@astrouxds/react)
+
+### Boilerplate
+
+- Astro UXDS stylesheet import on `index.js`.
+- Roboto font loading in `index.html`.
+
+### Resources
+
+- [@astrouxds/astro-web-components](https://www.npmjs.com/package/@astrouxds/astro-web-components)
+
+- [Astro Components Storybook](https://astro-stencil.netlify.app/?path=/story/astro-uxds-welcome-start-here--page)
+
+- [Astro Github](https://github.com/RocketCommunicationsInc/astro)
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
