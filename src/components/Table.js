@@ -37,9 +37,9 @@ export const Table = () => {
 
     /* 
         By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
-        Please go to references: RuxModal, allValues, setAllValues, onDetail, contactSatellite, contactDetail  
+        Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
     */
-    const [allValues, setAllValues] = useState({
+    const [detail, setDetail] = useState({
         isOpen: false,
         modalTitle: '',
         modalMessage: ''
@@ -48,20 +48,20 @@ export const Table = () => {
     return (
         <>
             <RuxTable>
-                <TableHeader />
+                <TableHeader viewSeverity={(value) => console.log(value)} />
                 <RuxTableBody>
                     {rows.map((contact, index) => {
                         return (
                             <TableCell
                                 data={contact}
                                 key={index}
-                                onDetail={(...prev) => setAllValues({ isOpen: true, modalTitle: prev[0], modalMessage: prev[1] })}
+                                onDetail={(...prev) => setDetail({ isOpen: true, modalTitle: prev[0], modalMessage: prev[1] })}
                             />
                         )
                     })}
                 </RuxTableBody>
             </RuxTable>
-            <RuxModal open={allValues.isOpen} modal-title={allValues.modalTitle} modal-message={allValues.modalMessage} confirm-text="OK" deny-text=""></RuxModal>
+            <RuxModal open={detail.isOpen} modal-title={detail.modalTitle} modal-message={detail.modalMessage} confirm-text="OK" deny-text=""></RuxModal>
         </>
     )
 }
