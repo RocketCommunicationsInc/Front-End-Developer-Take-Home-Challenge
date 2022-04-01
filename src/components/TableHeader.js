@@ -1,6 +1,6 @@
 import { RuxTableHeader, RuxTableHeaderRow, RuxTableHeaderCell } from "@astrouxds/react";
 
-export const TableHeader = ({ onSort }) => {
+export const TableHeader = () => {
 
     return (
         <>

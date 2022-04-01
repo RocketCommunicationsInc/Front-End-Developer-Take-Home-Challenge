@@ -12,6 +12,10 @@ export const Table = () => {
 
     const [rows, setRows] = useState(data);
 
+    /* 
+        WARNING: THIS CODE OF PIECE MUTATES THE ORIGINAL DATA.
+        Calls a function for each row in rows, "detect" undeclared array in alerts, and then add the empty detail onto the undeclared array  
+    */
     rows.forEach((row) => {
         if (typeof row.alerts[0] === 'undefined') {
             row.alerts.push({
@@ -28,8 +32,13 @@ export const Table = () => {
         }
     });
 
+    /* The alerts to be sorted by error time with the most recent at the top */
     rows.sort((a, b) => (a.alerts[0].errorTime < b.alerts[0].errorTime ? 1 : -1));
 
+    /* 
+        By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
+        Please go to references: RuxModal, allValues, setAllValues, onDetail, contactSatellite, contactDetail  
+    */
     const [allValues, setAllValues] = useState({
         isOpen: false,
         modalTitle: '',
