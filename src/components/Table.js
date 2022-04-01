@@ -12,6 +12,22 @@ export const Table = () => {
 
     const [rows, setRows] = useState(data);
 
+    rows.forEach((row) => {
+        if (typeof row.alerts[0] === 'undefined') {
+            row.alerts.push({
+                "errorId": "",
+                "errorSeverity": "off",
+                "errorCategory": "",
+                "errorMessage": "N/A",
+                "longMessage": "",
+                "errorTime": "",
+                "selected": false,
+                "new": false,
+                "expanded": false
+            })
+        }
+    });
+
     const [allValues, setAllValues] = useState({
         isOpen: false,
         modalTitle: '',

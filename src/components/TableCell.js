@@ -2,18 +2,8 @@ import { useState } from "react";
 import { RuxTableRow, RuxTableCell, RuxButton, RuxMonitoringIcon } from "@astrouxds/react";
 
 export const TableCell = ({ data: { index, _id, contactName, contactDetail, contactSatellite, contactBeginTimestamp, contactEndTimestamp, alerts }, onDetail }) => {
-
-    // avoid 'cannot read property of undefined errors.... I can't think of any better way for this one. 
-    function getSafe(fn, defaultAlert) {
-        try {
-            return fn();
-        } catch (e) {
-            return defaultAlert;
-        }
-    }
-
-    const newErrorSeverity = getSafe(() => alerts[0].errorSeverity, 'off');
-    const newErrorMessage = getSafe(() => alerts[0].errorMessage, 'N/A');
+    const errorMessage = alerts[0].errorMessage;
+    const errorSeverity = alerts[0].errorSeverity;
 
     const convertEpochToHumanReadable = (time) => {
         let minutes = '';
@@ -34,9 +24,9 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
 
     return (
         <>
-            <RuxTableRow key={index} className={`status-row-${newErrorSeverity} ack-row-${onAck}`}>
-                <RuxTableCell><RuxMonitoringIcon icon="equipment" status={newErrorSeverity}></RuxMonitoringIcon></RuxTableCell>
-                <RuxTableCell>{newErrorMessage}</RuxTableCell>
+            <RuxTableRow key={index} className={`status-row-${errorSeverity} ack-row-${onAck}`}>
+                <RuxTableCell><RuxMonitoringIcon icon="equipment" status={errorSeverity}></RuxMonitoringIcon></RuxTableCell>
+                <RuxTableCell>{errorMessage}</RuxTableCell>
                 <RuxTableCell>{contactName}</RuxTableCell>
                 <RuxTableCell>{humanTime}</RuxTableCell>
                 <RuxTableCell>
@@ -44,7 +34,7 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
                         <rux-icon icon="search" size="extra-small"></rux-icon>
                         Show Details
                     </RuxButton>
-                    <RuxButton className={`status-button-${newErrorSeverity} ack-button-${onAck}`} onClick={() => setOnAck((cls) => (cls === "none" ? "display" : "none"))}>
+                    <RuxButton className={`status-button-${errorSeverity} ack-button-${onAck}`} onClick={() => setOnAck((cls) => (cls === "none" ? "display" : "none"))}>
                         <rux-icon icon="done" size="extra-small"></rux-icon>
                         Acknowledge
                     </RuxButton>
