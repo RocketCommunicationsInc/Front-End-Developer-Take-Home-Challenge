@@ -18,7 +18,7 @@ export const Table = () => {
                 "errorId": "",
                 "errorSeverity": "off",
                 "errorCategory": "",
-                "errorMessage": "N/A",
+                "errorMessage": "No alert",
                 "longMessage": "",
                 "errorTime": "",
                 "selected": false,
