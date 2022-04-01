@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { RuxTableRow, RuxTableCell, RuxButton, RuxMonitoringIcon } from "@astrouxds/react";
 
 export const TableCell = ({ data: { index, _id, contactName, contactDetail, contactSatellite, contactBeginTimestamp, contactEndTimestamp, alerts }, onDetail }) => {
 
@@ -32,23 +31,23 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
 
     return (
         <>
-            <RuxTableRow key={index} className={`status-row-${errorSeverity} ack-row-${onAck}`}>
-                <RuxTableCell><RuxMonitoringIcon icon="equipment" status={errorSeverity}></RuxMonitoringIcon></RuxTableCell>
-                <RuxTableCell>{errorMessage}</RuxTableCell>
-                <RuxTableCell>{contactName}</RuxTableCell>
-                <RuxTableCell>{humanTime}</RuxTableCell>
-                <RuxTableCell>
-                    <RuxButton secondary="true" onClick={() => onDetail(contactSatellite, contactDetail)}>
+            <rux-table-row key={index} className={`status-row-${errorSeverity} ack-row-${onAck}`}>
+                <rux-table-cell><rux-monitoring-icon icon="equipment" status={errorSeverity}></rux-monitoring-icon></rux-table-cell>
+                <rux-table-cell>{errorMessage}</rux-table-cell>
+                <rux-table-cell>{contactName}</rux-table-cell>
+                <rux-table-cell>{humanTime}</rux-table-cell>
+                <rux-table-cell>
+                    <rux-button secondary="true" onClick={() => onDetail(contactSatellite, contactDetail)}>
                         <rux-icon icon="search" size="extra-small"></rux-icon>
                         Show Details
-                    </RuxButton>
-                    <RuxButton
+                    </rux-button>
+                    <rux-button
                         className={`status-button-${errorSeverity} ack-button-${onAck}`} onClick={() => setOnAck((cls) => (cls === "none" ? "display" : "none"))}>
                         <rux-icon icon="done" size="extra-small"></rux-icon>
                         Acknowledge
-                    </RuxButton>
-                </RuxTableCell>
-            </RuxTableRow>
+                    </rux-button>
+                </rux-table-cell>
+            </rux-table-row>
         </>
     )
 }

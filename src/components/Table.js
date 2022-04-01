@@ -1,10 +1,6 @@
 import { useState } from "react";
 import data from '../data.json'
-import {
-    RuxTable,
-    RuxTableBody,
-    RuxModal
-} from '@astrouxds/react'
+import { RuxModal } from '@astrouxds/react'
 import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
 
@@ -35,10 +31,6 @@ export const Table = () => {
     /* The alerts to be sorted by error time with the most recent at the top */
     rows.sort((a, b) => (a.alerts[0].errorTime < b.alerts[0].errorTime ? 1 : -1));
 
-    const [value, setValue] = useState('All');
-
-    console.log(value);
-
     /* 
         By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
         Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
@@ -51,9 +43,9 @@ export const Table = () => {
 
     return (
         <>
-            <RuxTable>
-                <TableHeader viewSeverity={(value) => setValue(value)} />
-                <RuxTableBody>
+            <rux-table>
+                <TableHeader />
+                <rux-table-body>
                     {rows.map((contact, index) => {
                         return (
                             <TableCell
@@ -63,8 +55,8 @@ export const Table = () => {
                             />
                         )
                     })}
-                </RuxTableBody>
-            </RuxTable>
+                </rux-table-body>
+            </rux-table>
             <RuxModal open={detail.isOpen} modal-title={detail.modalTitle} modal-message={detail.modalMessage} confirm-text="OK" deny-text=""></RuxModal>
         </>
     )
