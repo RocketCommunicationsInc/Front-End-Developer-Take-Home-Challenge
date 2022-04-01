@@ -28,6 +28,8 @@ export const Table = () => {
         }
     });
 
+    rows.sort((a, b) => (a.alerts[0].errorTime < b.alerts[0].errorTime ? 1 : -1));
+
     const [allValues, setAllValues] = useState({
         isOpen: false,
         modalTitle: '',
