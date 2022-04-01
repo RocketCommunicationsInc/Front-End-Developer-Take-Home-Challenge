@@ -1,13 +1,13 @@
 import { RuxTableHeader, RuxTableHeaderRow, RuxTableHeaderCell, RuxSelect, RuxOption } from "@astrouxds/react";
 
-export const TableHeader = ({ onSort }) => {
+export const TableHeader = ({ viewSeverity }) => {
 
     return (
         <>
             <RuxTableHeader>
                 <RuxTableHeaderRow>
                     <RuxTableHeaderCell>
-                        <RuxSelect onClick={(e) => onSort(e.target.value)}>
+                        <RuxSelect onClick={(e) => viewSeverity(e.target.value)}>
                             <RuxOption value="All" selected="" label="Error Severity"></RuxOption>
                             <RuxOption value="all" label="All"></RuxOption>
                             <RuxOption value="critical" label="Critical"></RuxOption>

@@ -35,6 +35,10 @@ export const Table = () => {
     /* The alerts to be sorted by error time with the most recent at the top */
     rows.sort((a, b) => (a.alerts[0].errorTime < b.alerts[0].errorTime ? 1 : -1));
 
+    const [value, setValue] = useState('All');
+
+    console.log(value);
+
     /* 
         By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
         Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
@@ -48,7 +52,7 @@ export const Table = () => {
     return (
         <>
             <RuxTable>
-                <TableHeader viewSeverity={(value) => console.log(value)} />
+                <TableHeader viewSeverity={(value) => setValue(value)} />
                 <RuxTableBody>
                     {rows.map((contact, index) => {
                         return (
