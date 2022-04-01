@@ -6,6 +6,7 @@ export const TableHeader = ({ onSort }) => {
         <>
             <RuxTableHeader>
                 <RuxTableHeaderRow>
+                    <RuxTableHeaderCell></RuxTableHeaderCell>
                     <RuxTableHeaderCell>Alert message</RuxTableHeaderCell>
                     <RuxTableHeaderCell>Contact name</RuxTableHeaderCell>
                     <RuxTableHeaderCell>Contact time</RuxTableHeaderCell>
