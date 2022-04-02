@@ -1,17 +1,18 @@
-export const TableHeader = () => {
+import { RuxTableHeader, RuxTableHeaderRow, RuxTableHeaderCell } from "@astrouxds/react";
 
+export const TableHeader = () => {
     return (
         <>
-            <rux-table-header>
-                <rux-table-header-row>
-                    <rux-table-header-cell>
-                    </rux-table-header-cell>
-                    <rux-table-header-cell>Alert message</rux-table-header-cell>
-                    <rux-table-header-cell>Contact name</rux-table-header-cell>
-                    <rux-table-header-cell>Contact time</rux-table-header-cell>
-                    <rux-table-header-cell></rux-table-header-cell>
-                </rux-table-header-row>
-            </rux-table-header>
+            <RuxTableHeader>
+                <RuxTableHeaderRow>
+                    <RuxTableHeaderCell>
+                    </RuxTableHeaderCell>
+                    <RuxTableHeaderCell>Alert message</RuxTableHeaderCell>
+                    <RuxTableHeaderCell>Contact name</RuxTableHeaderCell>
+                    <RuxTableHeaderCell>Contact time</RuxTableHeaderCell>
+                    <RuxTableHeaderCell></RuxTableHeaderCell>
+                </RuxTableHeaderRow>
+            </RuxTableHeader>
         </>
     )
 }

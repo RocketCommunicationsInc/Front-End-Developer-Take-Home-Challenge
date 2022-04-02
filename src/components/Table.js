@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { RuxTable, RuxTableBody } from "@astrouxds/react";
+import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
 import { Modal } from './Modal';
 
@@ -16,8 +18,9 @@ export const Table = (rows) => {
 
     return (
         <>
-            <rux-table>
-                <rux-table-body>
+            <RuxTable>
+                <TableHeader />
+                <RuxTableBody>
                     {rows.data.map((contact, index) => {
                         return (
                             <TableCell
@@ -27,8 +30,8 @@ export const Table = (rows) => {
                             />
                         )
                     })}
-                </rux-table-body>
-            </rux-table>
+                </RuxTableBody>
+            </RuxTable>
             <Modal data={detail} />
         </>
     )
