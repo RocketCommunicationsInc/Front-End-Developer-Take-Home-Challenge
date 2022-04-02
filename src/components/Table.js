@@ -1,8 +1,8 @@
 import { useState } from "react";
 import data from '../data.json'
-import { RuxModal } from '@astrouxds/react'
 import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
+import { Modal } from './Modal';
 
 export const Table = () => {
 
@@ -57,7 +57,7 @@ export const Table = () => {
                     })}
                 </rux-table-body>
             </rux-table>
-            <RuxModal open={detail.isOpen} modal-title={detail.modalTitle} modal-message={detail.modalMessage} confirm-text="OK" deny-text=""></RuxModal>
+            <Modal data={detail} />
         </>
     )
 }
