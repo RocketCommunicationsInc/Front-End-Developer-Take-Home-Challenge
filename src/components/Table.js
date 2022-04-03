@@ -1,27 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RuxTable, RuxTableBody } from "@astrouxds/react";
 import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
 import { Modal } from './Modal';
 
-export const Table = (rows) => {
-    /* TODO: The click handlers are on all buttons. Need to review the code again. 
+export default function Table(rows) {
+    const [newRows, setNewRows] = useState([]);
+    const [filteredRows, setFilteredRows] = useState([]);
+    const [severityInput, setSeverityInput] = useState('');
+
+    useEffect(() => {
+        setNewRows(rows.data);
+    }, [rows.data])
+
 
     /* 
         view alerts by their severity as well 
         so that they can prioritize acknowledging the more severe alerts first.
         Please go to references: viewSeverity, setViewSeverity, onSeverity
     */
-    const [viewSeverity, setViewSeverity] = useState('All');
-    let filtered = rows.data.filter((row) => {
-        if (viewSeverity !== 'all') {
-            return row.alerts[0].errorSeverity === viewSeverity;
-        } else if (viewSeverity === 'all') {
-            return row.alerts[0].errorSeverity !== ''
+    const searchSeverity = (value) => {
+        setSeverityInput(value);
+        if (value !== 'all') {
+            const filteredData = newRows.filter((row) => {
+                return row.alerts[0].errorSeverity === value;
+            })
+            setFilteredRows(filteredData);
         } else {
-            return false;
+            setFilteredRows(newRows);
         }
-    });
+    }
 
     /* 
         By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
@@ -36,10 +44,10 @@ export const Table = (rows) => {
     return (
         <>
             <RuxTable>
-                <TableHeader onSeverity={(value) => setViewSeverity(value)} />
+                <TableHeader onSeverity={(value) => searchSeverity(value)} />
                 <RuxTableBody>
-                    {filtered.length > 0 ? (
-                        filtered.map((contact, index) => {
+                    {severityInput ? (
+                        filteredRows.map((contact, index) => {
                             return (
                                 <TableCell
                                     data={contact}
@@ -48,8 +56,8 @@ export const Table = (rows) => {
                                 />
                             )
                         })
-                    ) :
-                        rows.data.map((contact, index) => {
+                    ) : (
+                        newRows.map((contact, index) => {
                             return (
                                 <TableCell
                                     data={contact}
@@ -58,8 +66,7 @@ export const Table = (rows) => {
                                 />
                             )
                         })
-
-                    }
+                    )}
                 </RuxTableBody>
             </RuxTable>
             <Modal data={detail} />
