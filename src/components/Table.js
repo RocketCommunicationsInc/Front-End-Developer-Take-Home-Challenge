@@ -13,6 +13,15 @@ export default function Table(rows) {
         setNewRows(rows.data);
     }, [rows.data])
 
+    /* 
+        By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
+        Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
+    */
+    const [detail, setDetail] = useState({
+        isOpen: false,
+        modalTitle: '',
+        modalMessage: ''
+    });
 
     /* 
         view alerts by their severity as well 
@@ -29,17 +38,12 @@ export default function Table(rows) {
         } else {
             setFilteredRows(newRows);
         }
+        setDetail({
+            isOpen: false,
+            modalTitle: '',
+            modalMessage: ''
+        });
     }
-
-    /* 
-        By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
-        Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
-    */
-    const [detail, setDetail] = useState({
-        isOpen: false,
-        modalTitle: '',
-        modalMessage: ''
-    });
 
     return (
         <>
