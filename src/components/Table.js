@@ -6,7 +6,7 @@ import { Modal } from './Modal';
 
 export default function Table(rows) {
     /* 
-        TODO: Need to review the code to find out why the modal kept opening when clicking any button... 
+        FIXME: Need to review the code to find out why the modal kept opening when clicking any button... 
         How can we test this? please go to reference: searchSeverity and remove setDetails() 
     */
 
