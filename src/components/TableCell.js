@@ -26,7 +26,7 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
         When they click 'Acknowledge' button, we call setOnAck with a new value. onAck will add the new value to ack-button-${onAck} and ack-row-${onAck}. 
         The target acknowledge button will be disappear, and the target row's background color will be change. 
 
-        If they want to eliminate the target row by clicking the Acknowledge button, use setRows for it. Please go to reference: setRows
+        If they want to eliminate the target row by clicking the Acknowledge button, we need to create a new UseState and add it onto Table.js
     */
     const [onAck, setOnAck] = useState("");
 
