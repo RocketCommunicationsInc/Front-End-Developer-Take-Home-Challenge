@@ -5,6 +5,11 @@ import { TableCell } from './TableCell';
 import { Modal } from './Modal';
 
 export default function Table(rows) {
+    /* 
+        TODO: Need to review the code to find out why the modal kept opening when clicking any button... 
+        How can we test this? please go to reference: searchSeverity and remove setDetails() 
+    */
+
     const [newRows, setNewRows] = useState([]);
     const [filteredRows, setFilteredRows] = useState([]);
     const [severityInput, setSeverityInput] = useState('');
@@ -26,7 +31,7 @@ export default function Table(rows) {
     /* 
         view alerts by their severity as well 
         so that they can prioritize acknowledging the more severe alerts first.
-        Please go to references: viewSeverity, setViewSeverity, onSeverity
+        Please go to references: searchSeverity, setSeverityInput, filteredData, setFilteredRows, searchSeverity, onSeverity
     */
     const searchSeverity = (value) => {
         setSeverityInput(value);
