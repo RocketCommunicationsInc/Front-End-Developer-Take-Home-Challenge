@@ -60,7 +60,7 @@ export default function Table(rows) {
                             return (
                                 <TableCell
                                     data={contact}
-                                    key={index}
+                                    key={contact._id}
                                     onDetail={(...previous) => setDetail({ isOpen: true, modalTitle: previous[0], modalMessage: previous[1] })}
                                 />
                             )
@@ -70,7 +70,7 @@ export default function Table(rows) {
                             return (
                                 <TableCell
                                     data={contact}
-                                    key={index}
+                                    key={contact._id}
                                     onDetail={(...previous) => setDetail({ isOpen: true, modalTitle: previous[0], modalMessage: previous[1] })}
                                 />
                             )

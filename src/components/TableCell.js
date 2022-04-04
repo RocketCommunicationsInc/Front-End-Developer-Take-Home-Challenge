@@ -32,7 +32,7 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
 
     return (
         <>
-            <RuxTableRow key={index} className={`status-row-${errorSeverity} ack-row-${onAck}`}>
+            <RuxTableRow key={_id} className={`status-row-${errorSeverity} ack-row-${onAck}`}>
                 <rux-table-cell><rux-monitoring-icon icon="equipment" status={errorSeverity}></rux-monitoring-icon></rux-table-cell>
                 <rux-table-cell>{errorMessage}</rux-table-cell>
                 <rux-table-cell>{contactName}</rux-table-cell>
