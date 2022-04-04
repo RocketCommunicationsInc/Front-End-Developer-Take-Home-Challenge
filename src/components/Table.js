@@ -53,7 +53,7 @@ export default function Table(rows) {
     return (
         <>
             <RuxTable>
-                <TableHeader onSeverity={(value) => searchSeverity(value)} />
+                <TableHeader data={newRows} onSeverity={(value) => searchSeverity(value)} />
                 <RuxTableBody>
                     {severityInput ? (
                         filteredRows.map((contact, index) => {
