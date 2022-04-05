@@ -1,32 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RuxTable, RuxTableBody } from "@astrouxds/react";
 import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
 import { Modal } from './Modal';
 
 export default function Table(rows) {
-    /* 
-        FIXME: Need to review the code to find out why the modal kept opening when clicking any button... 
-        How can we test this? please go to reference: searchSeverity and remove setDetails() 
-    */
 
-    const [newRows, setNewRows] = useState([]);
+    const [newRows, setNewRows] = useState(rows.data);
     const [filteredRows, setFilteredRows] = useState([]);
     const [severityInput, setSeverityInput] = useState('');
-
-    useEffect(() => {
-        setNewRows(rows.data);
-    }, [rows.data])
 
     /* 
         By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
         Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
     */
-    const [detail, setDetail] = useState({
-        isOpen: false,
-        modalTitle: '',
-        modalMessage: ''
-    });
+    const [detail, setDetail] = useState([]);
 
     /* 
         view alerts by their severity as well 
