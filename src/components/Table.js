@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RuxTable, RuxTableBody } from "@astrouxds/react";
 import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
@@ -9,17 +9,33 @@ export default function Table(rows) {
     const [newRows, setNewRows] = useState(rows.data);
     const [filteredRows, setFilteredRows] = useState([]);
     const [severityInput, setSeverityInput] = useState('');
+    const [openModal, setOpenModal] = useState(null);
+
+    /*
+        Make the data persist
+    */
+    useEffect(() => {
+        if (filteredRows.length === 0) {
+            setFilteredRows(newRows);
+        }
+    }, [filteredRows.length, newRows])
 
     /* 
         By clicking on the button called Show Details, it utilizes RuxModal to show the detail. 
-        Please go to references: RuxModal, detail, setDetail, onDetail, contactSatellite, contactDetail  
+        Please go to references: Modal (RuxModal), openModal, setOpenModal, checkDetail, onDetail, contactSatellite, contactDetail  
     */
-    const [detail, setDetail] = useState([]);
+    function checkDetail(value) {
+        if (value) {
+            setOpenModal(<Modal data={value} />);
+        } else {
+            return false;
+        }
+    }
 
     /* 
         view alerts by their severity as well 
         so that they can prioritize acknowledging the more severe alerts first.
-        Please go to references: searchSeverity, setSeverityInput, filteredData, setFilteredRows, searchSeverity, onSeverity
+        Please go to references: searchSeverity, setSeverityInput, filteredData, setFilteredRows, onSeverity
     */
     const searchSeverity = (value) => {
         setSeverityInput(value);
@@ -31,11 +47,6 @@ export default function Table(rows) {
         } else {
             setFilteredRows(newRows);
         }
-        setDetail({
-            isOpen: false,
-            modalTitle: '',
-            modalMessage: ''
-        });
     }
 
     return (
@@ -43,30 +54,20 @@ export default function Table(rows) {
             <RuxTable>
                 <TableHeader data={newRows} onSeverity={(value) => searchSeverity(value)} />
                 <RuxTableBody>
-                    {severityInput ? (
+                    {
                         filteredRows.map((contact) => {
                             return (
                                 <TableCell
                                     data={contact}
                                     key={contact._id}
-                                    onDetail={(...previous) => setDetail({ isOpen: true, modalTitle: previous[0], modalMessage: previous[1] })}
+                                    onDetail={(...previous) => checkDetail({ isOpen: true, modalTitle: previous[0], modalMessage: previous[1] })}
                                 />
                             )
                         })
-                    ) : (
-                        newRows.map((contact) => {
-                            return (
-                                <TableCell
-                                    data={contact}
-                                    key={contact._id}
-                                    onDetail={(...previous) => setDetail({ isOpen: true, modalTitle: previous[0], modalMessage: previous[1] })}
-                                />
-                            )
-                        })
-                    )}
+                    }
                 </RuxTableBody>
             </RuxTable>
-            <Modal data={detail} />
+            {openModal}
         </>
     )
 }
