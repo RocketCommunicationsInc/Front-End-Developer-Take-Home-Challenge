@@ -17,7 +17,7 @@ export const TableHeader = ({ data, onSeverity }) => {
             <RuxTableHeader>
                 <RuxTableHeaderRow>
                     <RuxTableHeaderCell>
-                        <RuxSelect onClick={(e) => onSeverity(e.target.value)}>
+                        <RuxSelect onRuxchange={(e) => onSeverity(e.target.value)}>
                             <RuxOption value="all" selected="" label="All"></RuxOption>
                             {uniqueErrorSeverityLevel.map((word, index) => {
                                 return (
