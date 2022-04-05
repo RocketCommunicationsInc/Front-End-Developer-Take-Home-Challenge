@@ -33,8 +33,7 @@ export default function Table(rows) {
     }
 
     /* 
-        view alerts by their severity as well 
-        so that they can prioritize acknowledging the more severe alerts first.
+        view alerts by their severity as well so that they can prioritize acknowledging the more severe alerts first.
         Please go to references: searchSeverity, setSeverityInput, filteredData, setFilteredRows, onSeverity
     */
     const searchSeverity = (value) => {
