@@ -1,0 +1,54 @@
+h1 {
+  --fluid-type-min: 2.5rem;
+  --fluid-type-max: 5rem;
+  --fluid-type-target: 5vw;
+  text-align: center;
+}
+
+h2 {
+  --fluid-type-min: 1.8rem;
+  --fluid-type-max: 3rem;
+}
+
+h3 {
+  --fluid-type-min: 1.5rem;
+  --fluid-type-max: 2.5rem;
+}
+
+h2,
+h3 {
+  max-width: 30ch;
+}
+
+p {
+  max-width: 60ch;
+}
+
+rux-table {
+  text-align: center;
+}
+
+rux-button:first-child {
+  margin-right: 1rem;
+}
+
+.status-button-off {
+  display: none;
+}
+
+.status-row-off {
+  background-color: #101923;
+}
+
+Rux-Monitoring-Icon {
+  position: relative;
+  top: 1rem;
+}
+
+.ack-row-none {
+  background-color: #101923;
+}
+
+.ack-button-none {
+  display: none;
+}
