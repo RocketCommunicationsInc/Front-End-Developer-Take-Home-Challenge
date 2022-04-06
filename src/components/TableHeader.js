@@ -19,11 +19,16 @@ export const TableHeader = ({ data, onSeverity }) => {
                     <RuxTableHeaderCell>
                         <RuxSelect onRuxchange={(e) => onSeverity(e.target.value)}>
                             <RuxOption value="all" selected="" label="All"></RuxOption>
-                            {uniqueErrorSeverityLevel.map((word, index) => {
+                            <RuxOption value="critical" selected="" label="Critical"></RuxOption>
+                            <RuxOption value="serious" selected="" label="Serious"></RuxOption>
+                            <RuxOption value="caution" selected="" label="Caution"></RuxOption>
+                            <RuxOption value="off" selected="" label="Off"></RuxOption>
+                            {/* I had to disable this piece of code. If we click 'Acknowledge' button in any row, it will mess up options in the right order. */}
+                            {/* {uniqueErrorSeverityLevel.map((word, index) => {
                                 return (
                                     <RuxOption key={index} value={`${word}`} label={`${capitalizeFirstLetter(word)}`}></RuxOption>
                                 )
-                            })}
+                            })} */}
                         </RuxSelect>
                     </RuxTableHeaderCell>
                     <RuxTableHeaderCell>Alert message</RuxTableHeaderCell>

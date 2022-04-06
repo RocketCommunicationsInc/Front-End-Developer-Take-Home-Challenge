@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { RuxTableRow, RuxButton } from '@astrouxds/react'
 
-export const TableCell = ({ data: { index, _id, contactName, contactDetail, contactSatellite, contactBeginTimestamp, contactEndTimestamp, alerts }, onDetail }) => {
+export const TableCell = ({ data: { index, _id, contactName, contactDetail, contactSatellite, contactBeginTimestamp, contactEndTimestamp, alerts }, onDetail, onAck }) => {
 
     /* Self explanatory */
     const convertEpochToHumanReadable = (time) => {
@@ -22,17 +21,9 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
     const errorMessage = alerts[0].errorMessage;
     const errorSeverity = alerts[0].errorSeverity;
 
-    /*
-        When they click 'Acknowledge' button, we call setOnAck with a new value. onAck will add the new value to ack-button-${onAck} and ack-row-${onAck}. 
-        The target acknowledge button will be disappear, and the target row's background color will be change. 
-
-        If they want to eliminate the target row by clicking the Acknowledge button, we need to create a new UseState and add it onto Table.js
-    */
-    const [onAck, setOnAck] = useState("");
-
     return (
         <>
-            <RuxTableRow key={_id} className={`status-row-${errorSeverity} ack-row-${onAck}`}>
+            <RuxTableRow key={_id} className={`status-row-${errorSeverity}`}>
                 <rux-table-cell><rux-monitoring-icon icon="equipment" status={errorSeverity}></rux-monitoring-icon></rux-table-cell>
                 <rux-table-cell>{errorMessage}</rux-table-cell>
                 <rux-table-cell>{contactName}</rux-table-cell>
@@ -43,7 +34,7 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
                         Show Details
                     </RuxButton>
                     <RuxButton
-                        className={`status-button-${errorSeverity} ack-button-${onAck}`} onClick={() => setOnAck((cls) => (cls === "none" ? "display" : "none"))}>
+                        className={`status-button-${errorSeverity}`} onClick={() => onAck(_id)}>
                         <rux-icon icon="done" size="extra-small"></rux-icon>
                         Acknowledge
                     </RuxButton>
