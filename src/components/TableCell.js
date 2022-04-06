@@ -1,6 +1,9 @@
 import { RuxTableRow, RuxButton } from '@astrouxds/react'
 
-export const TableCell = ({ data: { index, _id, contactName, contactDetail, contactSatellite, contactBeginTimestamp, contactEndTimestamp, alerts }, onDetail, onAck }) => {
+export const TableCell = ({ data: { _id, contactName, contactDetail, contactSatellite, contactBeginTimestamp, contactEndTimestamp, alerts }, onDetail, onAck }) => {
+
+    const errorMessage = alerts[0].errorMessage;
+    const errorSeverity = alerts[0].errorSeverity;
 
     /* Self explanatory */
     const convertEpochToHumanReadable = (time) => {
@@ -17,9 +20,6 @@ export const TableCell = ({ data: { index, _id, contactName, contactDetail, cont
 
     const epochTime = contactEndTimestamp - contactBeginTimestamp;
     const humanTime = convertEpochToHumanReadable(epochTime);
-
-    const errorMessage = alerts[0].errorMessage;
-    const errorSeverity = alerts[0].errorSeverity;
 
     return (
         <>

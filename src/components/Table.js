@@ -5,33 +5,27 @@ import { TableCell } from './TableCell';
 import { Modal } from './Modal';
 
 export default function Table(rows) {
-
-    const [newRows, setNewRows] = useState(rows.data);
-    const [filteredRows, setFilteredRows] = useState([]);
-    const [openModal, setOpenModal] = useState(null);
+    const [newRows, setNewRows] = useState([]);
+    const [openModal, setOpenModal] = useState();
 
     /*
         Make the data persist
     */
     useEffect(() => {
-        if (filteredRows.length === 0) {
-            setFilteredRows(newRows);
+        if (newRows.length === 0) {
+            setNewRows(rows.data);
         }
-    }, [filteredRows, newRows])
+    }, [newRows, rows.data])
 
     /* 
         view alerts by their severity as well so that they can prioritize acknowledging the more severe alerts first.
-        Please go to references: searchSeverity, setSeverityInput, filteredData, setFilteredRows, onSeverity
+        Please go to references: searchSeverity, filteredData, setNewRows, onSeverity
     */
     const searchSeverity = (value) => {
-        if (value !== 'all') {
-            const filteredData = newRows.filter((row) => {
-                return row.alerts[0].errorSeverity === value;
-            })
-            setFilteredRows(filteredData);
-        } else {
-            setFilteredRows(newRows);
-        }
+        const filteredData = newRows.filter((row) => {
+            return row.alerts[0].errorSeverity === value;
+        })
+        setNewRows(filteredData);
     }
 
     /* 
@@ -54,11 +48,11 @@ export default function Table(rows) {
     const checkID = (id) => {
         const emptyArray = [];
         /* if clicking the acknowledge button in the target row, we will copy and paste the object from the target row to the empty array */
-        filteredRows.filter(row => row._id === id ? emptyArray.push(row) : undefined);
+        newRows.filter(row => row._id === id ? emptyArray.push(row) : undefined);
         /* if clicking the acknowledge button in the target row, it will be eliminated */
-        const newFilteredRows = filteredRows.filter((row) => row._id !== id);
+        const newFilteredRows = newRows.filter((row) => row._id !== id);
         /* update the list */
-        setFilteredRows(newFilteredRows);
+        setNewRows(newFilteredRows);
         /* empty the existing alerts in the empty array */
         emptyArray[0].alerts = [];
         /* fill the new alerts in the empty array */
@@ -74,9 +68,9 @@ export default function Table(rows) {
             "expanded": false
         })
         /* update the list */
-        setFilteredRows(oldArray => [...oldArray, ...emptyArray]);
+        setNewRows(oldArray => [...oldArray, ...emptyArray]);
         /* The alerts to be sorted by error time with the most recent at the top again after add a new object onto the existing data */
-        filteredRows.sort((a, b) => (a.alerts[0].errorTime < b.alerts[0].errorTime ? 1 : -1));
+        newRows.sort((a, b) => (a.alerts[0].errorTime < b.alerts[0].errorTime ? 1 : -1));
     }
 
     return (
@@ -85,7 +79,7 @@ export default function Table(rows) {
                 <TableHeader data={newRows} onSeverity={(value) => searchSeverity(value)} />
                 <RuxTableBody>
                     {
-                        filteredRows.map((contact) => {
+                        newRows.map((contact) => {
                             return (
                                 <TableCell
                                     data={contact}
