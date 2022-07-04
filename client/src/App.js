@@ -13,7 +13,7 @@ const [data, setData]=useState(dataJson)
   return (
     <div className="">
  <Navbar/>
-<Alerts date={data}/>
+<Alerts data={data}/>
     </div>
   );
 }
