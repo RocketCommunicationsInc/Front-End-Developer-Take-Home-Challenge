@@ -26,7 +26,7 @@
         "errorMessage": "Red FEP 124 - Offline",
         "longMessage": "Red FEP 124 is offline at 18:40:27",
         "errorTime": 1542134427946,
-        "selected": false,
+        "selected": true,
         "new": false,
         "expanded": false
       }
