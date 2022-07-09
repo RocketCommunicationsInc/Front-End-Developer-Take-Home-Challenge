@@ -1,35 +1,31 @@
-
 import './App.css';
-import '@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.css'
+import '@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.css';
 
-import { RuxButton,RuxClock } from '@astrouxds/react'
+import { RuxButton, RuxClock, } from '@astrouxds/react';
 import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Alerts from './components/Alerts';
-import dataJson from './data.json'
-const App= ()=> {
-// console.log(dataJson)
-const [data, setData]=useState(dataJson)
+// import dataJson from './data.json';
+const App = () => {
+  // console.log(dataJson)
 
+  // const [data, setData] = useState(dataJson);
+
+  // const dataCopy = [...data];
+  // console.log("get access to selected", dataCopy[4].alerts[0].selected)
+  const alertAcknowledged = (name, value,ackTrue, alert, idx) => {
+  //  setData(prev=> ({...prev,...prev.map(item=> item&& console.log(item)) }))
+  console.log("ackTrueinappjs",ackTrue);
+  
+  }
+   
   return (
-    <div className="">
- <Navbar/>
-<Alerts data={data}/>
+    <div className=''>
+      <Navbar />
+      {/* <Alerts data={data} alertAcknowledged={alertAcknowledged} /> */}
+      <Alerts />
     </div>
   );
-}
+};
 
 export default App;
-
-// const [myArr, setMyArr]=useState([{A:"one"},{B:'two'}])
-// const [isArrayChanged, setIsArrayChanged]= useState(false)
-
-// const addItem = () => {
-//   // business logic that sets isArrayChanged to "true" if the array changed
-// // useEffect will run when this function adds an item to the array
-// }
-// useEffect(()=> {
-// console.log(`My array ${myArr} has changed it's length`)
-
-// // cleanup here 
-// },[isArrayChanged])

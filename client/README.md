@@ -31,4 +31,8 @@ I am using React as my JS framework and created a React app with `npx create-rea
 
  The `Navbar` component has a simple clock, app-name, app-username, and app-domain
 
- The `Alerts` component shows the Total Alerts and a table of all the data with alerts. Each alert has an Alert Message, Contact Name,Contact Time, and Show Details button. The Show Details button will open a modal and show more details regarding the alert.
+ The `Alerts` component shows the Total Alerts and a table of all the data with alerts. Each alert has an Alert Message, Contact Name, Contact Time, and Show Details button. The Show Details button will open a modal and show more details regarding the alert such as Contact Details and Contact Satellite. The state is tracking when the modal is open and closed.
+
+ `Select Box` for the severity levels I created a dropdown select box to choose one of three options `Critical`, `Serious`, and `Caution`. 
+
+ When alerts are acknowledged by a checkbox the corresponding alert row will turn green and the Unack' Alerts will update. Once acknowledged the alert the checkbox is disabled. The state is tracking the checked box and the 'selected' key. The selected key will become true if the checkbox is ticked and it will remain true as the controller for being acknowledged. 
