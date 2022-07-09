@@ -10,10 +10,10 @@ import {
   RuxTableCell,
   RuxModal,
   RuxCheckbox,
-  RuxSelect,
-  RuxOption
+  RuxStatus
 } from '@astrouxds/react';
 import dataJson from '../data.json';
+import SeveritySelect from './SeveritySelect';
 
 const Alerts = () => {
   const [data, setData] = useState(dataJson);
@@ -24,10 +24,7 @@ const Alerts = () => {
   const [disabled, setDisabled] = useState(false);
   const [select, setSelect] = useState('recent');
 
-  console.log('select', select);
-  //   console.log('checked', checked);
-  //   console.log('data', data);
-
+  // *SET UP FLAT ARRAY FOR TOTAL ALERTS
   const copyArr = [...data];
   const alertArray = copyArr
     .map((item) => item.alerts.map((item) => item))
@@ -35,13 +32,14 @@ const Alerts = () => {
   console.log(alertArray);
   console.log('copyArr', copyArr);
 
+  //*FORMAT TIME TO MINUTES
   const contactTimeFormat = (num) => {
     const min = Math.floor(num / 60000);
     const sec = Math.abs((num % 6000) / 1000).toFixed(0);
     return `${min} : ${sec < 10 ? '0' : ''} ${sec}`;
   };
 
-  //*Close the modal and clear the state
+  //*OPEN/CLOSE MODAL,CLEAR STATE
   const handleCloseModal = () => {
     setOpen(false);
     if (modalData !== null) {
@@ -49,7 +47,7 @@ const Alerts = () => {
     }
   };
 
-  //*Show Details onClick will pass the item in, set modal state and the open state to true
+  // * SHOW DETAILS BUTTON PASS IN STATE VALUES AND SET MODAL STATE TO OPEN
   const handleModalClick = (item) => {
     setModalData((prev) => ({
       ...prev,
@@ -59,24 +57,26 @@ const Alerts = () => {
     setOpen(!open);
   };
 
-  // *SET THE STATE SELECTED === TRUE FOR THE CHECKED ALERT
+  // *FOR CHECKBOXES SET THE STATE SELECTED === TRUE FOR THE CHECKED ALERT
   const handleChange = (e, alert, itemId) => {
     setIsChecked(true);
-    const { name, id, type, value, checked } = e.target;
+    const { name, id, type, checked } = e.target;
     console.log('alert event id', id);
-    // if ( type === 'checkbox') {
-    setData((prev) => {
-      return prev.map((item) => {
-        return item._id === itemId && item.alerts[id] === alert
-          ? {
-              ...item,
-              alerts: item.alerts.map((al, alIndex) =>
-                al === alert ? { ...al, selected: true, [name]: checked } : al
-              )
-            }
-          : item;
+
+    if (type === 'checkbox') {
+      setData((prev) => {
+        return prev.map((item) => {
+          return item._id === itemId && item.alerts[id] === alert
+            ? {
+                ...item,
+                alerts: item.alerts.map((al) =>
+                  al === alert ? { ...al, selected: true, [name]: checked } : al
+                )
+              }
+            : item;
+        });
       });
-    });
+    }
   };
   // *SEVERITY FILTER
   const sevLevs = () => {
@@ -87,6 +87,11 @@ const Alerts = () => {
         item.alerts.every((sev) => select.includes(sev.errorSeverity))
     );
     return select === 'recent' ? dataCopy : filteredSeverity;
+  };
+
+  // *SELECT DROP DOWN SEVERITY TARGET
+  const handleSelect = (e) => {
+    setSelect(e.target.value);
   };
 
   return (
@@ -103,26 +108,13 @@ const Alerts = () => {
               alertArray.filter((item) => item.selected === true).length}
           </div>
         </div>
-
-        <RuxSelect
-          input-id='1'
-          label-id='1'
-          label='Severity Search'
-          onRuxchange={(e) => setSelect(e.target.value)}
-          name='default'
-          size='small'
-          className='w-1/5 mb-2 items-center justify-center'>
-          <RuxOption label='Severity'></RuxOption>
-          <RuxOption value={'serious'} label='Serious'></RuxOption>
-          <RuxOption value={'critical'} label='Critical'></RuxOption>
-          <RuxOption value={'caution'} label='Caution'></RuxOption>
-          <RuxOption value={'recent'} label='Recent'></RuxOption>
-        </RuxSelect>
+        <SeveritySelect select={select} handleSelect={handleSelect} />
       </header>
       <RuxTable>
         <RuxTableHeader>
           <RuxTableHeaderRow>
             <RuxTableHeaderCell>Ack'</RuxTableHeaderCell>
+            <RuxTableHeaderCell>Status</RuxTableHeaderCell>
             <RuxTableHeaderCell>Alert Message</RuxTableHeaderCell>
             <RuxTableHeaderCell>Contact Name</RuxTableHeaderCell>
             <RuxTableHeaderCell>Contact Time (min) </RuxTableHeaderCell>
@@ -147,10 +139,16 @@ const Alerts = () => {
                           type='checkbox'
                           disabled={alert.selected === true && !disabled}
                           value={isChecked}
-                          //   checked={isChecked}
                           onRuxchange={(e) =>
                             handleChange(e, alert, item._id)
                           }></RuxCheckbox>
+                      </RuxTableCell>
+                      <RuxTableCell>
+                        {alert.errorSeverity === 'warning' ? (
+                          <RuxStatus status='caution' />
+                        ) : (
+                          <RuxStatus status={alert.errorSeverity} />
+                        )}
                       </RuxTableCell>
                       <RuxTableCell>{alert.errorMessage}</RuxTableCell>
                       <RuxTableCell>{item.contactName}</RuxTableCell>
