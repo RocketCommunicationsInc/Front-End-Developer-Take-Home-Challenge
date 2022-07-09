@@ -29,8 +29,7 @@ const Alerts = () => {
   const alertArray = copyArr
     .map((item) => item.alerts.map((item) => item))
     .flat();
-  console.log(alertArray);
-  console.log('copyArr', copyArr);
+ 
 
   //*FORMAT TIME TO MINUTES
   const contactTimeFormat = (num) => {
@@ -61,7 +60,6 @@ const Alerts = () => {
   const handleChange = (e, alert, itemId) => {
     setIsChecked(true);
     const { name, id, type, checked } = e.target;
-    console.log('alert event id', id);
 
     if (type === 'checkbox') {
       setData((prev) => {
