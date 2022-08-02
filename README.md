@@ -1,6 +1,5 @@
 # Developer-Take-Home-Challenge
 
-**[Deployed Link](https://front-end-developer-take-home-challenge.vercel.app/)**
 
 
 **The Project**
