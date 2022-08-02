@@ -2,6 +2,7 @@
 Author: Greg Petropoulos
 
 Date: 7.9.22
+**[Deployed Link](https://front-end-developer-take-home-challenge.vercel.app/)**
 
 ## Intro 
 Front End Developer-Challenge
