@@ -28,11 +28,11 @@ The data.json file consists of a list of contacts (satellites) and any alerts as
 - This project can be done in any framework of your choice.
 - This project should make use of the [Astro component library.](https://astro-components.netlify.app/)
 - You are free to use any third-party libraries.
-- Please feel free to reach out to ask any questions (jeremy.benson@rocketcom.com).
+- Please feel free to reach out via email to our recruiter if you have any questions.
 - Steps to follow:
   - Fork this repository
   - Work on your solution
-  - Create a pull request with @github/rocket-bensonism as the reviewer, if available.
+  - Create a pull request with @github/cskerbo as the reviewer, if available.
 - Have fun and be as creative as you like!
 
 **Timeframe**
