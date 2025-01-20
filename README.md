@@ -25,7 +25,7 @@ The data.json file consists of a list of contacts (satellites) and any alerts as
 
 **Technical Requirements**
 
-- This project can be done in any framework of your choice.
+- This project should be done using React.
 - This project should make use of the [Astro component library.](https://astro-components.netlify.app/)
 - You are free to use any third-party libraries.
 - Please feel free to reach out via email to our recruiter if you have any questions.
