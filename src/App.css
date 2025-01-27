@@ -1,0 +1,12 @@
+rux-container::part(container) {
+	width: 100%;
+	overflow-x: scroll;
+}
+
+rux-container::part(body) {
+	padding: 0;
+}
+
+rux-container::part(header) {
+	background: transparent;
+}
