@@ -8,13 +8,18 @@ import {
   RuxTableCell,
   RuxButton,
 } from "@astrouxds/react";
+import PropTypes from "prop-types";
+
+ContactsTable.propTypes = {
+  contacts: PropTypes.array,
+};
 
 function ContactsTable({ contacts }) {
   const headerCols = [
     { label: "Contact Name", id: "contactName" },
     { label: "Status", id: "status" },
     { label: "Contact Time", id: "contactTime" },
-    { label: "Severity", id: "severity" },
+    { label: "Alerts", id: "numAlerts" },
     { label: "", id: "actions" },
   ];
 
@@ -46,11 +51,6 @@ function ContactsTable({ contacts }) {
           ))}
         </RuxTableBody>
       </RuxTable>
-      <div>
-        {contacts.map((contact) => (
-          <span key={contact._id}>{contact.contactName}</span>
-        ))}
-      </div>
     </>
   );
 }

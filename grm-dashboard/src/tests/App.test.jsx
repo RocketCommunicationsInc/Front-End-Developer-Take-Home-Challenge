@@ -1,4 +1,4 @@
-import { it, expect, test } from "vitest";
+import { it, expect, test, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
 
@@ -8,8 +8,21 @@ it("renders the App component", () => {
   expect(pageTitle).toBeInTheDocument();
 });
 
-test("data is valid json", () => {
+describe("contacts", () => {
   const data = require("../../../data.json");
-  expect(typeof data).toBe("object");
-  expect(data.length).toBeGreaterThan(0);
+
+  test("data is valid json", () => {
+    expect(typeof data).toBe("object");
+    expect(data.length).toBeGreaterThan(0);
+  });
+
+  test("contact alerts only contain expected statuses", () => {
+    let expectedSeverities = ["caution", "warning", "serious", "critical"];
+    let contactsWithoutExpectedStatuses = data.filter((contact) =>
+      contact.alerts.some(
+        (alert) => !expectedSeverities.includes(alert.errorSeverity)
+      )
+    );
+    expect(contactsWithoutExpectedStatuses).toHaveLength(0);
+  });
 });
