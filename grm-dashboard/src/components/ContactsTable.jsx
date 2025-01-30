@@ -27,8 +27,9 @@ function ContactsTable({ contacts }) {
   ];
   const [expandedRows, setExpandedRows] = useState({});
 
-  function toggleRow(id) {
-    setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
+  function toggleRow(contact) {
+    if (contact.alerts.length === 0) return;
+    setExpandedRows((prev) => ({ ...prev, [contact._id]: !prev[contact._id] }));
   }
 
   function expandAll() {
@@ -75,7 +76,7 @@ function ContactsTable({ contacts }) {
         <RuxTableBody>
           {contacts.map((contact) => (
             <React.Fragment key={contact._id}>
-              <RuxTableRow>
+              <RuxTableRow onClick={() => toggleRow(contact)}>
                 <RuxTableCell className="p-2">
                   {contact.contactName}
                 </RuxTableCell>
@@ -104,7 +105,6 @@ function ContactsTable({ contacts }) {
                           ? "keyboard-arrow-down"
                           : "keyboard-arrow-left"
                       }
-                      onClick={() => toggleRow(contact._id)}
                     />
                   ) : (
                     ""
