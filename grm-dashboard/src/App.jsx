@@ -1,24 +1,22 @@
 import { useState } from "react";
+import { RuxContainer } from "@astrouxds/react";
+import ContactsTable from "./components/ContactsTable";
 import "./App.css";
+import contactsJson from "../../data.json";
+
+function filteredContacts(contacts) {
+  return contacts;
+}
 
 function App() {
   const pageTitle = "GRM Dashboard";
-  const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1>{pageTitle}</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <RuxContainer>
+        <div slot="header">{pageTitle}</div>
+        <ContactsTable contacts={filteredContacts(contactsJson)} />
+      </RuxContainer>
     </>
   );
 }
