@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
+  RuxButton,
   RuxContainer,
   RuxGlobalStatusBar,
   RuxMonitoringIcon,
@@ -10,22 +11,21 @@ import "./App.css";
 import contactsJson from "../../data.json";
 
 function App() {
-  const appDomain = "GRM";
-  const appName = "Dashboard";
+  const appName = "GRM Dashboard";
   const appVersion = "1.0";
   const menuIcon = "antenna-receive";
   const alertStates = ["caution", "warning"];
   const criticalStates = ["serious", "critical"];
   const [contacts, setContacts] = useState(contactsJson);
-  const [listFilterOptions, setListFilterOptions] = useState([
-    { label: "All", selected: true },
-    { label: "Only Alerts" },
+  const [segmentOptions, setSegmentOptions] = useState([
+    { label: "All" },
+    { label: "Only Alerts", selected: true },
     { label: "Unacknowledged" },
   ]);
-  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [selectedSegment, setSelectedSegment] = useState("Only Alerts");
 
   function filteredContacts(contacts) {
-    switch (selectedFilter) {
+    switch (selectedSegment) {
       case "All":
       default:
         return contacts;
@@ -40,7 +40,7 @@ function App() {
   }
 
   function updateFilter(event) {
-    setSelectedFilter(event.detail);
+    setSelectedSegment(event.detail);
   }
 
   function normalContacts(contacts) {
@@ -58,8 +58,8 @@ function App() {
   return (
     <>
       <RuxGlobalStatusBar
+        data-testid="global-status-bar"
         className="mb-3 w-full"
-        appDomain={appDomain}
         appName={appName}
         appVersion={appVersion}
         includeIcon="true"
@@ -94,10 +94,10 @@ function App() {
           <div className="w-1/3"></div>
           <div className="w-1/3 text-right">
             <RuxSegmentedButton
+              data-testid="segmented-button"
               onRuxchange={(event) => updateFilter(event)}
-              data={listFilterOptions}
+              data={segmentOptions}
             />
-            {listFilterOptions.filter((item) => item.selected === true).label}
           </div>
         </div>
         <ContactsTable contacts={filteredContacts(contacts)} />
