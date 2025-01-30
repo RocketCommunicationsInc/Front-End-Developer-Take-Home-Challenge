@@ -1,11 +1,11 @@
 import { it, expect, test, describe } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
 
 it("renders the App component", () => {
-  render(<App />);
-  const pageTitle = screen.getByText(/GRM Dashboard/i);
-  expect(pageTitle).toBeInTheDocument();
+  const { getByTestId } = render(<App />);
+  const globalStatusBar = getByTestId("global-status-bar");
+  expect(globalStatusBar).toBeInTheDocument();
 });
 
 describe("contacts", () => {
@@ -24,5 +24,13 @@ describe("contacts", () => {
       )
     );
     expect(contactsWithoutExpectedStatuses).toHaveLength(0);
+  });
+});
+
+describe("table header", () => {
+  test("segment button is displayed", () => {
+    const { getByTestId } = render(<App />);
+    let segmentBtn = getByTestId("segmented-button");
+    expect(segmentBtn).toBeInTheDocument();
   });
 });

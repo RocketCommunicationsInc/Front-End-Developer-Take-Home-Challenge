@@ -1,3 +1,4 @@
+import React, { useImperativeHandle, useState } from "react";
 import {
   RuxTable,
   RuxTableHeader,
@@ -7,6 +8,8 @@ import {
   RuxTableRow,
   RuxTableCell,
   RuxButton,
+  RuxStatus,
+  RuxIcon,
 } from "@astrouxds/react";
 import PropTypes from "prop-types";
 
@@ -20,8 +23,26 @@ function ContactsTable({ contacts }) {
     { label: "Status", id: "status" },
     { label: "Contact Time", id: "contactTime" },
     { label: "Alerts", id: "numAlerts" },
-    { label: "", id: "actions" },
+    { label: "", id: "expand" },
   ];
+  const [expandedRows, setExpandedRows] = useState({});
+
+  function toggleRow(id) {
+    setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
+  }
+
+  function expandAll() {
+    const newExpandedRows = {};
+    contacts.map((contact) => {
+      if (contact.alerts.length) {
+        newExpandedRows[contact._id] = true;
+      }
+    });
+    setExpandedRows(newExpandedRows);
+  }
+  function collapseAll() {
+    setExpandedRows({});
+  }
 
   return (
     <>
@@ -30,6 +51,22 @@ function ContactsTable({ contacts }) {
           <RuxTableHeaderRow>
             {headerCols.map((col) => (
               <RuxTableHeaderCell key={col.id} className="p-2">
+                {col.id === "expand" && (
+                  <>
+                    {
+                      //No true values in our expandedRows
+                      Object.values(expandedRows).includes(true) === false ? (
+                        <RuxButton onClick={() => expandAll()}>
+                          Expand All
+                        </RuxButton>
+                      ) : (
+                        <RuxButton onClick={() => collapseAll()}>
+                          Collapse All
+                        </RuxButton>
+                      )
+                    }
+                  </>
+                )}
                 {col.label}
               </RuxTableHeaderCell>
             ))}
@@ -37,17 +74,65 @@ function ContactsTable({ contacts }) {
         </RuxTableHeader>
         <RuxTableBody>
           {contacts.map((contact) => (
-            <RuxTableRow key={contact._id}>
-              <RuxTableCell>{contact.contactName}</RuxTableCell>
-              <RuxTableCell>{contact.contactStatus}</RuxTableCell>
-              <RuxTableCell>
-                {(contact.contactEndTimestamp = contact.contactBeginTimestamp)}
-              </RuxTableCell>
-              <RuxTableCell>{contact.alerts.length}</RuxTableCell>
-              <RuxTableCell>
-                <RuxButton>Show</RuxButton>
-              </RuxTableCell>
-            </RuxTableRow>
+            <React.Fragment key={contact._id}>
+              <RuxTableRow>
+                <RuxTableCell className="p-2">
+                  {contact.contactName}
+                </RuxTableCell>
+                <RuxTableCell>{contact.contactStatus}</RuxTableCell>
+                <RuxTableCell>
+                  {
+                    (contact.contactEndTimestamp =
+                      contact.contactBeginTimestamp)
+                  }
+                </RuxTableCell>
+                <RuxTableCell className="flex w-full text-center">
+                  {contact.alerts.map((alert, index) => (
+                    <RuxStatus
+                      key={index + alert.errorId}
+                      status={alert.errorSeverity}
+                    />
+                  ))}
+                </RuxTableCell>
+                <RuxTableCell className="text-right">
+                  {contact.alerts.length ? (
+                    <RuxIcon
+                      className="mr-4"
+                      size="extra-small"
+                      icon={
+                        expandedRows[contact._id]
+                          ? "keyboard-arrow-down"
+                          : "keyboard-arrow-left"
+                      }
+                      onClick={() => toggleRow(contact._id)}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </RuxTableCell>
+              </RuxTableRow>
+              {expandedRows[contact._id] &&
+                contact.alerts.map((alert, index) => (
+                  //Found some duplicate error IDs in dataset
+                  //Need to use index in key
+                  <RuxTableRow
+                    key={index + alert.errorId}
+                    className="alert-row bg-cyan-950"
+                  >
+                    <RuxTableCell className="pl-2">
+                      {alert.errorMessage}
+                    </RuxTableCell>
+                    <RuxTableCell>{alert.errorSeverity}</RuxTableCell>
+                    <RuxTableCell>{alert.errorTime}</RuxTableCell>
+                    <RuxTableCell>
+                      <RuxStatus status={alert.errorSeverity} />
+                    </RuxTableCell>
+                    <RuxTableCell>
+                      <RuxButton>Show Details</RuxButton>
+                    </RuxTableCell>
+                  </RuxTableRow>
+                ))}
+            </React.Fragment>
           ))}
         </RuxTableBody>
       </RuxTable>
