@@ -3,6 +3,7 @@ import {
   RuxContainer,
   RuxGlobalStatusBar,
   RuxMonitoringIcon,
+  RuxSegmentedButton,
 } from "@astrouxds/react";
 import ContactsTable from "./components/ContactsTable";
 import "./App.css";
@@ -13,10 +14,33 @@ function App() {
   const appName = "Dashboard";
   const appVersion = "1.0";
   const menuIcon = "antenna-receive";
+  const alertStates = ["caution", "warning"];
+  const criticalStates = ["serious", "critical"];
   const [contacts, setContacts] = useState(contactsJson);
+  const [listFilterOptions, setListFilterOptions] = useState([
+    { label: "All", selected: true },
+    { label: "Only Alerts" },
+    { label: "Unacknowledged" },
+  ]);
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
   function filteredContacts(contacts) {
-    return contacts;
+    switch (selectedFilter) {
+      case "All":
+      default:
+        return contacts;
+      case "Only Alerts":
+        return filterByErrorSeverity(
+          contacts,
+          alertStates.concat(criticalStates)
+        );
+      case "Unacknowledged":
+        return contacts;
+    }
+  }
+
+  function updateFilter(event) {
+    setSelectedFilter(event.detail);
   }
 
   function normalContacts(contacts) {
@@ -52,22 +76,30 @@ function App() {
             icon="antenna"
             label="Caution"
             status="caution"
-            notifications={
-              filterByErrorSeverity(contacts, ["caution", "warning"]).length
-            }
+            notifications={filterByErrorSeverity(contacts, alertStates).length}
           />
           <RuxMonitoringIcon
             icon="antenna"
             label="Critical"
             status="critical"
             notifications={
-              filterByErrorSeverity(contacts, ["serious", "critical"]).length
+              filterByErrorSeverity(contacts, criticalStates).length
             }
           />
         </div>
       </RuxGlobalStatusBar>
       <RuxContainer className="max-w-7xl mx-auto">
-        <div slot="header">{appDomain + " " + appName}</div>
+        <div slot="header" className="flex">
+          <div className="w-1/3"></div>
+          <div className="w-1/3"></div>
+          <div className="w-1/3 text-right">
+            <RuxSegmentedButton
+              onRuxchange={(event) => updateFilter(event)}
+              data={listFilterOptions}
+            />
+            {listFilterOptions.filter((item) => item.selected === true).label}
+          </div>
+        </div>
         <ContactsTable contacts={filteredContacts(contacts)} />
       </RuxContainer>
     </>
