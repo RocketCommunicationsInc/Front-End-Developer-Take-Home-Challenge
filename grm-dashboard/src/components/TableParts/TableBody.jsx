@@ -8,7 +8,7 @@ import {
 } from "@astrouxds/react";
 import PropTypes from "prop-types";
 import { contactTimeForHumans } from "../../helpers/formatTime";
-import AlertSubRow from "./AlertSubRow";
+import AlertSubRows from "./AlertSubRows";
 
 TableBody.propTypes = {
   contacts: PropTypes.array,
@@ -77,17 +77,13 @@ function TableBody({ contacts, toggleRow, expandedRows, openModal }) {
                 )}
               </RuxTableCell>
             </RuxTableRow>
-            {expandedRows[contact._id] &&
-              contact.alerts.map((alert, index) => (
-                //Found some duplicate error IDs in dataset
-                //Need to use index in key
-                <AlertSubRow
-                  key={index + alert.errorId}
-                  alert={alert}
-                  sanitizeErrorSeverity={sanitizeErrorSeverity}
-                  openModal={openModal}
-                />
-              ))}
+            {expandedRows[contact._id] && (
+              <AlertSubRows
+                contact={contact}
+                sanitizeErrorSeverity={sanitizeErrorSeverity}
+                openModal={openModal}
+              />
+            )}
           </React.Fragment>
         ))}
       </RuxTableBody>

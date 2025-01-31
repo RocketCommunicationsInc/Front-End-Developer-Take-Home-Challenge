@@ -25,6 +25,15 @@ function App() {
   const [selectedSegment, setSelectedSegment] = useState("Only Alerts");
   const [errorSeverities, setErrorSeverities] = useState([]);
   const [selectedSeverity, setSelectedSeverity] = useState("all");
+
+  //Interesting problem here, we need to set a selected alert
+  //and a selected contact because we lose track of the contact
+  //if we isolate the alert and we can't reliably identify an alert
+  //from a contact (several alerts share the same ID, severity, timestamp)
+  //So we will track them both to display relevant data in the modal
+  const [selectedAlert, setSelectedAlert] = useState({});
+  const [selectedContact, setSelectedContact] = useState({});
+
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -98,7 +107,10 @@ function App() {
     );
   }
 
-  function openModal() {
+  function openModal(contact, alert) {
+    console.log(contact);
+    setSelectedContact(contact);
+    setSelectedAlert(alert);
     setModalOpen(true);
   }
 
@@ -145,7 +157,12 @@ function App() {
           />
         </div>
       </RuxGlobalStatusBar>
-      <AlertModal isOpen={modalOpen} closeModal={closeModal} />
+      <AlertModal
+        isOpen={modalOpen}
+        closeModal={closeModal}
+        alert={selectedAlert}
+        contact={selectedContact}
+      />
       <RuxContainer className="max-w-7xl mx-auto">
         <div slot="header" className="flex">
           <div className="w-1/3">
