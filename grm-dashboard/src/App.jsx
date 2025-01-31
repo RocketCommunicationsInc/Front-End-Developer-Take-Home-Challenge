@@ -54,6 +54,25 @@ function App() {
         )
       );
     });
+
+    //Next we want to sort the nested alerts by their date
+    contacts.map((contact) => {
+      if (contact.alerts.length) {
+        contact.alerts = contact.alerts?.sort(
+          (a, b) => b.errorTime - a.errorTime
+        );
+      }
+    });
+
+    //Finally, we want to sort all the contacts by their most recent alert
+    //Note: this will put alerts at the top of the list when segmented by "all"
+    contacts.sort((a, b) => {
+      if (!b.alerts.length) return -1;
+      if (!a.alerts.length) return 1;
+      return b.alerts[0].errorTime - a.alerts[0].errorTime;
+    });
+
+    setContacts(contacts);
   }, [contacts]);
 
   function filteredContacts() {
