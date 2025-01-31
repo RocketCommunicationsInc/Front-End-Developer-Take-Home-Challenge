@@ -177,6 +177,7 @@ function App() {
             icon="antenna"
             label="Normal"
             status="normal"
+            data-testid="normal-icon"
             notifications={normalContacts(contacts).length}
             onClick={() => updateSeverityFilter("all")}
           />
@@ -184,6 +185,7 @@ function App() {
             icon="antenna"
             label="Caution"
             status="caution"
+            data-testid="caution-icon"
             notifications={
               filterByErrorSeverity(contacts, ["caution", "warning"]).length
             }
@@ -193,6 +195,7 @@ function App() {
             icon="antenna"
             label="Serious"
             status="serious"
+            data-testid="serious-icon"
             notifications={filterByErrorSeverity(contacts, ["serious"]).length}
             onClick={() => updateSeverityFilter("serious")}
           />
@@ -200,6 +203,7 @@ function App() {
             icon="antenna"
             label="Critical"
             status="critical"
+            data-testid="critical-icon"
             notifications={filterByErrorSeverity(contacts, ["critical"]).length}
             onClick={() => updateSeverityFilter("critical")}
           />
@@ -211,10 +215,14 @@ function App() {
         alert={selectedAlert}
         contact={selectedContact}
       />
-      <RuxContainer className="max-w-7xl mx-auto">
+      <RuxContainer
+        data-testid="contacts-table-container"
+        className="max-w-7xl mx-auto"
+      >
         <div slot="header" className="flex">
           <div className="w-1/3">
             <RuxSelect
+              data-testid="filter-select"
               value={selectedSeverity}
               onRuxchange={(event) => updateSeverityFilter(event.target.value)}
             >

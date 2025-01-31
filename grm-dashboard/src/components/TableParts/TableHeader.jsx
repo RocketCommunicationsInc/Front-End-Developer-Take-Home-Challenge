@@ -25,11 +25,17 @@ function TableHeader({ cols, someExpanded, expandAll, collapseAll }) {
                   {
                     //No true values in our expandedRows
                     someExpanded ? (
-                      <RuxButton onClick={() => collapseAll()}>
+                      <RuxButton
+                        data-testid="collapse-btn"
+                        onClick={() => collapseAll()}
+                      >
                         Collapse All
                       </RuxButton>
                     ) : (
-                      <RuxButton onClick={() => expandAll()}>
+                      <RuxButton
+                        data-testid="expand-btn"
+                        onClick={() => expandAll()}
+                      >
                         Expand All
                       </RuxButton>
                     )
