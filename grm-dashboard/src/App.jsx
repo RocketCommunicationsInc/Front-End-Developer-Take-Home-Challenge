@@ -8,6 +8,7 @@ import {
   RuxOption,
 } from "@astrouxds/react";
 import ContactsTable from "./components/ContactsTable";
+import AlertModal from "./components/AlertModal";
 import "./App.css";
 import contactsJson from "../../data.json";
 
@@ -15,8 +16,6 @@ function App() {
   const appName = "GRM Dashboard";
   const appVersion = "1.0";
   const menuIcon = "antenna-receive";
-  const alertStates = ["caution", "warning"];
-  const criticalStates = ["serious", "critical"];
   const [contacts, setContacts] = useState(contactsJson);
   const [segmentOptions, setSegmentOptions] = useState([
     { label: "All" },
@@ -26,10 +25,12 @@ function App() {
   const [selectedSegment, setSelectedSegment] = useState("Only Alerts");
   const [errorSeverities, setErrorSeverities] = useState([]);
   const [selectedSeverity, setSelectedSeverity] = useState("all");
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     //Here we may want to query the API for the contact data
-    //instead of loading it from a file
+    //instead of loading it from a file.
+    //TODO: Consider merits of caching data and tolerance for stale data
 
     //Once we have the data, we need to get a list of all the
     //errorSeverity values in the dataset for filtering
@@ -56,10 +57,7 @@ function App() {
         //do nothing
         break;
       case "Only Alerts":
-        filteredContacts = filterByErrorSeverity(
-          contacts,
-          alertStates.concat(criticalStates)
-        );
+        filteredContacts = filterByErrorSeverity(contacts, errorSeverities);
         break;
       case "Unacknowledged":
         //TODO:
@@ -100,6 +98,14 @@ function App() {
     );
   }
 
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
+
   return (
     <>
       <RuxGlobalStatusBar
@@ -110,7 +116,7 @@ function App() {
         includeIcon="true"
         menuIcon={menuIcon}
       >
-        <div slot="right-side" className="w-md flex justify-between pr-3">
+        <div slot="right-side" className="w-md flex justify-between pr-3 gap-5">
           <RuxMonitoringIcon
             icon="antenna"
             label="Normal"
@@ -121,18 +127,25 @@ function App() {
             icon="antenna"
             label="Caution"
             status="caution"
-            notifications={filterByErrorSeverity(contacts, alertStates).length}
+            notifications={
+              filterByErrorSeverity(contacts, ["caution", "warning"]).length
+            }
+          />
+          <RuxMonitoringIcon
+            icon="antenna"
+            label="Serious"
+            status="serious"
+            notifications={filterByErrorSeverity(contacts, ["serious"]).length}
           />
           <RuxMonitoringIcon
             icon="antenna"
             label="Critical"
             status="critical"
-            notifications={
-              filterByErrorSeverity(contacts, criticalStates).length
-            }
+            notifications={filterByErrorSeverity(contacts, ["critical"]).length}
           />
         </div>
       </RuxGlobalStatusBar>
+      <AlertModal isOpen={modalOpen} closeModal={closeModal} />
       <RuxContainer className="max-w-7xl mx-auto">
         <div slot="header" className="flex">
           <div className="w-1/3">
@@ -150,7 +163,9 @@ function App() {
               ))}
             </RuxSelect>
           </div>
-          <div className="w-1/3"></div>
+          <div className="w-1/3 text-center">
+            {filteredContacts().length} Results
+          </div>
           <div className="w-1/3 text-right">
             <RuxSegmentedButton
               data-testid="segmented-button"
@@ -159,7 +174,7 @@ function App() {
             />
           </div>
         </div>
-        <ContactsTable contacts={filteredContacts()} />
+        <ContactsTable contacts={filteredContacts()} openModal={openModal} />
       </RuxContainer>
     </>
   );

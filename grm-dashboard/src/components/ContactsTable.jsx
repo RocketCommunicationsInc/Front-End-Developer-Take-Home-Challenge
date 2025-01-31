@@ -6,9 +6,10 @@ import TableBody from "./TableParts/TableBody";
 
 ContactsTable.propTypes = {
   contacts: PropTypes.array,
+  openModal: PropTypes.func,
 };
 
-function ContactsTable({ contacts }) {
+function ContactsTable({ contacts, openModal }) {
   const headerCols = [
     { label: "Contact Name", id: "contactName" },
     { label: "Status", id: "status" },
@@ -50,6 +51,7 @@ function ContactsTable({ contacts }) {
           contacts={contacts}
           toggleRow={toggleRow}
           expandedRows={expandedRows}
+          openModal={openModal}
         />
       </RuxTable>
     </>

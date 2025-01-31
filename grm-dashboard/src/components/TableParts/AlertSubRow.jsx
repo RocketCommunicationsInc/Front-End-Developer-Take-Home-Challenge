@@ -10,9 +10,10 @@ import { formatDateTime } from "../../helpers/formatTime";
 AlertSubRow.propTypes = {
   alert: PropTypes.object,
   sanitizeErrorSeverity: PropTypes.func,
+  openModal: PropTypes.func,
 };
 
-function AlertSubRow({ alert, sanitizeErrorSeverity }) {
+function AlertSubRow({ alert, sanitizeErrorSeverity, openModal }) {
   return (
     <>
       <RuxTableRow className="alert-row bg-cyan-950">
@@ -23,7 +24,7 @@ function AlertSubRow({ alert, sanitizeErrorSeverity }) {
           <RuxStatus status={sanitizeErrorSeverity(alert.errorSeverity)} />
         </RuxTableCell>
         <RuxTableCell>
-          <RuxButton>Show Details</RuxButton>
+          <RuxButton onClick={openModal}>Show Details</RuxButton>
         </RuxTableCell>
       </RuxTableRow>
     </>

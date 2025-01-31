@@ -14,9 +14,10 @@ TableBody.propTypes = {
   contacts: PropTypes.array,
   toggleRow: PropTypes.func,
   expandedRows: PropTypes.object,
+  openModal: PropTypes.func,
 };
 
-function TableBody({ contacts, toggleRow, expandedRows }) {
+function TableBody({ contacts, toggleRow, expandedRows, openModal }) {
   function sanitizeErrorSeverity(status) {
     const supportedIconStatuses = [
       "off",
@@ -84,6 +85,7 @@ function TableBody({ contacts, toggleRow, expandedRows }) {
                   key={index + alert.errorId}
                   alert={alert}
                   sanitizeErrorSeverity={sanitizeErrorSeverity}
+                  openModal={openModal}
                 />
               ))}
           </React.Fragment>
