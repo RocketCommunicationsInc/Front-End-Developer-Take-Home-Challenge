@@ -127,14 +127,24 @@ function App() {
   }
 
   function openModal(contact, alert) {
-    console.log(contact);
     setSelectedContact(contact);
     setSelectedAlert(alert);
     setModalOpen(true);
   }
 
-  function closeModal() {
+  function closeModal(event) {
+    if (event.detail === true) {
+      ackknowledgeSelectedAlert();
+    }
     setModalOpen(false);
+  }
+
+  function ackknowledgeSelectedAlert() {
+    selectedAlert.acknowledged = true;
+
+    //Here we would probably want to make a POST request
+    //To the API so that the data persists between page loads
+    //TODO: update API
   }
 
   return (

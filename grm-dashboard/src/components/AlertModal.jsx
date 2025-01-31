@@ -1,6 +1,6 @@
 import { RuxDialog } from "@astrouxds/react";
 import PropTypes from "prop-types";
-import { formatDateTime } from "../helpers/formatTime";
+import { formatDateTime, contactTimeForHumans } from "../helpers/formatTime";
 
 AlertModal.propTypes = {
   isOpen: PropTypes.bool,
@@ -20,9 +20,13 @@ function AlertModal({ isOpen, closeModal, alert, contact }) {
       >
         <div slot="header" className="modal-header w-full text-left">
           <h2 className="mb-2">{alert.errorMessage}</h2>
-          <div className="alert-meta flex justify-between">
-            <div className="contact-name text-sm">{contact.contactName}</div>
-            <div className="severity text-sm">{alert.errorSeverity}</div>
+          <div className="alert-meta flex justify-between content-end">
+            <div className="contact-name text-sm self-end">
+              Contact Name: {contact.contactName}
+            </div>
+            <div className="severity text-sm">
+              {alert.errorSeverity} <br /> {alert.errorCategory}
+            </div>
           </div>
         </div>
 
@@ -35,8 +39,18 @@ function AlertModal({ isOpen, closeModal, alert, contact }) {
           <div className="contact-meta">
             <h3 className="font-bold text-lg">Contact details:</h3>
             <div className="flex flex-col gap-1">
-              <span>{contact.contactName}</span>
               <span>{contact.contactDetail}</span>
+            </div>
+            <div className="flex flex-row justify-between italic text-xs pt-3">
+              <span>Lat: {contact.contactLatitude}</span>
+              <span>Long: {contact.contactLongitude}</span>
+              <span>
+                Contact Time:{" "}
+                {contactTimeForHumans(
+                  contact.contactBeginTimestamp,
+                  contact.contactEndTimestamp
+                )}
+              </span>
             </div>
           </div>
         </div>

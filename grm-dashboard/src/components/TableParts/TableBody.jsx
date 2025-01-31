@@ -55,10 +55,16 @@ function TableBody({ contacts, toggleRow, expandedRows, openModal }) {
               </RuxTableCell>
               <RuxTableCell className="flex w-full text-center">
                 {contact.alerts.map((alert, index) => (
-                  <RuxStatus
-                    key={index + alert.errorId}
-                    status={sanitizeErrorSeverity(alert.errorSeverity)}
-                  />
+                  <>
+                    {alert.acknowledged ? (
+                      <RuxIcon icon="done" size="extra-small" />
+                    ) : (
+                      <RuxStatus
+                        key={index + alert.errorId}
+                        status={sanitizeErrorSeverity(alert.errorSeverity)}
+                      />
+                    )}
+                  </>
                 ))}
               </RuxTableCell>
               <RuxTableCell className="text-right">
