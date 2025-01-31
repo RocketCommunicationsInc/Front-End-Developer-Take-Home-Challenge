@@ -11,11 +11,12 @@ ContactsTable.propTypes = {
 
 function ContactsTable({ contacts, openModal }) {
   const headerCols = [
+    { label: "", id: "expand" },
     { label: "Contact Name", id: "contactName" },
     { label: "Status", id: "status" },
     { label: "Contact Time", id: "contactTime" },
     { label: "Alerts", id: "numAlerts" },
-    { label: "", id: "expand" },
+    { label: "", id: "actions" },
   ];
 
   const [expandedRows, setExpandedRows] = useState({});

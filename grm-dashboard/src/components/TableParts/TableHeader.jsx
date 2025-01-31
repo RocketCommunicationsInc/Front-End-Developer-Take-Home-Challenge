@@ -19,8 +19,8 @@ function TableHeader({ cols, someExpanded, expandAll, collapseAll }) {
       <RuxTableHeader>
         <RuxTableHeaderRow>
           {cols.map((col) => (
-            <RuxTableHeaderCell key={col.id} className="p-2">
-              {col.id === "expand" && (
+            <RuxTableHeaderCell key={col.id} className={"p-2 " + col.id}>
+              {col.id === "actions" && (
                 <>
                   {
                     //No true values in our expandedRows

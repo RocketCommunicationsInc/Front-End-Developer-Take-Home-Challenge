@@ -45,6 +45,21 @@ function TableBody({ contacts, toggleRow, expandedRows, openModal }) {
         {contacts.map((contact) => (
           <React.Fragment key={contact._id}>
             <RuxTableRow onClick={() => toggleRow(contact)}>
+              <RuxTableCell className="text-left">
+                {contact.alerts.length ? (
+                  <RuxIcon
+                    className="mr-4"
+                    size="small"
+                    icon={
+                      expandedRows[contact._id]
+                        ? "keyboard-arrow-down"
+                        : "keyboard-arrow-right"
+                    }
+                  />
+                ) : (
+                  ""
+                )}
+              </RuxTableCell>
               <RuxTableCell className="p-2">{contact.contactName}</RuxTableCell>
               <RuxTableCell>{contact.contactStatus}</RuxTableCell>
               <RuxTableCell>
@@ -67,21 +82,7 @@ function TableBody({ contacts, toggleRow, expandedRows, openModal }) {
                   </>
                 ))}
               </RuxTableCell>
-              <RuxTableCell className="text-right">
-                {contact.alerts.length ? (
-                  <RuxIcon
-                    className="mr-4"
-                    size="extra-small"
-                    icon={
-                      expandedRows[contact._id]
-                        ? "keyboard-arrow-down"
-                        : "keyboard-arrow-left"
-                    }
-                  />
-                ) : (
-                  ""
-                )}
-              </RuxTableCell>
+              <RuxTableCell></RuxTableCell>
             </RuxTableRow>
             {expandedRows[contact._id] && (
               <AlertSubRows

@@ -1,5 +1,9 @@
 #root {
   width: 100%;
+  
+  /*TODO: Mobile styling*/
+  min-width: 768px;
+  
   margin: 0 auto;
   text-align: center;
 }
@@ -8,8 +12,20 @@
   padding: 5px 0;
   font-size: smaller;
 }
+.alert-row.acknowledged {
+  font-style: italic;
+  text-decoration: line-through;
+}
 rux-table-row:not(.alert-row) rux-table-cell {
   font-size: large;
   font-weight: bold;
   padding: 15px 0;
 }
+rux-table-header-cell.expand {
+  width: 30px;
+}
+
+rux-table-header-cell.contactName {
+  width: 40%;
+}
+

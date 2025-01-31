@@ -26,11 +26,8 @@ function App() {
   const [errorSeverities, setErrorSeverities] = useState([]);
   const [selectedSeverity, setSelectedSeverity] = useState("all");
 
-  //Interesting problem here, we need to set a selected alert
-  //and a selected contact because we lose track of the contact
-  //if we isolate the alert and we can't reliably identify an alert
-  //from a contact (several alerts share the same ID, severity, timestamp)
-  //So we will track them both to display relevant data in the modal
+  //We want to display info about both the Alert and the Contact
+  //in the modal, so we'll need to track both.
   const [selectedAlert, setSelectedAlert] = useState({});
   const [selectedContact, setSelectedContact] = useState({});
 
@@ -88,7 +85,12 @@ function App() {
         filteredContacts = filterByErrorSeverity(contacts, errorSeverities);
         break;
       case "Unacknowledged":
-        //TODO:
+        filteredContacts = filterByErrorSeverity(
+          contacts,
+          errorSeverities
+        ).filter((contact) =>
+          contact.alerts.some((alert) => alert.acknowledged != true)
+        );
         break;
     }
 
@@ -107,11 +109,12 @@ function App() {
   }
 
   function updateSegment(event) {
+    updateSeverityFilter("all");
     setSelectedSegment(event.detail);
   }
 
-  function updateSeverityFilter(event) {
-    setSelectedSeverity(event.target.value);
+  function updateSeverityFilter(value) {
+    setSelectedSeverity(value);
   }
 
   function normalContacts(contacts) {
@@ -163,6 +166,7 @@ function App() {
             label="Normal"
             status="normal"
             notifications={normalContacts(contacts).length}
+            onClick={() => updateSeverityFilter("all")}
           />
           <RuxMonitoringIcon
             icon="antenna"
@@ -171,18 +175,21 @@ function App() {
             notifications={
               filterByErrorSeverity(contacts, ["caution", "warning"]).length
             }
+            onClick={() => updateSeverityFilter("caution")}
           />
           <RuxMonitoringIcon
             icon="antenna"
             label="Serious"
             status="serious"
             notifications={filterByErrorSeverity(contacts, ["serious"]).length}
+            onClick={() => updateSeverityFilter("serious")}
           />
           <RuxMonitoringIcon
             icon="antenna"
             label="Critical"
             status="critical"
             notifications={filterByErrorSeverity(contacts, ["critical"]).length}
+            onClick={() => updateSeverityFilter("critical")}
           />
         </div>
       </RuxGlobalStatusBar>
@@ -195,7 +202,10 @@ function App() {
       <RuxContainer className="max-w-7xl mx-auto">
         <div slot="header" className="flex">
           <div className="w-1/3">
-            <RuxSelect onRuxchange={(event) => updateSeverityFilter(event)}>
+            <RuxSelect
+              value={selectedSeverity}
+              onRuxchange={(event) => updateSeverityFilter(event.target.value)}
+            >
               <RuxOption label="all" value={"all"}>
                 All
               </RuxOption>
