@@ -41,59 +41,68 @@ function TableBody({ contacts, toggleRow, expandedRows, openModal }) {
   }
   return (
     <>
-      <RuxTableBody>
-        {contacts.map((contact) => (
-          <React.Fragment key={contact._id}>
-            <RuxTableRow onClick={() => toggleRow(contact)}>
-              <RuxTableCell className="text-left">
-                {contact.alerts.length ? (
-                  <RuxIcon
-                    className="mr-4"
-                    size="small"
-                    icon={
-                      expandedRows[contact._id]
-                        ? "keyboard-arrow-down"
-                        : "keyboard-arrow-right"
-                    }
-                  />
-                ) : (
-                  ""
-                )}
-              </RuxTableCell>
-              <RuxTableCell className="p-2">{contact.contactName}</RuxTableCell>
-              <RuxTableCell>{contact.contactStatus}</RuxTableCell>
-              <RuxTableCell>
-                {contactTimeForHumans(
-                  contact.contactBeginTimestamp,
-                  contact.contactEndTimestamp
-                )}
-              </RuxTableCell>
-              <RuxTableCell className="flex w-full text-center">
-                {contact.alerts.map((alert, index) => (
-                  <>
-                    {alert.acknowledged ? (
-                      <RuxIcon icon="done" size="extra-small" />
-                    ) : (
-                      <RuxStatus
-                        key={index + alert.errorId}
-                        status={sanitizeErrorSeverity(alert.errorSeverity)}
-                      />
-                    )}
-                  </>
-                ))}
-              </RuxTableCell>
-              <RuxTableCell></RuxTableCell>
-            </RuxTableRow>
-            {expandedRows[contact._id] && (
-              <AlertSubRows
-                contact={contact}
-                sanitizeErrorSeverity={sanitizeErrorSeverity}
-                openModal={openModal}
-              />
-            )}
-          </React.Fragment>
-        ))}
-      </RuxTableBody>
+      {contacts.length ? (
+        <RuxTableBody>
+          {contacts.map((contact) => (
+            <React.Fragment key={contact._id}>
+              <RuxTableRow
+                data-testid="table-row"
+                onClick={() => toggleRow(contact)}
+              >
+                <RuxTableCell className="text-left">
+                  {contact.alerts.length ? (
+                    <RuxIcon
+                      className="mr-4"
+                      size="small"
+                      icon={
+                        expandedRows[contact._id]
+                          ? "keyboard-arrow-down"
+                          : "keyboard-arrow-right"
+                      }
+                    />
+                  ) : (
+                    ""
+                  )}
+                </RuxTableCell>
+                <RuxTableCell className="p-2">
+                  {contact.contactName}
+                </RuxTableCell>
+                <RuxTableCell>{contact.contactStatus}</RuxTableCell>
+                <RuxTableCell>
+                  {contactTimeForHumans(
+                    contact.contactBeginTimestamp,
+                    contact.contactEndTimestamp
+                  )}
+                </RuxTableCell>
+                <RuxTableCell className="flex w-full text-center">
+                  {contact.alerts.map((alert, index) => (
+                    <React.Fragment key={alert.errorId + index}>
+                      {alert.acknowledged ? (
+                        <RuxIcon icon="done" size="extra-small" />
+                      ) : (
+                        <RuxStatus
+                          key={index + alert.errorId}
+                          status={sanitizeErrorSeverity(alert.errorSeverity)}
+                        />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </RuxTableCell>
+                <RuxTableCell></RuxTableCell>
+              </RuxTableRow>
+              {expandedRows[contact._id] && (
+                <AlertSubRows
+                  contact={contact}
+                  sanitizeErrorSeverity={sanitizeErrorSeverity}
+                  openModal={openModal}
+                />
+              )}
+            </React.Fragment>
+          ))}
+        </RuxTableBody>
+      ) : (
+        <div className="min-w-3xl p-2 m-2">No Results</div>
+      )}
     </>
   );
 }

@@ -242,7 +242,11 @@ function App() {
             />
           </div>
         </div>
-        <ContactsTable contacts={filteredContacts()} openModal={openModal} />
+        {appLoading ? (
+          "Loading..."
+        ) : (
+          <ContactsTable contacts={filteredContacts()} openModal={openModal} />
+        )}
       </RuxContainer>
     </>
   );
