@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ApiConnection from "./services/ApiConnection";
 import {
   RuxContainer,
   RuxGlobalStatusBar,
@@ -10,13 +11,13 @@ import {
 import ContactsTable from "./components/ContactsTable";
 import AlertModal from "./components/AlertModal";
 import "./App.css";
-import contactsJson from "../../data.json";
 
 function App() {
   const appName = "GRM Dashboard";
   const appVersion = "1.0";
   const menuIcon = "antenna-receive";
-  const [contacts, setContacts] = useState(contactsJson);
+  const [appLoading, setAppLoading] = useState(true);
+  const [contacts, setContacts] = useState([]);
   const [segmentOptions, setSegmentOptions] = useState([
     { label: "All" },
     { label: "Only Alerts", selected: true },
@@ -37,6 +38,13 @@ function App() {
     //Here we may want to query the API for the contact data
     //instead of loading it from a file.
     //TODO: Consider merits of caching data and tolerance for stale data
+    const api = new ApiConnection();
+    const fetchContacts = async () => {
+      const response = await api.getContacts();
+      setContacts(response.data);
+      setAppLoading(false);
+    };
+    fetchContacts();
 
     //Once we have the data, we need to get a list of all the
     //errorSeverity values in the dataset for filtering
@@ -142,12 +150,16 @@ function App() {
     setModalOpen(false);
   }
 
-  function ackknowledgeSelectedAlert() {
+  async function ackknowledgeSelectedAlert() {
     selectedAlert.acknowledged = true;
 
     //Here we would probably want to make a POST request
     //To the API so that the data persists between page loads
-    //TODO: update API
+    const api = new ApiConnection();
+    const result = await api.updateAlert(selectedAlert);
+    if (result === false) {
+      //TODO: Handle API error
+    }
   }
 
   return (
