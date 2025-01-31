@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import {
-  RuxButton,
   RuxContainer,
   RuxGlobalStatusBar,
   RuxMonitoringIcon,
   RuxSegmentedButton,
+  RuxSelect,
+  RuxOption,
 } from "@astrouxds/react";
 import ContactsTable from "./components/ContactsTable";
 import "./App.css";
@@ -23,24 +24,68 @@ function App() {
     { label: "Unacknowledged" },
   ]);
   const [selectedSegment, setSelectedSegment] = useState("Only Alerts");
+  const [errorSeverities, setErrorSeverities] = useState([]);
+  const [selectedSeverity, setSelectedSeverity] = useState("all");
 
-  function filteredContacts(contacts) {
+  useEffect(() => {
+    //Here we may want to query the API for the contact data
+    //instead of loading it from a file
+
+    //Once we have the data, we need to get a list of all the
+    //errorSeverity values in the dataset for filtering
+    setErrorSeverities(() => {
+      return Array.from(
+        new Set(
+          contacts
+            .map((contact) =>
+              contact.alerts.map((alert) => alert.errorSeverity)
+            )
+            .flat()
+        )
+      );
+    });
+  }, [contacts]);
+
+  function filteredContacts() {
+    let filteredContacts = contacts;
+
+    //First filter by the segment we are looking at
     switch (selectedSegment) {
       case "All":
       default:
-        return contacts;
+        //do nothing
+        break;
       case "Only Alerts":
-        return filterByErrorSeverity(
+        filteredContacts = filterByErrorSeverity(
           contacts,
           alertStates.concat(criticalStates)
         );
+        break;
       case "Unacknowledged":
-        return contacts;
+        //TODO:
+        break;
     }
+
+    //Next filter by alert severity filter
+    if (selectedSeverity !== "all") {
+      filteredContacts = filteredContacts.filter((contact) => {
+        //we can return early here since the contact doesn't have
+        //any alerts
+        if (contact.alerts.length === 0) return false;
+        return contact.alerts.some(
+          (alert) => alert.errorSeverity === selectedSeverity
+        );
+      });
+    }
+    return filteredContacts;
   }
 
-  function updateFilter(event) {
+  function updateSegment(event) {
     setSelectedSegment(event.detail);
+  }
+
+  function updateSeverityFilter(event) {
+    setSelectedSeverity(event.target.value);
   }
 
   function normalContacts(contacts) {
@@ -90,17 +135,31 @@ function App() {
       </RuxGlobalStatusBar>
       <RuxContainer className="max-w-7xl mx-auto">
         <div slot="header" className="flex">
-          <div className="w-1/3"></div>
+          <div className="w-1/3">
+            <RuxSelect onRuxchange={(event) => updateSeverityFilter(event)}>
+              <RuxOption label="all" value={"all"}>
+                All
+              </RuxOption>
+              {errorSeverities.map((severity, index) => (
+                <RuxOption
+                  key={"severity-" + index}
+                  selected=""
+                  value={severity}
+                  label={severity}
+                ></RuxOption>
+              ))}
+            </RuxSelect>
+          </div>
           <div className="w-1/3"></div>
           <div className="w-1/3 text-right">
             <RuxSegmentedButton
               data-testid="segmented-button"
-              onRuxchange={(event) => updateFilter(event)}
+              onRuxchange={(event) => updateSegment(event)}
               data={segmentOptions}
             />
           </div>
         </div>
-        <ContactsTable contacts={filteredContacts(contacts)} />
+        <ContactsTable contacts={filteredContacts()} />
       </RuxContainer>
     </>
   );
