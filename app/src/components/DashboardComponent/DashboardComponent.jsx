@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { DashboardComponentWrapper } from './DashboardComponent.styled';
-
-interface DashboardComponentProps {}
+import { DashboardComponentProps } from '../../shared/models';
 
 const DashboardComponent: FC<DashboardComponentProps> = () => (
  <DashboardComponentWrapper data-testid="DashboardComponent">
