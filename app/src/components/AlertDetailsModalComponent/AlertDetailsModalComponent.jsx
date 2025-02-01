@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
-import { AlertDetailsModalComponentWrapper } from './AlertDetailsAlertDetailsModalComponent.styled';
+import { AlertDetailsModalComponentWrapper } from './AlertDetailsModalComponent.styled';
 
-const AlertDetailsModalComponent = () => {
-   const [isOpen, setIsOpen] = useState(false); {/* Relocate to DashboardListItemComponent */}
+
+const AlertDetailsModalComponent = (props) => {
+   let { isOpen, contactSatellite, contactDetail } = props;
+   const [modalState, setModalState] = useState({ isOpen, contactSatellite, contactDetail });
 
    return (
       <AlertDetailsModalComponentWrapper>
-         {/* Button to Open Modal JLL_TODO relocate out to ListView item scope -- should be part of the DashboardListItemComponent !!*/}
-         <rux-modal onClick={() => setIsOpen(true)}>Show Details</rux-modal>
+         <rux-modal onPress={() => {
+            console.log('JLL_DEBUG clicking show details!!!! Props => ', props)
+            setModalState({ ...modalState, isOpen: true })
+         }}>Show Details</rux-modal>
  
          {/* Astro Rux-Modal */}
-         <rux-modal open={isOpen} onRuxmodalclosed={() => setIsOpen(false)}>
+         <rux-modal open={isOpen} onRuxmodalclosed={() => setModalState({ ...modalState, isOpen: false })}>
             <div slot="header">Alert Details</div>
             <div slot="message">
                <p><strong>Contact Satellite:</strong> {contactSatellite}</p>
                <p><strong>Contact Detail:</strong> {contactDetail}</p>
             </div>
             {/* JLL_TODO use astro lib button instead??? */}
-            <rux-button slot="confirm" onClick={() => setIsOpen(false)}>Close</rux-button>
+            <rux-button slot="confirm" onPress={() => setModalState({ ...modalState, isOpen: false })}>Close</rux-button>
          </rux-modal>
       </AlertDetailsModalComponentWrapper>
    );
