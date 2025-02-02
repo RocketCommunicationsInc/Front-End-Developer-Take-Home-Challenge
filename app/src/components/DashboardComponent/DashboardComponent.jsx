@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DashboardComponentWrapper } from './DashboardComponent.styled';
-import { Table, TableHead, TableBody, TableRow, TableCell } from "@pingux/astro";
+import { Card, Table, TableHead, TableBody, TableRow, TableCell } from "@pingux/astro";
 import { fetchData } from '../../services/fake-http-dashboard.service';
 
 import DashboardTableRowComponent from '../DashboardTableRowComponent/DashboardTableRowComponent';
@@ -25,7 +25,6 @@ const DashboardComponent = () => {
 
    // Function to close the modal
    const handleCloseModal = () => {
-      console.log('JLL_DEBUG coming in here to handle close modal!!!!!!!!!!!!!!')
       setIsModalOpen(false);
       setSelectedAlert(null);
    };
@@ -33,25 +32,29 @@ const DashboardComponent = () => {
    // Function to acknowledge alert
    const handleAcknowledge = (item) => {
       const newData = { ...data };
+      console.log('JLL_DEBUG what is item????', item)
       for (const alert of newData[item.id]) {
          if (alert.id === item.id) {
             alert.acknowledged = true;
+            console.log('JLL_DEBUG setting acknowledged true!!')
             break;
          }
       }
       setData(newData);
+      handleCloseModal();
    };
 
    return (
       <DashboardComponentWrapper data-testid="DashboardComponent">
+         <Card></Card>
          <Table>
             <TableHead>
-            <TableRow>
-               <TableCell>Alert Message</TableCell>
-               <TableCell>Contact Name</TableCell>
-               <TableCell>Contact Time</TableCell>
-               <TableCell>Actions</TableCell>
-            </TableRow>
+               <TableRow>
+                  <TableCell>Alert Message</TableCell>
+                  <TableCell>Contact Name</TableCell>
+                  <TableCell>Contact Time</TableCell>
+                  <TableCell>Actions</TableCell>
+               </TableRow>
             </TableHead>
             
             <TableBody>
@@ -59,13 +62,12 @@ const DashboardComponent = () => {
                   <DashboardTableRowComponent
                      key={index}
                      alert={item}
-                     handleOpenModal={handleOpenModal}
-                     handleAcknowledge={handleAcknowledge}/>
+                     handleOpenModal={handleOpenModal}/>
                ))}
             </TableBody>
          </Table>
 
-         <AlertDetailsModalComponent isOpen={isModalOpen} alert={selectedAlert} onClose={handleCloseModal} />
+         <AlertDetailsModalComponent isOpen={isModalOpen} alert={selectedAlert} handleCloseModal={handleCloseModal} handleAcknowledge={handleAcknowledge}/>
       </DashboardComponentWrapper>
    );
 };

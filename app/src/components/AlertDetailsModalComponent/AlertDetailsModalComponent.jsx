@@ -1,20 +1,37 @@
 import React, {} from 'react';
-import { StyledModalComponentWrapper, StyledModalContent } from './AlertDetailsModalComponent.styled';
+import {
+   StyledModalComponentWrapper,
+   StyledModalContent,
+   StyledModalButtonWrapper,
+   StyledModalButtonContainer,
+   StyledModalHeader,
+} from './AlertDetailsModalComponent.styled';
 
 
-const AlertDetailsModalComponent = ({ isOpen, alert, onClose }) => {
+const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAcknowledge }) => {
    if (!alert) return null; // Prevent rendering when no alert is selected
 
    return (
       <StyledModalComponentWrapper>
          <StyledModalContent>
-            <rux-modal open={isOpen} onRuxmodalclosed={() => onClose()}>
-               <h2 slot="header">Alert Details</h2>
+            <rux-modal open={isOpen} onRuxmodalclosed={handleCloseModal}>
+               <StyledModalHeader slot="header">
+                  <h2>Alert Details</h2>
+                  <rux-icon icon="close" onClick={handleCloseModal} style={{ transform: 'scale(0.8)', cursor: 'pointer' }}></rux-icon>
+               </StyledModalHeader>
                <div slot="message">
+                  <p><strong>Category:</strong> {alert.errorCategory}</p>
+                  <p><strong>Severity:</strong> {alert.errorSeverity}</p>
+                  <p><strong>Contact Name:</strong> {alert.contactName}</p>
                   <p><strong>Contact Satellite:</strong> {alert.contactSatellite}</p>
                   <p><strong>Contact Detail:</strong> {alert.contactDetail}</p>
+                  <p><strong>Message:</strong> {alert.longMessage}</p>
                </div>
-               <rux-button slot="confirm" onClick={() => onClose()}>Close</rux-button>
+               <StyledModalButtonWrapper slot="confirm">
+                  <StyledModalButtonContainer>
+                     <rux-button onClick={() => handleAcknowledge(alert)}>Acknowledge</rux-button>
+                  </StyledModalButtonContainer>
+               </StyledModalButtonWrapper>
             </rux-modal>
          </StyledModalContent>
       </StyledModalComponentWrapper>

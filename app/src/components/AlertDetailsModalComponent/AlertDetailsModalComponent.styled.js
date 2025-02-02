@@ -17,6 +17,23 @@ export const StyledModalContent = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   color: black;
-  padding: 20px;
+  padding: 1rem 1rem 2rem 2rem;
   border-radius: 10px;
+  text-align: left;
+`;
+
+export const StyledModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  alignItems: center;
+`;
+
+export const StyledModalButtonWrapper = styled.div`
+  margin: 1rem 2rem 0 0;
+  float: right;
+`;
+
+export const StyledModalButtonContainer = styled.div`
+  display: inline-flex;
+  gap: 20px;
 `;

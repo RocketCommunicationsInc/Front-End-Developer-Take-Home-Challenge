@@ -4,7 +4,6 @@ export function fetchData() {
     try {
         return rawData.reduce((alerts, item) => {
             if (item.alerts?.length) {
-                //console.log('JLL_DEBUG what is alerts[item.contactId]????', alerts[item.contactId])
                 alerts[item.contactId] = item.alerts.map(alert => ({
                     id: item.contactId,
                     errorMessage: alert.errorMessage,
