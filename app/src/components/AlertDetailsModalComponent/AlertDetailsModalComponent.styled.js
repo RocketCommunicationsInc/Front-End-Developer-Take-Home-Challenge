@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ModalComponentWrapper = styled.div`
+export const StyledModalComponentWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;

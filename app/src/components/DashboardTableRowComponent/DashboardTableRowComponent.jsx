@@ -9,8 +9,8 @@ const DashboardTableRowComponent = ({ alert, handleOpenModal, handleAcknowledge 
             <TableCell>{alert.contactName}</TableCell>
             <TableCell>{alert.contactTime}</TableCell>
             <TableCell>
-               <Button onPress={() => handleOpenModal(alert)}>Show Details</Button>
-               <Button onPress={() => handleAcknowledge(alert)}>Acknowledge</Button>
+               <Button onClick={() => handleOpenModal(alert)}>Show Details</Button>
+               <Button onClick={() => handleAcknowledge(alert)}>Acknowledge</Button>
             </TableCell>
         </TableRow>
     );

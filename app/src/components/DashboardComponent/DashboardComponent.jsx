@@ -25,6 +25,7 @@ const DashboardComponent = () => {
 
    // Function to close the modal
    const handleCloseModal = () => {
+      console.log('JLL_DEBUG coming in here to handle close modal!!!!!!!!!!!!!!')
       setIsModalOpen(false);
       setSelectedAlert(null);
    };
