@@ -1,21 +1,48 @@
 import React, { useState } from 'react';
 import { DashboardComponentWrapper } from './DashboardComponent.styled';
-import { Table, TableHead, TableBody, TableRow, TableCell, Button } from "@pingux/astro";
+import { Table, TableHead, TableBody, TableRow, TableCell } from "@pingux/astro";
 import { fetchData } from '../../services/fake-http-dashboard.service';
+
+import DashboardTableRowComponent from '../DashboardTableRowComponent/DashboardTableRowComponent';
 import AlertDetailsModalComponent from '../AlertDetailsModalComponent/AlertDetailsModalComponent';
 
 const DashboardComponent = () => {
    /* Fake endpoint call to fetch and cache all data */
-   const allData = fetchData();
-   const initialState = Object.values(allData).flat();
+   const [data, setData] = useState(fetchData())
 
-   const [alerts, setAlerts] = useState([ ...initialState ]);
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [selectedAlert, setSelectedAlert] = useState(null);
 
-   //console.log('JLL_DEBUG what is alerts????', alerts)
+   const getAlerts = () => {
+      return Object.values(data).flat();
+   }
+
+   // Function to open the modal and set selected alert data
+   const handleOpenModal = (alert) => {
+      setSelectedAlert(alert);
+      setIsModalOpen(true);
+   };
+
+   // Function to close the modal
+   const handleCloseModal = () => {
+      setIsModalOpen(false);
+      setSelectedAlert(null);
+   };
+
+   // Function to acknowledge alert
+   const handleAcknowledge = (item) => {
+      const newData = { ...data };
+      for (const alert of newData[item.id]) {
+         if (alert.id === item.id) {
+            alert.acknowledged = true;
+            break;
+         }
+      }
+      setData(newData);
+   };
 
    return (
       <DashboardComponentWrapper data-testid="DashboardComponent">
-         {/* Button to Open Modal JLL_TODO relocate out to ListView item scope -- should be part of the DashboardListItemComponent !!*/}
          <Table>
             <TableHead>
             <TableRow>
@@ -27,26 +54,17 @@ const DashboardComponent = () => {
             </TableHead>
             
             <TableBody>
-               {alerts.map((item, index) => (
-                  <TableRow key={index}>
-                     <TableCell>{item.errorMessage}</TableCell>
-                     <TableCell>{item.contactName.toString()}</TableCell>
-                     <TableCell>{item.contactTime.toString()}</TableCell>
-                     <TableCell>
-                        <Button onPress={() => (
-                           <AlertDetailsModalComponent
-                             isOpen={true}
-                             contactSatellite={item.contactSatellite}
-                             contactDetail={item.contactDetail}/>
-                        )}>
-                           Show Details
-                        </Button>
-                        <Button onPress={() => setAlerts({ ...item, acknowledged: true })}>Acknowledge</Button>
-                     </TableCell>
-                  </TableRow>
+               {getAlerts().map((item, index) => (
+                  <DashboardTableRowComponent
+                     key={index}
+                     alert={item}
+                     handleOpenModal={handleOpenModal}
+                     handleAcknowledge={handleAcknowledge}/>
                ))}
             </TableBody>
          </Table>
+
+         <AlertDetailsModalComponent isOpen={isModalOpen} alert={selectedAlert} onClose={handleCloseModal} />
       </DashboardComponentWrapper>
    );
 };
