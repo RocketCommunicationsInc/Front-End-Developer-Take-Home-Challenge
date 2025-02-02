@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# Developer-Take-Home-Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+As the next step in the interview process, we’d like you to complete a take home challenge.
 
-Currently, two official plugins are available:
+**The Project**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Let's assume that _data.json_ contains API responses we want to present to a Ground Resources Management (GRM) operator. Every day, GRM operators work with data similar to what you'll find in the provided JSON file. The task is to create a dashboard presenting data found within the provided JSON file in a clear and intuitive manner.
+Please feel free to peruse the Astro UX Design site (https://astrouxds.com/) for ideas or inspiration.
 
-## Expanding the ESLint configuration
+**Requirements**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The data.json file consists of a list of contacts (satellites) and any alerts associated with them configured in a GRM application. Contacts can have properties such as name, status, state, etc. Any alerts the contact has will have the properties errorId, errorSeverity, etc.
 
-- Configure the top-level `parserOptions` property like this:
+- For each alert, I need to know the following:
+  - Alert message (_errorMessage_)
+  - Contact name (_contactName_)
+  - Contact time (_contactBeginTimestamp_ - _contactEndTimestamp_)
+- I need to be able to see the details of an alert by clicking on a button called _Show Details_ that utilizes `rux-modal` to show the _contactSatellite_ and _contactDetail_ values
+- I need the alerts to be sorted by error time with the most recent at the top (_errorTime_)
+- I need to know which alerts I have already acknowledged so that I don’t process the same alert multiple times by mistake. Also once I’ve dealt with an alert, make it clear it’s not something I need to pay attention to again:
+- Only unacknowledged alerts can be acknowledged
+- Acknowledged alerts cannot be unacknowledged
+- Acknowledged alerts must be visually distinct from unacknowledged alerts
+- I want to be able to view alerts by their severity as well so that I can prioritize acknowledging the more severe alerts first.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+**Technical Requirements**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- This project should be done using React.
+- This project should make use of the [Astro component library.](https://astro-components.netlify.app/)
+- You are free to use any third-party libraries.
+- Please feel free to reach out via email to our recruiter if you have any questions.
+- Steps to follow:
+  - Fork this repository
+  - Work on your solution
+  - Create a pull request with @github/cskerbo as the reviewer, if available.
+- Have fun and be as creative as you like!
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+**Timeframe**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+We would like the take home challenge to be completed within 3 days. If you need more time, please reach out to us. You will not be judged on how quickly you complete the challenge.
