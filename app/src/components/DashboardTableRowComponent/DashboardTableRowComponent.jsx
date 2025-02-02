@@ -1,16 +1,21 @@
 import React from "react";
-import { TableRow, TableCell, Button } from "@pingux/astro";
+import { DashboardTableRowButtonWrapper } from './DashboardTableRowComponent.styled'
 
 const DashboardTableRowComponent = ({ alert, handleOpenModal }) => {
+    const startTime = new Date(alert.contactStartTime * 1000).toLocaleString();
+    const endTime = new Date(alert.contactEndTime * 1000).toLocaleString();
+
     return (
-        <TableRow>
-            <TableCell>{alert.errorMessage}</TableCell>
-            <TableCell>{alert.contactName}</TableCell>
-            <TableCell>{alert.contactTime}</TableCell>
-            <TableCell>
-               <Button onPress={() => handleOpenModal(alert)}>Show Details</Button>
-            </TableCell>
-        </TableRow>
+        <rux-table-row theme="dark">
+            <rux-table-cell>{alert.errorMessage}</rux-table-cell>
+            <rux-table-cell>{alert.contactName}</rux-table-cell>
+            <rux-table-cell>{startTime} - {endTime}</rux-table-cell>
+            <rux-table-cell>
+                <DashboardTableRowButtonWrapper>
+                    <rux-button onClick={() => handleOpenModal(alert)}>Show Details</rux-button>
+                </DashboardTableRowButtonWrapper>
+            </rux-table-cell>
+        </rux-table-row>
     );
 };
 

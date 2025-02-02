@@ -11,7 +11,8 @@ export function fetchData() {
                     errorCategory: alert.errorCategory,
                     errorSeverity: alert.errorSeverity,
                     contactName: item.contactName,
-                    contactTime: item.contactBeginTimestamp - item.contactEndTimestamp,
+                    contactStartTime: item.contactBeginTimestamp,
+                    contactEndTime: item.contactEndTimestamp,
                     contactSatellite: item.contactSatellite,
                     contactDetail: item.contactDetail,
                     acknowledged: false, // Stub value to false in absence of internal db

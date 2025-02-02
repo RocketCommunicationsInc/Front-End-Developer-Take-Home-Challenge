@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { DashboardComponentWrapper } from './DashboardComponent.styled';
-import { Card, Table, TableHead, TableBody, TableRow, TableCell } from "@pingux/astro";
 import { fetchData } from '../../services/fake-http-dashboard.service';
 
 import DashboardTableRowComponent from '../DashboardTableRowComponent/DashboardTableRowComponent';
@@ -14,7 +13,9 @@ const DashboardComponent = () => {
    const [selectedAlert, setSelectedAlert] = useState(null);
 
    const getAlerts = () => {
-      return Object.values(data).flat();
+      return Object.values(data)
+        .flat()
+        .sort((a, b) => b.contactStartTime - a.contactStartTime);
    }
 
    // Function to open the modal and set selected alert data
@@ -32,11 +33,9 @@ const DashboardComponent = () => {
    // Function to acknowledge alert
    const handleAcknowledge = (item) => {
       const newData = { ...data };
-      console.log('JLL_DEBUG what is item????', item)
       for (const alert of newData[item.id]) {
          if (alert.id === item.id) {
             alert.acknowledged = true;
-            console.log('JLL_DEBUG setting acknowledged true!!')
             break;
          }
       }
@@ -46,26 +45,24 @@ const DashboardComponent = () => {
 
    return (
       <DashboardComponentWrapper data-testid="DashboardComponent">
-         <Card></Card>
-         <Table>
-            <TableHead>
-               <TableRow>
-                  <TableCell>Alert Message</TableCell>
-                  <TableCell>Contact Name</TableCell>
-                  <TableCell>Contact Time</TableCell>
-                  <TableCell>Actions</TableCell>
-               </TableRow>
-            </TableHead>
-            
-            <TableBody>
+         <rux-table theme="dark">
+            <rux-table-header>
+               <rux-table-header-row>
+                  <rux-table-header-cell>Alert Message</rux-table-header-cell>
+                  <rux-table-header-cell>Contact Name</rux-table-header-cell>
+                  <rux-table-header-cell>Contact Time</rux-table-header-cell>
+                  <rux-table-header-cell>Actions</rux-table-header-cell>
+               </rux-table-header-row>
+            </rux-table-header>
+            <rux-table-body>
                {getAlerts().map((item, index) => (
                   <DashboardTableRowComponent
                      key={index}
                      alert={item}
                      handleOpenModal={handleOpenModal}/>
                ))}
-            </TableBody>
-         </Table>
+            </rux-table-body>
+         </rux-table>
 
          <AlertDetailsModalComponent isOpen={isModalOpen} alert={selectedAlert} handleCloseModal={handleCloseModal} handleAcknowledge={handleAcknowledge}/>
       </DashboardComponentWrapper>
