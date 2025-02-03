@@ -1,4 +1,4 @@
-[
+export const rawData = [
   {
     "_id": "5c926e56fddac523882598d8",
     "contactId": "01bb9a28-7f3a-519c-8b47-0481f946b14a",
