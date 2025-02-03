@@ -3,10 +3,10 @@ import {
    RuxSelect,
    RuxOption,
 } from "@astrouxds/react";
-import { DashboardTableFilterComponentWrapper } from './DashboardTableFilterComponent.styled';
+import { AlertTableFilterComponentWrapper } from './AlertTableFilterComponent.styled';
 import { statusOptions, severityOptions } from '../../shared';
 
-const DashboardTableFilterComponent = ({handleFilterChange}) => {
+const AlertTableFilterComponent = ({handleFilterChange}) => {
 
    const [filters, setFilters] = useState({
          status: statusOptions.all,
@@ -27,7 +27,7 @@ const DashboardTableFilterComponent = ({handleFilterChange}) => {
       };
    
    return (
-      <DashboardTableFilterComponentWrapper data-testid="DashboardTableFilterComponent">
+      <AlertTableFilterComponentWrapper data-testid="AlertTableFilterComponent">
          <RuxSelect
             label="Filter by Severity" input-id="1" label-id="1" name="filterBySeverity" size="small"
             onRuxchange={handleSeverityFilterChange}
@@ -50,8 +50,8 @@ const DashboardTableFilterComponent = ({handleFilterChange}) => {
             <RuxOption value={statusOptions.acknowledged} label={statusOptions.acknowledged}/>
             <RuxOption value={statusOptions.unacknowledged} label={statusOptions.unacknowledged}/>
          </RuxSelect>
-      </DashboardTableFilterComponentWrapper>
+      </AlertTableFilterComponentWrapper>
    );
 };
 
-export default DashboardTableFilterComponent;
+export default AlertTableFilterComponent;

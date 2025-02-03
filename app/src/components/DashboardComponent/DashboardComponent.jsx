@@ -11,11 +11,15 @@ import {
    RuxTableHeaderCell,
    RuxTableBody,
    RuxCard,
-   RuxContainer
+   RuxContainer,
+   RuxTabs,
+   RuxTab,
+   RuxTabPanels,
+   RuxTabPanel,
 } from "@astrouxds/react";
 import { statusOptions, severityOptions } from '../../shared';
-import DashboardTableFilterComponent from "../DashboardTableFilterComponent/DashboardTableFilterComponent";
-import DashboardTableRowComponent from "../DashboardTableRowComponent/DashboardTableRowComponent";
+import AlertTableFilterComponent from "../AlertTableFilterComponent/AlertTableFilterComponent";
+import AlertTableRowComponent from "../AlertTableRowComponent/AlertTableRowComponent";
 import AlertDetailsModalComponent from "../AlertDetailsModalComponent/AlertDetailsModalComponent";
 
 const DashboardComponent = () => {
@@ -105,39 +109,48 @@ const DashboardComponent = () => {
    return (
       <DashboardComponentWrapper theme="dark" data-testid="DashboardComponent">
          <RuxCard>
-            <h1 style={{ paddingLeft: "4px" }}>2025 React Astro Dashboard Challenge</h1>
+            <h1 style={{ paddingLeft: "20px" }}>2025 React Astro Dashboard Challenge</h1>
          </RuxCard>
-         <RuxContainer>
-            <div slot="header">Contact Alert Table</div>
-            <div slot="toolbar">
-               <DashboardTableFilterComponent handleFilterChange={handleFilterChange}/>
+         <RuxContainer style={{ "--body-padding": "0px" }}>
+            <div slot="tab-bar">
+               <RuxTabs id="tab-set-id-1">
+                  <RuxTab id="tab-id-table">Contact Alerts</RuxTab>
+                  <RuxTab id="tab-id-metrics" disabled="">Alert Metrics (Coming soon!)</RuxTab>
+               </RuxTabs>
             </div>
-            <RuxTable>
-               <RuxTableHeader>
-                  <RuxTableHeaderRow>
-                     <RuxTableHeaderCell>Status</RuxTableHeaderCell>
-                     <RuxTableHeaderCell>Alert Message</RuxTableHeaderCell>
-                     <RuxTableHeaderCell>Severity</RuxTableHeaderCell>
-                     <RuxTableHeaderCell>Contact Name</RuxTableHeaderCell>
-                     <RuxTableHeaderCell>Contact Time</RuxTableHeaderCell>
-                     <RuxTableHeaderCell></RuxTableHeaderCell>
-                  </RuxTableHeaderRow>
-               </RuxTableHeader>
-               <RuxTableBody>
-                  {alerts.map((item, index) => (
-                     <DashboardTableRowComponent
-                        key={index}
-                        alert={item}
-                        handleOpenModal={handleOpenModal}/>
-                  ))}
-               </RuxTableBody>
-            </RuxTable>
+            <div slot="toolbar">
+               <AlertTableFilterComponent handleFilterChange={handleFilterChange}/>
+            </div>
+            <RuxTabPanels aria-labelledby="tab-set-id-1">
+			      <RuxTabPanel aria-labelledby="tab-id-table">
+                  <RuxTable>
+                     <RuxTableHeader>
+                        <RuxTableHeaderRow>
+                           <RuxTableHeaderCell>Status</RuxTableHeaderCell>
+                           <RuxTableHeaderCell>Alert Message</RuxTableHeaderCell>
+                           <RuxTableHeaderCell>Severity</RuxTableHeaderCell>
+                           <RuxTableHeaderCell>Contact Name</RuxTableHeaderCell>
+                           <RuxTableHeaderCell>Contact Time</RuxTableHeaderCell>
+                           <RuxTableHeaderCell></RuxTableHeaderCell>
+                        </RuxTableHeaderRow>
+                     </RuxTableHeader>
+                     <RuxTableBody>
+                        {alerts.map((item, index) => (
+                           <AlertTableRowComponent
+                              key={index}
+                              alert={item}
+                              handleOpenModal={handleOpenModal}/>
+                        ))}
+                     </RuxTableBody>
+                  </RuxTable>
 
-            <AlertDetailsModalComponent
-               isOpen={isModalOpen}
-               alert={selectedAlert}
-               handleCloseModal={handleCloseModal}
-               handleAcknowledge={handleAcknowledge}/>
+                  <AlertDetailsModalComponent
+                     isOpen={isModalOpen}
+                     alert={selectedAlert}
+                     handleCloseModal={handleCloseModal}
+                     handleAcknowledge={handleAcknowledge}/>
+               </RuxTabPanel>
+            </RuxTabPanels>
          </RuxContainer>
       </DashboardComponentWrapper>
    );

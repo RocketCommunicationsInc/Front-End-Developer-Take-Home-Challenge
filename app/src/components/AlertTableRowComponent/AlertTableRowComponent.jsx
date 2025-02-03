@@ -1,8 +1,8 @@
 import React from "react";
-import { DashboardTableRowButtonWrapper } from './DashboardTableRowComponent.styled'
+import { AlertTableRowButtonWrapper } from './AlertTableRowComponent.styled'
 import { RuxIcon, RuxButton, RuxTableRow, RuxTableCell } from '@astrouxds/react'
 
-const DashboardTableRowComponent = ({ alert, handleOpenModal }) => {
+const AlertTableRowComponent = ({ alert, handleOpenModal }) => {
     const startTime = new Date(alert.contactStartTime * 1000).toLocaleString();
     const endTime = new Date(alert.contactEndTime * 1000).toLocaleString();
 
@@ -21,12 +21,12 @@ const DashboardTableRowComponent = ({ alert, handleOpenModal }) => {
             <RuxTableCell>{alert.contactName}</RuxTableCell>
             <RuxTableCell>{startTime} - {endTime}</RuxTableCell>
             <RuxTableCell>
-                <DashboardTableRowButtonWrapper>
+                <AlertTableRowButtonWrapper>
                     <RuxButton size="small" onClick={() => handleOpenModal(alert)}>Show Details</RuxButton>
-                </DashboardTableRowButtonWrapper>
+                </AlertTableRowButtonWrapper>
             </RuxTableCell>
         </RuxTableRow>
     );
 };
 
-export default DashboardTableRowComponent;
+export default AlertTableRowComponent;
