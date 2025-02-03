@@ -1,21 +1,31 @@
 import React from "react";
 import { DashboardTableRowButtonWrapper } from './DashboardTableRowComponent.styled'
+import { RuxIcon, RuxButton, RuxTableRow, RuxTableCell } from '@astrouxds/react'
 
 const DashboardTableRowComponent = ({ alert, handleOpenModal }) => {
     const startTime = new Date(alert.contactStartTime * 1000).toLocaleString();
     const endTime = new Date(alert.contactEndTime * 1000).toLocaleString();
 
+    const icon = alert.acknowledged ? "check-circle" : "cancel";
+
     return (
-        <rux-table-row theme="dark">
-            <rux-table-cell>{alert.errorMessage}</rux-table-cell>
-            <rux-table-cell>{alert.contactName}</rux-table-cell>
-            <rux-table-cell>{startTime} - {endTime}</rux-table-cell>
-            <rux-table-cell>
+        <RuxTableRow theme="dark">
+            <RuxTableCell>
+                <RuxIcon
+                    icon={icon}
+                    size="1.5rem"
+                    style={{ color: alert.acknowledged ? "rgb(35, 151, 186)" : "orange" }}/>
+            </RuxTableCell>
+            <RuxTableCell>{alert.errorMessage}</RuxTableCell>
+            <RuxTableCell>{alert.errorSeverity}</RuxTableCell>
+            <RuxTableCell>{alert.contactName}</RuxTableCell>
+            <RuxTableCell>{startTime} - {endTime}</RuxTableCell>
+            <RuxTableCell>
                 <DashboardTableRowButtonWrapper>
-                    <rux-button onClick={() => handleOpenModal(alert)}>Show Details</rux-button>
+                    <RuxButton size="small" onClick={() => handleOpenModal(alert)}>Show Details</RuxButton>
                 </DashboardTableRowButtonWrapper>
-            </rux-table-cell>
-        </rux-table-row>
+            </RuxTableCell>
+        </RuxTableRow>
     );
 };
 

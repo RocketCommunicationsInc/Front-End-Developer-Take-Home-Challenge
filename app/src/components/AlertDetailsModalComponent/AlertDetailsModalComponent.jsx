@@ -6,10 +6,29 @@ import {
    StyledModalButtonContainer,
    StyledModalHeader,
 } from './AlertDetailsModalComponent.styled';
+import {
+   RuxIcon,
+   RuxButton,
+} from "@astrouxds/react";
 
 
 const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAcknowledge }) => {
    if (!alert) return null; // Prevent rendering when no alert is selected
+
+   const showAcknowledged = () => {
+      if (!alert.acknowledged) {
+         return (
+            <RuxButton onClick={() => handleAcknowledge(alert.id)}>Acknowledge</RuxButton>
+         )
+      } else {
+         return (
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+               <RuxIcon icon="check-circle" size="1.5rem" style={{ color: "green" }} />
+               <span><strong>Acknowledged</strong></span>
+            </div>
+         )
+      }
+   }
 
    return (
       <StyledModalComponentWrapper>
@@ -17,7 +36,7 @@ const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAck
             <rux-modal open={isOpen} onRuxmodalclosed={handleCloseModal}>
                <StyledModalHeader slot="header">
                   <h2>Alert Details</h2>
-                  <rux-icon icon="close" onClick={handleCloseModal} style={{ transform: 'scale(0.8)', cursor: 'pointer' }}></rux-icon>
+                  <RuxIcon icon="close" onClick={handleCloseModal} style={{ transform: 'scale(0.8)', cursor: 'pointer' }}></RuxIcon>
                </StyledModalHeader>
                <div slot="message">
                   <p><strong>Category:</strong> {alert.errorCategory}</p>
@@ -29,7 +48,7 @@ const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAck
                </div>
                <StyledModalButtonWrapper slot="confirm">
                   <StyledModalButtonContainer>
-                     <rux-button onClick={() => handleAcknowledge(alert)}>Acknowledge</rux-button>
+                     {showAcknowledged()}
                   </StyledModalButtonContainer>
                </StyledModalButtonWrapper>
             </rux-modal>

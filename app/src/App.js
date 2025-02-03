@@ -1,6 +1,5 @@
-//import logo from './logo.svg';
 import './App.css';
-
+import "@astrouxds/astro-web-components";
 import DashboardComponent from './components/DashboardComponent/DashboardComponent';
 
 function App() {
