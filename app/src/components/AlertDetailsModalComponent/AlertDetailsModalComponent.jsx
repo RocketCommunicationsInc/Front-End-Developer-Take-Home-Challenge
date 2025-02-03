@@ -5,6 +5,7 @@ import {
    StyledModalButtonWrapper,
    StyledModalButtonContainer,
    StyledModalHeader,
+   StyledCloseIconButton,
 } from './AlertDetailsModalComponent.styled';
 import {
    RuxIcon,
@@ -18,11 +19,15 @@ const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAck
    const showAcknowledged = () => {
       if (!alert.acknowledged) {
          return (
-            <RuxButton onClick={() => handleAcknowledge(alert.id)}>Acknowledge</RuxButton>
+            <StyledModalButtonWrapper slot="confirm">
+               <StyledModalButtonContainer>
+                  <RuxButton size="large" onClick={() => handleAcknowledge(alert.id)}>Acknowledge</RuxButton>
+               </StyledModalButtonContainer>
+            </StyledModalButtonWrapper>
          )
       } else {
          return (
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", float: "left", margin: "1rem 0" }}>
                <RuxIcon icon="check-circle" size="1.5rem" style={{ color: "green" }} />
                <span><strong>Acknowledged</strong></span>
             </div>
@@ -36,7 +41,9 @@ const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAck
             <rux-modal open={isOpen} onRuxmodalclosed={handleCloseModal}>
                <StyledModalHeader slot="header">
                   <h2>Alert Details</h2>
-                  <RuxIcon icon="close" onClick={handleCloseModal} style={{ transform: 'scale(0.8)', cursor: 'pointer' }}></RuxIcon>
+                  <StyledCloseIconButton>
+                     <RuxIcon icon="close" onClick={handleCloseModal} style={{ transform: 'scale(0.8)', cursor: 'pointer' }}></RuxIcon>
+                  </StyledCloseIconButton>
                </StyledModalHeader>
                <div slot="message">
                   <p><strong>Category:</strong> {alert.errorCategory}</p>
@@ -46,11 +53,7 @@ const AlertDetailsModalComponent = ({ isOpen, alert, handleCloseModal, handleAck
                   <p><strong>Contact Detail:</strong> {alert.contactDetail}</p>
                   <p><strong>Message:</strong> {alert.longMessage}</p>
                </div>
-               <StyledModalButtonWrapper slot="confirm">
-                  <StyledModalButtonContainer>
-                     {showAcknowledged()}
-                  </StyledModalButtonContainer>
-               </StyledModalButtonWrapper>
+               {showAcknowledged()}
             </rux-modal>
          </StyledModalContent>
       </StyledModalComponentWrapper>

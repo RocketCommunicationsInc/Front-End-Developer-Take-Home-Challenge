@@ -17,9 +17,10 @@ export const StyledModalContent = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   color: black;
-  padding: 1rem 1rem 2rem 2rem;
+  padding: 1rem 2rem 2rem 2rem;
   border-radius: 10px;
   text-align: left;
+  white-space: normal;
 `;
 
 export const StyledModalHeader = styled.div`
@@ -29,11 +30,15 @@ export const StyledModalHeader = styled.div`
 `;
 
 export const StyledModalButtonWrapper = styled.div`
-  margin: 1rem 2rem 0 0;
+  margin: 1rem 0;
   float: right;
 `;
 
 export const StyledModalButtonContainer = styled.div`
   display: inline-flex;
   gap: 20px;
+`;
+
+export const StyledCloseIconButton = styled.div`
+  margin-right: -18px;
 `;
