@@ -1,0 +1,7 @@
+/* @import "tailwindcss"; */
+@import "@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components";
+
+.py-3 {
+  padding-top: var(--spacing-3);
+  padding-bottom: var(--spacing-3);
+}
