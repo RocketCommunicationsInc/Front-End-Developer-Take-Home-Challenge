@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   RuxButton,
   RuxDialog,
@@ -17,21 +17,60 @@ import styles from "./AlertLog.module.css";
 
 export function AlertLog({ data = [], doUpdateEntry }) {
   const DetailCell = (entry) => {
-    if (entry.item.acknowledged === true) {
-      return <>yer mom</>;
-    } else {
-      return (
-        <RuxButton
-          size="small"
-          secondary={true}
-          borderless={true}
-          onClick={() => doUpdateEntry(entry.item)}
+    const item = entry.item;
+    const [isAcknowledged, setIsAcknowledged] = useState(false);
+
+    const buttonText =
+    item.acknowledged === true ? "Review Details" : "Acknowledge Alert";
+    const importantButton = item.acknowledged
+
+    const dialogClosed = (thisItem) => {
+      setIsAcknowledged(false);
+      doUpdateEntry(thisItem);
+    };
+
+    return (
+      <RuxButton
+        size="small"
+        secondary={importantButton}
+        borderless={importantButton}
+        onClick={() => setIsAcknowledged(true)}
+      >
+        {buttonText}
+        <RuxDialog
+          open={isAcknowledged}
+          header={item.errorMessage}
+          confirmText="Acknowledge"
+          denyText=""
+          ruxdialogclosed={true}
+          onRuxdialogclosed={() => dialogClosed(item)}
         >
-          Details
-        </RuxButton>
-      );
-    }
+          <h3>Contact Satellite: {item.contactSatellite}</h3>
+          <p>Contact Detail: {item.contactDetail}</p>
+        </RuxDialog>
+      </RuxButton>
+    );
   };
+
+  const severityClasses = (severityLevel) => {
+    switch (severityLevel) {
+      case "critical":
+        return styles.AlertSeverityCritical
+      case "caution":
+        return styles.AlertSeverityCaution
+      case "serious":
+        return styles.AlertSeveritySerious
+      case "warning":
+      default:
+        return ""
+    }
+  }
+
+  const rowAcknowledgedClass = (acknowledged) => {
+    if (acknowledged) {
+      return styles.RowAcknowledged
+    }
+  }
 
   return (
     <>
@@ -47,8 +86,8 @@ export function AlertLog({ data = [], doUpdateEntry }) {
         </RuxTableHeader>
         <RuxTableBody>
           {data.map((item, index) => (
-            <RuxTableRow key={index}>
-              <RuxTableCell>{item.errorSeverity}</RuxTableCell>
+            <RuxTableRow key={index} className={rowAcknowledgedClass(item.acknowledged)}>
+              <RuxTableCell className={severityClasses(item.errorSeverity)}>{item.errorSeverity}</RuxTableCell>
               <RuxTableCell>{item.errorMessage}</RuxTableCell>
               {/* todo: work out time sorting and display */}
               <RuxTableCell>
