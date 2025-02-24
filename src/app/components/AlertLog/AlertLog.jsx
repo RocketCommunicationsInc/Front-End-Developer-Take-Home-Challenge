@@ -1,4 +1,4 @@
-// 'use client'
+"use client";
 
 import React from "react";
 import {
@@ -15,19 +15,23 @@ import {
 
 import styles from "./AlertLog.module.css";
 
-export function AlertLog({ data = [] }) {
-  // console.clear();
-  // console.log(["data", data[0].longMessage]);
-
-  // data.map((item, index) => {
-  //   if (item.alerts.length) {
-  //     console.log(item.alerts[0].errorMessage)
-  //   }
-  // })
-
-  const asdfasdf = (e) => {
-    console.log(e)
-  }
+export function AlertLog({ data = [], doUpdateEntry }) {
+  const DetailCell = (entry) => {
+    if (entry.item.acknowledged === true) {
+      return <>yer mom</>;
+    } else {
+      return (
+        <RuxButton
+          size="small"
+          secondary={true}
+          borderless={true}
+          onClick={() => doUpdateEntry(entry.item)}
+        >
+          Details
+        </RuxButton>
+      );
+    }
+  };
 
   return (
     <>
@@ -47,12 +51,13 @@ export function AlertLog({ data = [] }) {
               <RuxTableCell>{item.errorSeverity}</RuxTableCell>
               <RuxTableCell>{item.errorMessage}</RuxTableCell>
               {/* todo: work out time sorting and display */}
-              <RuxTableCell>{item.contactBeginTimestampString} - {item.contactEndTimestampString}</RuxTableCell>
+              <RuxTableCell>
+                {item.contactBeginTimestampString} -{" "}
+                {item.contactEndTimestampString}
+              </RuxTableCell>
               <RuxTableCell>{item.contactName}</RuxTableCell>
               <RuxTableCell>
-                <RuxButton size="small" secondary={true} borderless={true} onClick={() => asdfasdf(item)}>
-                  Details
-                </RuxButton>
+                <DetailCell item={item} />
               </RuxTableCell>
             </RuxTableRow>
           ))}
