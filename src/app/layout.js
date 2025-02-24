@@ -1,11 +1,13 @@
 import { Roboto } from "next/font/google";
+import { GlobalHeader } from "./components/GlobalHeader";
 import "./globals.css";
+import styles from "./layout.module.css";
 
 const RobotoSans = Roboto({
   variable: "--font-roboto-sans",
   subsets: ["latin"],
-  weight: ['300', '400', '500', '700'],
-  display: 'swap'
+  weight: ["300", "400", "500", "700"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -17,7 +19,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${RobotoSans.variable}`}>
-        {children}
+        <div className={styles.holyGrail}>
+          <GlobalHeader />
+          <main id="maincontent" className={styles.holyGrailBody}>
+            <div className={styles.holyGrailContent}>{children}</div>
+          </main>
+          {/* <PageFooter /> */}
+        </div>
       </body>
     </html>
   );
