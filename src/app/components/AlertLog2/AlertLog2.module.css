@@ -1,3 +1,18 @@
+.AlertDetailRow {
+  display: flex;
+  gap: var(--spacing-4);
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.AlertDetailText {
+  text-wrap: auto;
+}
+
+.AlertDetailRow:nth-child(1n + 2) {
+  margin-block-start: var(--spacing-2);
+}
+
 .AlertSeverityCritical {
   color: var(--color-status-critical);
 }
@@ -11,6 +26,5 @@
 }
 
 .RowAcknowledged {
-  color: var(--color-status-off)
+  color: var(--color-status-off);
 }
-
