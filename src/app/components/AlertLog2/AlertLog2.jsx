@@ -48,7 +48,8 @@ export function AlertLog2({ data = [], doUpdateEntry }) {
           >
             <div className={styles.AlertDetailText}>
               <h3>Contact Satellite: {contact.contactSatellite}</h3>
-              <p>Contact Detail: {contact.contactDetail}</p>
+              <p>{contact.contactDetail}</p>
+              <p className={styles.ErrorTime}><label className={styles.Label}>Error Time:</label> {alert.errorTimeString}</p>
             </div>
           </RuxDialog>
         </RuxButton>
@@ -80,10 +81,10 @@ export function AlertLog2({ data = [], doUpdateEntry }) {
     <>
       <RuxTable>
         <RuxTableHeader>
-          <RuxTableHeaderRow>
-            <RuxTableHeaderCell>Contact</RuxTableHeaderCell>
-            <RuxTableHeaderCell>Time</RuxTableHeaderCell>
-            <RuxTableHeaderCell>Alerts</RuxTableHeaderCell>
+          <RuxTableHeaderRow className={styles.AlertRow}>
+            <RuxTableHeaderCell className={styles.Cell}>Contact</RuxTableHeaderCell>
+            <RuxTableHeaderCell className={styles.Cell}>Time Range <div className={styles.TimeFormat}>Year - Date - Time</div></RuxTableHeaderCell>
+            <RuxTableHeaderCell className={styles.Cell}>Alerts</RuxTableHeaderCell>
           </RuxTableHeaderRow>
         </RuxTableHeader>
         <RuxTableBody>
@@ -92,12 +93,12 @@ export function AlertLog2({ data = [], doUpdateEntry }) {
               key={index}
               className={rowAcknowledgedClass(item.acknowledged)}
             >
-              <RuxTableCell>{item.contactName}</RuxTableCell>
-              <RuxTableCell>
-                {item.contactBeginTimestampString} -{" "}
-                {item.contactEndTimestampString}
+              <RuxTableCell className={styles.Cell}>{item.contactName}</RuxTableCell>
+              <RuxTableCell className={styles.Cell}>
+                <div>{item.contactBeginTimestampString} -{" "}</div>
+                <div>{item.contactEndTimestampString}</div>
               </RuxTableCell>
-              <RuxTableCell>
+              <RuxTableCell className={styles.Cell}>
                 {item.alerts.map((alert, index) => (
                   <div className={styles.AlertDetailRow} key={index}>
                     <span className={severityClasses(alert.errorSeverity)}>
@@ -109,6 +110,7 @@ export function AlertLog2({ data = [], doUpdateEntry }) {
                     <AlertDetails alert={alert} contact={item} />
                   </div>
                 ))}
+                {item.alerts.length === 0 && (<span className={styles.NoALerts}>no alerts</span>)}
               </RuxTableCell>
             </RuxTableRow>
           ))}
