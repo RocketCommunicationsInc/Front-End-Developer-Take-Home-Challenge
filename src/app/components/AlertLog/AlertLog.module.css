@@ -1,3 +1,19 @@
+.AlertDetailRow {
+  display: grid;
+  gap: var(--spacing-4);
+  grid-template-columns: max-content minmax(min-content, 1fr) max-content;
+  max-width: fit-content;
+  min-width: 32em;
+}
+
+.AlertDetailRow:nth-child(1n + 2) {
+  margin-block-start: var(--spacing-2);
+}
+
+.AlertDetailText {
+  text-wrap: auto;
+}
+
 .AlertSeverityCritical {
   color: var(--color-status-critical);
 }
@@ -10,7 +26,30 @@
   color: var(--color-status-serious);
 }
 
-.RowAcknowledged {
-  color: var(--color-status-off)
+.NoALerts {
+  color: var(--color-status-off);
+  /* font-size: var(--font-size-sm); */
+  font-style: italic;
 }
 
+.RowAcknowledged {
+  color: var(--color-status-off);
+}
+
+.Cell {
+  padding-block-start: var(--spacing-2);
+  padding-block-end: var(--spacing-2);
+  vertical-align: baseline;
+}
+
+.TimeFormat {
+  font-size: var(--font-size-xs);
+}
+
+.ErrorTime {
+  margin-block-start: var(--spacing-2);
+}
+
+.Label {
+  font-weight: var(--font-weight-medium);
+}

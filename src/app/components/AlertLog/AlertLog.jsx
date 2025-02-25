@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import {
   RuxButton,
@@ -16,87 +14,103 @@ import {
 import styles from "./AlertLog.module.css";
 
 export function AlertLog({ data = [], doUpdateEntry }) {
-  const DetailCell = (entry) => {
-    const item = entry.item;
+  const AlertDetails = ({ alert, contact }) => {
     const [isAcknowledged, setIsAcknowledged] = useState(false);
 
     const buttonText =
-    item.acknowledged === true ? "Review Details" : "Acknowledge Alert";
-    const importantButton = item.acknowledged
+      alert.acknowledged === true ? "Review Details" : "Acknowledge Alert";
+    const dialogButtonText =
+      alert.acknowledged === true ? "Dismiss" : "Acknowledge";
+    const importantButton = alert.acknowledged;
 
-    const dialogClosed = (thisItem) => {
+    const dialogClosed = ({ alert, contact }) => {
       setIsAcknowledged(false);
-      doUpdateEntry(thisItem);
+      doUpdateEntry({ alert, contact });
     };
 
     return (
-      <RuxButton
-        size="small"
-        secondary={importantButton}
-        borderless={importantButton}
-        onClick={() => setIsAcknowledged(true)}
-      >
-        {buttonText}
-        <RuxDialog
-          open={isAcknowledged}
-          header={item.errorMessage}
-          confirmText="Acknowledge"
-          denyText=""
-          ruxdialogclosed={true}
-          onRuxdialogclosed={() => dialogClosed(item)}
+      <>
+        <RuxButton
+          size="small"
+          secondary={importantButton}
+          borderless={importantButton}
+          onClick={() => setIsAcknowledged(true)}
         >
-          <h3>Contact Satellite: {item.contactSatellite}</h3>
-          <p>Contact Detail: {item.contactDetail}</p>
-        </RuxDialog>
-      </RuxButton>
+          {buttonText}
+
+          <RuxDialog
+            open={isAcknowledged}
+            header={alert.errorMessage}
+            confirmText={dialogButtonText}
+            denyText=""
+            ruxdialogclosed={true}
+            onRuxdialogclosed={() => dialogClosed({ alert, contact })}
+          >
+            <div className={styles.AlertDetailText}>
+              <h3>Contact Satellite: {contact.contactSatellite}</h3>
+              <p>{contact.contactDetail}</p>
+              <p className={styles.ErrorTime}><label className={styles.Label}>Error Time:</label> {alert.errorTimeString}</p>
+            </div>
+          </RuxDialog>
+        </RuxButton>
+      </>
     );
   };
 
   const severityClasses = (severityLevel) => {
     switch (severityLevel) {
       case "critical":
-        return styles.AlertSeverityCritical
+        return styles.AlertSeverityCritical;
       case "caution":
-        return styles.AlertSeverityCaution
+        return styles.AlertSeverityCaution;
       case "serious":
-        return styles.AlertSeveritySerious
+        return styles.AlertSeveritySerious;
       case "warning":
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const rowAcknowledgedClass = (acknowledged) => {
     if (acknowledged) {
-      return styles.RowAcknowledged
+      return styles.RowAcknowledged;
     }
-  }
+  };
 
   return (
     <>
-      <RuxTable className={styles.AlertLog}>
+      <RuxTable>
         <RuxTableHeader>
-          <RuxTableHeaderRow>
-            <RuxTableHeaderCell>Severity</RuxTableHeaderCell>
-            <RuxTableHeaderCell>Message</RuxTableHeaderCell>
-            <RuxTableHeaderCell>Time</RuxTableHeaderCell>
-            <RuxTableHeaderCell>Contact</RuxTableHeaderCell>
-            <RuxTableHeaderCell>Acknowledged</RuxTableHeaderCell>
+          <RuxTableHeaderRow className={styles.AlertRow}>
+            <RuxTableHeaderCell className={styles.Cell}>Contact</RuxTableHeaderCell>
+            <RuxTableHeaderCell className={styles.Cell}>Time Range <div className={styles.TimeFormat}>Year - Date - Time</div></RuxTableHeaderCell>
+            <RuxTableHeaderCell className={styles.Cell}>Alerts</RuxTableHeaderCell>
           </RuxTableHeaderRow>
         </RuxTableHeader>
         <RuxTableBody>
           {data.map((item, index) => (
-            <RuxTableRow key={index} className={rowAcknowledgedClass(item.acknowledged)}>
-              <RuxTableCell className={severityClasses(item.errorSeverity)}>{item.errorSeverity}</RuxTableCell>
-              <RuxTableCell>{item.errorMessage}</RuxTableCell>
-              {/* todo: work out time sorting and display */}
-              <RuxTableCell>
-                {item.contactBeginTimestampString} -{" "}
-                {item.contactEndTimestampString}
+            <RuxTableRow
+              key={index}
+              className={rowAcknowledgedClass(item.acknowledged)}
+            >
+              <RuxTableCell className={styles.Cell}>{item.contactName}</RuxTableCell>
+              <RuxTableCell className={styles.Cell}>
+                <div>{item.contactBeginTimestampString} -{" "}</div>
+                <div>{item.contactEndTimestampString}</div>
               </RuxTableCell>
-              <RuxTableCell>{item.contactName}</RuxTableCell>
-              <RuxTableCell>
-                <DetailCell item={item} />
+              <RuxTableCell className={styles.Cell}>
+                {item.alerts.map((alert, index) => (
+                  <div className={styles.AlertDetailRow} key={index}>
+                    <span className={severityClasses(alert.errorSeverity)}>
+                      {alert.errorSeverity}
+                    </span>
+                    <span className={rowAcknowledgedClass(alert.acknowledged)}>
+                      {alert.errorMessage}
+                    </span>
+                    <AlertDetails alert={alert} contact={item} />
+                  </div>
+                ))}
+                {item.alerts.length === 0 && (<span className={styles.NoALerts}>no alerts</span>)}
               </RuxTableCell>
             </RuxTableRow>
           ))}
