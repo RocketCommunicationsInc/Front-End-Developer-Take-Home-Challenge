@@ -8,27 +8,37 @@ import data from "../../data/data.json";
 
 import styles from "./AlertViewer2.module.css";
 
-const transformData = (data) => {
-  let justAlerts = [];
+function daysInYear(date){
+  return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
+}
 
+const formatDate = (date, milliseconds = true) => {
+  const millisecondsMultiplier = (milliseconds) ? 1000 : 1;
+  const thisDate = new Date(date * millisecondsMultiplier);
+  const options = {
+    timeZone : "UTC",
+    hour12: false,
+  }
+  const dateString = `${thisDate.getUTCFullYear()} ${daysInYear(thisDate)} ${thisDate.toLocaleTimeString('en-US', options)}`
+  return dateString;
+};
+
+const transformData = (data) => {
   data.map((item, index) => {
-    item.contactBeginTimestampString = new Date(
-      item.contactBeginTimestamp * 1000
-    ).toLocaleString();
-    item.contactEndTimestampString = new Date(
-      item.contactEndTimestamp * 1000
-    ).toLocaleString();
-    item.earliestAlertErrorTime = null;
+    item.contactBeginTimestampString = formatDate(item.contactBeginTimestamp);
+    item.contactEndTimestampString = formatDate(item.contactEndTimestamp);
+    item.earliestAlertErrorTime = new Date();
     item.alerts.forEach((alert) => {
       const thisAlert = alert;
-      thisAlert.errorTimeString = new Date(alert.errorTime).toLocaleString();
-      justAlerts.push(alert);
+      thisAlert.errorTimeString = formatDate(alert.errorTime, false);
+      item.earliestAlertErrorTime = (alert.errorTime - item.earliestAlertErrorTime)? alert.errorTime : item.earliestAlertErrorTime;
     });
   });
-  justAlerts = justAlerts.sort((a, b) => {
-    return a.errorTime - b.errorTime;
+
+  data = data.sort((a, b) => {
+    return a.earliestAlertErrorTime - b.earliestAlertErrorTime;
   });
-  // return justAlerts;
+
   return data;
 };
 
