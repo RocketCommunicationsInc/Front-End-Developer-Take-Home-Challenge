@@ -1,0 +1,16 @@
+.AlertSeverityCritical {
+  color: var(--color-status-critical);
+}
+
+.AlertSeverityCaution {
+  color: var(--color-status-caution);
+}
+
+.AlertSeveritySerious {
+  color: var(--color-status-serious);
+}
+
+.RowAcknowledged {
+  color: var(--color-status-off)
+}
+
