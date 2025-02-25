@@ -36,6 +36,7 @@ const transformData = (data) => {
     item.earliestAlertErrorTime = new Date();
     item.alerts.forEach((alert) => {
       const thisAlert = alert;
+      thisAlert.contactId = item.contactId;
       thisAlert.errorTimeString = formatDate(alert.errorTime, false);
       item.earliestAlertErrorTime = (alert.errorTime - item.earliestAlertErrorTime)? alert.errorTime : item.earliestAlertErrorTime;
     });
@@ -48,8 +49,36 @@ const transformData = (data) => {
   return data;
 };
 
+const getAlertCounts = (data, severity = null) => {
+  let count = 0;
+  data.filter((item) => item.alerts.length > 0)
+  console.log(['data', data[0]])
+  data.map((item, index) => {
+    if (severity) {
+      count += item.alerts.filter((alert) => alert.errorSeverity === severity && alert.acknowledged !== true).length
+    } else {
+      count += item.alerts.filter((alert) => alert.acknowledged !== true).length
+    }
+  })
+  console.log([severity, count])
+  return count;
+}
+
 export function AlertViewer() {
   const [alertData, setAlertData] = useState(transformData(data));
+  const [unacknowledgedCount, setUnacknowledgedCount] = useState(getAlertCounts(data));
+  const [criticalCount, setCriticalCount] = useState(getAlertCounts(data, 'critical'));
+  const [seriousCount, setSeriousCount] = useState(getAlertCounts(data, 'serious'));
+  const [cautionCount, setCautionCount] = useState(getAlertCounts(data, 'caution'));
+  const [warningCount, setWarningCount] = useState(getAlertCounts(data, 'warning'));
+
+  const getAllAlertCounts = (data) => {
+    setUnacknowledgedCount(getAlertCounts(data));
+    setCriticalCount(getAlertCounts(data, 'critical'));
+    setSeriousCount(getAlertCounts(data, 'serious'));
+    setCautionCount(getAlertCounts(data, 'caution'));
+    setWarningCount(getAlertCounts(data, 'warning'));
+  }
 
   const updateOneEntry = ({ alert, contact }) => {
     if (alert.errorId) {
@@ -66,6 +95,7 @@ export function AlertViewer() {
         }
       });
       setAlertData(alertDataCopy);
+      getAllAlertCounts(alertDataCopy)
     }
   };
 
@@ -78,17 +108,17 @@ export function AlertViewer() {
           List
         </RuxTab>
       </RuxTabs>
-      <div slot="toolbar">
-        <span>30 Total</span>
-        <span>|</span>
-        <span>Filters</span>
-        <span>20 New</span>
-        <span>10 Acknowledged</span>
-        <span>5 Critical</span>
-        <span>2 Serious</span>
-        <span>2 Caution</span>
-        <span>2 Warning</span>
-        <span>Clear Filters</span>
+      <div slot="toolbar" className={styles.Toolbar}>
+        <span className={styles.Orientation}>Alerts: </span>
+        {/* <span>|</span> */}
+        {/* <span>Filters</span> */}
+        {/* <span>20 New</span> */}
+        <span>{unacknowledgedCount} Unacknowledged</span>
+        <span>{criticalCount} Critical</span>
+        <span>{seriousCount} Serious</span>
+        <span>{cautionCount} Caution</span>
+        <span>{warningCount} Warning</span>
+        {/* <span>Clear Filters</span> */}
       </div>
       <RuxTabPanels aria-labelledby="tab-set-1">
         <RuxTabPanel aria-labelledby="tab-id-1">
