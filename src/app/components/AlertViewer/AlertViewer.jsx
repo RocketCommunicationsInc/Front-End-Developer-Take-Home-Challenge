@@ -56,7 +56,6 @@ const transformData = (data) => {
 const getAlertCounts = (data, severity = null) => {
   let count = 0;
   data.filter((item) => item.alerts.length > 0);
-  console.log(["data", data[0]]);
   data.map((item, index) => {
     if (severity) {
       count += item.alerts.filter(
@@ -69,7 +68,6 @@ const getAlertCounts = (data, severity = null) => {
       ).length;
     }
   });
-  console.log([severity, count]);
   return count;
 };
 
