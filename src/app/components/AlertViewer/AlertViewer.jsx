@@ -14,43 +14,52 @@ import data from "../../data/data.json";
 
 import styles from "./AlertViewer.module.css";
 
-const transformData = (data) => {
-  let justAlerts = [];
+function daysInYear(date){
+  return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
+}
 
-  data
-    .filter((item) => item.alerts.length > 0)
-    .map((item, index) => {
-      item.alerts.forEach((alert) => {
-        const thisAlert = alert;
-        thisAlert.errorTimeString = new Date(alert.errorTime).toLocaleString();
-        thisAlert.contactSatellite = item.contactSatellite;
-        thisAlert.contactDetail = item.contactDetail;
-        thisAlert.contactName = item.contactName;
-        thisAlert.contactBeginTimestamp = item.contactBeginTimestamp;
-        thisAlert.contactEndTimestamp = item.contactEndTimestamp;
-        thisAlert.contactBeginTimestampString = new Date(
-          item.contactBeginTimestamp * 1000
-        ).toLocaleString();
-        thisAlert.contactEndTimestampString = new Date(
-          item.contactEndTimestamp * 1000
-        ).toLocaleString();
-        justAlerts.push(alert);
-      });
+const formatDate = (date, milliseconds = true) => {
+  const millisecondsMultiplier = (milliseconds) ? 1000 : 1;
+  const thisDate = new Date(date * millisecondsMultiplier);
+  const options = {
+    timeZone : "UTC",
+    hour12: false,
+  }
+  const dateString = `${thisDate.getUTCFullYear()} ${daysInYear(thisDate)} ${thisDate.toLocaleTimeString('en-US', options)}`
+  return dateString;
+};
+
+const transformData = (data) => {
+  data.map((item, index) => {
+    item.contactBeginTimestampString = formatDate(item.contactBeginTimestamp);
+    item.contactEndTimestampString = formatDate(item.contactEndTimestamp);
+    item.earliestAlertErrorTime = new Date();
+    item.alerts.forEach((alert) => {
+      const thisAlert = alert;
+      thisAlert.errorTimeString = formatDate(alert.errorTime, false);
+      item.earliestAlertErrorTime = (alert.errorTime - item.earliestAlertErrorTime)? alert.errorTime : item.earliestAlertErrorTime;
     });
-  justAlerts = justAlerts.sort((a, b) => {
-    return a.errorTime - b.errorTime;
   });
-  return justAlerts;
+
+  data = data.sort((a, b) => {
+    return a.earliestAlertErrorTime - b.earliestAlertErrorTime;
+  });
+
+  return data;
 };
 
 export function AlertViewer() {
   const [alertData, setAlertData] = useState(transformData(data));
 
-  const updateOneEntry = (e) => {
-    if (e.errorId) {
+  const updateOneEntry = ({ alert, contact }) => {
+    if (alert.errorId) {
       const alertDataCopy = alertData.map((item) => {
-        if (item.errorId === e.errorId) {
-          item.acknowledged = true;
+        if (contact.contactId === item.contactId) {
+          item.alerts.forEach((a) => {
+            if (a.errorId === alert.errorId) {
+              a.acknowledged = true;
+            }
+          });
           return item;
         } else {
           return item;
