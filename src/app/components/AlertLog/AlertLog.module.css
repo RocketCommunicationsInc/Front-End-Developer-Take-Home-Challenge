@@ -39,6 +39,7 @@
 .Cell {
   padding-block-start: var(--spacing-2);
   padding-block-end: var(--spacing-2);
+  padding-inline-end: var(--spacing-4);
   vertical-align: baseline;
 }
 
