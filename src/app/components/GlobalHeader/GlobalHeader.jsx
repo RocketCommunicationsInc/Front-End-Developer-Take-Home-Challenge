@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import { RuxGlobalStatusBar, RuxClock } from "@astrouxds/react";
+import { RuxGlobalStatusBar } from "@astrouxds/react";
 
 const GlobalHeader = () => {
   return (
@@ -10,7 +10,6 @@ const GlobalHeader = () => {
       includeIcon={true}
       appState="in progress"
     >
-      <RuxClock />
     </RuxGlobalStatusBar>
   );
 }
