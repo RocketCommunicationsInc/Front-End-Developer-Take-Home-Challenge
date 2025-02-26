@@ -10,10 +10,6 @@
   margin-block-start: var(--spacing-2);
 }
 
-.AlertDetailText {
-  text-wrap: auto;
-}
-
 .AlertSeverityCritical {
   color: var(--color-status-critical);
 }
@@ -45,12 +41,4 @@
 
 .TimeFormat {
   font-size: var(--font-size-xs);
-}
-
-.ErrorTime {
-  margin-block-start: var(--spacing-2);
-}
-
-.Label {
-  font-weight: var(--font-weight-medium);
 }

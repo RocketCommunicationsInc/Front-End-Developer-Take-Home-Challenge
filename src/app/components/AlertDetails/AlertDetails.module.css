@@ -1,0 +1,11 @@
+.AlertDetailText {
+  text-wrap: auto;
+}
+
+.ErrorTime {
+  margin-block-start: var(--spacing-2);
+}
+
+.Label {
+  font-weight: var(--font-weight-medium);
+}
