@@ -8,7 +8,6 @@ const GlobalHeader = () => {
       appDomain="Gwendy Wendell"
       appName="Rocket Coding Challenge"
       includeIcon={true}
-      appState="in progress"
     >
     </RuxGlobalStatusBar>
   );
