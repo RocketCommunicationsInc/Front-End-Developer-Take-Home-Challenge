@@ -19,13 +19,15 @@ export function AlertLog({ data = [], doUpdateEntry }) {
   const AlertDetails = ({ alert, contact }) => {
     const [isAcknowledged, setIsAcknowledged] = useState(false);
 
-    const buttonText =
-      alert.acknowledged === true ? "Review Details" : "Acknowledge Alert";
-    const dialogButtonText =
-      alert.acknowledged === true ? "Dismiss" : "Acknowledge";
+    // Determines the button text based on whether the alert is acknowledged
+    const buttonText = alert.acknowledged ? "Review Details" : "Acknowledge Alert";
+    const dialogButtonText = alert.acknowledged ? "Dismiss" : "Acknowledge";
+
+    // Sets the styling of the button depending on alert acknowledgment
     const importantButton = alert.acknowledged;
 
-    const dialogClosed = ({ alert, contact }) => {
+    // Handles the closing of the dialog and updates the entry
+    const dialogClosed = () => {
       setIsAcknowledged(false);
       doUpdateEntry({ alert, contact });
     };
@@ -39,14 +41,14 @@ export function AlertLog({ data = [], doUpdateEntry }) {
           onClick={() => setIsAcknowledged(true)}
         >
           {buttonText}
+        </RuxButton>
 
           <RuxDialog
             open={isAcknowledged}
             header={alert.errorMessage}
             confirmText={dialogButtonText}
             denyText=""
-            ruxdialogclosed={true}
-            onRuxdialogclosed={() => dialogClosed({ alert, contact })}
+          onRuxdialogclosed={() => dialogClosed()} // Corrected the event handler
           >
             <div className={styles.AlertDetailText}>
               <h3>Contact Satellite: {contact.contactSatellite}</h3>
@@ -54,11 +56,11 @@ export function AlertLog({ data = [], doUpdateEntry }) {
               <p className={styles.ErrorTime}><label className={styles.Label}>Error Time:</label> {alert.errorTimeString}</p>
             </div>
           </RuxDialog>
-        </RuxButton>
       </>
     );
   };
 
+  // Returns CSS class based on the severity level of an alert
   const severityClasses = (severityLevel) => {
     switch (severityLevel) {
       case "critical":
@@ -69,14 +71,13 @@ export function AlertLog({ data = [], doUpdateEntry }) {
         return styles.AlertSeveritySerious;
       case "warning":
       default:
-        return "";
+        return ""; // Default class for warnings or unknown severity
     }
   };
 
+  // Returns CSS class if the alert has been acknowledged
   const rowAcknowledgedClass = (acknowledged) => {
-    if (acknowledged) {
-      return styles.RowAcknowledged;
-    }
+    return acknowledged ? styles.RowAcknowledged : "";
   };
 
   return (
@@ -101,8 +102,8 @@ export function AlertLog({ data = [], doUpdateEntry }) {
                 <div>{item.contactEndTimestampString}</div>
               </RuxTableCell>
               <RuxTableCell className={styles.Cell}>
-                {item.alerts.map((alert, index) => (
-                  <div className={styles.AlertDetailRow} key={index}>
+                {item.alerts.map((alert, alertIndex) => (
+                  <div className={styles.AlertDetailRow} key={alertIndex}>
                     <span className={severityClasses(alert.errorSeverity)}>
                       {alert.errorSeverity}
                     </span>
@@ -112,7 +113,8 @@ export function AlertLog({ data = [], doUpdateEntry }) {
                     <AlertDetails alert={alert} contact={item} />
                   </div>
                 ))}
-                {item.alerts.length === 0 && (<span className={styles.NoALerts}>no alerts</span>)}
+                {/* Display message when no alerts are present */}
+                {item.alerts.length === 0 && (<span className={styles.NoAlerts}>No alerts</span>)}
               </RuxTableCell>
             </RuxTableRow>
           ))}
