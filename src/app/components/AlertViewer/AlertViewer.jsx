@@ -1,22 +1,20 @@
 "use client"
 
 import React, { useState } from "react";
-import {
-  RuxContainer,
-} from "@astrouxds/react";
+import { RuxContainer } from "@astrouxds/react";
 import { AlertLog } from "../AlertLog";
-
 import data from "../../data/data.json";
-
 import styles from "./AlertViewer.module.css";
 
+// Calculate the number of days since the start of the year
 function daysInYear(date) {
-  return (
-    (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) -
-      Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000
-  );
+  const start = new Date(date.getFullYear(), 0, 0);
+  const diff = date - start;
+  const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
+  return Math.floor(diff / oneDay);
 }
 
+// Format the date into a specific string format
 const formatDate = (date, milliseconds = true) => {
   const millisecondsMultiplier = milliseconds ? 1000 : 1;
   const thisDate = new Date(date * millisecondsMultiplier);
@@ -53,42 +51,24 @@ const transformData = (data) => {
   return data;
 };
 
+// Counts alerts based on severity and acknowledgment status
 const getAlertCounts = (data, severity = null) => {
-  let count = 0;
-  data.filter((item) => item.alerts.length > 0);
-  data.map((item, index) => {
-    if (severity) {
-      count += item.alerts.filter(
-        (alert) =>
-          alert.errorSeverity === severity && alert.acknowledged !== true
+  return data.reduce((count, item) => {
+    return count + item.alerts.filter(
+      (alert) => alert.acknowledged !== true && (!severity || alert.errorSeverity === severity)
       ).length;
-    } else {
-      count += item.alerts.filter(
-        (alert) => alert.acknowledged !== true
-      ).length;
-    }
-  });
-  return count;
+  }, 0);
 };
 
 export function AlertViewer() {
   const [alertData, setAlertData] = useState(transformData(data));
-  const [unacknowledgedCount, setUnacknowledgedCount] = useState(
-    getAlertCounts(data)
-  );
-  const [criticalCount, setCriticalCount] = useState(
-    getAlertCounts(data, "critical")
-  );
-  const [seriousCount, setSeriousCount] = useState(
-    getAlertCounts(data, "serious")
-  );
-  const [cautionCount, setCautionCount] = useState(
-    getAlertCounts(data, "caution")
-  );
-  const [warningCount, setWarningCount] = useState(
-    getAlertCounts(data, "warning")
-  );
+  const [unacknowledgedCount, setUnacknowledgedCount] = useState(getAlertCounts(data));
+  const [criticalCount, setCriticalCount] = useState(getAlertCounts(data, "critical"));
+  const [seriousCount, setSeriousCount] = useState(getAlertCounts(data, "serious"));
+  const [cautionCount, setCautionCount] = useState(getAlertCounts(data, "caution"));
+  const [warningCount, setWarningCount] = useState(getAlertCounts(data, "warning"));
 
+  // Updates all alert counts
   const getAllAlertCounts = (data) => {
     setUnacknowledgedCount(getAlertCounts(data));
     setCriticalCount(getAlertCounts(data, "critical"));
@@ -97,6 +77,7 @@ export function AlertViewer() {
     setWarningCount(getAlertCounts(data, "warning"));
   };
 
+  // Update a specific alert entry when acknowledged
   const updateOneEntry = ({ alert, contact }) => {
     if (alert.errorId) {
       const alertDataCopy = alertData.map((item) => {
@@ -106,10 +87,8 @@ export function AlertViewer() {
               a.acknowledged = true;
             }
           });
-          return item;
-        } else {
-          return item;
         }
+        return item;
       });
       setAlertData(alertDataCopy);
       getAllAlertCounts(alertDataCopy);
