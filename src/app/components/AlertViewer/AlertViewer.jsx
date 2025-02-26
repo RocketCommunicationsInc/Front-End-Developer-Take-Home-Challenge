@@ -7,7 +7,7 @@ import data from "../../data/data.json";
 import styles from "./AlertViewer.module.css";
 
 // Calculate the number of days since the start of the year
-function daysInYear(date) {
+const daysInYear = (date) => {
   const start = new Date(date.getFullYear(), 0, 0);
   const diff = date - start;
   const oneDay = 1000 * 60 * 60 * 24; // Milliseconds in a day
