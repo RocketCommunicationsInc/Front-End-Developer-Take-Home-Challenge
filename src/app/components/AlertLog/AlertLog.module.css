@@ -1,0 +1,45 @@
+.AlertDetailRow {
+  display: grid;
+  gap: var(--spacing-4);
+  grid-template-columns: max-content minmax(min-content, 1fr) max-content;
+  max-width: fit-content;
+  min-width: 32em;
+}
+
+.AlertDetailRow:nth-child(1n + 2) {
+  margin-block-start: var(--spacing-2);
+}
+
+.AlertSeverityCritical {
+  color: var(--color-status-critical);
+}
+
+.AlertSeverityCaution {
+  color: var(--color-status-caution);
+}
+
+.AlertSeveritySerious {
+  color: var(--color-status-serious);
+}
+
+.NoALerts {
+  color: var(--color-status-off);
+  /* font-size: var(--font-size-sm); */
+  font-style: italic;
+}
+
+.RowAcknowledged {
+  color: var(--color-status-off);
+}
+
+.Cell {
+  padding-block-start: var(--spacing-2);
+  padding-block-end: var(--spacing-2);
+  padding-inline-start: var(--spacing-2);
+  padding-inline-end: var(--spacing-2);
+  vertical-align: baseline;
+}
+
+.TimeFormat {
+  font-size: var(--font-size-xs);
+}
