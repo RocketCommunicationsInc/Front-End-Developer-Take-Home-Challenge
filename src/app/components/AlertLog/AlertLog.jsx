@@ -2,6 +2,7 @@
 
 import React from "react";
 import {
+  RuxIcon,
   RuxTable,
   RuxTableBody,
   RuxTableCell,
@@ -36,47 +37,60 @@ const AlertLog = ({ data = [], doUpdateEntry }) => {
   };
 
   return (
-      <RuxTable>
-        <RuxTableHeader>
-          <RuxTableHeaderRow className={styles.AlertRow}>
-            <RuxTableHeaderCell className={styles.Cell}>Contact</RuxTableHeaderCell>
+    <RuxTable>
+      <RuxTableHeader>
+        <RuxTableHeaderRow className={styles.AlertRow}>
           <RuxTableHeaderCell className={styles.Cell}>
-            Time Range <div className={styles.TimeFormat}>Year - Date - Time</div>
+            Contact
           </RuxTableHeaderCell>
-            <RuxTableHeaderCell className={styles.Cell}>Alerts</RuxTableHeaderCell>
-          </RuxTableHeaderRow>
-        </RuxTableHeader>
-        <RuxTableBody>
-          {data.map((item, index) => (
-            <RuxTableRow
-              key={index}
-              className={rowAcknowledgedClass(item.acknowledged)}
-            >
-              <RuxTableCell className={styles.Cell}>{item.contactName}</RuxTableCell>
-              <RuxTableCell className={styles.Cell}>
-                <div>{item.contactBeginTimestampString} - </div>
-                <div>{item.contactEndTimestampString}</div>
-              </RuxTableCell>
-              <RuxTableCell className={styles.Cell}>
-                {item.alerts.map((alert, alertIndex) => (
-                  <div className={styles.AlertDetailRow} key={alertIndex}>
-                    <span className={severityClasses(alert.errorSeverity)}>
-                      {alert.errorSeverity}
-                    </span>
-                    <span className={rowAcknowledgedClass(alert.acknowledged)}>
-                      {alert.errorMessage}
-                    </span>
-                    <AlertDetails alert={alert} contact={item} doUpdateEntry={doUpdateEntry} />
-                  </div>
-                ))}
+          <RuxTableHeaderCell className={styles.Cell}>
+            Time Range{" "}
+            <div className={styles.TimeFormat}>Year - Date - Time</div>
+          </RuxTableHeaderCell>
+          <RuxTableHeaderCell className={styles.Cell}>
+            Alerts
+          </RuxTableHeaderCell>
+        </RuxTableHeaderRow>
+      </RuxTableHeader>
+      <RuxTableBody>
+        {data.map((item, index) => (
+          <RuxTableRow
+            key={index}
+            className={rowAcknowledgedClass(item.acknowledged)}
+          >
+            <RuxTableCell className={styles.Cell}>
+              <RuxIcon icon="satellite-transmit" size="small" />
+              <div>{item.contactName}</div>
+            </RuxTableCell>
+            <RuxTableCell className={styles.Cell}>
+              <div>{item.contactBeginTimestampString} - </div>
+              <div>{item.contactEndTimestampString}</div>
+            </RuxTableCell>
+            <RuxTableCell className={styles.Cell}>
+              {item.alerts.map((alert, alertIndex) => (
+                <div className={styles.AlertDetailRow} key={alertIndex}>
+                  <span className={severityClasses(alert.errorSeverity)}>
+                    {alert.errorSeverity}
+                  </span>
+                  <span className={rowAcknowledgedClass(alert.acknowledged)}>
+                    {alert.errorMessage}
+                  </span>
+                  <AlertDetails
+                    alert={alert}
+                    contact={item}
+                    doUpdateEntry={doUpdateEntry}
+                    severityClasses={severityClasses}
+                  />
+                </div>
+              ))}
               {item.alerts.length === 0 && (
                 <span className={styles.NoAlerts}>No alerts</span>
               )}
-              </RuxTableCell>
-            </RuxTableRow>
-          ))}
-        </RuxTableBody>
-      </RuxTable>
+            </RuxTableCell>
+          </RuxTableRow>
+        ))}
+      </RuxTableBody>
+    </RuxTable>
   );
 }
 

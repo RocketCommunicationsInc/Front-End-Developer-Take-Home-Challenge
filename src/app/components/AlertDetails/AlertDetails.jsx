@@ -5,7 +5,7 @@ import { RuxButton, RuxDialog } from "@astrouxds/react";
 
 import styles from "./AlertDetails.module.css";
 
-const AlertDetails = ({ alert, contact, doUpdateEntry }) => {
+const AlertDetails = ({ alert, contact, doUpdateEntry, severityClasses }) => {
   const [isAcknowledged, setIsAcknowledged] = useState(false);
 
   const buttonText = alert.acknowledged
@@ -25,17 +25,18 @@ const AlertDetails = ({ alert, contact, doUpdateEntry }) => {
         secondary={alert.acknowledged}
         borderless={alert.acknowledged}
         onClick={() => setIsAcknowledged(true)}
+        icon={(alert.acknowledged)? "check-box" : ""}
       >
         {buttonText}
       </RuxButton>
 
       <RuxDialog
         open={isAcknowledged}
-        header={alert.errorMessage}
         confirmText={dialogButtonText}
         denyText=""
         onRuxdialogclosed={dialogClosed}
       >
+        <div slot="header">{alert.errorMessage} <small className={`${severityClasses(alert.errorSeverity)} ${styles.AlertSeverity}`}>{alert.errorSeverity}</small></div>
         <div className={styles.AlertDetailText}>
           <h3>Contact Satellite: {contact.contactSatellite}</h3>
           <p>{contact.contactDetail}</p>

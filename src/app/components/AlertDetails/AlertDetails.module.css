@@ -9,3 +9,7 @@
 .Label {
   font-weight: var(--font-weight-medium);
 }
+
+.AlertSeverity {
+  display: block;
+}
