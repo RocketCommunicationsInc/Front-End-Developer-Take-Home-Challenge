@@ -29,7 +29,7 @@ const formatDate = (date, milliseconds = true) => {
 };
 
 const transformData = (data) => {
-  data.map((item, index) => {
+  data.map((item) => {
     item.contactBeginTimestampString = formatDate(item.contactBeginTimestamp);
     item.contactEndTimestampString = formatDate(item.contactEndTimestamp);
     item.earliestAlertErrorTime = new Date();
@@ -60,7 +60,7 @@ const getAlertCounts = (data, severity = null) => {
   }, 0);
 };
 
-export function AlertViewer() {
+const AlertViewer = () => {
   const [alertData, setAlertData] = useState(transformData(data));
   const [unacknowledgedCount, setUnacknowledgedCount] = useState(getAlertCounts(data));
   const [criticalCount, setCriticalCount] = useState(getAlertCounts(data, "critical"));
@@ -109,3 +109,5 @@ export function AlertViewer() {
     </RuxContainer>
   );
 }
+
+export {AlertViewer}
