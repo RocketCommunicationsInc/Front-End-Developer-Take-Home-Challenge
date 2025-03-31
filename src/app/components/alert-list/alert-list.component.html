@@ -1,0 +1,80 @@
+<h1>Alerts</h1>
+
+<!-- Alert Statistics Section -->
+<div class="alert-stats">
+	<div><strong>Unacknowledged Alerts:</strong> {{ unacknowledgedCount }}</div>
+	<div><strong>Critical Alerts:</strong> {{ criticalCount }}</div>
+	<div><strong>Serious Alerts:</strong> {{ seriousCount }}</div>
+	<div><strong>Caution Alerts:</strong> {{ cautionCount }}</div>
+	<div><strong>Warning Alerts:</strong> {{ warningCount }}</div>
+
+	<!-- Search Bar for Filtering Alerts -->
+	<rux-input
+		type="text"
+		placeholder="Search alerts..."
+		(ruxchange)="onSearch($event)"
+		size="medium"
+		class="search-bar"
+	/>
+</div>
+
+<!-- Alerts Table -->
+<rux-table>
+	<rux-table-header>
+		<rux-table-header-row>
+			<rux-table-header-cell>Contact Name</rux-table-header-cell>
+			<rux-table-header-cell>Contact Time</rux-table-header-cell>
+			<rux-table-header-cell>Alerts</rux-table-header-cell>
+			<rux-table-header-cell>Actions</rux-table-header-cell>
+		</rux-table-header-row>
+	</rux-table-header>
+
+	<rux-table-body>
+		<!-- Iterate through filtered contacts -->
+		<rux-table-row *ngFor="let contact of filteredContacts" [class.acknowledged]="contact.acknowledged">
+			<!-- Contact Name with Icon -->
+			<rux-table-cell>
+				<rux-icon size="normal" icon="satellite-transmit"></rux-icon>
+				{{ contact.contactName }}
+			</rux-table-cell>
+
+			<!-- Contact Time Range -->
+			<rux-table-cell>
+				{{ contact.contactBeginTimestamp * 1000 | date: 'yyyy-MM-dd HH:mm' }} - 
+				{{ contact.contactEndTimestamp * 1000 | date: 'yyyy-MM-dd HH:mm' }}
+			</rux-table-cell>
+
+			<!-- Alert Messages -->
+			<rux-table-cell>
+				<div *ngFor="let alert of contact.alerts" style="margin-bottom: 5px;">
+					<span [ngClass]="alert.errorSeverity">{{ alert.errorSeverity }}</span>
+					{{ alert.errorMessage }}
+				</div>
+				<div *ngIf="!contact.alerts.length">
+					No Alerts
+				</div>
+			</rux-table-cell>
+
+			<!-- Action Buttons -->
+			<rux-table-cell>
+				<rux-button
+					*ngIf="contact.alerts.length"
+					(click)="showDetails(contact, contact.acknowledged ? 'details' : 'acknowledge')"
+					secondary=""
+					size="small"
+				>
+					{{ contact.acknowledged ? "Show Details" : "Acknowledge" }}
+				</rux-button>
+			</rux-table-cell>
+		</rux-table-row>
+	</rux-table-body>
+</rux-table>
+
+<!-- Alert Detail Modal -->
+<app-alert-detail
+	*ngIf="selectedContact"
+	[contact]="selectedContact"
+	[type]="alertType"
+	(close)="selectedContact = null"
+	(acknowledge)="acknowledgeAlert(selectedContact)"
+></app-alert-detail>

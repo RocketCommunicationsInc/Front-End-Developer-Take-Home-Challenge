@@ -1,0 +1,33 @@
+.acknowledged {
+    opacity: 0.5;
+}
+
+.critical {
+  color: rgb(255, 67, 67);
+}
+
+.serious {
+  color: orange;
+}
+
+.warning {
+  color: yellow;
+}
+
+.caution {
+  color: rgb(164, 164, 255);
+}
+.alert-stats {
+  margin: 10px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  .search-bar {
+    flex: 1;
+  }
+}
+h1 {
+  margin-left: 10px;
+}
+
+  

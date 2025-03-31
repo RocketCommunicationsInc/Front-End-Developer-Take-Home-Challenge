@@ -1,0 +1,19 @@
+<rux-dialog open>
+	<!-- Dialog Header -->
+	<span slot="header"> Alert Details </span>
+
+	<!-- Alert Content -->
+	<div style="display: flex; flex-direction: column;">
+		<p><strong>Satellite:</strong> {{ contact.contactSatellite }}</p>
+		<p><strong>Details:</strong> {{ contact.contactDetail }}</p>
+	</div>
+
+	<!-- Dialog Footer with Action Buttons -->
+	<div slot="footer" style="display: flex; justify-content: space-between; align-items: center;">
+		<!-- Show Acknowledge button only if type is 'acknowledge' -->
+		<rux-button *ngIf="type === 'acknowledge'" (click)="onAcknowledge()">Acknowledge</rux-button>
+		
+		<!-- Close button available for all cases -->
+		<rux-button (click)="onClose()">Close</rux-button>
+	</div>
+</rux-dialog>
