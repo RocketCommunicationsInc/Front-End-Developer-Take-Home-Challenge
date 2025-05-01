@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AstroComponentsModule} from "@astrouxds/angular";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {AstroComponentsModule} from "@astrouxds/angular";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     AstroComponentsModule
   ],
   providers: [],

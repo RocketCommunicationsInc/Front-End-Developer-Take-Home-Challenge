@@ -1,4 +1,18 @@
-<rux-global-status-bar app-name="App"></rux-global-status-bar>
+<rux-global-status-bar app-name="GPerry Dashboard"></rux-global-status-bar>
+
+<div class="button-group">
+  <rux-button class="data-button" size="large" secondary=""
+    (click)="clearData()">Clear Data</rux-button>
+  <rux-button class="data-button" size="large"
+    (click)="loadData()">Load Data</rux-button>
+</div>
+
+
+
+<!--NOTE: <pre> will render the data exactly as it is with its spacing and newlines intact. -->
+<div *ngIf="data">
+  <pre>{{ data | json }}</pre>
+</div>
 
 <!-- TODO(gabriel): Leave the router-outlet here for now.  It may not be needed. -->
 <!--<router-outlet></router-outlet>-->
