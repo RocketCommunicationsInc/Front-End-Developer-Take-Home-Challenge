@@ -21,11 +21,56 @@
   <rux-table>
     <rux-table-header>
       <rux-table-header-row>
-        <rux-table-header-cell>Status</rux-table-header-cell>
-        <rux-table-header-cell>Name</rux-table-header-cell>
-        <rux-table-header-cell>IRON</rux-table-header-cell>
-        <rux-table-header-cell>Ground Station</rux-table-header-cell>
-        <rux-table-header-cell>State</rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('status')">
+          Status
+          <span *ngIf="sortColumn === 'status'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('name')">
+          Name
+          <span *ngIf="sortColumn === 'name'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('iron')">
+          IRON
+          <span *ngIf="sortColumn === 'iron'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('groundStation')">
+          Ground Station
+          <span *ngIf="sortColumn === 'groundStation'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('state')">
+          State
+          <span *ngIf="sortColumn === 'state'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
       </rux-table-header-row>
     </rux-table-header>
     <rux-table-body>
