@@ -1,0 +1,74 @@
+<div class="button-group">
+  <rux-button class="data-button" size="large" secondary=""
+    (click)="clearData()">Clear Data</rux-button>
+  <rux-button class="data-button" size="large"
+    (click)="loadData()">Load Data</rux-button>
+</div>
+
+<div id="contact-table">
+  <rux-table>
+    <rux-table-header>
+      <rux-table-header-row>
+        <rux-table-header-cell
+          (click)="sortData('status')">
+          <span class="header-text">Status</span>
+          <span *ngIf="sortColumn === 'status'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('name')">
+          <span class="header-text">Name</span>
+          <span *ngIf="sortColumn === 'name'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('iron')">
+          <span class="header-text">IRON</span>
+          <span *ngIf="sortColumn === 'iron'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('groundStation')">
+          <span class="header-text">Ground Station</span>
+          <span *ngIf="sortColumn === 'groundStation'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+        <rux-table-header-cell
+          (click)="sortData('state')">
+          <span class="header-text">State</span>
+          <span *ngIf="sortColumn === 'state'">
+            <rux-icon *ngIf="sortDirection === 'asc'"
+              size="small" icon="arrow-drop-up"></rux-icon>
+            <rux-icon *ngIf="sortDirection === 'desc'"
+              size="small" icon="arrow-drop-down"></rux-icon>
+          </span>
+        </rux-table-header-cell>
+      </rux-table-header-row>
+    </rux-table-header>
+    <rux-table-body>
+      <rux-table-row *ngFor="let row of rows">
+        <rux-table-cell>{{ row.status }}</rux-table-cell>
+        <rux-table-cell>{{ row.name }}</rux-table-cell>
+        <rux-table-cell>{{ row.iron }}</rux-table-cell>
+        <rux-table-cell>{{ row.groundStation }}</rux-table-cell>
+        <rux-table-cell>{{ row.state }}</rux-table-cell>
+      </rux-table-row>
+    </rux-table-body>
+  </rux-table>
+</div>

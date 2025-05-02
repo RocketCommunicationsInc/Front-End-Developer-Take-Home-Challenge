@@ -7,9 +7,10 @@ import {Observable} from "rxjs";
 })
 export class DataService {
 
-  // TODO(gabriel): NOTE: We're not going to make a real backend call to get data
-  //  for the dashboard.  Instead, we're just going to read it from our test data
-  //  file.  I've copied over the contents of data.json to assets/mock-data.json.
+  // TODO(gabriel): NOTE: We're not going to make a real backend call to get
+  //  data for the dashboard.  Instead, we're just going to read it from our
+  //  test data file.  I've copied over the contents of data.json to
+  //  assets/mock-data.json.
   private dataUrl: string = 'assets/mock-data.json'
 
   constructor(private httpClient: HttpClient) {
