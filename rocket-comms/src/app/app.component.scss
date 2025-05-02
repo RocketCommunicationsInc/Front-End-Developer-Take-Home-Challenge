@@ -10,3 +10,14 @@
   margin-right: auto;
   overflow: scroll;
 }
+
+#contact-table rux-table-header-row rux-icon {
+  vertical-align: middle;
+}
+
+#contact-table rux-table-header-cell .header-text:hover {
+  cursor: pointer;
+
+  // NOTE: 'width' doesn't seem to work here.  Why not?
+  // width: 32px;
+}

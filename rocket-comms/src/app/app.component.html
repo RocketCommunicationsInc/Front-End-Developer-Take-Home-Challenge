@@ -23,7 +23,7 @@
       <rux-table-header-row>
         <rux-table-header-cell
           (click)="sortData('status')">
-          Status
+          <span class="header-text">Status</span>
           <span *ngIf="sortColumn === 'status'">
             <rux-icon *ngIf="sortDirection === 'asc'"
               size="small" icon="arrow-drop-up"></rux-icon>
@@ -33,7 +33,7 @@
         </rux-table-header-cell>
         <rux-table-header-cell
           (click)="sortData('name')">
-          Name
+          <span class="header-text">Name</span>
           <span *ngIf="sortColumn === 'name'">
             <rux-icon *ngIf="sortDirection === 'asc'"
               size="small" icon="arrow-drop-up"></rux-icon>
@@ -43,7 +43,7 @@
         </rux-table-header-cell>
         <rux-table-header-cell
           (click)="sortData('iron')">
-          IRON
+          <span class="header-text">IRON</span>
           <span *ngIf="sortColumn === 'iron'">
             <rux-icon *ngIf="sortDirection === 'asc'"
               size="small" icon="arrow-drop-up"></rux-icon>
@@ -53,7 +53,7 @@
         </rux-table-header-cell>
         <rux-table-header-cell
           (click)="sortData('groundStation')">
-          Ground Station
+          <span class="header-text">Ground Station</span>
           <span *ngIf="sortColumn === 'groundStation'">
             <rux-icon *ngIf="sortDirection === 'asc'"
               size="small" icon="arrow-drop-up"></rux-icon>
@@ -63,7 +63,7 @@
         </rux-table-header-cell>
         <rux-table-header-cell
           (click)="sortData('state')">
-          State
+          <span class="header-text">State</span>
           <span *ngIf="sortColumn === 'state'">
             <rux-icon *ngIf="sortDirection === 'asc'"
               size="small" icon="arrow-drop-up"></rux-icon>

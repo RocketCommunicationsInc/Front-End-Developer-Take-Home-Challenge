@@ -15,7 +15,7 @@ export interface Contact {
 }
 
 /**
- * An enum of possible states for contacts.
+ * An enum of possible Contact states for display.
  */
 export enum CONTACT_STATE {
   COMPLETE = 'Complete',
@@ -63,8 +63,8 @@ export class AppComponent {
   public loadData(): void {
     if (this.data === null) {
 
-      // NOTE: There is no need to unsubscribe here as our service emits a single value
-      // and then completes automatically.
+      // NOTE: There is no need to unsubscribe here as our service emits a
+      // single value and then completes automatically.
       this.dataService.getData().pipe().subscribe({
         next: (response: any): any => {
           this.data = response;
@@ -96,6 +96,23 @@ export class AppComponent {
     this.rows = []; // Clear the row data.
     for (let i: number = 0; i < data.length; i++) {
       const item: any = data[i];
+
+      // Prepare the contact state for display.
+      let contactState: string = '';
+      if (item['contactState'] === 'complete') {
+        contactState = CONTACT_STATE.COMPLETE;
+      } else if (item['contactState'] === 'executing') {
+        contactState = CONTACT_STATE.EXECUTING;
+      } else if (item['contactState'] === 'failed') {
+        contactState = CONTACT_STATE.FAILED;
+      } else if (item['contactState'] === 'upcoming') {
+        contactState = CONTACT_STATE.UPCOMING;
+      }
+      //
+      // TODO(gabriel): Is there a more elegant way to transform the
+      //  contactState?  Is this logic overkill?  Maybe we should we just
+      //  capitalize the first letter of the contactState instead?
+
       const contactRow: Contact = {
         id: item['_id'],
         contactId: item['contactId'],
@@ -103,20 +120,24 @@ export class AppComponent {
         name: item['contactName'],
         iron: item['contactSatellite'],
         groundStation: item['contactGround'],
-        state: item['contactState']
+        state: contactState
       }
       this.rows.push(contactRow);
     }
   }
 
   /**
-   * Sorts the table data by a given column name.  If the column is clicked again,
-   * the sort direction is toggled.
-   * @param {string} column - The name of the column to sort by.  GOTCHA: These names have
-   *   to be the same as the Contact property names.
+   * Sorts the table data by a given column name.  If the column is clicked
+   * again, the sort direction is toggled.
+   * @param {string} column - The name of the column to sort by.  GOTCHA: These
+   *   names have to be the same as the Contact property names.
    *   @see {Contact}
    */
   public sortData(column: string): void {
+
+    if (this.rows.length === 0) {
+      return; // Bail, there's no data to sort.
+    }
 
     // Step 1: Set the sortColumn and sortDirection.
     if (this.sortColumn === column) {
