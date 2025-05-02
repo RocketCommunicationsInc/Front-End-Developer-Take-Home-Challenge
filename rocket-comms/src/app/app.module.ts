@@ -17,6 +17,8 @@ import {HttpClientModule} from "@angular/common/http";
     AstroComponentsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
