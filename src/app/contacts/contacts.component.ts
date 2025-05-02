@@ -23,7 +23,7 @@ export class ContactsComponent {
 	acknowledgedIds: string[] = [];
 	contacts$: Observable<Contact[]> = this.contactsService.contacts$;
 	alertSeverityButtons: {label:string,value:string,selected?:boolean}[] = [
-		{ label: "Contacts", value: "contacts" },
+		{ label: "All Contacts", value: "contacts" },
 		{ label: "Alerts", value: "alerts", selected: true },
 		{ label: "Critical", value: "critical" },
 		{ label: "Serious", value: "serious" },
