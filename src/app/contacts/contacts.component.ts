@@ -3,6 +3,8 @@ import { ContactsService } from './contacts.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { AstroComponentsModule } from '@astrouxds/angular';
+import { Contact } from '../models/contact.model';
+import { Alert } from '../models/alert.model';
 
 @Component({
   selector: 'app-contacts',
@@ -17,10 +19,10 @@ import { AstroComponentsModule } from '@astrouxds/angular';
 export class ContactsComponent {
 	private contactsService = inject(ContactsService);
 	currentAlertDialogOpened: boolean = false;
-	currentAlertDialog: any = null;
-	acknowledgedIds: any[] = [];
-	contacts$: Observable<any[]> = this.contactsService.contacts$;
-	alertSeverityButtons: any[] = [
+	currentAlertDialog: Contact | null = null;
+	acknowledgedIds: string[] = [];
+	contacts$: Observable<Contact[]> = this.contactsService.contacts$;
+	alertSeverityButtons: {label:string,value:string,selected?:boolean}[] = [
 		{ label: "Contacts", value: "contacts" },
 		{ label: "Alerts", value: "alerts", selected: true },
 		{ label: "Critical", value: "critical" },
@@ -35,25 +37,28 @@ export class ContactsComponent {
 		this.contactsService.filterContacts("alerts");
 	}
 
-	openAlertDetails(contact: any) {
+	openAlertDetails(contact: Contact) {
 		this.currentAlertDialogOpened = true;
 		this.currentAlertDialog = contact;
 	}
 
 	acknowledgeAlertDetails() {
+		if (!this.currentAlertDialog) {
+			return;
+		}
 		this.acknowledgedIds.push(this.currentAlertDialog._id);
 		this.currentAlertDialogOpened = false;
 		this.currentAlertDialog = null;
 	}
 
-	filterAlerts(contact: any) {
-		return contact.alerts.filter((alert: any) => {
-			return !this.acknowledgedIds.includes(alert._id);
+	filterAlerts(contact: Contact) {
+		return contact.alerts.filter((alert: Alert) => {
+			return !this.acknowledgedIds.includes(contact._id);
 		});
 	}
 
-	filterContactsBySeverity(ruxbutton: any ) {
-		const errorSeverity = this.alertSeverityButtons.find(a => a.label === ruxbutton.detail).value;
+	filterContactsBySeverity(ruxbuttonEvent: {detail: string}) {
+		const errorSeverity = this.alertSeverityButtons.find(a => a.label === ruxbuttonEvent.detail)?.value;
 		this.contactsService.filterContacts(errorSeverity);
 	}
 }
