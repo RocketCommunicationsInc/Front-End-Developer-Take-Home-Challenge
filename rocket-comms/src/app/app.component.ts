@@ -1,28 +1,7 @@
 import { Component } from '@angular/core';
 import {DataService} from "./services/data.service";
-
-/**
- * An interface for Contact data.
- */
-export interface Contact {
-  id: string; // Internal ID.
-  contactId: string;
-  status: string;
-  name: string;
-  iron: string; // Contact (Satellite Name).
-  groundStation: string;
-  state: string;
-}
-
-/**
- * An enum of possible Contact states for display.
- */
-export enum CONTACT_STATE {
-  COMPLETE = 'Complete',
-  EXECUTING = 'Executing',
-  FAILED = 'Failed',
-  UPCOMING = 'Upcoming'
-}
+import {Contact} from "./models/contact.model";
+import {CONTACT_STATE} from "./models/contact-state.enum";
 
 @Component({
   selector: 'app-root',
@@ -98,20 +77,7 @@ export class AppComponent {
       const item: any = data[i];
 
       // Prepare the contact state for display.
-      let contactState: string = '';
-      if (item['contactState'] === 'complete') {
-        contactState = CONTACT_STATE.COMPLETE;
-      } else if (item['contactState'] === 'executing') {
-        contactState = CONTACT_STATE.EXECUTING;
-      } else if (item['contactState'] === 'failed') {
-        contactState = CONTACT_STATE.FAILED;
-      } else if (item['contactState'] === 'upcoming') {
-        contactState = CONTACT_STATE.UPCOMING;
-      }
-      //
-      // TODO(gabriel): Is there a more elegant way to transform the
-      //  contactState?  Is this logic overkill?  Maybe we should we just
-      //  capitalize the first letter of the contactState instead?
+      const contactState: string = this.transformContactState(item);
 
       const contactRow: Contact = {
         id: item['_id'],
@@ -124,6 +90,29 @@ export class AppComponent {
       }
       this.rows.push(contactRow);
     }
+  }
+
+  /**
+   * Prepares the Contact's state for display in the table.
+   * @param item - A Contact record.
+   * @return {string} A contact state string formatted for display.
+   */
+  public transformContactState(item: any): string {
+
+    // If the contact state is unknown, we simply return it unaltered.
+    let contactState: string = item['contactState'];
+
+    if (item['contactState'] === 'complete') {
+      contactState = CONTACT_STATE.COMPLETE;
+    } else if (item['contactState'] === 'executing') {
+      contactState = CONTACT_STATE.EXECUTING;
+    } else if (item['contactState'] === 'failed') {
+      contactState = CONTACT_STATE.FAILED;
+    } else if (item['contactState'] === 'upcoming') {
+      contactState = CONTACT_STATE.UPCOMING;
+    }
+
+    return contactState;
   }
 
   /**
