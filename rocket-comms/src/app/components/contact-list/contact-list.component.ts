@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {DataService} from "../../services/data.service";
 import {Contact} from "../../models/contact.model";
 import {CONTACT_STATE} from "../../models/contact-state.enum";
@@ -8,20 +13,27 @@ import {CONTACT_STATE} from "../../models/contact-state.enum";
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.scss']
 })
-export class ContactListComponent {
+export class ContactListComponent implements OnInit {
 
   /**
-   * The raw data used to hydrate the dashboard.
+   * The Contact table filter/search element (text input).
    */
-  public rawData: any = null;
+  @ViewChild('searchInput', { static: true })
+  searchInput!: ElementRef;
 
   /**
-   * The data structure that holds the Contact table row data.
+   * All the Contact data, unfiltered by the search input.
    */
-  public rows: any[] = [];
+  private allContacts: Array<Contact> = [];
 
   /**
-   * The name of the column currently being sorted.
+   * This data structure holds the Contact data to be displayed in the Contact
+   * table.  Sometimes the data is filtered, sometimes it's not,
+   */
+  public rows: Array<Contact> = [];
+
+  /**
+   * The name of the column currently being sorted on.
    */
   public sortColumn: string = '';
 
@@ -35,18 +47,26 @@ export class ContactListComponent {
     // No-op.
   }
 
+  public ngOnInit(): void {
+    // No-op.
+  }
+
   /**
    * Loads the data into the dashboard.
    */
   public loadData(): void {
-    if (this.rawData === null) {
+    if (this.allContacts.length === 0) {
 
       // NOTE: There is no need to unsubscribe here as our service emits a
       // single value and then completes automatically.
       this.dataService.getData().pipe().subscribe({
-        next: (response: any): any => {
-          this.rawData = response;
-          this.buildContactRows(response);
+        next: (response: Array<Contact>): void => {
+          const contactRows: Array<Contact> = this.buildContactRows(response);
+          this.rows = contactRows;
+
+          // Save all of the Contact row data.  This will be used to restore the
+          // table data when a table search filter has been removed by the user.
+          this.allContacts = [...this.rows];
         },
         error: (err: any): void => {
           console.error('Error loading data:', err);
@@ -61,91 +81,93 @@ export class ContactListComponent {
    * Clears the data from the dashboard.
    */
   public clearData(): void {
-    this.rawData = null;
+    this.allContacts = [];
     this.rows = [];
     this.sortColumn = '';
   }
 
   /**
    * Builds the Contact row data given the passed-in Contact data.
-   * @param data - The Contact data to display in the table.
+   * @param {Array<Contact>} data - The Contact data to display in the table.
    */
-  public buildContactRows(data: any): void {
-    this.rows = []; // Clear the row data.
+  public buildContactRows(data: Array<Contact>): Array<Contact> {
+    const rows: Array<Contact> = [];
     for (let i: number = 0; i < data.length; i++) {
-      const item: any = data[i];
 
-      // Prepare the contact state for display.
-      const contactState: string = this.transformContactState(item);
+      // We perform a deep clone here so as not to alter the passed-in `data`
+      // array content.
+      const item: Contact = data[i];
+      const contactRow: Contact = JSON.parse(JSON.stringify(item));
 
-      const contactRow: Contact = {
-        id: item['_id'],
-        contactId: item['contactId'],
-        status: item['contactStatus'],
-        name: item['contactName'],
-        iron: item['contactSatellite'],
-        groundStation: item['contactGround'],
-        state: contactState
-      }
-      this.rows.push(contactRow);
+      // Prepare the `contactState` for display.
+      const updatedContactState: string = this.transformContactState(item);
+      contactRow.contactState = updatedContactState;
+      //
+      // TODO(gabriel): The transformContactState method might be overkill, but
+      //  I'm going to leave it intact for now.  It's probably not needed.
+
+      rows.push(contactRow); // Save the Contact row.
     }
+
+    return rows;
   }
 
   /**
    * Prepares the Contact's state for display in the table.
-   * @param item - A Contact record.
+   * @param contact - A Contact record in the dataset.
    * @return {string} A contact state string formatted for display.
    */
-  public transformContactState(item: any): string {
+  public transformContactState(contact: Contact): string {
 
     // If the contact state is unknown, we simply return it unaltered.
-    let contactState: string = item['contactState'];
+    let contactState: string = contact.contactState;
 
-    if (item['contactState'] === 'complete') {
+    if (contact.contactState === 'complete') {
       contactState = CONTACT_STATE.COMPLETE;
-    } else if (item['contactState'] === 'executing') {
+    } else if (contact.contactState === 'executing') {
       contactState = CONTACT_STATE.EXECUTING;
-    } else if (item['contactState'] === 'failed') {
+    } else if (contact.contactState === 'failed') {
       contactState = CONTACT_STATE.FAILED;
-    } else if (item['contactState'] === 'upcoming') {
+    } else if (contact.contactState === 'upcoming') {
       contactState = CONTACT_STATE.UPCOMING;
-    } else if (item['contactState'] === '') {
+    } else if (contact.contactState === '') {
       contactState = CONTACT_STATE.NOT_AVAILABLE;
     }
-
     return contactState;
   }
 
   /**
-   * Sorts the table data by a given column name.  If the column is clicked
+   * Sorts the table data by the given `columnName`.  If the column is clicked
    * again, the sort direction is toggled.
-   * @param {string} column - The name of the column to sort by.  GOTCHA: These
-   *   names have to be the same as the Contact property names.
+   * @param {string} columnName - The name of the column to sort by.
+   *   GOTCHA: This name needs to be exactly the same as the corresponding
+   *   Contact property name we're sorting on.
    *   @see {Contact}
    */
-  public sortData(column: string): void {
+  public sortData(columnName: string): void {
 
     if (this.rows.length === 0) {
       return; // Bail, there's no data to sort.
     }
 
     // Step 1: Set the sortColumn and sortDirection.
-    if (this.sortColumn === column) {
+    if (this.sortColumn === columnName) {
 
-      // Toggle the sorting direction if the same column was clicked on.
+      // The same column was clicked on by the user: toggle the sorting
+      // direction.
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
 
     } else {
 
-      // Set a new column and default to ascending sort order.
-      this.sortColumn = column;
+      // Set a new sorting column and default to ascending sort order.
+      this.sortColumn = columnName;
       this.sortDirection = 'asc';
     }
 
     // Step 2: Sort the rows array.
     this.rows.sort((a: any, b: any): number => {
-      const valueA: any = a[column];
-      const valueB: any = b[column];
+      const valueA: any = a[columnName];
+      const valueB: any = b[columnName];
 
       // Check for null and undefined values.  Place these at the end of the
       // sorted list.
@@ -177,6 +199,61 @@ export class ContactListComponent {
 
       // Adjust sort order based on the column's current sort direction.
       return this.sortDirection === 'asc' ? comparison : -comparison;
+    });
+
+    // TODO(gabriel): Write unit tests for this method.
+  }
+
+  /**
+   * Handler for our "Search..." input.  We'll use this search input to filter
+   * the Contact table.
+   * @param {Event} event - The 'ruxchange' event containing the search text.
+   */
+  public filterContactTable(event: Event) {
+
+    // TODO(gabriel):   It seems the event only gets fired when the user
+    //  presses the <enter> key when the search text input has focus, which is a
+    //  little odd to me.  I suppose this helps to solve the common "debounce
+    //  key input problem" often associated with these types of inputs.  Learn
+    //  more about how inputs really work within the Astro ecosystem.  I don't
+    //  like it when the user clears the search input that they are also forced
+    //  to press <enter> afterwards.  Is there a way to handle this "clear
+    //  search input" case more elegantly?
+
+    if (this.allContacts.length === 0) {
+      return; // Bail: There's no data to search!
+    }
+
+    const inputElement = event.target as HTMLInputElement;
+    const searchText: string = inputElement.value.toLowerCase().trim();
+
+    if (searchText === '') {
+
+      // GOTCHA: Restore table to full list if search is cleared.
+      this.rows = [...this.allContacts];
+
+      return; // Bail: There is no search term.
+    }
+
+    this.rows = this.allContacts.filter(contact => {
+
+      const statusMatch =
+        contact.contactStatus?.toLowerCase().includes(searchText);
+      const nameMatch =
+        contact.contactName?.toString().includes(searchText);
+      const ironMatch =
+        contact.contactSatellite.toLowerCase().includes(searchText);
+      const groundStationMatch =
+        contact.contactGround?.toLowerCase().includes(searchText);
+      const stateMatch =
+        contact.contactState?.toLowerCase().includes(searchText);
+
+      if (statusMatch || nameMatch || ironMatch || groundStationMatch ||
+        stateMatch) {
+        return true;
+      }
+
+      return false;
     });
   }
 }
