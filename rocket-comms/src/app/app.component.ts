@@ -110,6 +110,8 @@ export class AppComponent {
       contactState = CONTACT_STATE.FAILED;
     } else if (item['contactState'] === 'upcoming') {
       contactState = CONTACT_STATE.UPCOMING;
+    } else if (item['contactState'] === '') {
+      contactState = CONTACT_STATE.NOT_AVAILABLE;
     }
 
     return contactState;

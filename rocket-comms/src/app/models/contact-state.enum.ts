@@ -5,5 +5,6 @@ export enum CONTACT_STATE {
   COMPLETE = 'Complete',
   EXECUTING = 'Executing',
   FAILED = 'Failed',
-  UPCOMING = 'Upcoming'
+  UPCOMING = 'Upcoming',
+  NOT_AVAILABLE = 'N/A'
 }
