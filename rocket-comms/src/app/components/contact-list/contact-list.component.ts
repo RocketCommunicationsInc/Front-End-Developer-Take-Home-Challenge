@@ -10,6 +10,7 @@ import {
   ContactWithAlertStatus
 } from "../../models/contact-with-alert-status.model";
 import {Alert} from "../../models/alert.model";
+import {RuxDialog} from "@astrouxds/angular";
 
 @Component({
   selector: 'app-contact-list',
@@ -23,6 +24,15 @@ export class ContactListComponent implements OnInit {
    */
   @ViewChild('searchInput', { static: true })
   searchInput!: ElementRef;
+  //
+  // TODO(gabriel): I don't think this ViewChild reference is necessary.
+  //  Remove it once I fully determine this is the case.
+
+  /**
+   * A reference to the Alert Dialog.
+   */
+  @ViewChild('alertDialog', { static: false })
+  alertDialogRef!: RuxDialog;
 
   // A WORD ABOUT THE TWO CONTACT LISTS:
   //
@@ -46,6 +56,27 @@ export class ContactListComponent implements OnInit {
    * `allContacts`.
    */
   public filteredContacts: Array<ContactWithAlertStatus> = [];
+
+  /**
+   * A reference to the currently selected Contact shown in the Alert dialog.
+   */
+  public selectedContact: ContactWithAlertStatus | null = null;
+
+  /**
+   * The currently selected Contact's Begin time.
+   */
+  public selectedContactBeginTime: string = '';
+
+  /**
+   * The currently selected Contact's End time.
+   */
+  public selectedContactEndTime: string = '';
+
+  /**
+   * The currently selected Contact's duration, the delta between their end
+   * and begin times.
+   */
+  public selectedContactDuration: string = '';
 
   /**
    * The name of the column currently being sorted on.
@@ -317,5 +348,106 @@ export class ContactListComponent implements OnInit {
     // TODO(gabriel): Implement this method.  Figure out how this control should
     //  interact with the text search filtering.  Maybe I can add this filtering
     //  if I have enough time after implementing other requirements first.
+  }
+
+  /**
+   * Opens the Alert (modal) Dialog for a specific Contact.
+   * @param {ContactWithAlertStatus} contactRow - The Contact who has at least
+   *   one Alert.
+   */
+  public openAlertDetailsDialog(contactRow: ContactWithAlertStatus): void {
+
+    // Load the selected contact into the dialog.
+    this.selectedContact = contactRow;
+
+    this.formatContactBeginAndEndTimestamps(this.selectedContact);
+
+    // Open the dialog.
+    if (this.selectedContact !== null) {
+      const dialog: RuxDialog = this.alertDialogRef;
+      dialog.open = true;
+    } else {
+      // TODO(gabriel): Houston, we have a problem.  Is this use-case even
+      //  possible?  I don't think so, but let's be safe.  If it is possible,
+      //  better error handling is needed.
+      console.error('Unable to show Alert Details.');
+    }
+  }
+
+  /**
+   * Formats the selected Contact begin and end timestamps.  Also, computes a
+   * contact duration time between the 2 timestamps.
+   * @param {ContactWithAlertStatus} selectedContact - The selected contact
+   *   shown in the Alert Details dialog.
+   */
+  public formatContactBeginAndEndTimestamps(
+    selectedContact: ContactWithAlertStatus): void {
+
+    // Format begin and end times for display.
+    this.selectedContactBeginTime =
+      this.formatTimestamp(selectedContact.contactBeginTimestamp);
+    this.selectedContactEndTime =
+      this.formatTimestamp(selectedContact.contactEndTimestamp);
+
+    // Format the duration between the two times.
+    this.selectedContactDuration =
+      this.formatDuration(selectedContact.contactBeginTimestamp,
+      selectedContact.contactEndTimestamp);
+  }
+
+  /**
+   * Formats a Unix timestamp in the following format "YYYY-MM-DD HH:MM:SS",
+   * e.g., 2019-07-22 00:00:17
+   * @param {number} unixTimestampInSeconds - The timestamp to format.
+   * @returns {string} A formatted datetime string.
+   */
+  public formatTimestamp(unixTimestampInSeconds: number): string {
+
+    // TODO(gabriel): Normally I would gather requirements about how the
+    //  timestamp should be formatted.  In this case, however, let's just
+    //  assume the requirement is to show the timestamp in the following
+    //  way: 2019-07-22 00:00:17
+
+    // NOTE: The Date() constructor needs millis, not seconds.
+    const date = new Date(unixTimestampInSeconds * 1000);
+
+    // Convert to an ISO string format: 2025-05-02T17:03:21.123Z
+    const isoString: string = date.toISOString();
+
+    // Remove millis.
+    const isoStringWithoutMillis: string = isoString.split('.')[0];
+
+    // Parse remaining parts.
+    const parsedString: string[] = isoStringWithoutMillis.split('T');
+    const datePart: string = parsedString[0];
+    const timePart: string = parsedString[1];
+
+    // Viola! "YYYY-MM-DD HH:MM:SS"
+    const formattedTimestamp: string = datePart + ' ' + timePart;
+    return formattedTimestamp;
+  }
+
+  /**
+   * Compute the duration between the two passed-in times.
+   * @param {number} unixBeginTime - The beginning time in Unix time
+   *   (in seconds).
+   * @param {number} unixEndTime - The ending time in Unix time (in seconds).
+   * @returns {string} The duration in HH:MM:SS format, e.g., 00:00:17 for
+   *   17 seconds.
+   */
+  public formatDuration(unixBeginTime: number, unixEndTime: number): string {
+
+    const diffInSeconds: number = unixEndTime - unixBeginTime;
+
+    const hours: number = Math.floor(diffInSeconds / 3600);
+    const minutes: number = Math.floor((diffInSeconds % 3600) / 60);
+    const seconds: number = diffInSeconds % 60;
+
+    const formattedDuration: string =
+      `${hours.toString().padStart(2, '0')}:` +
+      `${minutes.toString().padStart(2, '0')}:` +
+      `${seconds.toString().padStart(2, '0')}`;
+
+    return formattedDuration;
   }
 }

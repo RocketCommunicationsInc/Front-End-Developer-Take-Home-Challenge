@@ -9,12 +9,18 @@
       <rux-button size="large"
         (click)="loadData()">Load Data</rux-button>
     </div>
+
     <div class="search-container">
+
       <!-- TODO(gabriel): Implement Alert filtering if there's time to do so.
       <div class="alert-select-container">
         <rux-select label="Alert Severity" size="large"
           (ruxchange)="filterAlerts($event)">
+
+          <-- TODO(gabriel): All what?  All contact data or only contact data
+               with alerts?
           <rux-option label="All" value="all"></rux-option>
+
           <rux-option label="Critical" value="critical"></rux-option>
           <rux-option label="Caution" value="caution"></rux-option>
           <rux-option label="Serious" value="serious"></rux-option>
@@ -43,6 +49,8 @@
     <rux-table>
       <rux-table-header>
         <rux-table-header-row>
+
+          <!-- Contact Status. -->
           <rux-table-header-cell
             (click)="sortData('contactStatus')">
             <span class="header-text">Status</span>
@@ -53,6 +61,8 @@
                 size="small" icon="arrow-drop-down"></rux-icon>
             </span>
           </rux-table-header-cell>
+
+          <!-- Contact Name. -->
           <rux-table-header-cell
             (click)="sortData('contactName')">
             <span class="header-text">Name</span>
@@ -63,6 +73,8 @@
                 size="small" icon="arrow-drop-down"></rux-icon>
             </span>
           </rux-table-header-cell>
+
+          <!-- Contact Satellite, aka "Iron". -->
           <rux-table-header-cell
             (click)="sortData('contactSatellite')">
             <span class="header-text">IRON</span>
@@ -73,6 +85,8 @@
                 size="small" icon="arrow-drop-down"></rux-icon>
             </span>
           </rux-table-header-cell>
+
+          <!-- Contact Ground Station. -->
           <rux-table-header-cell
             (click)="sortData('contactGround')">
             <span class="header-text">Ground Station</span>
@@ -83,6 +97,8 @@
                 size="small" icon="arrow-drop-down"></rux-icon>
             </span>
           </rux-table-header-cell>
+
+          <!-- Contact State. -->
           <rux-table-header-cell
             (click)="sortData('contactState')">
             <span class="header-text">State</span>
@@ -93,23 +109,37 @@
                 size="small" icon="arrow-drop-down"></rux-icon>
             </span>
           </rux-table-header-cell>
-          <!-- TODO(gabriel): How do we handle Alert row sorting?  An "Alert
-                Severity" drop-down?  Maybe. -->
+
+          <!-- Alerts. -->
           <rux-table-header-cell class="no-sort">
             <span class="header-text">Alerts</span>
           </rux-table-header-cell>
+          <!-- TODO(gabriel): How do we handle Alert row sorting?  An "Alert
+                Severity" drop-down?  Maybe.  Not sure yet, need to figure
+                out. -->
+
+          <!-- Actions. -->
+          <rux-table-header-cell class="no-sort">
+            <span class="header-text">Actions</span>
+          </rux-table-header-cell>
         </rux-table-header-row>
       </rux-table-header>
+
       <rux-table-body>
         <rux-table-row *ngFor="let contactRow of filteredContacts">
 
+          <!-- TODO(gabriel): Add status icons. -->
           <!-- See: https://astro-components.netlify.app/?path=/docs/components-status--docs          -->
           <rux-table-cell>{{ contactRow.contactStatus }}</rux-table-cell>
 
           <rux-table-cell>{{ contactRow.contactName }}</rux-table-cell>
           <rux-table-cell>{{ contactRow.contactSatellite }}</rux-table-cell>
           <rux-table-cell>{{ contactRow.contactGround }}</rux-table-cell>
-          <rux-table-cell>{{ contactRow.contactState | capitalize }}</rux-table-cell>
+          <rux-table-cell>
+            {{ contactRow.contactState | capitalize }}
+          </rux-table-cell>
+
+          <!-- Alerts. -->
           <rux-table-cell>
             <div *ngIf="contactRow.alerts.length > 0">
               <div *ngFor="let alert of contactRow.alerts">
@@ -123,8 +153,80 @@
               --
             </div>
           </rux-table-cell>
+
+          <!-- Actions. -->
+          <rux-table-cell>
+            <rux-button *ngIf="contactRow.alerts.length > 0"
+              size="small" secondary=""
+              (click)="openAlertDetailsDialog(contactRow)">Show Details</rux-button>
+          </rux-table-cell>
         </rux-table-row>
       </rux-table-body>
     </rux-table>
   </div>
+
+  <!-- NOTE: I've added comments here to document my learning process and to act
+       as a kind of dialog reference implementation. -->
+  <rux-dialog #alertDialog
+    id="alertDialog"
+    confirm-text="Ok"
+    deny-text="Cancel">
+
+    <!-- Here we're using the "header" slot to display a custom
+         header title. -->
+    <div slot="header">Alert Details</div>
+
+    <!-- And here we're making use of Astro's default slot for
+         message content. -->
+    <div #alertDialogContent id="alertDialogContent">
+      <div class="dialog-content-section">
+
+        <!-- Contact Info Section. -->
+        <div id="alert-contact-info" class="dialog-grid">
+          <span class="rux-body-1-bold">Contact Satellite:</span>
+          <span class="rux-body-1 monospace">
+            {{ selectedContact?.contactSatellite }}
+          </span>
+
+          <!-- Spacer: Blank Row. -->
+          <span class="spacer"></span>
+          <span class="spacer"></span>
+
+          <span class="rux-body-1-bold">Contact Details:</span>
+          <span class="rux-body-1 monospace">
+            {{ selectedContact?.contactDetail }}
+          </span>
+
+          <!-- Spacer: Blank Row. -->
+          <span class="spacer"></span>
+          <span class="spacer"></span>
+
+          <span class="rux-body-1-bold">Begin Time:</span>
+          <span class="rux-body-1 monospace">
+            {{ selectedContactBeginTime }}
+          </span>
+
+          <span class="rux-body-1-bold">End Time:</span>
+          <span class="rux-body-1 monospace">
+            {{ selectedContactEndTime }}
+          </span>
+
+          <span class="rux-body-1-bold">Contact Duration:</span>
+          <span class="rux-body-1 monospace">
+            {{ selectedContactDuration }}
+          </span>
+        </div>
+
+        <hr class="alert-section-separator">
+
+        <!-- Alerts Section. -->
+        <div id="alerts-section">
+          <!-- TODO(gabriel): Implement this. -->
+          <p>Alert 1</p>
+          <p>Alert 2</p>
+          <p>Alert 3</p>
+        </div>
+      </div>
+    </div>
+  </rux-dialog>
 </rux-container>

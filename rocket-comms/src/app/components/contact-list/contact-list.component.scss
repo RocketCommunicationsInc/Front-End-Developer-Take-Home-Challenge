@@ -74,3 +74,42 @@
 .off {
   color: #A4ABB6;
 }
+
+// TODO(gabriel): This styling might not be Astro compliant, but it looks pretty
+//  cool.  If enough time remains change this if this formatting isn't Astro
+//  compliant.
+.dialog-grid {
+
+  // Using CSS Grid.
+  display: grid;
+
+  // We define two columns in the grid.
+  //
+  // auto: The first column: It will be as wide as needed to fit its content.
+  // 1fr:  The second column (for dynamic values): Takes up the remaining space
+  //       in the row.  "fr" means "fractional unit" of available space.
+  grid-template-columns: auto 1fr;
+
+  // Define the spacing between grid items:
+  // 4px (the vertical gap between rows), 16px (the horizontal gap between the
+  // two columns).
+  gap: 4px 16px;
+
+  // Ensures items in the same row align to the top (instead of center-aligned
+  // vertically, which is the default in some cases. This is useful when our
+  // rows have content of varying height.
+  align-items: start;
+}
+
+.monospace {
+  font-family: 'Courier New', Courier, monospace;
+  //font-weight: bold;
+}
+
+.spacer {
+  margin-top: 10px;
+}
+
+.alert-section-separator {
+  margin-top: 20px;
+}
