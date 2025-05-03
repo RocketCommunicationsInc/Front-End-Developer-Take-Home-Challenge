@@ -20,15 +20,6 @@ import {RuxDialog} from "@astrouxds/angular";
 export class ContactListComponent implements OnInit {
 
   /**
-   * The Contact table filter/search element (text input).
-   */
-  @ViewChild('searchInput', { static: true })
-  searchInput!: ElementRef;
-  //
-  // TODO(gabriel): I don't think this ViewChild reference is necessary.
-  //  Remove it once I fully determine this is the case.
-
-  /**
    * A reference to the Alert Dialog.
    */
   @ViewChild('alertDialog', { static: false })
@@ -41,8 +32,10 @@ export class ContactListComponent implements OnInit {
   //  1. `allContacts` stores the full dataset and acts as the master source
   //     of truth.
   //
-  //  2. `filteredContacts` is a subset of the master list used for UI display
-  //     and reflects current search filters being applied.
+  //  2. `filteredContacts` is a subset of allContacts, used for UI display and
+  //     reflecting any active search filters. Note: filteredContacts contains
+  //     shallow copies of the contacts, meaning each contact reference is
+  //     shared with the corresponding contact objects in allContacts.
 
   /**
    * The full (unfiltered) Contact dataset, including alert state and
@@ -109,17 +102,18 @@ export class ContactListComponent implements OnInit {
       this.dataService.getData().pipe().subscribe({
         next: (response: Array<Contact>): void => {
 
+          // Build the master dataset and store it in `allContacts`.  This list
+          // will be used to restore the displayed table data when search
+          // filters have been cleared.
           const contactRows: Array<ContactWithAlertStatus> =
             this.buildContactRows(response);
-          this.filteredContacts = contactRows;
+          this.allContacts = contactRows;
 
-          // IMPORTANT: Save all of the unfiltered Contact row data into its
-          // own master list.  This will be used to restore the displayed table
-          // data when search filters have been removed by the user/operator.
-          this.allContacts = [...this.filteredContacts];
-
-          // TODO(gabriel): Remove this console.log statement.
-          console.log('Finished loading Contact and Alert data.');
+          // IMPORTANT: Create a shallow copy of `allContacts` for filtering
+          // purposes.  The individual contact objects are shared, so changes
+          // to a contact in `filteredContacts` will also be reflected in
+          // allContacts.
+          this.filteredContacts = [...this.allContacts];
         },
         error: (err: any): void => {
           console.error('Error loading data:', err);
@@ -281,6 +275,9 @@ export class ContactListComponent implements OnInit {
       return; // Bail: There is no search term.
     }
 
+    // Filter the master contact list based on user input or criteria.
+    // This creates a new array (filteredContacts) containing references
+    // to the original Contact objects in allContacts.
     this.filteredContacts = this.allContacts.filter(
       (contact: ContactWithAlertStatus): boolean => {
 
@@ -449,5 +446,16 @@ export class ContactListComponent implements OnInit {
       `${seconds.toString().padStart(2, '0')}`;
 
     return formattedDuration;
+  }
+
+  /**
+   * Acknowledges an Alert error corresponding to the passed-in Alert error ID.
+   * @param {string} alertErrorId - The Alert error ID.
+   * @param {ContactWithAlertStatus} selectedContact - The Contact who has the
+   *   Alert error.
+   */
+  public ackAlert(
+    alertErrorId: string, selectedContact: ContactWithAlertStatus): void {
+    selectedContact.alertStatus[alertErrorId] = true;
   }
 }

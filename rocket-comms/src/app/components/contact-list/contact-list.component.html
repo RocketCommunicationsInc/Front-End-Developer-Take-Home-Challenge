@@ -221,10 +221,41 @@
 
         <!-- Alerts Section. -->
         <div id="alerts-section">
-          <!-- TODO(gabriel): Implement this. -->
-          <p>Alert 1</p>
-          <p>Alert 2</p>
-          <p>Alert 3</p>
+          <div *ngFor="let alert of selectedContact?.alerts"
+            class="dialog-grid">
+
+            <span class="rux-body-1-bold">Error:</span>
+            <span>
+              <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
+                {{ alert.errorSeverity | capitalize}}:
+              </span> {{ alert.errorMessage }}
+            </span>
+
+            <span class="rux-body-1-bold">Contact Name:</span>
+            <span>
+              {{ selectedContact!.contactName}}
+            </span>
+
+            <span class="rux-body-1-bold">Alert Status:</span>
+            <ng-container
+              *ngIf="selectedContact!.alertStatus[alert.errorId];
+                else notAcknowledged">
+              <span class="acknowledged">Acknowledged!</span>
+            </ng-container>
+            <ng-template #notAcknowledged>
+              <rux-button size="small" secondary=""
+                (click)="ackAlert(alert.errorId, selectedContact!)"
+              >Acknowledge</rux-button>
+            </ng-template>
+
+            <!-- Spacer: Blank Row. -->
+            <span class="spacer"></span>
+            <span class="spacer"></span>
+
+            <!-- Spacer: Blank Row. -->
+            <span class="spacer"></span>
+            <span class="spacer"></span>
+          </div>
         </div>
       </div>
     </div>
