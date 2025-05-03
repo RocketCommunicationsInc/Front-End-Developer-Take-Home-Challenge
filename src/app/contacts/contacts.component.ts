@@ -18,9 +18,9 @@ import { Alert } from '../models/alert.model';
 })
 export class ContactsComponent {
 	private contactsService = inject(ContactsService);
+	private currentAlertErrorId: string = '';
 	currentAlertDialogOpened: boolean = false;
 	currentAlertDialog: Contact | null = null;
-	acknowledgedIds: string[] = [];
 	contacts$: Observable<Contact[]> = this.contactsService.contacts$;
 	alertSeverityButtons: {label:string,value:string,selected?:boolean}[] = [
 		{ label: "All Contacts", value: "contacts" },
@@ -37,24 +37,31 @@ export class ContactsComponent {
 		this.contactsService.filterContacts("alerts");
 	}
 
-	openAlertDetails(contact: Contact) {
+	openAlertDetails(contact: Contact, alert: Alert) {
 		this.currentAlertDialogOpened = true;
 		this.currentAlertDialog = contact;
+		this.currentAlertErrorId = alert.errorId;
 	}
 
 	acknowledgeAlertDetails() {
-		if (!this.currentAlertDialog) {
-			return;
-		}
-		this.acknowledgedIds.push(this.currentAlertDialog._id);
+		this.contactsService.acknowledgeAlert(this.currentAlertDialog!.contactId, this.currentAlertErrorId);
 		this.currentAlertDialogOpened = false;
 		this.currentAlertDialog = null;
 	}
 
-	filterAlerts(contact: Contact) {
-		return contact.alerts.filter((alert: Alert) => {
-			return !this.acknowledgedIds.includes(contact._id);
-		});
+	indicateWithColor(errorSeverity: string) {
+		switch (errorSeverity) {
+			case 'critical':
+				return 'darkred';
+			case 'serious':
+				return 'red';
+			case 'warning':
+				return 'orange';
+			case 'caution':
+				return 'yellow';
+			default:
+				return 'gray';
+		}
 	}
 
 	filterContactsBySeverity(ruxbuttonEvent: {detail: string}) {

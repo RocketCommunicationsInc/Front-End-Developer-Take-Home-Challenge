@@ -39,20 +39,12 @@
 								{{ alert.errorTime | date:'M/d/yy, hh:mm' }}
 							</div>
 							<div class="col">
-								@if (alert.errorSeverity === 'critical') {
-									<rux-icon icon="label" size="extra-small" style="color: darkred;"></rux-icon>
-								} @else if (alert.errorSeverity === 'serious') {
-									<rux-icon icon="label" size="extra-small" style="color: red;"></rux-icon>
-								} @else if (alert.errorSeverity === 'warning') {
-									<rux-icon icon="label" size="extra-small" style="color: orange;"></rux-icon>
-								} @else if (alert.errorSeverity === 'caution') {
-									<rux-icon icon="label" size="extra-small" style="color: yellow;"></rux-icon>
-								}
+								<rux-icon icon="label" size="extra-small" [style.color]="indicateWithColor(alert.errorSeverity)" />
 								{{ alert.errorMessage }}
 							</div>
 							<div class="col col-3">
-								@if (!acknowledgedIds.includes(contact._id)) {
-									<rux-button icon="launch" size="small" secondary (click)="openAlertDetails(contact)" class="float-end">
+								@if (!alert.acknowledged) {
+									<rux-button icon="launch" size="small" secondary (click)="openAlertDetails(contact, alert)" class="float-end">
 										Show Details
 									</rux-button>
 								} @else {

@@ -12,6 +12,7 @@ export class ContactsService {
 	private contactsSubject = new BehaviorSubject<Contact[]>([]);
 	contacts$: Observable<Contact[]> = this.contactsSubject.asObservable();  // expose as observable
 	private allContacts: Contact[] = [];
+	private filter: string = 'alerts';
 
 	constructor(private http: HttpClient) {}
 
@@ -21,8 +22,10 @@ export class ContactsService {
 				.pipe(
 					map((data) => {
 						return data.map((contact: Contact) => {
-							// sort alerts by errorTime in descending order
-							contact.alerts.sort((a:Alert, b:Alert) => b.errorTime - a.errorTime);
+							if (contact.alerts.length > 1) {
+								// sort alerts by errorTime in descending order
+								contact.alerts.sort((a:Alert, b:Alert) => b.errorTime - a.errorTime);
+							}
 							return contact;
 						});
 					}),
@@ -47,17 +50,25 @@ export class ContactsService {
 		);
 	}
 
-	filterContacts(errorSeverity: string = ''): void {
-		this.getContacts$(errorSeverity != 'contacts').pipe(
+	acknowledgeAlert(contactId: String, errorId: String): void {
+		const contactIndex = this.allContacts.findIndex(contact => contact.contactId == contactId);
+		const alertIndex = this.allContacts[contactIndex].alerts.findIndex(alert => alert.errorId == errorId);
+		this.allContacts[contactIndex].alerts[alertIndex].acknowledged = true;
+		this.filterContacts(this.filter);
+	}
+
+	filterContacts(filter: string = ''): void {
+		this.filter = filter;
+		this.getContacts$(filter != 'contacts').pipe(
 			map((contacts: Contact[]) => {
-				if (!errorSeverity || errorSeverity == 'alerts' || errorSeverity == 'contacts') {
+				if (!filter || filter == 'alerts' || filter == 'contacts') {
 					return contacts;
 				} else {
 					return contacts.filter((contact: Contact) => {
-						return contact.alerts.some((alert: Alert) => alert.errorSeverity === errorSeverity);
+						return contact.alerts.some((alert: Alert) => alert.errorSeverity === filter);
 					})
 					.map((contact: Contact) => {
-						contact.alerts = contact.alerts.filter((alert: Alert) => alert.errorSeverity === errorSeverity);
+						contact.alerts = contact.alerts.filter((alert: Alert) => alert.errorSeverity === filter);
 						return contact;
 					});
 				}

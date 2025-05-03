@@ -8,4 +8,5 @@ export interface Alert {
 	selected: boolean;
 	new: boolean;
 	expanded: boolean;
+	acknowledged?: boolean;
 }
