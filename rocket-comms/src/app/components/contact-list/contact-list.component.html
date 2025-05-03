@@ -13,9 +13,15 @@
       <!-- TODO(gabriel): Why isn't the `ruxchange` event recognized by IntelliJ? -->
       <rux-input #searchInput
         type="text" placeholder="Search..." size="large"
-        (ruxchange)="filterContactTable($event)">
+        (ruxchange)="filterContactTable($event)"
+        (input)="onInputChange($event)">
         <rux-icon slot="prefix" icon="search" size="extra-small"></rux-icon>
       </rux-input>
+      <!-- NOTE: I'm also binding the `input` event to a handler (in addition to
+        `ruxchange`) so that when the search field is cleared, the user doesn't
+        have to press the <enter> key as well.  Once the search field becomes an
+        empty string, all of the contact info is displayed again in the Contacts
+        table auto-magically.  Cool. -->
     </div>
   </div>
 

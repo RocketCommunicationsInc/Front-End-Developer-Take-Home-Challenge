@@ -203,16 +203,21 @@ export class ContactListComponent implements OnInit {
    * the Contact table.
    * @param {Event} event - The 'ruxchange' event containing the search text.
    */
-  public filterContactTable(event: Event) {
+  public filterContactTable(event: Event): void {
 
-    // TODO(gabriel):   It seems the event only gets fired when the user
+    // TODO(gabriel): It seems the event only gets fired when the user
     //  presses the <enter> key when the search text input has focus, which is a
     //  little odd to me.  I suppose this helps to solve the common "debounce
-    //  key input problem" often associated with these types of inputs.  Learn
-    //  more about how inputs really work within the Astro ecosystem.  I don't
-    //  like it when the user clears the search input that they are also forced
-    //  to press <enter> afterwards.  Is there a way to handle this "clear
-    //  search input" case more elegantly?
+    //  key input problem" often associated with these types of input searches.
+    //  Learn more about how inputs and 'ruxchange' events really work within
+    //  the Astro ecosystem.  I don't like it when the user clears the search
+    //  input they are also forced to press <enter> key afterwards in order to
+    //  reset the search results.  Is there a way to handle this "clear search
+    //  input" case more elegantly?
+    //
+    // TODO(gabriel): UPDATE: I think I found a solution (compromise). I'm now
+    //  also watching for 'input' events too.  See the onInputChange() method
+    //  below for details.
 
     if (this.allContacts.length === 0) {
       return; // Bail: There's no data to search!
@@ -229,25 +234,57 @@ export class ContactListComponent implements OnInit {
       return; // Bail: There is no search term.
     }
 
-    this.rows = this.allContacts.filter(contact => {
+    this.rows = this.allContacts.filter(
+      (contact: ContactWithAlertStatus): boolean => {
 
-      const statusMatch =
-        contact.contactStatus?.toLowerCase().includes(searchText);
-      const nameMatch =
-        contact.contactName?.toString().includes(searchText);
-      const ironMatch =
-        contact.contactSatellite.toLowerCase().includes(searchText);
-      const groundStationMatch =
-        contact.contactGround?.toLowerCase().includes(searchText);
-      const stateMatch =
-        contact.contactState?.toLowerCase().includes(searchText);
+        const statusMatch: boolean =
+          contact.contactStatus?.toLowerCase().includes(searchText);
+        const nameMatch: boolean =
+          contact.contactName?.toString().includes(searchText);
+        const ironMatch: boolean =
+          contact.contactSatellite.toLowerCase().includes(searchText);
+        const groundStationMatch: boolean =
+          contact.contactGround?.toLowerCase().includes(searchText);
+        const stateMatch: boolean =
+          contact.contactState?.toLowerCase().includes(searchText);
 
-      if (statusMatch || nameMatch || ironMatch || groundStationMatch ||
-        stateMatch) {
-        return true;
-      }
+        // We also search any Alerts associated with the Contact.
+        const alertMatch: boolean =
+          contact.alerts.some((alert): boolean => {
+            const searchResult: boolean =
+              alert.errorSeverity.toLowerCase().includes(searchText) ||
+              alert.errorMessage.toLowerCase().includes(searchText);
+            return searchResult;
+          });
 
-      return false;
-    });
+        if (statusMatch || nameMatch || ironMatch || groundStationMatch ||
+          stateMatch || alertMatch) {
+          // We found a match!  Include the Contact in the result set.
+          return true;
+        }
+
+        return false; // Sadly, no Contacts were found.
+      });
+  }
+
+  /**
+   * Handles changes to the search input field.  It only does something when the
+   * search field is cleared.  In that case, we restore the Contacts listing
+   * to display ALL of the Contacts (unfiltered).  This is just a fix so the
+   * user/operator doesn't have to hit the enter key after clearing the search
+   * field.
+   * @param {Event} event - The 'input' event associated with the search input
+   *   form field.
+   */
+  public onInputChange(event: Event): void {
+
+    // TODO(gabriel): Remove this method if it goes against Rocket's UI/UX
+    //  compliance rules.  Verify whether it does.
+
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    const value: string = target.value.trim();
+    if (value === '') {
+      this.rows = [...this.allContacts];
+    }
   }
 }
