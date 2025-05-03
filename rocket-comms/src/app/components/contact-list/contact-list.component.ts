@@ -287,4 +287,19 @@ export class ContactListComponent implements OnInit {
       this.rows = [...this.allContacts];
     }
   }
+
+  /**
+   * Filters Contact data based on the Alert severity level.
+   * @param {Event} event - The 'ruxchange' chagne event from the "Alert
+   *   Severity" drop-down.
+   */
+  public filterAlerts(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const value : string = target.value;
+    console.log('Filter Alert Drop-down value:', value);
+
+    // TODO(gabriel): Implement this method.  Figure out how this control should
+    //  interact with the text search filtering.  Maybe I can add this filtering
+    //  if I have enough time after implementing other requirements first.
+  }
 }

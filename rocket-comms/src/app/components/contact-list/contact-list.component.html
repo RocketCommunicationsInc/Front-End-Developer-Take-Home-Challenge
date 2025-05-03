@@ -10,18 +10,32 @@
         (click)="loadData()">Load Data</rux-button>
     </div>
     <div class="search-container">
-      <!-- TODO(gabriel): Why isn't the `ruxchange` event recognized by IntelliJ? -->
-      <rux-input #searchInput
-        type="text" placeholder="Search..." size="large"
-        (ruxchange)="filterContactTable($event)"
-        (input)="onInputChange($event)">
-        <rux-icon slot="prefix" icon="search" size="extra-small"></rux-icon>
-      </rux-input>
-      <!-- NOTE: I'm also binding the `input` event to a handler (in addition to
-        `ruxchange`) so that when the search field is cleared, the user doesn't
-        have to press the <enter> key as well.  Once the search field becomes an
-        empty string, all of the contact info is displayed again in the Contacts
-        table auto-magically.  Cool. -->
+      <!-- TODO(gabriel): Implement Alert filtering if there's time to do so.
+      <div class="alert-select-container">
+        <rux-select label="Alert Severity" size="large"
+          (ruxchange)="filterAlerts($event)">
+          <rux-option label="All" value="all"></rux-option>
+          <rux-option label="Critical" value="critical"></rux-option>
+          <rux-option label="Caution" value="caution"></rux-option>
+          <rux-option label="Serious" value="serious"></rux-option>
+        </rux-select>
+      </div>
+      -->
+      <div class="search-input">
+        <!-- TODO(gabriel): Why isn't the `ruxchange` event recognized by
+              IntelliJ? -->
+        <rux-input #searchInput
+          type="text" placeholder="Search..." size="large"
+          (ruxchange)="filterContactTable($event)"
+          (input)="onInputChange($event)">
+          <rux-icon slot="prefix" icon="search" size="extra-small"></rux-icon>
+        </rux-input>
+        <!-- NOTE: I'm also binding the `input` event to a handler (in addition
+          to `ruxchange`) so that when the search field is cleared, the user
+          doesn't have to press the <enter> key as well.  Once the search field
+          becomes an empty string, all of the contact info is displayed again in
+          the Contacts table auto-magically.  Cool. -->
+      </div>
     </div>
   </div>
 
@@ -33,53 +47,55 @@
             (click)="sortData('contactStatus')">
             <span class="header-text">Status</span>
             <span *ngIf="sortColumn === 'contactStatus'">
-            <rux-icon *ngIf="sortDirection === 'asc'"
-              size="small" icon="arrow-drop-up"></rux-icon>
-            <rux-icon *ngIf="sortDirection === 'desc'"
-              size="small" icon="arrow-drop-down"></rux-icon>
-          </span>
+              <rux-icon *ngIf="sortDirection === 'asc'"
+                size="small" icon="arrow-drop-up"></rux-icon>
+              <rux-icon *ngIf="sortDirection === 'desc'"
+                size="small" icon="arrow-drop-down"></rux-icon>
+            </span>
           </rux-table-header-cell>
           <rux-table-header-cell
             (click)="sortData('contactName')">
             <span class="header-text">Name</span>
             <span *ngIf="sortColumn === 'contactName'">
-            <rux-icon *ngIf="sortDirection === 'asc'"
-              size="small" icon="arrow-drop-up"></rux-icon>
-            <rux-icon *ngIf="sortDirection === 'desc'"
-              size="small" icon="arrow-drop-down"></rux-icon>
-          </span>
+              <rux-icon *ngIf="sortDirection === 'asc'"
+                size="small" icon="arrow-drop-up"></rux-icon>
+              <rux-icon *ngIf="sortDirection === 'desc'"
+                size="small" icon="arrow-drop-down"></rux-icon>
+            </span>
           </rux-table-header-cell>
           <rux-table-header-cell
             (click)="sortData('contactSatellite')">
             <span class="header-text">IRON</span>
             <span *ngIf="sortColumn === 'contactSatellite'">
-            <rux-icon *ngIf="sortDirection === 'asc'"
-              size="small" icon="arrow-drop-up"></rux-icon>
-            <rux-icon *ngIf="sortDirection === 'desc'"
-              size="small" icon="arrow-drop-down"></rux-icon>
-          </span>
+              <rux-icon *ngIf="sortDirection === 'asc'"
+                size="small" icon="arrow-drop-up"></rux-icon>
+              <rux-icon *ngIf="sortDirection === 'desc'"
+                size="small" icon="arrow-drop-down"></rux-icon>
+            </span>
           </rux-table-header-cell>
           <rux-table-header-cell
             (click)="sortData('contactGround')">
             <span class="header-text">Ground Station</span>
             <span *ngIf="sortColumn === 'contactGround'">
-            <rux-icon *ngIf="sortDirection === 'asc'"
-              size="small" icon="arrow-drop-up"></rux-icon>
-            <rux-icon *ngIf="sortDirection === 'desc'"
-              size="small" icon="arrow-drop-down"></rux-icon>
-          </span>
+              <rux-icon *ngIf="sortDirection === 'asc'"
+                size="small" icon="arrow-drop-up"></rux-icon>
+              <rux-icon *ngIf="sortDirection === 'desc'"
+                size="small" icon="arrow-drop-down"></rux-icon>
+            </span>
           </rux-table-header-cell>
           <rux-table-header-cell
             (click)="sortData('contactState')">
             <span class="header-text">State</span>
             <span *ngIf="sortColumn === 'contactState'">
-            <rux-icon *ngIf="sortDirection === 'asc'"
-              size="small" icon="arrow-drop-up"></rux-icon>
-            <rux-icon *ngIf="sortDirection === 'desc'"
-              size="small" icon="arrow-drop-down"></rux-icon>
-          </span>
+              <rux-icon *ngIf="sortDirection === 'asc'"
+                size="small" icon="arrow-drop-up"></rux-icon>
+              <rux-icon *ngIf="sortDirection === 'desc'"
+                size="small" icon="arrow-drop-down"></rux-icon>
+            </span>
           </rux-table-header-cell>
-          <rux-table-header-cell>
+          <!-- TODO(gabriel): How do we handle Alert row sorting?  An "Alert
+                Severity" drop-down?  Maybe. -->
+          <rux-table-header-cell class="no-sort">
             <span class="header-text">Alerts</span>
           </rux-table-header-cell>
         </rux-table-header-row>
@@ -95,11 +111,16 @@
           <rux-table-cell>{{ row.contactGround }}</rux-table-cell>
           <rux-table-cell>{{ row.contactState | capitalize }}</rux-table-cell>
           <rux-table-cell>
-            <div *ngFor="let alert of row.alerts">
-              <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
-                {{ alert.errorSeverity | capitalize }}:
-              </span>
-              {{ alert.errorMessage }}
+            <div *ngIf="row.alerts.length > 0">
+              <div *ngFor="let alert of row.alerts">
+                <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
+                  {{ alert.errorSeverity | capitalize }}:
+                </span>
+                {{ alert.errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="row.alerts.length === 0">
+              --
             </div>
           </rux-table-cell>
         </rux-table-row>

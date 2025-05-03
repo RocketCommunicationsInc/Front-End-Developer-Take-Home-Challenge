@@ -16,14 +16,18 @@
 
 .search-container {
   margin-right: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 15px;
 }
 
 #contact-table {
   height: 500px;
+  overflow: scroll;
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
-  overflow: scroll;
 }
 
 #contact-table rux-table-header-row rux-icon {
@@ -35,6 +39,11 @@
 
   // NOTE: 'width' doesn't seem to work here.  Why not?
   // width: 32px;
+}
+
+// Suppress the sorting pointer with column a '.no-sort' class.
+#contact-table rux-table-header-cell.no-sort .header-text:hover {
+  cursor: default;
 }
 
 // TODO(gabriel): How do we reference the Status Color design tokens?  Until I
@@ -49,7 +58,8 @@
   color: #FFB302;
 }
 
-.caution {
+.caution,
+.warning {
   color: #FCE83A;
 }
 
