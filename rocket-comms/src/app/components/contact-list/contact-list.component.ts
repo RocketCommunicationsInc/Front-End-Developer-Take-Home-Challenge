@@ -6,7 +6,10 @@ import {
 } from '@angular/core';
 import {DataService} from "../../services/data.service";
 import {Contact} from "../../models/contact.model";
-import {CONTACT_STATE} from "../../models/contact-state.enum";
+import {
+  ContactWithAlertStatus
+} from "../../models/contact-with-alert-status.model";
+import {Alert} from "../../models/alert.model";
 
 @Component({
   selector: 'app-contact-list',
@@ -24,13 +27,13 @@ export class ContactListComponent implements OnInit {
   /**
    * All the Contact data, unfiltered by the search input.
    */
-  private allContacts: Array<Contact> = [];
+  private allContacts: Array<ContactWithAlertStatus> = [];
 
   /**
    * This data structure holds the Contact data to be displayed in the Contact
    * table.  Sometimes the data is filtered, sometimes it's not,
    */
-  public rows: Array<Contact> = [];
+  public rows: Array<ContactWithAlertStatus> = [];
 
   /**
    * The name of the column currently being sorted on.
@@ -61,12 +64,16 @@ export class ContactListComponent implements OnInit {
       // single value and then completes automatically.
       this.dataService.getData().pipe().subscribe({
         next: (response: Array<Contact>): void => {
-          const contactRows: Array<Contact> = this.buildContactRows(response);
+          const contactRows: Array<ContactWithAlertStatus> =
+            this.buildContactRows(response);
           this.rows = contactRows;
 
-          // Save all of the Contact row data.  This will be used to restore the
-          // table data when a table search filter has been removed by the user.
+          // IMPORTANT: Save all of the unfiltered Contact row data.  This will
+          // be used to restore the table data when a table search filter query
+          // has been removed by the user.
           this.allContacts = [...this.rows];
+
+          console.log('Finished loading Contact and Alert data.');
         },
         error: (err: any): void => {
           console.error('Error loading data:', err);
@@ -88,52 +95,39 @@ export class ContactListComponent implements OnInit {
 
   /**
    * Builds the Contact row data given the passed-in Contact data.
-   * @param {Array<Contact>} data - The Contact data to display in the table.
+   * @param {Array<Contact>} data - The Contact data to display
+   *   in the table.
+   * @returns {Array<ContactWithAlertStatus>} An list of ContactWithAlertStatus
+   *   objects.
    */
-  public buildContactRows(data: Array<Contact>): Array<Contact> {
-    const rows: Array<Contact> = [];
+  public buildContactRows(data: Array<Contact>): Array<ContactWithAlertStatus> {
+
+    const rows: Array<ContactWithAlertStatus> = [];
+
     for (let i: number = 0; i < data.length; i++) {
 
-      // We perform a deep clone here so as not to alter the passed-in `data`
-      // array content.
       const item: Contact = data[i];
-      const contactRow: Contact = JSON.parse(JSON.stringify(item));
 
-      // Prepare the `contactState` for display.
-      const updatedContactState: string = this.transformContactState(item);
-      contactRow.contactState = updatedContactState;
-      //
-      // TODO(gabriel): The transformContactState method might be overkill, but
-      //  I'm going to leave it intact for now.  It's probably not needed.
+      // NOTE: We perform a deep clone here so as not to alter the passed-in
+      // `data` array content.
+      const contactRow: ContactWithAlertStatus =
+        JSON.parse(JSON.stringify(item));
+
+      contactRow.alertStatus = {}; // Initialize the alertStatus object.
+
+      // Determine if the Contact has any alerts to display.  If so, add them to
+      // the alertStatus object.
+      if (contactRow.alerts.length > 0) {
+        for (let j: number = 0; j < contactRow.alerts.length; j++) {
+          const alert: Alert = contactRow.alerts[j];
+            contactRow.alertStatus[alert.errorId] = false;
+        }
+      }
 
       rows.push(contactRow); // Save the Contact row.
     }
 
     return rows;
-  }
-
-  /**
-   * Prepares the Contact's state for display in the table.
-   * @param contact - A Contact record in the dataset.
-   * @return {string} A contact state string formatted for display.
-   */
-  public transformContactState(contact: Contact): string {
-
-    // If the contact state is unknown, we simply return it unaltered.
-    let contactState: string = contact.contactState;
-
-    if (contact.contactState === 'complete') {
-      contactState = CONTACT_STATE.COMPLETE;
-    } else if (contact.contactState === 'executing') {
-      contactState = CONTACT_STATE.EXECUTING;
-    } else if (contact.contactState === 'failed') {
-      contactState = CONTACT_STATE.FAILED;
-    } else if (contact.contactState === 'upcoming') {
-      contactState = CONTACT_STATE.UPCOMING;
-    } else if (contact.contactState === '') {
-      contactState = CONTACT_STATE.NOT_AVAILABLE;
-    }
-    return contactState;
   }
 
   /**

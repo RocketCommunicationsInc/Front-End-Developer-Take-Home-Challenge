@@ -73,15 +73,29 @@
               size="small" icon="arrow-drop-down"></rux-icon>
           </span>
           </rux-table-header-cell>
+          <rux-table-header-cell>
+            <span class="header-text">Alerts</span>
+          </rux-table-header-cell>
         </rux-table-header-row>
       </rux-table-header>
       <rux-table-body>
         <rux-table-row *ngFor="let row of rows">
+
+          <!-- See: https://astro-components.netlify.app/?path=/docs/components-status--docs          -->
           <rux-table-cell>{{ row.contactStatus }}</rux-table-cell>
+
           <rux-table-cell>{{ row.contactName }}</rux-table-cell>
           <rux-table-cell>{{ row.contactSatellite }}</rux-table-cell>
           <rux-table-cell>{{ row.contactGround }}</rux-table-cell>
-          <rux-table-cell>{{ row.contactState }}</rux-table-cell>
+          <rux-table-cell>{{ row.contactState | capitalize }}</rux-table-cell>
+          <rux-table-cell>
+            <div *ngFor="let alert of row.alerts">
+              <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
+                {{ alert.errorSeverity | capitalize }}:
+              </span>
+              {{ alert.errorMessage }}
+            </div>
+          </rux-table-cell>
         </rux-table-row>
       </rux-table-body>
     </rux-table>

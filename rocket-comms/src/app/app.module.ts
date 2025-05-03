@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {AstroComponentsModule} from "@astrouxds/angular";
 import {HttpClientModule} from "@angular/common/http";
 import { ContactListComponent } from './components/contact-list/contact-list.component';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    SharedModule,
     AstroComponentsModule
   ],
   providers: [],

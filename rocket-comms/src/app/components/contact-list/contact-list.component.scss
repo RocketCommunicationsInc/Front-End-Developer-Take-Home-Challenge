@@ -36,3 +36,31 @@
   // NOTE: 'width' doesn't seem to work here.  Why not?
   // width: 32px;
 }
+
+// TODO(gabriel): How do we reference the Status Color design tokens?  Until I
+//  figure this out I'm going to just hardcode the color values.
+//  See https://www.astrouxds.com/patterns/status-system/#status-colors for more
+//  details.
+.critical {
+  color: #FF3838;
+}
+
+.serious {
+  color: #FFB302;
+}
+
+.caution {
+  color: #FCE83A;
+}
+
+.normal {
+  color: #56F000;
+}
+
+.standby {
+  color: #2DCCFF;
+}
+
+.off {
+  color: #A4ABB6;
+}
