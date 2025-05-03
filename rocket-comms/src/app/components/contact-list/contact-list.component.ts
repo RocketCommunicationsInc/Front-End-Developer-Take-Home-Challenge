@@ -24,16 +24,28 @@ export class ContactListComponent implements OnInit {
   @ViewChild('searchInput', { static: true })
   searchInput!: ElementRef;
 
+  // A WORD ABOUT THE TWO CONTACT LISTS:
+  //
+  // This component uses a "Two Lists" approach to manage Contact data.
+  //
+  //  1. `allContacts` stores the full dataset and acts as the master source
+  //     of truth.
+  //
+  //  2. `filteredContacts` is a subset of the master list used for UI display
+  //     and reflects current search filters being applied.
+
   /**
-   * All the Contact data, unfiltered by the search input.
+   * The full (unfiltered) Contact dataset, including alert state and
+   * acknowledgment status.  Acts as the master source of truth.
    */
   private allContacts: Array<ContactWithAlertStatus> = [];
 
   /**
-   * This data structure holds the Contact data to be displayed in the Contact
-   * table.  Sometimes the data is filtered, sometimes it's not,
+   * A filtered subset of Contacts used for UI display based on user input
+   * as search terms.  When no data filters are active this dataset mirrors
+   * `allContacts`.
    */
-  public rows: Array<ContactWithAlertStatus> = [];
+  public filteredContacts: Array<ContactWithAlertStatus> = [];
 
   /**
    * The name of the column currently being sorted on.
@@ -55,7 +67,8 @@ export class ContactListComponent implements OnInit {
   }
 
   /**
-   * Loads the data into the dashboard.
+   * Loads the data into the dashboard and into the necessary supporting
+   * Contact lists.
    */
   public loadData(): void {
     if (this.allContacts.length === 0) {
@@ -64,15 +77,17 @@ export class ContactListComponent implements OnInit {
       // single value and then completes automatically.
       this.dataService.getData().pipe().subscribe({
         next: (response: Array<Contact>): void => {
+
           const contactRows: Array<ContactWithAlertStatus> =
             this.buildContactRows(response);
-          this.rows = contactRows;
+          this.filteredContacts = contactRows;
 
-          // IMPORTANT: Save all of the unfiltered Contact row data.  This will
-          // be used to restore the table data when a table search filter query
-          // has been removed by the user.
-          this.allContacts = [...this.rows];
+          // IMPORTANT: Save all of the unfiltered Contact row data into its
+          // own master list.  This will be used to restore the displayed table
+          // data when search filters have been removed by the user/operator.
+          this.allContacts = [...this.filteredContacts];
 
+          // TODO(gabriel): Remove this console.log statement.
           console.log('Finished loading Contact and Alert data.');
         },
         error: (err: any): void => {
@@ -89,7 +104,7 @@ export class ContactListComponent implements OnInit {
    */
   public clearData(): void {
     this.allContacts = [];
-    this.rows = [];
+    this.filteredContacts = [];
     this.sortColumn = '';
   }
 
@@ -131,20 +146,20 @@ export class ContactListComponent implements OnInit {
   }
 
   /**
-   * Sorts the table data by the given `columnName`.  If the column is clicked
-   * again, the sort direction is toggled.
-   * @param {string} columnName - The name of the column to sort by.
-   *   GOTCHA: This name needs to be exactly the same as the corresponding
-   *   Contact property name we're sorting on.
-   *   @see {Contact}
+   * Sorts the Contact table data by the given `columnName`.  If the same column
+   * is clicked again, the sort direction is toggles between ascending and
+   * descending.
+   * @param {string} columnName - The name of the Contact property to sort by.
+   *   NOTE: This *MUST EXACTLY MATCH* a property on the Contact model.
+   *   See {@link Contact} for available property names.
    */
   public sortData(columnName: string): void {
 
-    if (this.rows.length === 0) {
+    if (this.filteredContacts.length === 0) {
       return; // Bail, there's no data to sort.
     }
 
-    // Step 1: Set the sortColumn and sortDirection.
+    // Step 1: Set the current sort column and sort direction.
     if (this.sortColumn === columnName) {
 
       // The same column was clicked on by the user: toggle the sorting
@@ -158,8 +173,8 @@ export class ContactListComponent implements OnInit {
       this.sortDirection = 'asc';
     }
 
-    // Step 2: Sort the rows array.
-    this.rows.sort((a: any, b: any): number => {
+    // Step 2: Sort the data.
+    this.filteredContacts.sort((a: any, b: any): number => {
       const valueA: any = a[columnName];
       const valueB: any = b[columnName];
 
@@ -199,8 +214,8 @@ export class ContactListComponent implements OnInit {
   }
 
   /**
-   * Handler for our "Search..." input.  We'll use this search input to filter
-   * the Contact table.
+   * Handler for our "Search..." string input control.  We use this search
+   * input to filter the Contact table.
    * @param {Event} event - The 'ruxchange' event containing the search text.
    */
   public filterContactTable(event: Event): void {
@@ -215,7 +230,7 @@ export class ContactListComponent implements OnInit {
     //  reset the search results.  Is there a way to handle this "clear search
     //  input" case more elegantly?
     //
-    // TODO(gabriel): UPDATE: I think I found a solution (compromise). I'm now
+    // TODO-UPDATE(gabriel): I think I found a solution (compromise). I'm now
     //  also watching for 'input' events too.  See the onInputChange() method
     //  below for details.
 
@@ -228,13 +243,14 @@ export class ContactListComponent implements OnInit {
 
     if (searchText === '') {
 
-      // GOTCHA: Restore table to full list if search is cleared.
-      this.rows = [...this.allContacts];
+      // GOTCHA: Restore table to its full dataset if the search filter is
+      // cleared.
+      this.filteredContacts = [...this.allContacts];
 
       return; // Bail: There is no search term.
     }
 
-    this.rows = this.allContacts.filter(
+    this.filteredContacts = this.allContacts.filter(
       (contact: ContactWithAlertStatus): boolean => {
 
         const statusMatch: boolean =
@@ -251,15 +267,15 @@ export class ContactListComponent implements OnInit {
         // We also search any Alerts associated with the Contact.
         const alertMatch: boolean =
           contact.alerts.some((alert): boolean => {
-            const searchResult: boolean =
+            const foundAlert: boolean =
               alert.errorSeverity.toLowerCase().includes(searchText) ||
               alert.errorMessage.toLowerCase().includes(searchText);
-            return searchResult;
+            return foundAlert;
           });
 
         if (statusMatch || nameMatch || ironMatch || groundStationMatch ||
           stateMatch || alertMatch) {
-          // We found a match!  Include the Contact in the result set.
+          // We found a match!  Include the Contact in the filtered result set.
           return true;
         }
 
@@ -284,7 +300,7 @@ export class ContactListComponent implements OnInit {
     const target: HTMLInputElement = event.target as HTMLInputElement;
     const value: string = target.value.trim();
     if (value === '') {
-      this.rows = [...this.allContacts];
+      this.filteredContacts = [...this.allContacts];
     }
   }
 

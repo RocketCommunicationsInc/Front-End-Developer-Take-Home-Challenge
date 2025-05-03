@@ -101,25 +101,25 @@
         </rux-table-header-row>
       </rux-table-header>
       <rux-table-body>
-        <rux-table-row *ngFor="let row of rows">
+        <rux-table-row *ngFor="let contactRow of filteredContacts">
 
           <!-- See: https://astro-components.netlify.app/?path=/docs/components-status--docs          -->
-          <rux-table-cell>{{ row.contactStatus }}</rux-table-cell>
+          <rux-table-cell>{{ contactRow.contactStatus }}</rux-table-cell>
 
-          <rux-table-cell>{{ row.contactName }}</rux-table-cell>
-          <rux-table-cell>{{ row.contactSatellite }}</rux-table-cell>
-          <rux-table-cell>{{ row.contactGround }}</rux-table-cell>
-          <rux-table-cell>{{ row.contactState | capitalize }}</rux-table-cell>
+          <rux-table-cell>{{ contactRow.contactName }}</rux-table-cell>
+          <rux-table-cell>{{ contactRow.contactSatellite }}</rux-table-cell>
+          <rux-table-cell>{{ contactRow.contactGround }}</rux-table-cell>
+          <rux-table-cell>{{ contactRow.contactState | capitalize }}</rux-table-cell>
           <rux-table-cell>
-            <div *ngIf="row.alerts.length > 0">
-              <div *ngFor="let alert of row.alerts">
+            <div *ngIf="contactRow.alerts.length > 0">
+              <div *ngFor="let alert of contactRow.alerts">
                 <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
                   {{ alert.errorSeverity | capitalize }}:
                 </span>
                 {{ alert.errorMessage }}
               </div>
             </div>
-            <div *ngIf="row.alerts.length === 0">
+            <div *ngIf="contactRow.alerts.length === 0">
               --
             </div>
           </rux-table-cell>
