@@ -18,9 +18,7 @@ import { Alert } from '../models/alert.model';
 })
 export class ContactsComponent {
 	private contactsService = inject(ContactsService);
-	private currentAlertErrorId: string = '';
-	currentAlertDialogOpened: boolean = false;
-	currentAlertDialog: Contact | null = null;
+	currentAlertErrorId: string = '';
 	contacts$: Observable<Contact[]> = this.contactsService.contacts$;
 	alertSeverityButtons: {label:string,value:string,selected?:boolean}[] = [
 		{ label: "All Contacts", value: "contacts" },
@@ -38,15 +36,13 @@ export class ContactsComponent {
 	}
 
 	openAlertDetails(contact: Contact, alert: Alert) {
-		this.currentAlertDialogOpened = true;
-		this.currentAlertDialog = contact;
 		this.currentAlertErrorId = alert.errorId;
 	}
 
-	acknowledgeAlertDetails() {
-		this.contactsService.acknowledgeAlert(this.currentAlertDialog!.contactId, this.currentAlertErrorId);
-		this.currentAlertDialogOpened = false;
-		this.currentAlertDialog = null;
+	acknowledgeAlertDetails(contact: Contact, alert: Alert) {
+		alert.acknowledged = true;
+		this.contactsService.updateAlert(contact.contactId, alert.errorId, { acknowledged: true });
+		this.currentAlertErrorId = '';
 	}
 
 	indicateWithColor(errorSeverity: string) {

@@ -12,7 +12,6 @@ export class ContactsService {
 	private contactsSubject = new BehaviorSubject<Contact[]>([]);
 	contacts$: Observable<Contact[]> = this.contactsSubject.asObservable();  // expose as observable
 	private allContacts: Contact[] = [];
-	private filter: string = 'alerts';
 
 	constructor(private http: HttpClient) {}
 
@@ -50,15 +49,13 @@ export class ContactsService {
 		);
 	}
 
-	acknowledgeAlert(contactId: String, errorId: String): void {
+	updateAlert(contactId: String, errorId: String, values:Partial<Alert>): void {
 		const contactIndex = this.allContacts.findIndex(contact => contact.contactId == contactId);
 		const alertIndex = this.allContacts[contactIndex].alerts.findIndex(alert => alert.errorId == errorId);
-		this.allContacts[contactIndex].alerts[alertIndex].acknowledged = true;
-		this.filterContacts(this.filter);
+		Object.assign(this.allContacts[contactIndex].alerts[alertIndex], values);
 	}
 
 	filterContacts(filter: string = ''): void {
-		this.filter = filter;
 		this.getContacts$(filter != 'contacts').pipe(
 			map((contacts: Contact[]) => {
 				if (!filter || filter == 'alerts' || filter == 'contacts') {

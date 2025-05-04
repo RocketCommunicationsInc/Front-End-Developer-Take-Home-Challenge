@@ -1,12 +1,3 @@
-@if (currentAlertDialog) {
-	<rux-dialog open="{{ currentAlertDialogOpened }}">
-		<div slot="header">{{ currentAlertDialog.contactSatellite }}</div>
-		<span>{{ currentAlertDialog.contactDetail }}</span>
-		<div slot="footer">
-			<rux-button  (click)="acknowledgeAlertDetails()">Acknowledge</rux-button>
-		</div>
-	</rux-dialog>
-}
 <div class="container">
 	<h1 class="my-5">Contact Alerts</h1>
 	<div class="my-5">
@@ -53,6 +44,13 @@
 									</rux-button>
 								}
 							</div>
+							<rux-dialog open="{{ !alert.acknowledged && currentAlertErrorId == alert.errorId }}">
+								<div slot="header">{{currentAlertErrorId}} {{ contact.contactSatellite }}</div>
+								<span>{{ contact.contactDetail }}</span>
+								<div slot="footer">
+									<rux-button  (click)="acknowledgeAlertDetails(contact, alert)">Acknowledge</rux-button>
+								</div>
+							</rux-dialog>
 						</div>
 						}
 					</rux-table-cell>
