@@ -6,21 +6,33 @@
 
     <div class="button-group">
       <rux-button size="large" secondary=""
-        (click)="clearData()">Clear Data</rux-button>
+        (click)="openClearDataConfirmDialog()">Clear Data</rux-button>
       <rux-button size="large"
         (click)="loadData()">Load Data</rux-button>
     </div>
 
-    <!-- TODO(gabriel): It would be cool to add a confirm dialog here for the
-          "Clear Data" operation. -->
-    <rux-dialog #loadDataWarningDialog
-      id="loadDataWarningDialog"
+    <rux-dialog #clearDataConfirmDialog
+      id="clearDataConfirmDialog"
+      confirmText="Clear Data"
+      denyText="Cancel"
+      (ruxdialogclosed)="onClearData($event)">
+      <div slot="header">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <rux-icon icon="check-circle" size="normal"></rux-icon>
+          <span>Confirm Action</span>
+        </div>
+      </div>
+      Are you sure you want to clear the dashboard data?
+    </rux-dialog>
+
+    <rux-dialog #dataAlreadyLoadedDialog
+      id="dataAlreadyLoadedDialog"
       confirmText="Ok"
       denyText="">
       <div slot="header">
         <div style="display: flex; align-items: center; gap: 15px;">
-          <rux-icon-warning size="normal"></rux-icon-warning>
-          <span>Load Data Warning</span>
+          <rux-icon icon="info" size="normal"></rux-icon>
+          <span>Test Data Already Loaded</span>
         </div>
       </div>
       <p>
@@ -28,9 +40,9 @@
         the existing data first.
       </p>
       <p>
-        <span class="rux-body-1-bold">NOTE:</span> Reloading resets all Alert
-        acknowledgement states back to false, essentially restoring the
-        dashboard back to its initial load state.
+        <span class="rux-body-1-bold">NOTE:</span> Reloading the data will reset
+        all Alert acknowledgement states back to false, essentially restoring
+        the dashboard back to its initial load state.
       </p>
     </rux-dialog>
 
@@ -195,6 +207,14 @@
               >Show Details</rux-button>
             </rux-table-cell>
           </rux-table-row>
+          <rux-table-row *ngIf="filteredContacts.length === 0">
+            <!-- TODO(gabriel): Would be cool if colspan was supported.
+                  https://astro-components.netlify.app/?path=/docs/components-table--docs
+             -->
+            <rux-table-cell class="no-data-message">
+              No data loaded.
+            </rux-table-cell>
+          </rux-table-row>
         </rux-table-body>
       </rux-table>
     </block-ui>
@@ -213,8 +233,8 @@
          header title. -->
     <div slot="header">Alert Details</div>
 
-    <!-- And here we're making use of Astro's default slot for
-         message content. -->
+    <!-- And here we're making use of Astro's default slot for message
+         content. -->
     <div #alertDialogContent id="alertDialogContent">
       <div class="dialog-content-section">
 
@@ -238,12 +258,12 @@
           <span class="spacer"></span>
           <span class="spacer"></span>
 
-          <span class="rux-body-1-bold">Begin Time:</span>
+          <span class="rux-body-1-bold">Contact Begin Time:</span>
           <span class="rux-body-1 monospace">
             {{ selectedContactBeginTime }}
           </span>
 
-          <span class="rux-body-1-bold">End Time:</span>
+          <span class="rux-body-1-bold">Contact End Time:</span>
           <span class="rux-body-1 monospace">
             {{ selectedContactEndTime }}
           </span>

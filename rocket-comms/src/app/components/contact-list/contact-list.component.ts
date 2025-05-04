@@ -26,10 +26,16 @@ export class ContactListComponent implements OnInit {
   @BlockUI('tableBlock') tableBlockUI!: NgBlockUI;
 
   /**
-   * A reference to the "Load Data Warning" dialog.
+   * A reference to the "Clear Data Confirmation" dialog.
    */
-  @ViewChild('loadDataWarningDialog', { static: true })
-  loadDataWarningDialog!: RuxDialog;
+  @ViewChild('clearDataConfirmDialog', { static: false })
+  clearDataConfirmDialog!: RuxDialog;
+
+  /**
+   * A reference to the "Test Data Already Loaded" info dialog.
+   */
+  @ViewChild('dataAlreadyLoadedDialog', { static: false })
+  dataAlreadyLoadedDialog!: RuxDialog;
 
   /**
    * A reference to the Alert Dialog.
@@ -115,8 +121,7 @@ export class ContactListComponent implements OnInit {
   }
 
   /**
-   * Loads the data into the dashboard and into the necessary supporting
-   * Contact lists.
+   * Loads the test dataset into the dashboard.
    */
   public loadData(): void {
     if (this.allContacts.length === 0) {
@@ -165,25 +170,35 @@ export class ContactListComponent implements OnInit {
         }
       });
     } else {
-      // Pop a warning message to the user and instruct them how to reload the
-      // dataset for the dashboard.
-      this.loadDataWarningDialog.open = true;
+      // Show an informational message to the user informing them the data is
+      // already loaded.
+      this.dataAlreadyLoadedDialog.open = true;
     }
   }
 
   /**
    * Clears the data from the dashboard.
    */
-  public clearData(): void {
+  public onClearData(event: Event): void {
+    const customEvent = event as CustomEvent;
+    const result: boolean = customEvent.detail;
+    if (result) {
+      this.allContacts = [];
+      this.filteredContacts = [];
 
-    this.allContacts = [];
-    this.filteredContacts = [];
+      this.sortColumn = '';
 
-    this.sortColumn = '';
+      // Clear out the search input field.
+      this.textFilterApplied = false;
+      this.searchInputRef.value = '';
+    }
+  }
 
-    // Clear out the Search input field.
-    this.textFilterApplied = false;
-    this.searchInputRef.value = '';
+  /**
+   * Opens the "Clear data?" confirmation dialog.
+   */
+  public openClearDataConfirmDialog(): void {
+    this.clearDataConfirmDialog.open = true;
   }
 
   /**
