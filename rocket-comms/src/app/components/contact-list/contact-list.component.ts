@@ -265,7 +265,7 @@ export class ContactListComponent implements OnInit {
             return -1;
           }
 
-          if (isMostRecentErrorsFirst) {
+          if (showMostRecentErrorsFirst) {
             // Sort descending: most recent errors first.
             return b.errorTime - a.errorTime;
           } else {
