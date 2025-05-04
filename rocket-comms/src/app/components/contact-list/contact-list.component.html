@@ -170,9 +170,11 @@
         <rux-table-body>
           <rux-table-row *ngFor="let contactRow of filteredContacts">
 
-            <!-- TODO(gabriel): Add status icons. -->
-            <!-- See: https://astro-components.netlify.app/?path=/docs/components-status--docs          -->
-            <rux-table-cell>{{ contactRow.contactStatus }}</rux-table-cell>
+            <rux-table-cell>
+              <div class="status-icons">
+                <rux-status status="{{ contactRow.contactStatus }}"></rux-status>
+              </div>
+            </rux-table-cell>
 
             <rux-table-cell>{{ contactRow.contactName }}</rux-table-cell>
             <rux-table-cell>{{ contactRow.contactSatellite }}</rux-table-cell>
@@ -191,7 +193,7 @@
                   {{ alert.errorMessage }}
                   <span *ngIf="contactRow.alertStatus[alert.errorId]"
                     class="acknowledged"
-                  >&nbsp;&lt;&lt;Acknowledged!&gt;&gt;</span>
+                  >&nbsp;&lt;&lt;Ack&gt;&gt;</span>
                 </div>
               </div>
               <div *ngIf="contactRow.alerts.length === 0">
@@ -283,6 +285,8 @@
 
             <span class="rux-body-1-bold">Error:</span>
             <span>
+              <!-- TODO(gabriel): Maybe it would be better to just show the
+                    status icons here instead of the error severity text? -->
               <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
                 {{ alert.errorSeverity | capitalize}}:
               </span> {{ alert.errorMessage }}
