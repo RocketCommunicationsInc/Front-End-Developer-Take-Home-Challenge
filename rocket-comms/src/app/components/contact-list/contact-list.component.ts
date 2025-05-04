@@ -127,7 +127,13 @@ export class ContactListComponent implements OnInit {
             // filters have been cleared.
             const contactRows: Array<ContactWithAlertStatus> =
               this.buildContactRows(response);
-            this.allContacts = contactRows;
+
+            // BIZ-RULE: The alerts are sorted by error time (errorTime) with
+            // the most recent at the top.
+            const contactRowsWithSortedAlerts: Array<ContactWithAlertStatus> =
+              this.sortAlertsByErrorTime(false, contactRows);
+
+            this.allContacts = contactRowsWithSortedAlerts;
 
             // IMPORTANT: Create a shallow copy of `allContacts` for filtering
             // purposes.  The individual contact objects are shared, so changes
@@ -197,6 +203,63 @@ export class ContactListComponent implements OnInit {
     }
 
     return rows;
+  }
+
+  /**
+   * Sorts the Alerts for each Contact by error time.
+   * @param {boolean} isMostRecentErrorsFirst - If true, sorts Alerts in
+   *   descending order (newest first); otherwise, ascending (oldest first).
+   * @param {Array<ContactWithAlertStatus>} contacts - The list of Contacts
+   *   whose Alerts will be sorted.
+   * @returns {Array<ContactWithAlertStatus>} - The updated contacts list with
+   *   sorted alerts.
+   */
+  public sortAlertsByErrorTime(isMostRecentErrorsFirst: boolean,
+    contacts: Array<ContactWithAlertStatus>): Array<ContactWithAlertStatus> {
+
+    const contactsWithSortedAlerts: Array<ContactWithAlertStatus> =
+      contacts.map((contact: ContactWithAlertStatus) => {
+        let alerts: Array<Alert> = [];
+        if (Array.isArray(contact.alerts)) {
+          alerts =  [...contact.alerts];
+        }
+
+        const sortedAlerts = alerts.sort((a: Alert, b: Alert): number => {
+          const aHasTime = typeof a.errorTime === 'number';
+          const bHasTime = typeof b.errorTime === 'number';
+
+          // If neither alert has a valid errorTime, treat them as equal.
+          if (!aHasTime && !bHasTime) {
+            return 0;
+          }
+
+          // If A is missing errorTime, place it after B.
+          if (!aHasTime) {
+            return 1;
+          }
+
+          // If B is missing errorTime, place it after A.
+          if (!bHasTime) {
+            return -1;
+          }
+
+          if (isMostRecentErrorsFirst) {
+            // Sort descending: most recent errors first.
+            return b.errorTime - a.errorTime;
+          } else {
+            // Sort ascending: oldest errors first.
+            return a.errorTime - b.errorTime;
+          }
+        });
+
+        const contactWithSortedAlerts = {
+          ...contact,
+          alerts: sortedAlerts
+        };
+
+        return contactWithSortedAlerts;
+      });
+    return contactsWithSortedAlerts;
   }
 
   /**

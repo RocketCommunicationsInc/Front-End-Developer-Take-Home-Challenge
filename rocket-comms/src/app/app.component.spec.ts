@@ -5,12 +5,14 @@ import {
   ContactListComponent
 } from "./components/contact-list/contact-list.component";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {BlockUIModule} from "ng-block-ui";
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       RouterTestingModule,
-      HttpClientTestingModule
+      HttpClientTestingModule,
+      BlockUIModule.forRoot()
     ],
     declarations: [
       AppComponent,
