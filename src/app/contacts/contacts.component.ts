@@ -41,7 +41,7 @@ export class ContactsComponent {
 
 	acknowledgeAlertDetails(contact: Contact, alert: Alert) {
 		alert.acknowledged = true;
-		this.contactsService.updateAlert(contact.contactId, alert.errorId, { acknowledged: true });
+		this.contactsService.saveAlert(contact.contactId, alert.errorId, { acknowledged: true });
 		this.currentAlertErrorId = '';
 	}
 

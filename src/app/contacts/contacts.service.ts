@@ -49,7 +49,7 @@ export class ContactsService {
 		);
 	}
 
-	updateAlert(contactId: String, errorId: String, values:Partial<Alert>): void {
+	saveAlert(contactId: String, errorId: String, values:Partial<Alert>): void {
 		const contactIndex = this.allContacts.findIndex(contact => contact.contactId == contactId);
 		const alertIndex = this.allContacts[contactIndex].alerts.findIndex(alert => alert.errorId == errorId);
 		Object.assign(this.allContacts[contactIndex].alerts[alertIndex], values);
