@@ -20,6 +20,12 @@ import {RuxDialog} from "@astrouxds/angular";
 export class ContactListComponent implements OnInit {
 
   /**
+   * A reference to the "Load Data Warning" dialog.
+   */
+  @ViewChild('loadDataWarningDialog', { static: true })
+  loadDataWarningDialog!: RuxDialog;
+
+  /**
    * A reference to the Alert Dialog.
    */
   @ViewChild('alertDialog', { static: false })
@@ -121,6 +127,10 @@ export class ContactListComponent implements OnInit {
           //  be loaded in the dashboard.
         }
       });
+    } else {
+      // Pop a warning message to the user and instruct them how to reload the
+      // dataset for the dashboard.
+      this.loadDataWarningDialog.open = true;
     }
   }
 
@@ -361,8 +371,7 @@ export class ContactListComponent implements OnInit {
 
     // Open the dialog.
     if (this.selectedContact !== null) {
-      const dialog: RuxDialog = this.alertDialogRef;
-      dialog.open = true;
+      this.alertDialogRef.open = true;
     } else {
       // TODO(gabriel): Houston, we have a problem.  Is this use-case even
       //  possible?  I don't think so, but let's be safe.  If it is possible,
