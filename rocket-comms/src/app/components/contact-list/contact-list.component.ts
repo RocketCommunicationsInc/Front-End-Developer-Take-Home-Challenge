@@ -143,7 +143,7 @@ export class ContactListComponent implements OnInit {
             // BIZ-RULE: The alerts are sorted by error time (errorTime) with
             // the most recent at the top.
             const contactRowsWithSortedAlerts: Array<ContactWithAlertStatus> =
-              this.sortAlertsByErrorTime(false, contactRows);
+              this.sortAlertsByErrorTime(true, contactRows);
 
             this.allContacts = contactRowsWithSortedAlerts;
 
@@ -225,15 +225,19 @@ export class ContactListComponent implements OnInit {
 
   /**
    * Sorts the Alerts for each Contact by error time.
-   * @param {boolean} isMostRecentErrorsFirst - If true, sorts Alerts in
+   * @param {boolean} showMostRecentErrorsFirst - If true, sorts Alerts in
    *   descending order (newest first); otherwise, ascending (oldest first).
    * @param {Array<ContactWithAlertStatus>} contacts - The list of Contacts
    *   whose Alerts will be sorted.
    * @returns {Array<ContactWithAlertStatus>} - The updated contacts list with
    *   sorted alerts.
    */
-  public sortAlertsByErrorTime(isMostRecentErrorsFirst: boolean,
+  public sortAlertsByErrorTime(showMostRecentErrorsFirst: boolean,
     contacts: Array<ContactWithAlertStatus>): Array<ContactWithAlertStatus> {
+
+    // TODO(gabriel): Looking at the data in the test file I see that Contacts
+    //  with more than one Alert/Error shows the times being the same or already
+    //  sorted in descending order (with the most recent error first).
 
     const contactsWithSortedAlerts: Array<ContactWithAlertStatus> =
       contacts.map((contact: ContactWithAlertStatus) => {
@@ -445,6 +449,32 @@ export class ContactListComponent implements OnInit {
       this.textFilterApplied = false;
       this.filteredContacts = [...this.allContacts];
     }
+
+    // TODO(gabriel): There's still a little weird thing that happens in the
+    //  following use-case:
+    //    1. The user enters a string, let's say "CTS", into the search field
+    //       and presses enter.
+    //    2. The user deletes the text just entered into the search field.
+    //    3. This causes this method (onInputChange) to be called and we restore
+    //       the allContacts dataset in the table and set textFieldApplied to
+    //       false.  All is all good, right?
+    //    4. ALMOST: If the user types in the exact same search text again,
+    //       "CTS", and hits enter the table doesn't get filtered!!
+    //
+    //    A WORKAROUND EXISTS if the user:
+    //      1. Enters the text.
+    //      2. Hits enter.
+    //      3. Clears the text (with the delete or backspace key).
+    //      4. Hits enter. <-- This step is needed to "reset" the rux-input
+    //                         for some reason.
+    //      5. Types the same text in again.
+    //      6. Hits enter.
+    //
+    // Because of this "bug" found here, I'm inclined not to listen to input
+    // events on the rux-input.  In a real world situation, I'd just ask what
+    // the team would like to do to handle this.  I'm inclined to just erase
+    // this method, but I'm going to leave it to illustrate that I've thought
+    // of this use-case, etc.
   }
 
   /**
