@@ -147,6 +147,9 @@
                   {{ alert.errorSeverity | capitalize }}:
                 </span>
                 {{ alert.errorMessage }}
+                <span *ngIf="contactRow.alertStatus[alert.errorId]"
+                  class="acknowledged"
+                >&nbsp;&lt;&lt;Acknowledged!&gt;&gt;</span>
               </div>
             </div>
             <div *ngIf="contactRow.alerts.length === 0">
@@ -158,7 +161,8 @@
           <rux-table-cell>
             <rux-button *ngIf="contactRow.alerts.length > 0"
               size="small" secondary=""
-              (click)="openAlertDetailsDialog(contactRow)">Show Details</rux-button>
+              (click)="openAlertDetailsDialog(contactRow)"
+            >Show Details</rux-button>
           </rux-table-cell>
         </rux-table-row>
       </rux-table-body>
