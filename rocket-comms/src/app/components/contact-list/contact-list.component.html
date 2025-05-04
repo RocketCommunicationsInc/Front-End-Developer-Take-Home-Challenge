@@ -4,11 +4,20 @@
 
   <div class="toolbar">
 
-    <div class="button-group">
-      <rux-button size="large" secondary=""
-        (click)="openClearDataConfirmDialog()">Clear Data</rux-button>
-      <rux-button size="large"
-        (click)="loadData()">Load Data</rux-button>
+    <div class="flex-direction-row">
+      <div class="button-group">
+        <rux-button size="large" secondary=""
+          (click)="openClearDataConfirmDialog()">Clear Data</rux-button>
+        <rux-button size="large"
+          (click)="loadData()">Load Data</rux-button>
+      </div>
+      <div class="alert-checkbox">
+        <rux-checkbox
+          name="checkbox"
+          [checked]="showOnlyAlerts"
+          (ruxchange)="onAlertsCheckboxClick($event)"
+        >Only Show Alerts</rux-checkbox>
+      </div>
     </div>
 
     <rux-dialog #clearDataConfirmDialog
@@ -47,24 +56,7 @@
     </rux-dialog>
 
     <div class="search-container">
-
-      <!-- TODO(gabriel): Implement Alert filtering if there's time to do so.
-      <div class="alert-select-container">
-        <rux-select label="Alert Severity" size="large"
-          (ruxchange)="filterAlerts($event)">
-
-          <-- TODO(gabriel): All what?  All contact data or only contact data
-               with alerts?
-          <rux-option label="All" value="all"></rux-option>
-
-          <rux-option label="Critical" value="critical"></rux-option>
-          <rux-option label="Caution" value="caution"></rux-option>
-          <rux-option label="Serious" value="serious"></rux-option>
-        </rux-select>
-      </div>
-      -->
       <div class="search-input">
-
         <span *ngIf="textFilterApplied">
           &lt;&lt;&nbsp;Text Filter Applied&nbsp;&gt;&gt;
         </span>
@@ -73,15 +65,9 @@
               IntelliJ? -->
         <rux-input #searchInput
           type="text" placeholder="Search..." size="large"
-          (ruxchange)="filterContactTable($event)"
-          (input)="onInputChange($event)">
+          (ruxchange)="filterContactTableViaSearch($event)">
           <rux-icon slot="prefix" icon="search" size="extra-small"></rux-icon>
         </rux-input>
-        <!-- NOTE: I'm also binding the `input` event to a handler (in addition
-          to `ruxchange`) so that when the search field is cleared, the user
-          doesn't have to press the <enter> key as well.  Once the search field
-          becomes an empty string, all of the contact info is displayed again in
-          the Contacts table auto-magically.  Cool. -->
       </div>
     </div>
   </div>

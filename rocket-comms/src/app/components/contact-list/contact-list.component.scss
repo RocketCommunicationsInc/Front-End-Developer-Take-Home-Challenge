@@ -1,8 +1,3 @@
-// TODO(gabriel): Investigate the concept of slices further.  The styles
-//  contained here might not be Astro compliant.  My goal is to ensure style
-//  scope isolation and to be Astro design compliant, but I might not get there
-//  in time.
-
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -12,6 +7,16 @@
 .button-group {
   display: flex;
   gap: 15px;
+}
+
+.flex-direction-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.alert-checkbox {
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 .search-container {

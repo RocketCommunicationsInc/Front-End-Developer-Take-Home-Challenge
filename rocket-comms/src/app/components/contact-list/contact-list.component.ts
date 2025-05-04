@@ -112,6 +112,16 @@ export class ContactListComponent implements OnInit {
    */
   public textFilterApplied: boolean = false;
 
+  /**
+   * Search text entered by the user used to filter search results.
+   */
+  public searchTerm: string = '';
+
+  /**
+   * A boolean to keep track of the "Only Show Alerts" checkbox search filter.
+   */
+  public showOnlyAlerts: boolean = false;
+
   constructor(private dataService: DataService) {
     // No-op.
   }
@@ -121,7 +131,7 @@ export class ContactListComponent implements OnInit {
   }
 
   /**
-   * Loads the test dataset into the dashboard.
+   * Loads the test dataset into the dashboard/table.
    */
   public loadData(): void {
     if (this.allContacts.length === 0) {
@@ -191,6 +201,9 @@ export class ContactListComponent implements OnInit {
       // Clear out the search input field.
       this.textFilterApplied = false;
       this.searchInputRef.value = '';
+
+      // Uncheck the "Show Only Alerts" checkbox.
+      this.showOnlyAlerts = false;
     }
   }
 
@@ -306,8 +319,11 @@ export class ContactListComponent implements OnInit {
    * @param {string} columnName - The name of the Contact property to sort by.
    *   NOTE: This *MUST EXACTLY MATCH* a property on the Contact model.
    *   See {@link Contact} for available property names.
+   * @param {boolean} [avoidToggle] - An optional parameter whose default value
+   *   is false.  This parameter is needed (and set to true) so that the search
+   *   filtering plays nicely with column sorting behavior.
    */
-  public sortData(columnName: string): void {
+  public sortData(columnName: string, avoidToggle: boolean = false): void {
 
     if (this.filteredContacts.length === 0) {
       return; // Bail, there's no data to sort.
@@ -316,9 +332,12 @@ export class ContactListComponent implements OnInit {
     // Step 1: Set the current sort column and sort direction.
     if (this.sortColumn === columnName) {
 
-      // The same column was clicked on by the user: toggle the sorting
-      // direction.
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+      if (!avoidToggle) {
+
+        // The same column was clicked on by the user: toggle the sorting
+        // direction.
+        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+      }
 
     } else {
 
@@ -364,15 +383,72 @@ export class ContactListComponent implements OnInit {
       return this.sortDirection === 'asc' ? comparison : -comparison;
     });
 
-    // TODO(gabriel): Write unit tests for this method.
+    // TODO(gabriel): Write unit tests for this method if time allows.
+
+    // TODO(gabriel):  Known issue: Once a user selects a sort column there's
+    //  no way to unselect column sorting!!  If I had more time I'd fix this.
+    //  It would be a simple fix, adding a button to clear column sorting.
+  }
+
+  /**
+   * Applies the "Search..." text and/or "Show Only Alert" filters to the
+   * Contact data.
+   */
+  public applyFilters(): void {
+
+    this.filteredContacts = this.allContacts.filter(
+      (contact: ContactWithAlertStatus): boolean => {
+
+        // We search the following Contact properties:
+        const statusMatch: boolean =
+          contact.contactStatus?.toLowerCase().includes(this.searchTerm);
+        const nameMatch: boolean =
+          contact.contactName?.toString().includes(this.searchTerm);
+        const ironMatch: boolean =
+          contact.contactSatellite.toLowerCase().includes(this.searchTerm);
+        const groundStationMatch: boolean =
+          contact.contactGround?.toLowerCase().includes(this.searchTerm);
+        const stateMatch: boolean =
+          contact.contactState?.toLowerCase().includes(this.searchTerm);
+
+        // We also search any Alerts associated with the Contact and try to
+        // match the search term with error severity and error message text.
+        const alertTextMatch: boolean =
+          contact.alerts.some((alert): boolean => {
+            const foundAlert: boolean =
+              alert.errorSeverity.toLowerCase().includes(this.searchTerm) ||
+              alert.errorMessage.toLowerCase().includes(this.searchTerm);
+            return foundAlert;
+          });
+
+      const matchesTextSearch = (statusMatch || nameMatch || ironMatch ||
+        groundStationMatch || stateMatch || alertTextMatch);
+
+      const contactHasAtLeastOneAlert =
+        Object.keys(contact.alertStatus).length > 0;
+
+      let matchFound: boolean = false;
+      if (this.showOnlyAlerts) {
+        matchFound = contactHasAtLeastOneAlert && matchesTextSearch;
+      } else {
+        matchFound = matchesTextSearch;
+      }
+
+      this.textFilterApplied = this.searchTerm.trim().length > 0;
+      return matchFound;
+    });
+
+    if (this.sortColumn) {
+      this.sortData(this.sortColumn, true);
+    }
   }
 
   /**
    * Handler for our "Search..." string input control.  We use this search
-   * input to filter the Contact table.
+   * filter to search for text within the Contact table.
    * @param {Event} event - The 'ruxchange' event containing the search text.
    */
-  public filterContactTable(event: Event): void {
+  public filterContactTableViaSearch(event: Event): void {
 
     // TODO(gabriel): It seems the event only gets fired when the user
     //  presses the <enter> key when the search text input has focus, which is a
@@ -381,130 +457,31 @@ export class ContactListComponent implements OnInit {
     //  Learn more about how inputs and 'ruxchange' events really work within
     //  the Astro ecosystem.  I don't like it when the user clears the search
     //  input they are also forced to press <enter> key afterwards in order to
-    //  reset the search results.  Is there a way to handle this "clear search
-    //  input" case more elegantly?
+    //  reset the search results, but there may be benefits to this too.
+    //  Is there a way to handle this "clear search input" case more elegantly?
     //
-    // TODO-UPDATE(gabriel): I think I found a solution (compromise). I'm now
-    //  also watching for 'input' events too.  See the onInputChange() method
-    //  below for details.
+    // TODO-UPDATE(gabriel): I experimented by also watching for 'input' events
+    //  on the rux-input but decided to abandon my solution due to a lack
+    //  of time and some complexities it created.  The user will just have to
+    //  hit <enter> key after clearing the search text.  :)
 
     if (this.allContacts.length === 0) {
       return; // Bail: There's no data to search!
     }
 
     const inputElement = event.target as HTMLInputElement;
-    const searchText: string = inputElement.value.toLowerCase().trim();
-
-    if (searchText === '') {
-
-      // GOTCHA: Restore table to its full dataset if the search filter is
-      // cleared.
-      this.filteredContacts = [...this.allContacts];
-
-      this.textFilterApplied = false;
-
-      return; // Bail: There is no search term.
-    }
-
-    // Filter the master contact list based on user input or criteria.
-    // This creates a new array (filteredContacts) containing references
-    // to the original Contact objects in allContacts.
-    this.filteredContacts = this.allContacts.filter(
-      (contact: ContactWithAlertStatus): boolean => {
-
-        const statusMatch: boolean =
-          contact.contactStatus?.toLowerCase().includes(searchText);
-        const nameMatch: boolean =
-          contact.contactName?.toString().includes(searchText);
-        const ironMatch: boolean =
-          contact.contactSatellite.toLowerCase().includes(searchText);
-        const groundStationMatch: boolean =
-          contact.contactGround?.toLowerCase().includes(searchText);
-        const stateMatch: boolean =
-          contact.contactState?.toLowerCase().includes(searchText);
-
-        // We also search any Alerts associated with the Contact.
-        const alertMatch: boolean =
-          contact.alerts.some((alert): boolean => {
-            const foundAlert: boolean =
-              alert.errorSeverity.toLowerCase().includes(searchText) ||
-              alert.errorMessage.toLowerCase().includes(searchText);
-            return foundAlert;
-          });
-
-        if (statusMatch || nameMatch || ironMatch || groundStationMatch ||
-          stateMatch || alertMatch) {
-          // We found a match!  Include the Contact in the filtered result set.
-          return true;
-        }
-
-        return false; // Sadly, no Contacts were found.
-      });
-
-    this.textFilterApplied = true;
+    this.searchTerm = inputElement.value.toLowerCase().trim();
+    this.applyFilters();
   }
 
   /**
-   * Handles changes to the search input field.  It only does something when the
-   * search field is cleared.  In that case, we restore the Contacts listing
-   * to display ALL of the Contacts (unfiltered).  This is just a fix so the
-   * user/operator doesn't have to hit the enter key after clearing the search
-   * field.
-   * @param {Event} event - The 'input' event associated with the search input
-   *   form field.
+   * Handler for the "Only Show Alerts" checkbox.
+   * @param {Event} event - The 'ruxchange' event fired by the rux-checkbox.
    */
-  public onInputChange(event: Event): void {
-
-    // TODO(gabriel): Remove this method if it goes against Rocket's UI/UX
-    //  compliance rules.  Verify whether it does.
-
-    const target: HTMLInputElement = event.target as HTMLInputElement;
-    const value: string = target.value.trim();
-    if (value === '') {
-      this.textFilterApplied = false;
-      this.filteredContacts = [...this.allContacts];
-    }
-
-    // TODO(gabriel): There's still a little weird thing that happens in the
-    //  following use-case:
-    //    1. The user enters a string, let's say "CTS", into the search field
-    //       and presses enter.
-    //    2. The user deletes the text just entered into the search field.
-    //    3. This causes this method (onInputChange) to be called and we restore
-    //       the allContacts dataset in the table and set textFieldApplied to
-    //       false.  All is all good, right?
-    //    4. ALMOST: If the user types in the exact same search text again,
-    //       "CTS", and hits enter the table doesn't get filtered!!
-    //
-    //    A WORKAROUND EXISTS if the user:
-    //      1. Enters the text.
-    //      2. Hits enter.
-    //      3. Clears the text (with the delete or backspace key).
-    //      4. Hits enter. <-- This step is needed to "reset" the rux-input
-    //                         for some reason.
-    //      5. Types the same text in again.
-    //      6. Hits enter.
-    //
-    // Because of this "bug" found here, I'm inclined not to listen to input
-    // events on the rux-input.  In a real world situation, I'd just ask what
-    // the team would like to do to handle this.  I'm inclined to just erase
-    // this method, but I'm going to leave it to illustrate that I've thought
-    // of this use-case, etc.
-  }
-
-  /**
-   * Filters Contact data based on the Alert severity level.
-   * @param {Event} event - The 'ruxchange' chagne event from the "Alert
-   *   Severity" drop-down.
-   */
-  public filterAlerts(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value : string = target.value;
-    console.log('Filter Alert Drop-down value:', value);
-
-    // TODO(gabriel): Implement this method.  Figure out how this control should
-    //  interact with the text search filtering.  Maybe I can add this filtering
-    //  if I have enough time after implementing other requirements first.
+  public onAlertsCheckboxClick(event: Event): void {
+    const checkbox = event.target as HTMLRuxCheckboxElement;
+    this.showOnlyAlerts = checkbox.checked;
+    this.applyFilters();
   }
 
   /**
