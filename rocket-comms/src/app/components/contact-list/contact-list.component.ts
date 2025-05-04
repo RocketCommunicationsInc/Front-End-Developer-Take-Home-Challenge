@@ -323,7 +323,8 @@ export class ContactListComponent implements OnInit {
    *   is false.  This parameter is needed (and set to true) so that the search
    *   filtering plays nicely with column sorting behavior.
    */
-  public sortData(columnName: string, avoidToggle: boolean = false): void {
+  public sortDataByColumn(
+    columnName: string, avoidToggle: boolean = false): void {
 
     if (this.filteredContacts.length === 0) {
       return; // Bail, there's no data to sort.
@@ -384,10 +385,6 @@ export class ContactListComponent implements OnInit {
     });
 
     // TODO(gabriel): Write unit tests for this method if time allows.
-
-    // TODO(gabriel):  Known issue: Once a user selects a sort column there's
-    //  no way to unselect column sorting!!  If I had more time I'd fix this.
-    //  It would be a simple fix, adding a button to clear column sorting.
   }
 
   /**
@@ -439,7 +436,7 @@ export class ContactListComponent implements OnInit {
     });
 
     if (this.sortColumn) {
-      this.sortData(this.sortColumn, true);
+      this.sortDataByColumn(this.sortColumn, true);
     }
   }
 
@@ -481,6 +478,17 @@ export class ContactListComponent implements OnInit {
   public onAlertsCheckboxClick(event: Event): void {
     const checkbox = event.target as HTMLRuxCheckboxElement;
     this.showOnlyAlerts = checkbox.checked;
+    this.applyFilters();
+  }
+
+  /**
+   * Resets the data to its original load sorting order and then applies any
+   * filters.
+   */
+  public clearColumnSorting(): void {
+    this.sortColumn = '';
+    this.sortDirection = 'asc';
+    this.filteredContacts = [...this.allContacts];
     this.applyFilters();
   }
 
@@ -558,6 +566,8 @@ export class ContactListComponent implements OnInit {
     // Viola! "YYYY-MM-DD HH:MM:SS"
     const formattedTimestamp: string = datePart + ' ' + timePart;
     return formattedTimestamp;
+
+    // TODO(gabriel): Write unit tests for this method.
   }
 
   /**
@@ -582,6 +592,8 @@ export class ContactListComponent implements OnInit {
       `${seconds.toString().padStart(2, '0')}`;
 
     return formattedDuration;
+
+    // TODO(gabriel): Write unit tests for this method.
   }
 
   /**

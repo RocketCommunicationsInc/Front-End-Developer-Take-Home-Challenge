@@ -9,13 +9,18 @@
   gap: 15px;
 }
 
+.clear-column-sort-button {
+  margin-top: 8px;
+  margin-left: 15px;
+}
+
 .flex-direction-row {
   display: flex;
   flex-direction: row;
 }
 
 .alert-checkbox {
-  margin-left: 20px;
+  margin-left: 25px;
   margin-top: 10px;
 }
 
@@ -48,7 +53,7 @@
 #contact-table rux-table-header-cell .header-text:hover {
   cursor: pointer;
 
-  // NOTE: 'width' doesn't seem to work here.  Why not?
+  // TODO(gabriel): 'width' doesn't seem to work here.  Why not?
   // width: 32px;
 }
 
@@ -56,6 +61,9 @@
 #contact-table rux-table-header-cell.no-sort .header-text:hover {
   cursor: default;
 }
+
+// TODO(gabriel): Would be cool to make the column sort direction icons display
+//  upon hover.
 
 // TODO(gabriel): How do we reference the Status Color design tokens?  Until I
 //  figure this out I'm going to just hardcode the color values.

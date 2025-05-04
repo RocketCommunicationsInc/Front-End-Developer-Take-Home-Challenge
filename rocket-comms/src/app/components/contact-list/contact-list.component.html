@@ -18,6 +18,11 @@
           (ruxchange)="onAlertsCheckboxClick($event)"
         >Only Show Alerts</rux-checkbox>
       </div>
+      <div class="clear-column-sort-button">
+        <rux-button size="small" secondary=""
+          (click)="clearColumnSorting()"
+        >Clear Column Sorting</rux-button>
+      </div>
     </div>
 
     <rux-dialog #clearDataConfirmDialog
@@ -80,7 +85,7 @@
 
             <!-- Contact Status. -->
             <rux-table-header-cell
-              (click)="sortData('contactStatus')">
+              (click)="sortDataByColumn('contactStatus')">
               <span class="header-text">Status</span>
               <span *ngIf="sortColumn === 'contactStatus'">
                 <rux-icon *ngIf="sortDirection === 'asc'"
@@ -92,7 +97,7 @@
 
             <!-- Contact Name. -->
             <rux-table-header-cell
-              (click)="sortData('contactName')">
+              (click)="sortDataByColumn('contactName')">
               <span class="header-text">Name</span>
               <span *ngIf="sortColumn === 'contactName'">
                 <rux-icon *ngIf="sortDirection === 'asc'"
@@ -104,7 +109,7 @@
 
             <!-- Contact Satellite, aka "Iron". -->
             <rux-table-header-cell
-              (click)="sortData('contactSatellite')">
+              (click)="sortDataByColumn('contactSatellite')">
               <span class="header-text">IRON</span>
               <span *ngIf="sortColumn === 'contactSatellite'">
                 <rux-icon *ngIf="sortDirection === 'asc'"
@@ -116,7 +121,7 @@
 
             <!-- Contact Ground Station. -->
             <rux-table-header-cell
-              (click)="sortData('contactGround')">
+              (click)="sortDataByColumn('contactGround')">
               <span class="header-text">Ground Station</span>
               <span *ngIf="sortColumn === 'contactGround'">
                 <rux-icon *ngIf="sortDirection === 'asc'"
@@ -128,7 +133,7 @@
 
             <!-- Contact State. -->
             <rux-table-header-cell
-              (click)="sortData('contactState')">
+              (click)="sortDataByColumn('contactState')">
               <span class="header-text">State</span>
               <span *ngIf="sortColumn === 'contactState'">
                 <rux-icon *ngIf="sortDirection === 'asc'"
