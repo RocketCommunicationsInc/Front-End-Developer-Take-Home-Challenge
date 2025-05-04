@@ -38,19 +38,21 @@
 									<rux-button icon="launch" size="small" secondary (click)="openAlertDetails(contact, alert)" class="float-end">
 										Show Details
 									</rux-button>
+									<rux-dialog open="{{ currentAlertErrorId == alert.errorId }}">
+										<div slot="header">{{ contact.contactSatellite }}</div>
+										<div>
+											{{ contact.contactDetail }}
+										</div>
+										<div slot="footer">
+											<rux-button  (click)="acknowledgeAlertDetails(contact, alert)">Acknowledge</rux-button>
+										</div>
+									</rux-dialog>
 								} @else {
 									<rux-button icon="check-box" size="small" secondary class="float-end" disabled>
 										Acknowledged
 									</rux-button>
 								}
 							</div>
-							<rux-dialog open="{{ !alert.acknowledged && currentAlertErrorId == alert.errorId }}">
-								<div slot="header">{{currentAlertErrorId}} {{ contact.contactSatellite }}</div>
-								<span>{{ contact.contactDetail }}</span>
-								<div slot="footer">
-									<rux-button  (click)="acknowledgeAlertDetails(contact, alert)">Acknowledge</rux-button>
-								</div>
-							</rux-dialog>
 						</div>
 						}
 					</rux-table-cell>
