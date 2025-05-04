@@ -52,6 +52,11 @@
       </div>
       -->
       <div class="search-input">
+
+        <span *ngIf="textFilterApplied">
+          &lt;&lt;&nbsp;Text Filter Applied&nbsp;&gt;&gt;
+        </span>
+
         <!-- TODO(gabriel): Why isn't the `ruxchange` event recognized by
               IntelliJ? -->
         <rux-input #searchInput

@@ -9,7 +9,7 @@ import {
   ContactWithAlertStatus
 } from "../../models/contact-with-alert-status.model";
 import {Alert} from "../../models/alert.model";
-import {RuxDialog} from "@astrouxds/angular";
+import {RuxDialog, RuxInput} from "@astrouxds/angular";
 import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 @Component({
@@ -36,6 +36,12 @@ export class ContactListComponent implements OnInit {
    */
   @ViewChild('alertDialog', { static: false })
   alertDialogRef!: RuxDialog;
+
+  /**
+   * A reference to the search rux-input.
+   */
+  @ViewChild('searchInput', { static: false})
+  searchInputRef!: RuxInput;
 
   // A WORD ABOUT THE TWO CONTACT LISTS:
   //
@@ -93,6 +99,12 @@ export class ContactListComponent implements OnInit {
    * for descending.
    */
   public sortDirection: 'asc' | 'desc' = 'asc';
+
+  /**
+   * A flag used to trigger an indicator in the UI informing the user that a
+   * text search filter is being applied to the Contact table.
+   */
+  public textFilterApplied: boolean = false;
 
   constructor(private dataService: DataService) {
     // No-op.
@@ -163,9 +175,15 @@ export class ContactListComponent implements OnInit {
    * Clears the data from the dashboard.
    */
   public clearData(): void {
+
     this.allContacts = [];
     this.filteredContacts = [];
+
     this.sortColumn = '';
+
+    // Clear out the Search input field.
+    this.textFilterApplied = false;
+    this.searchInputRef.value = '';
   }
 
   /**
@@ -364,6 +382,8 @@ export class ContactListComponent implements OnInit {
       // cleared.
       this.filteredContacts = [...this.allContacts];
 
+      this.textFilterApplied = false;
+
       return; // Bail: There is no search term.
     }
 
@@ -401,6 +421,8 @@ export class ContactListComponent implements OnInit {
 
         return false; // Sadly, no Contacts were found.
       });
+
+    this.textFilterApplied = true;
   }
 
   /**
@@ -420,6 +442,7 @@ export class ContactListComponent implements OnInit {
     const target: HTMLInputElement = event.target as HTMLInputElement;
     const value: string = target.value.trim();
     if (value === '') {
+      this.textFilterApplied = false;
       this.filteredContacts = [...this.allContacts];
     }
   }
