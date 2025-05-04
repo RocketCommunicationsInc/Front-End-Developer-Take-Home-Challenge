@@ -21,9 +21,15 @@
           <span>Load Data Warning</span>
         </div>
       </div>
-      The data has already been loaded.  Please clear the data before attempting
-      to reload the test dataset. NOTE: Reloading resets all Alert
-      acknowledgement states.
+      <p>
+        The test dataset has already been loaded. To reload it, please clear
+        the existing data first.
+      </p>
+      <p>
+        <span class="rux-body-1-bold">NOTE:</span> Reloading resets all Alert
+        acknowledgement states back to false, essentially restoring the
+        dashboard back to its initial load state.
+      </p>
     </rux-dialog>
 
     <div class="search-container">
@@ -62,127 +68,129 @@
   </div>
 
   <div id="contact-table">
-    <rux-table>
-      <rux-table-header>
-        <rux-table-header-row>
+    <block-ui name="tableBlock">
+      <rux-table>
+        <rux-table-header>
+          <rux-table-header-row>
 
-          <!-- Contact Status. -->
-          <rux-table-header-cell
-            (click)="sortData('contactStatus')">
-            <span class="header-text">Status</span>
-            <span *ngIf="sortColumn === 'contactStatus'">
-              <rux-icon *ngIf="sortDirection === 'asc'"
-                size="small" icon="arrow-drop-up"></rux-icon>
-              <rux-icon *ngIf="sortDirection === 'desc'"
-                size="small" icon="arrow-drop-down"></rux-icon>
-            </span>
-          </rux-table-header-cell>
+            <!-- Contact Status. -->
+            <rux-table-header-cell
+              (click)="sortData('contactStatus')">
+              <span class="header-text">Status</span>
+              <span *ngIf="sortColumn === 'contactStatus'">
+                <rux-icon *ngIf="sortDirection === 'asc'"
+                  size="small" icon="arrow-drop-up"></rux-icon>
+                <rux-icon *ngIf="sortDirection === 'desc'"
+                  size="small" icon="arrow-drop-down"></rux-icon>
+              </span>
+            </rux-table-header-cell>
 
-          <!-- Contact Name. -->
-          <rux-table-header-cell
-            (click)="sortData('contactName')">
-            <span class="header-text">Name</span>
-            <span *ngIf="sortColumn === 'contactName'">
-              <rux-icon *ngIf="sortDirection === 'asc'"
-                size="small" icon="arrow-drop-up"></rux-icon>
-              <rux-icon *ngIf="sortDirection === 'desc'"
-                size="small" icon="arrow-drop-down"></rux-icon>
-            </span>
-          </rux-table-header-cell>
+            <!-- Contact Name. -->
+            <rux-table-header-cell
+              (click)="sortData('contactName')">
+              <span class="header-text">Name</span>
+              <span *ngIf="sortColumn === 'contactName'">
+                <rux-icon *ngIf="sortDirection === 'asc'"
+                  size="small" icon="arrow-drop-up"></rux-icon>
+                <rux-icon *ngIf="sortDirection === 'desc'"
+                  size="small" icon="arrow-drop-down"></rux-icon>
+              </span>
+            </rux-table-header-cell>
 
-          <!-- Contact Satellite, aka "Iron". -->
-          <rux-table-header-cell
-            (click)="sortData('contactSatellite')">
-            <span class="header-text">IRON</span>
-            <span *ngIf="sortColumn === 'contactSatellite'">
-              <rux-icon *ngIf="sortDirection === 'asc'"
-                size="small" icon="arrow-drop-up"></rux-icon>
-              <rux-icon *ngIf="sortDirection === 'desc'"
-                size="small" icon="arrow-drop-down"></rux-icon>
-            </span>
-          </rux-table-header-cell>
+            <!-- Contact Satellite, aka "Iron". -->
+            <rux-table-header-cell
+              (click)="sortData('contactSatellite')">
+              <span class="header-text">IRON</span>
+              <span *ngIf="sortColumn === 'contactSatellite'">
+                <rux-icon *ngIf="sortDirection === 'asc'"
+                  size="small" icon="arrow-drop-up"></rux-icon>
+                <rux-icon *ngIf="sortDirection === 'desc'"
+                  size="small" icon="arrow-drop-down"></rux-icon>
+              </span>
+            </rux-table-header-cell>
 
-          <!-- Contact Ground Station. -->
-          <rux-table-header-cell
-            (click)="sortData('contactGround')">
-            <span class="header-text">Ground Station</span>
-            <span *ngIf="sortColumn === 'contactGround'">
-              <rux-icon *ngIf="sortDirection === 'asc'"
-                size="small" icon="arrow-drop-up"></rux-icon>
-              <rux-icon *ngIf="sortDirection === 'desc'"
-                size="small" icon="arrow-drop-down"></rux-icon>
-            </span>
-          </rux-table-header-cell>
+            <!-- Contact Ground Station. -->
+            <rux-table-header-cell
+              (click)="sortData('contactGround')">
+              <span class="header-text">Ground Station</span>
+              <span *ngIf="sortColumn === 'contactGround'">
+                <rux-icon *ngIf="sortDirection === 'asc'"
+                  size="small" icon="arrow-drop-up"></rux-icon>
+                <rux-icon *ngIf="sortDirection === 'desc'"
+                  size="small" icon="arrow-drop-down"></rux-icon>
+              </span>
+            </rux-table-header-cell>
 
-          <!-- Contact State. -->
-          <rux-table-header-cell
-            (click)="sortData('contactState')">
-            <span class="header-text">State</span>
-            <span *ngIf="sortColumn === 'contactState'">
-              <rux-icon *ngIf="sortDirection === 'asc'"
-                size="small" icon="arrow-drop-up"></rux-icon>
-              <rux-icon *ngIf="sortDirection === 'desc'"
-                size="small" icon="arrow-drop-down"></rux-icon>
-            </span>
-          </rux-table-header-cell>
+            <!-- Contact State. -->
+            <rux-table-header-cell
+              (click)="sortData('contactState')">
+              <span class="header-text">State</span>
+              <span *ngIf="sortColumn === 'contactState'">
+                <rux-icon *ngIf="sortDirection === 'asc'"
+                  size="small" icon="arrow-drop-up"></rux-icon>
+                <rux-icon *ngIf="sortDirection === 'desc'"
+                  size="small" icon="arrow-drop-down"></rux-icon>
+              </span>
+            </rux-table-header-cell>
 
-          <!-- Alerts. -->
-          <rux-table-header-cell class="no-sort">
-            <span class="header-text">Alerts</span>
-          </rux-table-header-cell>
-          <!-- TODO(gabriel): How do we handle Alert row sorting?  An "Alert
-                Severity" drop-down?  Maybe.  Not sure yet, need to figure
-                out. -->
+            <!-- Alerts. -->
+            <rux-table-header-cell class="no-sort">
+              <span class="header-text">Alerts</span>
+            </rux-table-header-cell>
+            <!-- TODO(gabriel): How do we handle Alert row sorting?  An "Alert
+                  Severity" drop-down?  Maybe.  Not sure yet, need to figure
+                  out. -->
 
-          <!-- Actions. -->
-          <rux-table-header-cell class="no-sort">
-            <span class="header-text">Actions</span>
-          </rux-table-header-cell>
-        </rux-table-header-row>
-      </rux-table-header>
+            <!-- Actions. -->
+            <rux-table-header-cell class="no-sort">
+              <span class="header-text">Actions</span>
+            </rux-table-header-cell>
+          </rux-table-header-row>
+        </rux-table-header>
 
-      <rux-table-body>
-        <rux-table-row *ngFor="let contactRow of filteredContacts">
+        <rux-table-body>
+          <rux-table-row *ngFor="let contactRow of filteredContacts">
 
-          <!-- TODO(gabriel): Add status icons. -->
-          <!-- See: https://astro-components.netlify.app/?path=/docs/components-status--docs          -->
-          <rux-table-cell>{{ contactRow.contactStatus }}</rux-table-cell>
+            <!-- TODO(gabriel): Add status icons. -->
+            <!-- See: https://astro-components.netlify.app/?path=/docs/components-status--docs          -->
+            <rux-table-cell>{{ contactRow.contactStatus }}</rux-table-cell>
 
-          <rux-table-cell>{{ contactRow.contactName }}</rux-table-cell>
-          <rux-table-cell>{{ contactRow.contactSatellite }}</rux-table-cell>
-          <rux-table-cell>{{ contactRow.contactGround }}</rux-table-cell>
-          <rux-table-cell>
-            {{ contactRow.contactState | capitalize }}
-          </rux-table-cell>
+            <rux-table-cell>{{ contactRow.contactName }}</rux-table-cell>
+            <rux-table-cell>{{ contactRow.contactSatellite }}</rux-table-cell>
+            <rux-table-cell>{{ contactRow.contactGround }}</rux-table-cell>
+            <rux-table-cell>
+              {{ contactRow.contactState | capitalize }}
+            </rux-table-cell>
 
-          <!-- Alerts. -->
-          <rux-table-cell>
-            <div *ngIf="contactRow.alerts.length > 0">
-              <div *ngFor="let alert of contactRow.alerts">
-                <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
-                  {{ alert.errorSeverity | capitalize }}:
-                </span>
-                {{ alert.errorMessage }}
-                <span *ngIf="contactRow.alertStatus[alert.errorId]"
-                  class="acknowledged"
-                >&nbsp;&lt;&lt;Acknowledged!&gt;&gt;</span>
+            <!-- Alerts. -->
+            <rux-table-cell>
+              <div *ngIf="contactRow.alerts.length > 0">
+                <div *ngFor="let alert of contactRow.alerts">
+                  <span [ngClass]="[alert.errorSeverity, 'rux-body-1-bold']">
+                    {{ alert.errorSeverity | capitalize }}:
+                  </span>
+                  {{ alert.errorMessage }}
+                  <span *ngIf="contactRow.alertStatus[alert.errorId]"
+                    class="acknowledged"
+                  >&nbsp;&lt;&lt;Acknowledged!&gt;&gt;</span>
+                </div>
               </div>
-            </div>
-            <div *ngIf="contactRow.alerts.length === 0">
-              --
-            </div>
-          </rux-table-cell>
+              <div *ngIf="contactRow.alerts.length === 0">
+                --
+              </div>
+            </rux-table-cell>
 
-          <!-- Actions. -->
-          <rux-table-cell>
-            <rux-button *ngIf="contactRow.alerts.length > 0"
-              size="small" secondary=""
-              (click)="openAlertDetailsDialog(contactRow)"
-            >Show Details</rux-button>
-          </rux-table-cell>
-        </rux-table-row>
-      </rux-table-body>
-    </rux-table>
+            <!-- Actions. -->
+            <rux-table-cell>
+              <rux-button *ngIf="contactRow.alerts.length > 0"
+                size="small" secondary=""
+                (click)="openAlertDetailsDialog(contactRow)"
+              >Show Details</rux-button>
+            </rux-table-cell>
+          </rux-table-row>
+        </rux-table-body>
+      </rux-table>
+    </block-ui>
   </div>
 
   <!-- NOTE: I've added comments here to document my learning process and to act

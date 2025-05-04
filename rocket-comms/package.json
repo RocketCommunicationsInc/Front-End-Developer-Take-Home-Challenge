@@ -20,6 +20,7 @@
     "@angular/router": "^16.2.0",
     "@astrouxds/angular": "^7.25.1",
     "@astrouxds/astro-web-components": "^7.25.1",
+    "ng-block-ui": "^4.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

@@ -7,6 +7,7 @@ import {AstroComponentsModule} from "@astrouxds/angular";
 import {HttpClientModule} from "@angular/common/http";
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import {SharedModule} from "./shared/shared.module";
+import {BlockUIModule} from "ng-block-ui";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {SharedModule} from "./shared/shared.module";
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    AstroComponentsModule
+    AstroComponentsModule,
+    BlockUIModule.forRoot()
   ],
   providers: [],
   bootstrap: [

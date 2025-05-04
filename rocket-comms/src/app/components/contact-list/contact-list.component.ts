@@ -1,6 +1,5 @@
 import {
   Component,
-  ElementRef,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -11,6 +10,7 @@ import {
 } from "../../models/contact-with-alert-status.model";
 import {Alert} from "../../models/alert.model";
 import {RuxDialog} from "@astrouxds/angular";
+import {BlockUI, NgBlockUI} from "ng-block-ui";
 
 @Component({
   selector: 'app-contact-list',
@@ -18,6 +18,12 @@ import {RuxDialog} from "@astrouxds/angular";
   styleUrls: ['./contact-list.component.scss']
 })
 export class ContactListComponent implements OnInit {
+
+  /**
+   * The handle on the <block-ui> element used to block the Contact table
+   * when data is being loaded into the Contact table.
+   */
+  @BlockUI('tableBlock') tableBlockUI!: NgBlockUI;
 
   /**
    * A reference to the "Load Data Warning" dialog.
@@ -103,26 +109,39 @@ export class ContactListComponent implements OnInit {
   public loadData(): void {
     if (this.allContacts.length === 0) {
 
+      this.tableBlockUI.start('Loading Data...');
+
       // NOTE: There is no need to unsubscribe here as our service emits a
       // single value and then completes automatically.
       this.dataService.getData().pipe().subscribe({
         next: (response: Array<Contact>): void => {
 
-          // Build the master dataset and store it in `allContacts`.  This list
-          // will be used to restore the displayed table data when search
-          // filters have been cleared.
-          const contactRows: Array<ContactWithAlertStatus> =
-            this.buildContactRows(response);
-          this.allContacts = contactRows;
+          // NOTE: This setTimeout is just to simulate the data taking a moment
+          // to load so you can see the Block-UI overlay at work.  In a real
+          // app we would never do such a thing, but for this demo I felt it
+          // made this data load operation seem more real.
+          setTimeout(() => {
 
-          // IMPORTANT: Create a shallow copy of `allContacts` for filtering
-          // purposes.  The individual contact objects are shared, so changes
-          // to a contact in `filteredContacts` will also be reflected in
-          // allContacts.
-          this.filteredContacts = [...this.allContacts];
+            // Build the master dataset and store it in `allContacts`.  This list
+            // will be used to restore the displayed table data when search
+            // filters have been cleared.
+            const contactRows: Array<ContactWithAlertStatus> =
+              this.buildContactRows(response);
+            this.allContacts = contactRows;
+
+            // IMPORTANT: Create a shallow copy of `allContacts` for filtering
+            // purposes.  The individual contact objects are shared, so changes
+            // to a contact in `filteredContacts` will also be reflected in
+            // allContacts.
+            this.filteredContacts = [...this.allContacts];
+
+            this.tableBlockUI.stop();
+          }, 300);
         },
         error: (err: any): void => {
           console.error('Error loading data:', err);
+          this.tableBlockUI.stop();
+
           // TODO(gabriel): Show an error to the user explaining no data could
           //  be loaded in the dashboard.
         }
