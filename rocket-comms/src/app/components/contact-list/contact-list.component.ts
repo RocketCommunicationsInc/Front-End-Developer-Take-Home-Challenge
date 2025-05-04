@@ -69,7 +69,7 @@ export class ContactListComponent implements OnInit {
 
   /**
    * A filtered subset of Contacts used for UI display based on user input
-   * as search terms.  When no data filters are active this dataset mirrors
+   * search terms.  When no data filters are active this dataset mirrors
    * `allContacts`.
    */
   public filteredContacts: Array<ContactWithAlertStatus> = [];
@@ -218,7 +218,7 @@ export class ContactListComponent implements OnInit {
    * Builds the Contact row data given the passed-in Contact data.
    * @param {Array<Contact>} data - The Contact data to display
    *   in the table.
-   * @returns {Array<ContactWithAlertStatus>} An list of ContactWithAlertStatus
+   * @returns {Array<ContactWithAlertStatus>} A list of ContactWithAlertStatus
    *   objects.
    */
   public buildContactRows(data: Array<Contact>): Array<ContactWithAlertStatus> {
@@ -241,7 +241,9 @@ export class ContactListComponent implements OnInit {
       if (contactRow.alerts.length > 0) {
         for (let j: number = 0; j < contactRow.alerts.length; j++) {
           const alert: Alert = contactRow.alerts[j];
-            contactRow.alertStatus[alert.errorId] = false;
+
+          // Set the default "Alert acknowledgement" value.
+          contactRow.alertStatus[alert.errorId] = false;
         }
       }
 
@@ -264,7 +266,7 @@ export class ContactListComponent implements OnInit {
     contacts: Array<ContactWithAlertStatus>): Array<ContactWithAlertStatus> {
 
     // TODO(gabriel): Looking at the data in the test file I see that Contacts
-    //  with more than one Alert/Error shows the times being the same or already
+    //  with more than one Alert/Error show the times being the same or already
     //  sorted in descending order (with the most recent error first).
 
     const contactsWithSortedAlerts: Array<ContactWithAlertStatus> =
@@ -314,14 +316,15 @@ export class ContactListComponent implements OnInit {
 
   /**
    * Sorts the Contact table data by the given `columnName`.  If the same column
-   * is clicked again, the sort direction is toggles between ascending and
+   * is clicked again, the sort direction is toggled between ascending and
    * descending.
    * @param {string} columnName - The name of the Contact property to sort by.
-   *   NOTE: This *MUST EXACTLY MATCH* a property on the Contact model.
+   *   NOTE: This name *MUST EXACTLY MATCH* a property on the Contact model.
    *   See {@link Contact} for available property names.
    * @param {boolean} [avoidToggle] - An optional parameter whose default value
    *   is false.  This parameter is needed (and set to true) so that the search
    *   filtering plays nicely with column sorting behavior.
+   *   See the {@link applyFilters} method for details.
    */
   public sortDataByColumn(
     columnName: string, avoidToggle: boolean = false): void {
@@ -435,6 +438,8 @@ export class ContactListComponent implements OnInit {
       return matchFound;
     });
 
+    // If we're already sorting by a column, we want to maintain the current
+    // sorting direction.  We don't want to toggle it.
     if (this.sortColumn) {
       this.sortDataByColumn(this.sortColumn, true);
     }
@@ -454,13 +459,14 @@ export class ContactListComponent implements OnInit {
     //  Learn more about how inputs and 'ruxchange' events really work within
     //  the Astro ecosystem.  I don't like it when the user clears the search
     //  input they are also forced to press <enter> key afterwards in order to
-    //  reset the search results, but there may be benefits to this too.
-    //  Is there a way to handle this "clear search input" case more elegantly?
+    //  reset the search results, but there may be UX benefits to this too.
+    //  Is there a way to handle this "clear search input" case more elegantly
+    //  without having to press the <enter>?
     //
     // TODO-UPDATE(gabriel): I experimented by also watching for 'input' events
     //  on the rux-input but decided to abandon my solution due to a lack
     //  of time and some complexities it created.  The user will just have to
-    //  hit <enter> key after clearing the search text.  :)
+    //  hit the <enter> key after clearing the search text.  :)
 
     if (this.allContacts.length === 0) {
       return; // Bail: There's no data to search!
