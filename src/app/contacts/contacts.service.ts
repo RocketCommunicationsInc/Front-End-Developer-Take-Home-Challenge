@@ -21,8 +21,10 @@ export class ContactsService {
 				.pipe(
 					map((data) => {
 						return data.map((contact: Contact) => {
-							// sort alerts by errorTime in descending order
-							contact.alerts.sort((a:Alert, b:Alert) => b.errorTime - a.errorTime);
+							if (contact.alerts.length > 1) {
+								// sort alerts by errorTime in descending order
+								contact.alerts.sort((a:Alert, b:Alert) => b.errorTime - a.errorTime);
+							}
 							return contact;
 						});
 					}),
@@ -47,17 +49,23 @@ export class ContactsService {
 		);
 	}
 
-	filterContacts(errorSeverity: string = ''): void {
-		this.getContacts$(errorSeverity != 'contacts').pipe(
+	saveAlert(contactId: String, errorId: String, values:Partial<Alert>): void {
+		const contactIndex = this.allContacts.findIndex(contact => contact.contactId == contactId);
+		const alertIndex = this.allContacts[contactIndex].alerts.findIndex(alert => alert.errorId == errorId);
+		Object.assign(this.allContacts[contactIndex].alerts[alertIndex], values);
+	}
+
+	filterContacts(filter: string = ''): void {
+		this.getContacts$(filter != 'contacts').pipe(
 			map((contacts: Contact[]) => {
-				if (!errorSeverity || errorSeverity == 'alerts' || errorSeverity == 'contacts') {
+				if (!filter || filter == 'alerts' || filter == 'contacts') {
 					return contacts;
 				} else {
 					return contacts.filter((contact: Contact) => {
-						return contact.alerts.some((alert: Alert) => alert.errorSeverity === errorSeverity);
+						return contact.alerts.some((alert: Alert) => alert.errorSeverity === filter);
 					})
 					.map((contact: Contact) => {
-						contact.alerts = contact.alerts.filter((alert: Alert) => alert.errorSeverity === errorSeverity);
+						contact.alerts = contact.alerts.filter((alert: Alert) => alert.errorSeverity === filter);
 						return contact;
 					});
 				}

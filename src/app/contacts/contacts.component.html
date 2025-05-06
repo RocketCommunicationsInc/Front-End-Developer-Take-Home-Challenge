@@ -1,12 +1,3 @@
-@if (currentAlertDialog) {
-	<rux-dialog open="{{ currentAlertDialogOpened }}">
-		<div slot="header">{{ currentAlertDialog.contactSatellite }}</div>
-		<span>{{ currentAlertDialog.contactDetail }}</span>
-		<div slot="footer">
-			<rux-button  (click)="acknowledgeAlertDetails()">Acknowledge</rux-button>
-		</div>
-	</rux-dialog>
-}
 <div class="container">
 	<h1 class="my-5">Contact Alerts</h1>
 	<div class="my-5">
@@ -39,22 +30,23 @@
 								{{ alert.errorTime | date:'M/d/yy, hh:mm' }}
 							</div>
 							<div class="col">
-								@if (alert.errorSeverity === 'critical') {
-									<rux-icon icon="label" size="extra-small" style="color: darkred;"></rux-icon>
-								} @else if (alert.errorSeverity === 'serious') {
-									<rux-icon icon="label" size="extra-small" style="color: red;"></rux-icon>
-								} @else if (alert.errorSeverity === 'warning') {
-									<rux-icon icon="label" size="extra-small" style="color: orange;"></rux-icon>
-								} @else if (alert.errorSeverity === 'caution') {
-									<rux-icon icon="label" size="extra-small" style="color: yellow;"></rux-icon>
-								}
+								<rux-icon icon="label" size="extra-small" [style.color]="indicateWithColor(alert.errorSeverity)" />
 								{{ alert.errorMessage }}
 							</div>
 							<div class="col col-3">
-								@if (!acknowledgedIds.includes(contact._id)) {
-									<rux-button icon="launch" size="small" secondary (click)="openAlertDetails(contact)" class="float-end">
+								@if (!alert.acknowledged) {
+									<rux-button icon="launch" size="small" secondary (click)="openAlertDetails(contact, alert)" class="float-end">
 										Show Details
 									</rux-button>
+									<rux-dialog open="{{ currentAlertErrorId == alert.errorId }}">
+										<div slot="header">{{ contact.contactSatellite }}</div>
+										<div>
+											{{ contact.contactDetail }}
+										</div>
+										<div slot="footer">
+											<rux-button  (click)="acknowledgeAlertDetails(contact, alert)">Acknowledge</rux-button>
+										</div>
+									</rux-dialog>
 								} @else {
 									<rux-button icon="check-box" size="small" secondary class="float-end" disabled>
 										Acknowledged
