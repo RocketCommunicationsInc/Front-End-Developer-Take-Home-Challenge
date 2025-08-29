@@ -1,0 +1,77 @@
+<div style="display: flex; flex-flow: column; justify-content: center">
+  <rux-table>
+    <rux-table-header>
+      <rux-table-header-row>
+        <rux-table-header-cell>Alert Message</rux-table-header-cell>
+
+        <rux-table-header-cell>Contact Name</rux-table-header-cell>
+
+        <rux-table-header-cell>Contact Time</rux-table-header-cell>
+
+        <rux-table-header-cell>Error Time</rux-table-header-cell>
+
+        <rux-table-header-cell>
+          <rux-select
+            label=""
+            input-id="1"
+            label-id="1"
+            name="default"
+            size="medium"
+            (ruxchange)="applyFilter($event)"
+          >
+            <rux-option
+              value=""
+              selected=""
+              label="Search by Severity"
+            ></rux-option>
+            <rux-option value="normal" label="Normal"></rux-option>
+            <rux-option value="caution" label="Caution"></rux-option>
+            <rux-option value="warning" label="Warning"></rux-option>
+            <rux-option value="critical" label="Critical"></rux-option>
+            <rux-option value="serious" label="Serious"></rux-option>
+          </rux-select>
+        </rux-table-header-cell>
+        <rux-table-header-cell></rux-table-header-cell>
+        <rux-table-header-cell>Acknowledged</rux-table-header-cell>
+      </rux-table-header-row>
+    </rux-table-header>
+    <rux-table-body>
+      @for (alert of filteredAlertList; track alert) {
+      <rux-table-row selected="{{ alert.selected }}">
+        <rux-table-cell>{{ alert.errorMessage }}</rux-table-cell>
+        <rux-table-cell>{{ alert.contactName }}</rux-table-cell>
+        <rux-table-cell
+          >{{ alert.contactBeginTimestamp | date : "short" }} -
+          {{ alert.contactEndTimestamp | date : "short" }}</rux-table-cell
+        >
+        <rux-table-cell>{{
+          alert.errorTime | date : "M/d/yy, h:mm:ss a"
+        }}</rux-table-cell>
+        <rux-table-cell
+          ><rux-status status="{{ alert.errorSeverity }}"></rux-status
+        ></rux-table-cell>
+        <rux-table-cell
+          ><rux-button
+            size="small"
+            secondary=""
+            (click)="openDialog(alert)"
+            id="open"
+            >Show Details</rux-button
+          ></rux-table-cell
+        >
+        <rux-table-cell>
+          <rux-switch
+            (click)="acknowledgeAlert(alert)"
+            disabled="{{ alert.selected }}"
+          ></rux-switch>
+        </rux-table-cell>
+      </rux-table-row>
+      <rux-dialog id="dialog">
+        <div slot="footer">
+          <rux-button (click)="closeDialog()" id="confirm">Confirm</rux-button>
+        </div>
+      </rux-dialog>
+      }
+    </rux-table-body>
+  </rux-table>
+</div>
