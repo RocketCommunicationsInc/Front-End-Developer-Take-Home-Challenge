@@ -10,8 +10,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Lorem esse proident exercitation ad commodo fugiat consectetur laborum.",
-    "contactBeginTimestamp": 1563753600,
-    "contactEndTimestamp": 1563754620,
+    "contactBeginTimestamp": "2019-07-22T00:00:00.000",
+    "contactEndTimestamp": "2019-07-22T00:17:00.000",
     "contactLatitude": 6.62334,
     "contactLongitude": -50.78854,
     "contactAzimuth": 141.771,
@@ -23,10 +23,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 124 - Offline",
     "longMessage": "Red FEP 124 is offline at 18:40:27",
-    "errorTime": 1542134427946,
+    "errorTime": "2018-11-13T18:40:27.946",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H17M0S"
   },
   {
     "_id": "5c926e56fddac523882442a8",
@@ -39,8 +40,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Mollit eiusmod aliquip consectetur amet.",
-    "contactBeginTimestamp": 1563753780,
-    "contactEndTimestamp": 1563754740,
+    "contactBeginTimestamp": "2019-07-22T00:03:00.000",
+    "contactEndTimestamp": "2019-07-22T00:19:00.000",
     "contactLatitude": 14.39669,
     "contactLongitude": 37.33636,
     "contactAzimuth": 64.28,
@@ -52,10 +53,11 @@
     "errorCategory": "software",
     "errorMessage": "Black FEP 124 - Degraded",
     "longMessage": "Black FEP 124 is degraded at 18:40:21",
-    "errorTime": 1542134421939,
+    "errorTime": "2018-11-13T18:40:21.939",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H16M0S"
   },
   {
     "_id": "5c926e56fddac52388255468",
@@ -68,8 +70,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Non dolore et nisi ut consectetur sunt nisi laboris sunt.",
-    "contactBeginTimestamp": 1563754260,
-    "contactEndTimestamp": 1563756300,
+    "contactBeginTimestamp": "2019-07-22T00:11:00.000",
+    "contactEndTimestamp": "2019-07-22T00:45:00.000",
     "contactLatitude": 80.84578,
     "contactLongitude": 57.85298,
     "contactAzimuth": 30.84,
@@ -81,10 +83,11 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-145 - Solar panel misalignment",
     "longMessage": "USA-145 experienced solar panel misalignment at 18:40:17",
-    "errorTime": 1542134417934,
+    "errorTime": "2018-11-13T18:40:17.934",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H34M0S"
   },
   {
     "_id": "5c926e56fddac5238824fedc",
@@ -97,8 +100,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Ullamco sint commodo aliqua culpa exercitation.",
-    "contactBeginTimestamp": 1563754320,
-    "contactEndTimestamp": 1563755580,
+    "contactBeginTimestamp": "2019-07-22T00:12:00.000",
+    "contactEndTimestamp": "2019-07-22T00:33:00.000",
     "contactLatitude": 76.59939,
     "contactLongitude": 140.42821,
     "contactAzimuth": 98.977,
@@ -110,10 +113,11 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-177 - SARM failure",
     "longMessage": "USA-177 experienced SARM failure at 18:40:15",
-    "errorTime": 1542134415933,
+    "errorTime": "2018-11-13T18:40:15.933",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H21M0S"
   },
   {
     "_id": "5c926e56fddac5238823cae4",
@@ -126,8 +130,8 @@
     "contactState": "executing",
     "contactStep": "AOS",
     "contactDetail": "Occaecat voluptate ipsum non do in amet aliquip tempor tempor elit sunt enim quis consectetur.",
-    "contactBeginTimestamp": 1563754800,
-    "contactEndTimestamp": 1563755700,
+    "contactBeginTimestamp": "2019-07-22T00:20:00.000",
+    "contactEndTimestamp": "2019-07-22T00:35:00.000",
     "contactLatitude": 9.04718,
     "contactLongitude": 49.40218,
     "contactAzimuth": 119.834,
@@ -139,10 +143,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 301 - Offline",
     "longMessage": "Red FEP 301 is offline at 18:40:12",
-    "errorTime": 1542134412929,
+    "errorTime": "2018-11-13T18:40:12.929",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H15M0S"
   },
   {
     "_id": "5c926e56fddac5238823cae4",
@@ -155,8 +160,8 @@
     "contactState": "executing",
     "contactStep": "AOS",
     "contactDetail": "Occaecat voluptate ipsum non do in amet aliquip tempor tempor elit sunt enim quis consectetur.",
-    "contactBeginTimestamp": 1563754800,
-    "contactEndTimestamp": 1563755700,
+    "contactBeginTimestamp": "2019-07-22T00:20:00.000",
+    "contactEndTimestamp": "2019-07-22T00:35:00.000",
     "contactLatitude": 9.04718,
     "contactLongitude": 49.40218,
     "contactAzimuth": 119.834,
@@ -168,10 +173,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna FEP 301 - Degraded",
     "longMessage": "Antenna FEP 301 is degraded at 18:40:12",
-    "errorTime": 1542134412929,
+    "errorTime": "2018-11-13T18:40:12.929",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H15M0S"
   },
   {
     "_id": "5c926e56fddac5238823cae4",
@@ -184,8 +190,8 @@
     "contactState": "executing",
     "contactStep": "AOS",
     "contactDetail": "Occaecat voluptate ipsum non do in amet aliquip tempor tempor elit sunt enim quis consectetur.",
-    "contactBeginTimestamp": 1563754800,
-    "contactEndTimestamp": 1563755700,
+    "contactBeginTimestamp": "2019-07-22T00:20:00.000",
+    "contactEndTimestamp": "2019-07-22T00:35:00.000",
     "contactLatitude": 9.04718,
     "contactLongitude": 49.40218,
     "contactAzimuth": 119.834,
@@ -197,10 +203,11 @@
     "errorCategory": "software",
     "errorMessage": "Dish FEP 301 - Offline",
     "longMessage": "Dish FEP 301 is offline at 18:40:12",
-    "errorTime": 1542134412929,
+    "errorTime": "2018-11-13T18:40:12.929",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H15M0S"
   },
   {
     "_id": "5c926e56fddac5238824ba6c",
@@ -213,8 +220,8 @@
     "contactState": "executing",
     "contactStep": "Downlink",
     "contactDetail": "Aliqua quis labore fugiat dolore cupidatat nulla enim dolor consequat velit dolor aute.",
-    "contactBeginTimestamp": 1563755880,
-    "contactEndTimestamp": 1563758160,
+    "contactBeginTimestamp": "2019-07-22T00:38:00.000",
+    "contactEndTimestamp": "2019-07-22T01:16:00.000",
     "contactLatitude": -61.63702,
     "contactLongitude": -153.07188,
     "contactAzimuth": -92.507,
@@ -226,10 +233,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna HTS 2 - Offline",
     "longMessage": "Antenna HTS 2 went offline at 18:39:54",
-    "errorTime": 1542134394907,
+    "errorTime": "2018-11-13T18:39:54.907",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H38M0S"
   },
   {
     "_id": "5c926e56fddac5238825ee64",
@@ -242,8 +250,8 @@
     "contactState": "executing",
     "contactStep": "Command",
     "contactDetail": "Consectetur ad in cillum consectetur.",
-    "contactBeginTimestamp": 1563757020,
-    "contactEndTimestamp": 1563758940,
+    "contactBeginTimestamp": "2019-07-22T00:57:00.000",
+    "contactEndTimestamp": "2019-07-22T01:29:00.000",
     "contactLatitude": -47.23034,
     "contactLongitude": 133.50747,
     "contactAzimuth": -37.796,
@@ -255,10 +263,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 201 - Offline",
     "longMessage": "Red FEP 201 is offline at 18:39:42",
-    "errorTime": 1542134382891,
+    "errorTime": "2018-11-13T18:39:42.891",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H32M0S"
   },
   {
     "_id": "5c926e56fddac52388248719",
@@ -271,8 +280,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Elit occaecat eiusmod aute ad velit aute ea do.",
-    "contactBeginTimestamp": 1563759300,
-    "contactEndTimestamp": 1563761760,
+    "contactBeginTimestamp": "2019-07-22T01:35:00.000",
+    "contactEndTimestamp": "2019-07-22T02:16:00.000",
     "contactLatitude": -53.21441,
     "contactLongitude": 44.42918,
     "contactAzimuth": -124.226,
@@ -284,10 +293,11 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-180 - Power degradation",
     "longMessage": "USA-180 suffered power degradation at 18:39:34",
-    "errorTime": 1542134374882,
+    "errorTime": "2018-11-13T18:39:34.882",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H41M0S"
   },
   {
     "_id": "5c926e56fddac52388248719",
@@ -300,8 +310,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Elit occaecat eiusmod aute ad velit aute ea do.",
-    "contactBeginTimestamp": 1563759300,
-    "contactEndTimestamp": 1563761760,
+    "contactBeginTimestamp": "2019-07-22T01:35:00.000",
+    "contactEndTimestamp": "2019-07-22T02:16:00.000",
     "contactLatitude": -53.21441,
     "contactLongitude": 44.42918,
     "contactAzimuth": -124.226,
@@ -313,10 +323,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna USA-180 - Power degradation",
     "longMessage": "Antenna USA-180 suffered power degradation at 18:39:34",
-    "errorTime": 1542134374882,
+    "errorTime": "2018-11-13T18:39:34.882",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H41M0S"
   },
   {
     "_id": "5c926e56fddac52388252115",
@@ -329,8 +340,8 @@
     "contactState": "executing",
     "contactStep": "LOS",
     "contactDetail": "Veniam officia ex velit aute.",
-    "contactBeginTimestamp": 1563760800,
-    "contactEndTimestamp": 1563762060,
+    "contactBeginTimestamp": "2019-07-22T02:00:00.000",
+    "contactEndTimestamp": "2019-07-22T02:21:00.000",
     "contactLatitude": 58.70874,
     "contactLongitude": 163.00981,
     "contactAzimuth": -27.934,
@@ -342,10 +353,11 @@
     "errorCategory": "software",
     "errorMessage": "Black FEP 301 - Offline",
     "longMessage": "Black FEP 301 is offline at 18:39:28",
-    "errorTime": 1542134368866,
+    "errorTime": "2018-11-13T18:39:28.866",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H21M0S"
   },
   {
     "_id": "5c926e56fddac5238824fedd",
@@ -358,8 +370,8 @@
     "contactState": "executing",
     "contactStep": "LOS",
     "contactDetail": "Eu sint esse adipisicing minim ad ullamco officia elit culpa velit ad eiusmod enim adipisicing.",
-    "contactBeginTimestamp": 1563760920,
-    "contactEndTimestamp": 1563763020,
+    "contactBeginTimestamp": "2019-07-22T02:02:00.000",
+    "contactEndTimestamp": "2019-07-22T02:37:00.000",
     "contactLatitude": 3.28217,
     "contactLongitude": 49.53525,
     "contactAzimuth": -26.497,
@@ -371,10 +383,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 2 - Offline",
     "longMessage": "Antenna DGS 2 went offline at 18:39:23",
-    "errorTime": 1542134363860,
+    "errorTime": "2018-11-13T18:39:23.860",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H35M0S"
   },
   {
     "_id": "5c926e56fddac5238824a951",
@@ -387,8 +400,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Voluptate voluptate occaecat voluptate eiusmod cillum ullamco mollit aliquip cupidatat labore consectetur consequat.",
-    "contactBeginTimestamp": 1563762120,
-    "contactEndTimestamp": 1563764700,
+    "contactBeginTimestamp": "2019-07-22T02:22:00.000",
+    "contactEndTimestamp": "2019-07-22T03:05:00.000",
     "contactLatitude": 49.24111,
     "contactLongitude": -12.27243,
     "contactAzimuth": 29.049,
@@ -400,10 +413,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna HTS 2 - Weak signal",
     "longMessage": "Antenna HTS 2 has weak signal at 18:39:18",
-    "errorTime": 1542134358852,
+    "errorTime": "2018-11-13T18:39:18.852",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H43M0S"
   },
   {
     "_id": "5c926e56fddac523882464e1",
@@ -416,8 +430,8 @@
     "contactState": "executing",
     "contactStep": "Uplink",
     "contactDetail": "Anim non exercitation amet pariatur sunt do tempor proident duis esse quis anim incididunt.",
-    "contactBeginTimestamp": 1563762960,
-    "contactEndTimestamp": 1563765420,
+    "contactBeginTimestamp": "2019-07-22T02:36:00.000",
+    "contactEndTimestamp": "2019-07-22T03:17:00.000",
     "contactLatitude": -77.22924,
     "contactLongitude": 106.14069,
     "contactAzimuth": 171.966,
@@ -429,10 +443,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 121 - Offline",
     "longMessage": "Red FEP 121 is offline at 18:39:15",
-    "errorTime": 1542134355848,
+    "errorTime": "2018-11-13T18:39:15.848",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H41M0S"
   },
   {
     "_id": "5c926e56fddac523882464e1",
@@ -445,8 +460,8 @@
     "contactState": "executing",
     "contactStep": "Uplink",
     "contactDetail": "Anim non exercitation amet pariatur sunt do tempor proident duis esse quis anim incididunt.",
-    "contactBeginTimestamp": 1563762960,
-    "contactEndTimestamp": 1563765420,
+    "contactBeginTimestamp": "2019-07-22T02:36:00.000",
+    "contactEndTimestamp": "2019-07-22T03:17:00.000",
     "contactLatitude": -77.22924,
     "contactLongitude": 106.14069,
     "contactAzimuth": 171.966,
@@ -458,10 +473,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 122 - Offline",
     "longMessage": "Red FEP 122 is offline at 18:39:15",
-    "errorTime": 1542134355848,
+    "errorTime": "2018-11-13T18:39:15.848",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H41M0S"
   },
   {
     "_id": "5c926e56fddac52388255469",
@@ -474,8 +490,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Laborum amet irure veniam esse reprehenderit.",
-    "contactBeginTimestamp": 1563763380,
-    "contactEndTimestamp": 1563765420,
+    "contactBeginTimestamp": "2019-07-22T02:43:00.000",
+    "contactEndTimestamp": "2019-07-22T03:17:00.000",
     "contactLatitude": 61.43678,
     "contactLongitude": 114.41548,
     "contactAzimuth": 84.521,
@@ -487,10 +503,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Workstation 101 - Memory limit reached",
     "longMessage": "Workstation 101 has reached memory limit at 18:39:12",
-    "errorTime": 1542134352844,
+    "errorTime": "2018-11-13T18:39:12.844",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H34M0S"
   },
   {
     "_id": "5c926e56fddac5238825ee65",
@@ -503,8 +520,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Tempor nostrud eu voluptate laborum.",
-    "contactBeginTimestamp": 1563763620,
-    "contactEndTimestamp": 1563765180,
+    "contactBeginTimestamp": "2019-07-22T02:47:00.000",
+    "contactEndTimestamp": "2019-07-22T03:13:00.000",
     "contactLatitude": 40.05133,
     "contactLongitude": -34.98303,
     "contactAzimuth": 172.652,
@@ -516,10 +533,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Workstation 202 - Out of disk space",
     "longMessage": "Workstation 202 is out of disk space at 18:39:05",
-    "errorTime": 1542134345836,
+    "errorTime": "2018-11-13T18:39:05.836",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H26M0S"
   },
   {
     "_id": "5c926e56fddac5238825ee65",
@@ -532,8 +550,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Tempor nostrud eu voluptate laborum.",
-    "contactBeginTimestamp": 1563763620,
-    "contactEndTimestamp": 1563765180,
+    "contactBeginTimestamp": "2019-07-22T02:47:00.000",
+    "contactEndTimestamp": "2019-07-22T03:13:00.000",
     "contactLatitude": 40.05133,
     "contactLongitude": -34.98303,
     "contactAzimuth": 172.652,
@@ -545,10 +563,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Workstation 203 - Limited disk space",
     "longMessage": "Workstation 203 is running out of disk space at 18:39:05",
-    "errorTime": 1542134345836,
+    "errorTime": "2018-11-13T18:39:05.836",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H26M0S"
   },
   {
     "_id": "5c926e56fddac523882587bd",
@@ -561,8 +580,8 @@
     "contactState": "executing",
     "contactStep": "LOS",
     "contactDetail": "Ipsum irure reprehenderit labore et exercitation commodo Lorem culpa et.",
-    "contactBeginTimestamp": 1563764100,
-    "contactEndTimestamp": 1563765900,
+    "contactBeginTimestamp": "2019-07-22T02:55:00.000",
+    "contactEndTimestamp": "2019-07-22T03:25:00.000",
     "contactLatitude": 29.46253,
     "contactLongitude": -161.91291,
     "contactAzimuth": -51.947,
@@ -574,10 +593,11 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-145 - SARM failure",
     "longMessage": "USA-145 experienced SARM failure at 18:39:02",
-    "errorTime": 1542134342832,
+    "errorTime": "2018-11-13T18:39:02.832",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H30M0S"
   },
   {
     "_id": "5c926e56fddac5238824ba6d",
@@ -590,8 +610,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Est tempor ipsum dolore excepteur.",
-    "contactBeginTimestamp": 1563764280,
-    "contactEndTimestamp": 1563766200,
+    "contactBeginTimestamp": "2019-07-22T02:58:00.000",
+    "contactEndTimestamp": "2019-07-22T03:30:00.000",
     "contactLatitude": -59.68067,
     "contactLongitude": -137.19778,
     "contactAzimuth": -108.447,
@@ -603,10 +623,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 2 - NOLOCK",
     "longMessage": "Antenna DGS 2 received NOLOCK at 18:38:51",
-    "errorTime": 1542134331818,
+    "errorTime": "2018-11-13T18:38:51.818",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H32M0S"
   },
   {
     "_id": "5c926e56fddac5238824fede",
@@ -619,8 +640,8 @@
     "contactState": "executing",
     "contactStep": "Uplink",
     "contactDetail": "Reprehenderit aute ad deserunt non eiusmod do.",
-    "contactBeginTimestamp": 1563766500,
-    "contactEndTimestamp": 1563767400,
+    "contactBeginTimestamp": "2019-07-22T03:35:00.000",
+    "contactEndTimestamp": "2019-07-22T03:50:00.000",
     "contactLatitude": -51.27258,
     "contactLongitude": -53.09506,
     "contactAzimuth": -7.355,
@@ -632,10 +653,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Workstation 134 - Out of disk space",
     "longMessage": "Workstation 134 is out of disk space at 18:38:44",
-    "errorTime": 1542134324809,
+    "errorTime": "2018-11-13T18:38:44.809",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H15M0S"
   },
   {
     "_id": "5c926e56fddac523882442aa",
@@ -648,8 +670,8 @@
     "contactState": "executing",
     "contactStep": "AOS",
     "contactDetail": "Lorem sit incididunt id occaecat irure.",
-    "contactBeginTimestamp": 1563768240,
-    "contactEndTimestamp": 1563770820,
+    "contactBeginTimestamp": "2019-07-22T04:04:00.000",
+    "contactEndTimestamp": "2019-07-22T04:47:00.000",
     "contactLatitude": 79.1263,
     "contactLongitude": 160.98678,
     "contactAzimuth": 130.394,
@@ -661,10 +683,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna VTS 2 - Weak signal",
     "longMessage": "Antenna VTS 2 has weak signal at 18:38:43",
-    "errorTime": 1542134323807,
+    "errorTime": "2018-11-13T18:38:43.807",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H43M0S"
   },
   {
     "_id": "5c926e56fddac523882453c6",
@@ -677,8 +700,8 @@
     "contactState": "executing",
     "contactStep": "AOS",
     "contactDetail": "Cillum do dolor voluptate esse eiusmod excepteur adipisicing in.",
-    "contactBeginTimestamp": 1563768720,
-    "contactEndTimestamp": 1563770700,
+    "contactBeginTimestamp": "2019-07-22T04:12:00.000",
+    "contactEndTimestamp": "2019-07-22T04:45:00.000",
     "contactLatitude": -45.92976,
     "contactLongitude": -156.82804,
     "contactAzimuth": 119.901,
@@ -690,10 +713,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna HTS 1 - NOLOCK",
     "longMessage": "Antenna HTS 1 received NOLOCK at 18:38:38",
-    "errorTime": 1542134318801,
+    "errorTime": "2018-11-13T18:38:38.801",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H33M0S"
   },
   {
     "_id": "5c926e56fddac52388250ffa",
@@ -706,8 +730,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Aliqua esse ut quis id laborum sint ad ullamco labore esse amet cupidatat.",
-    "contactBeginTimestamp": 1563768780,
-    "contactEndTimestamp": 1563770280,
+    "contactBeginTimestamp": "2019-07-22T04:13:00.000",
+    "contactEndTimestamp": "2019-07-22T04:38:00.000",
     "contactLatitude": 84.545,
     "contactLongitude": 178.42969,
     "contactAzimuth": -22.021,
@@ -719,10 +743,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 2 - Weak signal",
     "longMessage": "Antenna DGS 2 has weak signal at 18:38:37",
-    "errorTime": 1542134317799,
+    "errorTime": "2018-11-13T18:38:37.799",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H25M0S"
   },
   {
     "_id": "5c926e56fddac52388250ffa",
@@ -735,8 +760,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Aliqua esse ut quis id laborum sint ad ullamco labore esse amet cupidatat.",
-    "contactBeginTimestamp": 1563768780,
-    "contactEndTimestamp": 1563770280,
+    "contactBeginTimestamp": "2019-07-22T04:13:00.000",
+    "contactEndTimestamp": "2019-07-22T04:38:00.000",
     "contactLatitude": 84.545,
     "contactLongitude": 178.42969,
     "contactAzimuth": -22.021,
@@ -748,10 +773,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 3 - Weak signal",
     "longMessage": "Antenna DGS 3 has weak signal at 18:38:37",
-    "errorTime": 1542134317799,
+    "errorTime": "2018-11-13T18:38:37.799",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H25M0S"
   },
   {
     "_id": "5c926e56fddac5238823ed1e",
@@ -764,8 +790,8 @@
     "contactState": "executing",
     "contactStep": "LOS",
     "contactDetail": "Aliqua adipisicing anim exercitation dolore id pariatur occaecat cupidatat.",
-    "contactBeginTimestamp": 1563769260,
-    "contactEndTimestamp": 1563771600,
+    "contactBeginTimestamp": "2019-07-22T04:21:00.000",
+    "contactEndTimestamp": "2019-07-22T05:00:00.000",
     "contactLatitude": -24.21224,
     "contactLongitude": 147.65272,
     "contactAzimuth": -173.78,
@@ -777,10 +803,11 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-177 - Solar panel misalignment",
     "longMessage": "USA-177 experienced solar panel misalignment at 18:38:32",
-    "errorTime": 1542134312791,
+    "errorTime": "2018-11-13T18:38:32.791",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H39M0S"
   },
   {
     "_id": "5c926e56fddac5238823ed1e",
@@ -793,8 +820,8 @@
     "contactState": "executing",
     "contactStep": "LOS",
     "contactDetail": "Aliqua adipisicing anim exercitation dolore id pariatur occaecat cupidatat.",
-    "contactBeginTimestamp": 1563769260,
-    "contactEndTimestamp": 1563771600,
+    "contactBeginTimestamp": "2019-07-22T04:21:00.000",
+    "contactEndTimestamp": "2019-07-22T05:00:00.000",
     "contactLatitude": -24.21224,
     "contactLongitude": 147.65272,
     "contactAzimuth": -173.78,
@@ -806,10 +833,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna USA 177 - Weak signal",
     "longMessage": "Antenna USA 177 has weak signal at 18:38:37",
-    "errorTime": 1542134317799,
+    "errorTime": "2018-11-13T18:38:37.799",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H39M0S"
   },
   {
     "_id": "5c926e56fddac5238823ed1e",
@@ -822,8 +850,8 @@
     "contactState": "executing",
     "contactStep": "LOS",
     "contactDetail": "Aliqua adipisicing anim exercitation dolore id pariatur occaecat cupidatat.",
-    "contactBeginTimestamp": 1563769260,
-    "contactEndTimestamp": 1563771600,
+    "contactBeginTimestamp": "2019-07-22T04:21:00.000",
+    "contactEndTimestamp": "2019-07-22T05:00:00.000",
     "contactLatitude": -24.21224,
     "contactLongitude": 147.65272,
     "contactAzimuth": -173.78,
@@ -835,10 +863,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 3 - Weak signal",
     "longMessage": "Antenna DGS 3 has weak signal at 18:38:37",
-    "errorTime": 1542134317799,
+    "errorTime": "2018-11-13T18:38:37.799",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H39M0S"
   },
   {
     "_id": "5c926e56fddac52388249836",
@@ -851,8 +880,8 @@
     "contactState": "executing",
     "contactStep": "Critical Health",
     "contactDetail": "Pariatur laboris nisi consequat ipsum commodo veniam laborum officia ut.",
-    "contactBeginTimestamp": 1563770520,
-    "contactEndTimestamp": 1563772620,
+    "contactBeginTimestamp": "2019-07-22T04:42:00.000",
+    "contactEndTimestamp": "2019-07-22T05:17:00.000",
     "contactLatitude": -45.48174,
     "contactLongitude": -179.74218,
     "contactAzimuth": -20.654,
@@ -864,10 +893,11 @@
     "errorCategory": "software",
     "errorMessage": "Black FEP 121 - Offline",
     "longMessage": "Black FEP 121 is offline at 18:38:27",
-    "errorTime": 1542134307782,
+    "errorTime": "2018-11-13T18:38:27.782",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H35M0S"
   },
   {
     "_id": "5c926e56fddac52388253233",
@@ -880,8 +910,8 @@
     "contactState": "executing",
     "contactStep": "Downlink",
     "contactDetail": "Commodo exercitation magna sunt veniam cillum dolore Lorem minim et officia adipisicing adipisicing.",
-    "contactBeginTimestamp": 1563771600,
-    "contactEndTimestamp": 1563774240,
+    "contactBeginTimestamp": "2019-07-22T05:00:00.000",
+    "contactEndTimestamp": "2019-07-22T05:44:00.000",
     "contactLatitude": -4.50585,
     "contactLongitude": -94.31701,
     "contactAzimuth": -129.805,
@@ -893,10 +923,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Workstation 134 - Offline",
     "longMessage": "Workstation 134 is offline at 18:38:24",
-    "errorTime": 1542134304777,
+    "errorTime": "2018-11-13T18:38:24.777",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H44M0S"
   },
   {
     "_id": "5c926e56fddac5238823fe3b",
@@ -909,8 +940,8 @@
     "contactState": "executing",
     "contactStep": "DCC",
     "contactDetail": "Sunt laborum culpa enim sint voluptate anim nulla consequat voluptate Lorem enim ut.",
-    "contactBeginTimestamp": 1563772080,
-    "contactEndTimestamp": 1563773340,
+    "contactBeginTimestamp": "2019-07-22T05:08:00.000",
+    "contactEndTimestamp": "2019-07-22T05:29:00.000",
     "contactLatitude": 52.27392,
     "contactLongitude": 163.60154,
     "contactAzimuth": 51.073,
@@ -922,10 +953,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 2 - Offline",
     "longMessage": "Antenna DGS 2 went offline at 18:38:23",
-    "errorTime": 1542134303776,
+    "errorTime": "2018-11-13T18:38:23.776",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H21M0S"
   },
   {
     "_id": "5c926e56fddac5238825bb13",
@@ -938,8 +970,8 @@
     "contactState": "executing",
     "contactStep": "Configure Operation",
     "contactDetail": "Eiusmod et nisi nostrud culpa et cupidatat qui ullamco do amet.",
-    "contactBeginTimestamp": 1563773040,
-    "contactEndTimestamp": 1563775500,
+    "contactBeginTimestamp": "2019-07-22T05:24:00.000",
+    "contactEndTimestamp": "2019-07-22T06:05:00.000",
     "contactLatitude": -32.96095,
     "contactLongitude": 138.98304,
     "contactAzimuth": 10.531,
@@ -951,10 +983,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 301 - Degraded",
     "longMessage": "Red FEP 301 is degraded at 18:38:17",
-    "errorTime": 1542134297768,
+    "errorTime": "2018-11-13T18:38:17.768",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H41M0S"
   },
   {
     "_id": "5c926e56fddac5238825434f",
@@ -967,8 +1000,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Elit ut ad consectetur veniam magna anim in do irure.",
-    "contactBeginTimestamp": 1563774900,
-    "contactEndTimestamp": 1563775980,
+    "contactBeginTimestamp": "2019-07-22T05:55:00.000",
+    "contactEndTimestamp": "2019-07-22T06:13:00.000",
     "contactLatitude": 82.83648,
     "contactLongitude": -15.9708,
     "contactAzimuth": 17.058,
@@ -980,10 +1013,11 @@
     "errorCategory": "software",
     "errorMessage": "Red FEP 201 - Degraded",
     "longMessage": "Red FEP 201 is degraded at 18:38:16",
-    "errorTime": 1542134296767,
+    "errorTime": "2018-11-13T18:38:16.767",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H18M0S"
   },
   {
     "_id": "5c926e56fddac52388256587",
@@ -996,8 +1030,8 @@
     "contactState": "executing",
     "contactStep": "Configure Operation",
     "contactDetail": "Culpa anim cupidatat excepteur ipsum ut ullamco aliquip nisi officia cillum.",
-    "contactBeginTimestamp": 1563775740,
-    "contactEndTimestamp": 1563778440,
+    "contactBeginTimestamp": "2019-07-22T06:09:00.000",
+    "contactEndTimestamp": "2019-07-22T06:54:00.000",
     "contactLatitude": -45.50092,
     "contactLongitude": 91.18361,
     "contactAzimuth": 171.288,
@@ -1009,10 +1043,11 @@
     "errorCategory": "hardware",
     "errorMessage": "Antenna DGS 1 - Offline",
     "longMessage": "Antenna DGS 1 went offline at 18:38:09",
-    "errorTime": 1542134289757,
+    "errorTime": "2018-11-13T18:38:09.757",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H45M0S"
   },
   {
     "_id": "5c926e56fddac523882475ff",
@@ -1025,8 +1060,8 @@
     "contactState": "executing",
     "contactStep": "Configure Operation",
     "contactDetail": "Aliquip ullamco est in sint officia dolore voluptate labore.",
-    "contactBeginTimestamp": 1563776760,
-    "contactEndTimestamp": 1563778140,
+    "contactBeginTimestamp": "2019-07-22T06:26:00.000",
+    "contactEndTimestamp": "2019-07-22T06:49:00.000",
     "contactLatitude": 52.71253,
     "contactLongitude": -125.56616,
     "contactAzimuth": -36.009,
@@ -1038,10 +1073,11 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-150 - Solar panel misalignment",
     "longMessage": "USA-150 experienced solar panel misalignment at 18:38:00",
-    "errorTime": 1542134280747,
+    "errorTime": "2018-11-13T18:38:00.747",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H23M0S"
   },
   {
     "_id": "5c926e56fddac523882464e3",
@@ -1054,8 +1090,8 @@
     "contactState": "executing",
     "contactStep": "Command",
     "contactDetail": "Culpa exercitation aute fugiat eiusmod ea deserunt proident dolor.",
-    "contactBeginTimestamp": 1563777180,
-    "contactEndTimestamp": 1563778140,
+    "contactBeginTimestamp": "2019-07-22T06:33:00.000",
+    "contactEndTimestamp": "2019-07-22T06:49:00.000",
     "contactLatitude": 43.7696,
     "contactLongitude": 136.10627,
     "contactAzimuth": 167.043,
@@ -1067,10 +1103,11 @@
     "errorCategory": "software",
     "errorMessage": "Black FEP 121 - Degraded",
     "longMessage": "Black FEP 121 is degraded at 18:37:57",
-    "errorTime": 1542134277742,
+    "errorTime": "2018-11-13T18:37:57.742",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H16M0S"
   },
   {
     "_id": "5c926e56fddac52388252117",
@@ -1083,8 +1120,8 @@
     "contactState": "executing",
     "contactStep": "Lock",
     "contactDetail": "Incididunt consequat dolor qui tempor nisi ex.",
-    "contactBeginTimestamp": 1563777540,
-    "contactEndTimestamp": 1563780240,
+    "contactBeginTimestamp": "2019-07-22T06:39:00.000",
+    "contactEndTimestamp": "2019-07-22T07:24:00.000",
     "contactLatitude": -9.98223,
     "contactLongitude": -114.51748,
     "contactAzimuth": -60.545,
@@ -1096,9 +1133,10 @@
     "errorCategory": "spacecraft",
     "errorMessage": "USA-168 - Power degradation",
     "longMessage": "USA-168 suffered power degradation at 18:37:54",
-    "errorTime": 1542134274738,
+    "errorTime": "2018-11-13T18:37:54.738",
     "selected": false,
     "new": false,
-    "expanded": false
+    "expanded": false,
+    "contactTime": "P0DT0H45M0S"
   }
 ]

@@ -1,2 +1,10 @@
-<p>alert works!</p>
-<rux-button> </rux-button>
+<rux-card>
+  <div slot="header">
+    <rux-icon icon="warning" />
+    {{ alert().contactName }}
+    <rux-button> Show Details </rux-button>
+  </div>
+  {{ alert().errorMessage }}
+  <p>{{ alert().contactBeginTimestamp }}</p>
+  <p>{{ alert().contactEndTimestamp }}</p>
+</rux-card>

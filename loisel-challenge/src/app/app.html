@@ -1,7 +1,9 @@
 <main class="main">
   Test me
   <rux-button> I am a button </rux-button>
-  <app-alert/>
+  @for (alert of alerts; track $index) {
+    <app-alert-card [alert]=alert/>
+  }
 </main>
 
 <router-outlet />

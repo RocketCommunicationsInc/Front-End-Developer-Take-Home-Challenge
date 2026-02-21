@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 // import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import data from '../../public/data_processed.json';
+import { Alert } from './alert/alert-card';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,6 @@ import data from '../../public/data_processed.json';
 })
 export class App {
   protected readonly title = signal('loisel-challenge');
-  constructor() {
-    console.log(data);
-  }
+  alerts: Alert[] = data;
+  constructor() {}
 }
