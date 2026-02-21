@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 // import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import data from '../../public/data.json';
+import data from '../../public/data_processed.json';
 
 @Component({
   selector: 'app-root',
