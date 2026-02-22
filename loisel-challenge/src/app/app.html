@@ -1,9 +1,14 @@
 <main class="main">
   Test me
-  <rux-button> I am a button </rux-button>
-  @for (alert of alerts; track $index) {
-    <app-alert-card [alert]=alert/>
-  }
+  <table matSort (matSortChange)="sortAlerts($event)">
+    <tr>
+      <th mat-sort-header="contactName">Name</th>
+      <th mat-sort-header="contactBeginTimestamp">Begin Time</th>
+    </tr>
+    <tr *ngFor="let alert of sortedAlerts">
+      <app-alert-card [alert]="alert" />
+    </tr>
+  </table>
 </main>
 
 <router-outlet />
