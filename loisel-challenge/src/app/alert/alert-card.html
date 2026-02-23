@@ -1,13 +1,15 @@
 <rux-card [attr.acknowledged]="alert().acknowledged">
-  <div slot="header">
+  <section slot="header">
     <rux-icon
       [icon]="alert().acknowledged ? 'check-circle-outline' : 'warning'"
       [attr.severity]="alert().errorSeverity"
+      size="small"
     />
-    {{ alert().contactName }}
-    <rux-button (click)="handleAlertClick()"> Show Details </rux-button>
-  </div>
-  {{ alert().errorMessage }}
-  <p>{{ alert().contactBeginTimestamp }}</p>
-  <p>{{ alert().contactEndTimestamp }}</p>
+    <span class="title"> {{ alert().contactName }} - {{ alert().errorSeverity }} </span>
+    <rux-button (click)="handleAlertClick()" [secondary]="alert().acknowledged"> Show Details </rux-button>
+  </section>
+  <section class="card-body">
+    <span>{{ alert().errorMessage }} </span>
+    <span>{{ alert().contactBeginTimestamp }} - {{ alert().contactEndTimestamp }}</span>
+  </section>
 </rux-card>

@@ -1,0 +1,35 @@
+rux-dialog
+
+    &::part(container)
+        padding: 5rem
+
+    &::part(dialog)
+        margin-left: 10rem
+        margin-right: 10rem
+        width: 40rem
+
+    &::part(footer)
+        background-color: var(--color-background-surface-header)
+
+    [slot="header"]
+    rux-icon
+        padding-right: .5em
+        display: flex
+        align-items: center
+
+    .bold
+        font-weight: bold
+
+    .capitalize
+        text-transform: capitalize
+
+    .flex-row
+        display: flex
+        align-items: center
+        gap: .1em
+
+    h3
+        margin-bottom: 0
+
+    ul
+        margin: 0

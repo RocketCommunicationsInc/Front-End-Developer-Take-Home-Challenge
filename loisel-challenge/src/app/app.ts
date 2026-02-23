@@ -16,8 +16,6 @@ export class App {
   showContactDetails: boolean = false;
   focusedAlertIndex: number = 0;
 
-  constructor() {}
-
   sortAlerts(sort: Sort) {
     const data = importData.slice();
     if (!sort.active || sort.direction === '') {
@@ -30,8 +28,14 @@ export class App {
       switch (sort.active) {
         case 'contactName':
           return compare(a.contactName, b.contactName, isAsc);
-        case 'contactBeginTimestamp':
-          return compare(a.contactBeginTimestamp, b.contactBeginTimestamp, isAsc);
+        case 'errorTime':
+          return compare(a.errorTime, b.errorTime, isAsc);
+        case 'errorSeverity':
+          return compare(
+            severityToNumber(a.errorSeverity),
+            severityToNumber(b.errorSeverity),
+            isAsc
+          );
         default:
           return 0;
       }
@@ -51,4 +55,18 @@ export class App {
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+function severityToNumber(severity: string): number {
+  switch (severity) {
+    case 'critical':
+      return 0;
+    case 'serious':
+      return 1;
+    case 'caution':
+      return 2;
+    case 'warning':
+      return 3;
+  }
+  return 100;
 }

@@ -1,56 +1,64 @@
 <rux-dialog open="{{ open() }}">
-  <div slot="header">
+  <section slot="header">
     <rux-icon
       [icon]="alert().acknowledged ? 'check-circle-outline' : 'warning'"
       [attr.severity]="alert().errorSeverity"
     />
-    {{ alert().contactName }} {{ alert().errorMessage }}
-  </div>
+    {{ alert().contactName }}: {{ alert().errorMessage }}
+  </section>
+  <section class="dialog-body">
+    <p>
+      <span class="bold"> [{{ alert().errorTime }} - {{ alert().contactEndTimestamp }}]: </span>
+      <span [attr.severity]="alert().errorSeverity" class="capitalize">
+        {{ alert().errorSeverity }} Alert </span
+      >,
+      {{ alert().longMessage }}
+    </p>
 
-  <p>
-    [{{ alert().errorTime }}]:
-    <span [attr.severity]="alert().errorSeverity"> {{ alert().errorSeverity }} Alert </span>,
-    {{ alert().longMessage }}
-  </p>
+    <p class="flex-row">
+      <span class="bold">Error Category: </span>
+      <span class="capitalize">
+        {{ alert().errorCategory }}
+      </span>
+      <rux-icon [icon]="errorCategoryIcon" size="small"> </rux-icon>
+    </p>
 
-  <p>
-    errorCategory: {{ alert().errorCategory }}
+    <div>
+      <canvas #chartLatLon width="400" height="200"></canvas>
+      <div>
+        <span class="bold"> Contact Position: </span>({{ alert().contactLatitude }}°,
+        {{ alert().contactLongitude }}°)
+      </div>
+      <div>
+        <span class="bold"> Contact Az/El: </span>({{ alert().contactAzimuth }}°,
+        {{ alert().contactElevation }}°)
+      </div>
+    </div>
 
-    <rux-icon [icon]="errorCategoryIcon"> </rux-icon>
-  </p>
+    <h3>Additional Error Details</h3>
+    <ul>
+      <li>[ errorId ]: {{ alert().errorId }}</li>
+      <li>[ contactResolution ]: {{ alert().contactResolution }}</li>
+      <li>[ selected ]: {{ alert().selected }}</li>
+      <li>[ new ]: {{ alert().new }}</li>
+      <li>[ expanded ]: {{ alert().expanded }}</li>
+    </ul>
 
-  <div>
-    ({{ alert().contactLatitude }}, {{ alert().contactLongitude }})
-    <canvas #chartLatLon width="400" height="200"></canvas>
-    <li>({{ alert().contactAzimuth }}, {{ alert().contactElevation }})</li>
-  </div>
-
-  <h3>Additional Error Details</h3>
-  <ul>
-    <li>errorId: {{ alert().errorId }}</li>
-    <li>contactResolution: {{ alert().contactResolution }}</li>
-    <li>selected: {{ alert().selected }}</li>
-    <li>new: {{ alert().new }}</li>
-    <li>expanded: {{ alert().expanded }}</li>
-  </ul>
-
-  <h4>Contact Details</h4>
-  <ul>
-    <li>{{ alert()._id }}</li>
-    <li>{{ alert().contactId }}</li>
-    <li>{{ alert().contactStatus }}</li>
-    <li>{{ alert().contactGround }}</li>
-    <li>{{ alert().contactSatellite }}</li>
-    <li>{{ alert().contactEquipment }}</li>
-    <li>{{ alert().contactState }}</li>
-    <li>{{ alert().contactStep }}</li>
-    <li>{{ alert().contactDetail }}</li>
-    <li>{{ alert().contactBeginTimestamp }}</li>
-    <li>{{ alert().contactEndTimestamp }}</li>
-
-    <li>{{ alert().contactResolution }}</li>
-    <li>{{ alert().contactResolutionStatus }}</li>
-  </ul>
+    <h3>Contact Details</h3>
+    <ul>
+      <li>[ _id ]: {{ alert()._id }}</li>
+      <li>[ contactId ]: {{ alert().contactId }}</li>
+      <li>[ contactStatus ]: {{ alert().contactStatus }}</li>
+      <li>[ contactGround ]: {{ alert().contactGround }}</li>
+      <li>[ contactSatellite ]: {{ alert().contactSatellite }}</li>
+      <li>[ contactEquipment ]: {{ alert().contactEquipment }}</li>
+      <li>[ contactState ]: {{ alert().contactState }}</li>
+      <li>[ contactStep ]: {{ alert().contactStep }}</li>
+      <li>[ contactDetail ]: {{ alert().contactDetail }}</li>
+      <li>[ contactResolution ]: {{ alert().contactResolution }}</li>
+      <li>[ contactResolutionStatus ]: {{ alert().contactResolutionStatus }}</li>
+    </ul>
+  </section>
 
   <div slot="footer">
     <rux-button (click)="handleAcknowledge()">Acknowledge</rux-button>

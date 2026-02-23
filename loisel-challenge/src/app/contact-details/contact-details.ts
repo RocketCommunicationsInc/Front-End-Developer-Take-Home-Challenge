@@ -10,12 +10,15 @@ import { Feature, FeatureCollection } from 'geojson';
   styleUrl: './contact-details.sass',
 })
 export class ContactDetails {
-  open = input.required<boolean>();
-  alert = input.required<Alert>();
-  errorCategoryIcon = '';
-
   @ViewChild('chartLatLon', { read: ElementRef, static: true })
   canvasRef!: ElementRef<HTMLCanvasElement>;
+
+  open = input.required<boolean>();
+  alert = input.required<Alert>();
+
+  acknowledgeAlert = output<void>();
+
+  errorCategoryIcon = '';
 
   ngOnInit() {
     switch (this.alert().errorCategory) {
@@ -35,7 +38,7 @@ export class ContactDetails {
   }
 
   async ngOnChanges() {
-    const geoJson: Feature = {
+    const contactPosition: Feature = {
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -45,52 +48,55 @@ export class ContactDetails {
     };
 
     const canvas = this.canvasRef.nativeElement;
-    console.log(canvas);
-    const width = canvas.width;
-    const height = canvas.height;
-
-    console.log(height, width);
-
     const context = canvas.getContext('2d');
-    const path = geoPath(
-      geoNaturalEarth1()
-        .scale(width / 2 / Math.PI)
-        .translate([width / 2, height / 2]),
-      context
-    );
+
+    let contactPosColor: string;
+    switch (this.alert().errorSeverity) {
+      case 'critical':
+        contactPosColor = '#ff3838';
+        break;
+      case 'serious':
+        contactPosColor = '#ffb302';
+        break;
+      case 'caution':
+        contactPosColor = '#fce83a';
+        break;
+      default:
+        contactPosColor = '#56f000';
+    }
 
     if (context) {
-      json('/world.json').then((worldGeoJson) => {
-        context.beginPath();
-        path(worldGeoJson as FeatureCollection); // Fill the paths
+      const path = geoPath(
+        geoNaturalEarth1()
+          .scale(canvas.width / 2 / Math.PI)
+          .translate([canvas.width / 2, canvas.height / 2]),
+        context
+      );
 
-        context.fillStyle = '#999';
+      json('/world.json').then((worldGeoJson) => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+
+        path(worldGeoJson as FeatureCollection);
+        context.fillStyle = '#1c3851';
         context.fill();
+
         path({ type: 'Sphere' });
-        context.strokeStyle = '#69b3a2';
+        context.strokeStyle = '#4dacff';
         context.stroke();
+
         context.closePath();
 
         context.beginPath();
-        // Add stroke
-        path(geoJson);
-        // context.stroke();
-        // context.closePath();
-
-        context.fillStyle = '#f00';
+        path(contactPosition);
+        context.fillStyle = contactPosColor;
         context.fill();
+        context.closePath();
       });
     }
   }
 
-  acknowledgeAlert = output<void>();
-
   handleAcknowledge() {
     this.acknowledgeAlert.emit();
-    const canvas = this.canvasRef.nativeElement;
-    const context = canvas.getContext('2d');
-    if (context) {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-    }
   }
 }

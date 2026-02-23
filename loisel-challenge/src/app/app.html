@@ -1,14 +1,16 @@
-<main class="main">
-  Test me
-  <table matSort (matSortChange)="sortAlerts($event)">
-    <tr>
+<main>
+  <section matSort (matSortChange)="sortAlerts($event)">
+    <div class="sorting">
       <th mat-sort-header="contactName">Name</th>
-      <th mat-sort-header="contactBeginTimestamp">Begin Time</th>
-    </tr>
-    <tr *ngFor="let alert of sortedAlerts; index as i">
-      <app-alert-card [alert]="alert" [index]="i" (showDetails)="handleShowDetails($event)" />
-    </tr>
-  </table>
+      <th mat-sort-header="errorTime">Error Time</th>
+      <th mat-sort-header="errorSeverity">Error Severity</th>
+    </div>
+    <article class="alerts-container">
+      <div *ngFor="let alert of sortedAlerts; index as i">
+        <app-alert-card [alert]="alert" [index]="i" (showDetails)="handleShowDetails($event)" />
+      </div>
+    </article>
+  </section>
   <app-contact-details
     [open]="showContactDetails"
     [alert]="sortedAlerts[focusedAlertIndex]"

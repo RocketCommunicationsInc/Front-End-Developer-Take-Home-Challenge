@@ -1,3 +1,27 @@
 rux-card
+    width: 30rem
+
+    font-weight: bold
+
     &[acknowledged="true"]
         color: var(--color-status-off)
+
+        rux-button
+            opacity: .5
+
+    [slot="header"]
+            display: flex
+            align-items: center
+
+        rux-icon
+            padding-right: .5em
+
+        .title
+            flex-grow: 1
+            text-transform: capitalize
+
+    .card-body
+        display: flex
+        flex-direction: column
+
+        padding: .5rem
