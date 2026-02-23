@@ -10,8 +10,10 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { AlertCard } from './alert/alert-card';
 import { MatSortModule } from '@angular/material/sort';
+import { ContactDetails } from './contact-details/contact-details';
+
 @NgModule({
-  declarations: [App, AlertCard],
+  declarations: [App, AlertCard, ContactDetails],
   imports: [BrowserModule, AppRoutingModule, AstroComponentsModule, MatSortModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [provideBrowserGlobalErrorListeners()],

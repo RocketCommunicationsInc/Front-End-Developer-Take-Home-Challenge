@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { UUIDTypes } from 'uuid';
 
 export interface Alert {
@@ -41,6 +41,7 @@ export interface Alert {
   new: boolean;
   expanded: boolean;
   contactTime: string;
+  acknowledged?: boolean;
 }
 
 @Component({
@@ -51,4 +52,11 @@ export interface Alert {
 })
 export class AlertCard {
   alert = input.required<Alert>();
+  index = input.required<number>();
+
+  showDetails = output<number>();
+
+  handleAlertClick() {
+    this.showDetails.emit(this.index());
+  }
 }

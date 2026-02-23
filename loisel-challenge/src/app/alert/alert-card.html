@@ -1,8 +1,8 @@
-<rux-card>
+<rux-card [attr.acknowledged]="alert().acknowledged" [attr.severity]="alert().errorSeverity">
   <div slot="header">
-    <rux-icon icon="warning" />
+    <rux-icon [icon]="alert().acknowledged ? 'check-circle-outline' : 'warning'" />
     {{ alert().contactName }}
-    <rux-button> Show Details </rux-button>
+    <rux-button (click)="handleAlertClick()"> Show Details </rux-button>
   </div>
   {{ alert().errorMessage }}
   <p>{{ alert().contactBeginTimestamp }}</p>

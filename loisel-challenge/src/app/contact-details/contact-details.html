@@ -1,0 +1,9 @@
+<rux-dialog open="{{ open() }}">
+  <div slot="header">Dialog Header</div>
+  <span>{{ alert()._id }}</span>
+  <div slot="footer">
+    <rux-button (click)="handleAcknowledge()">Acknowledge</rux-button>
+  </div>
+</rux-dialog>
+
+<router-outlet />

@@ -5,10 +5,14 @@
       <th mat-sort-header="contactName">Name</th>
       <th mat-sort-header="contactBeginTimestamp">Begin Time</th>
     </tr>
-    <tr *ngFor="let alert of sortedAlerts">
-      <app-alert-card [alert]="alert" />
+    <tr *ngFor="let alert of sortedAlerts; index as i">
+      <app-alert-card [alert]="alert" [index]="i" (showDetails)="handleShowDetails($event)" />
     </tr>
   </table>
+  <app-contact-details
+    [open]="showContactDetails"
+    [alert]="sortedAlerts[focusedAlertIndex]"
+    (acknowledgeAlert)="handleAck()"
+  >
+  </app-contact-details>
 </main>
-
-<router-outlet />

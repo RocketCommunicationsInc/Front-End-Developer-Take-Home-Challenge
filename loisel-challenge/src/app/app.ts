@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-// import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 import importData from '../../public/data_processed.json';
 import { Alert } from './alert/alert-card';
 import { Sort } from '@angular/material/sort';
@@ -13,6 +13,9 @@ import { Sort } from '@angular/material/sort';
 export class App {
   protected readonly title = signal('loisel-challenge');
   sortedAlerts: Alert[] = importData.slice();
+  showContactDetails: boolean = false;
+  focusedAlertIndex: number = 0;
+
   constructor() {}
 
   sortAlerts(sort: Sort) {
@@ -33,6 +36,16 @@ export class App {
           return 0;
       }
     });
+  }
+
+  handleShowDetails(index: number) {
+    this.focusedAlertIndex = index;
+    this.showContactDetails = true;
+  }
+
+  handleAck() {
+    this.showContactDetails = false;
+    this.sortedAlerts[this.focusedAlertIndex].acknowledged = true;
   }
 }
 
