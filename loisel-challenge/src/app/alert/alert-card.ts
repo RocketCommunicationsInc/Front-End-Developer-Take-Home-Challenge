@@ -40,7 +40,6 @@ export interface Alert {
   selected: boolean;
   new: boolean;
   expanded: boolean;
-  contactTime: string;
   acknowledged?: boolean;
 }
 
