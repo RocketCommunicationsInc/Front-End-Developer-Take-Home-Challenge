@@ -1,59 +1,20 @@
-# LoiselChallenge
+# Loisel Challenge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+This project is for Rocket Communication's [Front End Developer Take Home Challenge](https://github.com/RocketCommunicationsInc/Front-End-Developer-Take-Home-Challenge).
 
-## Development server
+## To view the submission
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+In this directory run:
 
 ```bash
-ng generate component component-name
+npm i
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. 
 
-```bash
-ng generate --help
-```
+## Additional Notes
 
-## Building
+ I hope you like this result! It's not as clean as I want it, and given time I wanted to add a cesium.js globe that zoomed into the contact location.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ This was a really fun challenge to work on, and I would love to do more work like this in the future!
