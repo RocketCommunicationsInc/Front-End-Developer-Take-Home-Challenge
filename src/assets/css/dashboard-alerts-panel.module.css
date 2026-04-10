@@ -1,0 +1,152 @@
+.alertsPanel::part(body) {
+  padding: 0;
+}
+
+.alertsPanel::part(footer) {
+  border-top: 1px solid #14202c;
+  border-top: 1px solid #14202c;
+  bottom: 0;
+  box-shadow: 0 -0.5rem 1.25rem #00000040;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.alertsHeader[slot='header'] {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.alertsTitle {
+  display: flex;
+  flex-flow: column nowrap;
+  font-size: var(--font-size-base);
+  color: var(--white);
+}
+
+.alertsTitleCount {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weights-bold);
+  margin-top: var(--spacing-4);
+}
+
+.alertsSelectMenu {
+  display: flex;
+  gap: 5%;
+  max-width: 55%;
+}
+
+.alertListHeader {
+  background-color: var(--color-background-base-header);
+  box-shadow: 0 3px 3px 0 #0006;
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: var(--font-heading-5-font-size);
+  margin-left: 3px;
+  margin-block: 0;
+  padding: var(--spacing-2) var(--spacing-4);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  justify-content: space-between;
+  color: var(--white);
+  align-items: end;
+}
+
+.alertListHeaderLabelWrapper {
+  align-items: center;
+  display: grid;
+}
+
+.alertListHeaderLabelWrapper:nth-of-type(2),
+.alertListHeaderLabelWrapper:nth-of-type(3) {
+  width: 0;
+}
+
+.alertListHeader .alertListHeaderLabelWrapper {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 100% 0;
+  font-size: 1rem;
+}
+
+.alertListHeader .alertListHeaderLabelWrapper:last-of-type {
+  margin-right: 4.2rem;
+}
+
+.alertList {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.alertList ul {
+  padding: 0;
+  margin: 0;
+  list-style: none !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.alertList li {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block;
+}
+
+.alertList li > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.alertList li.idle rux-accordion-item::part(label-wrapper) {
+  background-color: #203246;
+}
+
+.alertList li.acknowledged rux-icon {
+  color: #56f000;
+}
+
+.alertItemLabel {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 2rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.alertItemLabel span {
+  text-align: left;
+  color: var(--white);
+}
+
+.alertItemLabel rux-status {
+  margin-left: 0.5rem;
+}
+
+.alertItemLabel span:first-of-type {
+  width: 40%;
+  margin-left: 0.5rem;
+}
+
+.alertItemLabel > span:nth-of-type(2) {
+  width: 18%;
+  text-transform: capitalize;
+}
+
+.alertItemLabel > span:nth-of-type(3) {
+  width: 18%;
+}
+
+.alertItemContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+}

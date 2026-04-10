@@ -1,0 +1,16 @@
+.dashboardPage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: calc(100vh - 7.5rem);
+  padding: 0.75rem;
+}
+
+.alertsPanelWrapper {
+  max-width: 60rem;
+  height: 100%;
+}
+
+.alertsPanelWrapper {
+  overflow: auto;
+}
