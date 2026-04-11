@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import '@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--color-background-base-default, #101923);
+  color: var(--color-text-primary, #ffffff);
+  font-family: 'Roboto', 'Open Sans', sans-serif;
+}
+
+rux-table {
+  width: 100%;
+}
+
+rux-table-header-cell,
+rux-table-cell {
+  font-size: 0.85rem;
+}

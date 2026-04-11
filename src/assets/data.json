@@ -1,0 +1,170 @@
+
+
+
+
+[
+  {
+    "contactId": "contact-001",
+    "contactName": "HEX-1 ALPHA",
+    "contactStatus": "caution",
+    "contactState": "ready",
+    "contactSatellite": "SATELLITE-001",
+    "contactEquipment": "DISH-12",
+    "contactDetail": "Ground station uplink degraded. Signal quality at 72%. Recommend diagnostic run before next pass.",
+    "contactBeginTimestamp": 1700000000000,
+    "contactEndTimestamp": 1700003600000,
+    "alerts": [
+      {
+        "errorId": "err-001",
+        "errorSeverity": "critical",
+        "errorCategory": "software",
+        "errorMessage": "Antenna encoder failure on HEX-1 ALPHA — immediate attention required",
+        "errorTime": 1700001500000,
+        "contactRef": "contact-001",
+        "contactName": "HEX-1 ALPHA",
+        "contactBeginTimestamp": 1700000000000,
+        "contactEndTimestamp": 1700003600000
+      },
+      {
+        "errorId": "err-002",
+        "errorSeverity": "serious",
+        "errorCategory": "hardware",
+        "errorMessage": "Signal-to-noise ratio below threshold on HEX-1 ALPHA",
+        "errorTime": 1700001200000,
+        "contactRef": "contact-001",
+        "contactName": "HEX-1 ALPHA",
+        "contactBeginTimestamp": 1700000000000,
+        "contactEndTimestamp": 1700003600000
+      }
+    ]
+  },
+  {
+    "contactId": "contact-002",
+    "contactName": "NAVSTAR-42",
+    "contactStatus": "normal",
+    "contactState": "executing",
+    "contactSatellite": "SATELLITE-042",
+    "contactEquipment": "DISH-07",
+    "contactDetail": "Nominal contact window. All systems reporting green. Telemetry data flowing as expected.",
+    "contactBeginTimestamp": 1699998000000,
+    "contactEndTimestamp": 1700005000000,
+    "alerts": [
+      {
+        "errorId": "err-003",
+        "errorSeverity": "caution",
+        "errorCategory": "software",
+        "errorMessage": "Command uplink delay detected on NAVSTAR-42 — 240ms above nominal",
+        "errorTime": 1700002000000,
+        "contactRef": "contact-002",
+        "contactName": "NAVSTAR-42",
+        "contactBeginTimestamp": 1699998000000,
+        "contactEndTimestamp": 1700005000000
+      }
+    ]
+  },
+  {
+    "contactId": "contact-003",
+    "contactName": "STARLINK-9A",
+    "contactStatus": "critical",
+    "contactState": "failed",
+    "contactSatellite": "SATELLITE-009A",
+    "contactEquipment": "DISH-03",
+    "contactDetail": "Contact failed during acquisition. Possible attitude control anomaly detected. Mission ops notified.",
+    "contactBeginTimestamp": 1699996000000,
+    "contactEndTimestamp": 1699999000000,
+    "alerts": [
+      {
+        "errorId": "err-004",
+        "errorSeverity": "critical",
+        "errorCategory": "spacecraft",
+        "errorMessage": "Loss of contact with STARLINK-9A — acquisition failed",
+        "errorTime": 1700002800000,
+        "contactRef": "contact-003",
+        "contactName": "STARLINK-9A",
+        "contactBeginTimestamp": 1699996000000,
+        "contactEndTimestamp": 1699999000000
+      },
+      {
+        "errorId": "err-005",
+        "errorSeverity": "serious",
+        "errorCategory": "hardware",
+        "errorMessage": "Attitude determination system timeout on STARLINK-9A",
+        "errorTime": 1700002400000,
+        "contactRef": "contact-003",
+        "contactName": "STARLINK-9A",
+        "contactBeginTimestamp": 1699996000000,
+        "contactEndTimestamp": 1699999000000
+      },
+      {
+        "errorId": "err-006",
+        "errorSeverity": "caution",
+        "errorCategory": "software",
+        "errorMessage": "Telemetry buffer overflow on STARLINK-9A ground segment",
+        "errorTime": 1700001800000,
+        "contactRef": "contact-003",
+        "contactName": "STARLINK-9A",
+        "contactBeginTimestamp": 1699996000000,
+        "contactEndTimestamp": 1699999000000
+      }
+    ]
+  },
+  {
+    "contactId": "contact-004",
+    "contactName": "GEOSYNC-7",
+    "contactStatus": "normal",
+    "contactState": "ready",
+    "contactSatellite": "SATELLITE-007",
+    "contactEquipment": "DISH-15",
+    "contactDetail": "Pre-contact checks complete. All subsystems nominal. Ready for scheduled uplink window.",
+    "contactBeginTimestamp": 1700006000000,
+    "contactEndTimestamp": 1700010000000,
+    "alerts": [
+      {
+        "errorId": "err-007",
+        "errorSeverity": "caution",
+        "errorCategory": "hardware",
+        "errorMessage": "Solar panel voltage variance detected on GEOSYNC-7 — within tolerance",
+        "errorTime": 1699999500000,
+        "contactRef": "contact-004",
+        "contactName": "GEOSYNC-7",
+        "contactBeginTimestamp": 1700006000000,
+        "contactEndTimestamp": 1700010000000
+      }
+    ]
+  },
+  {
+    "contactId": "contact-005",
+    "contactName": "ORION-MET-3",
+    "contactStatus": "caution",
+    "contactState": "executing",
+    "contactSatellite": "SATELLITE-MET-003",
+    "contactEquipment": "DISH-09",
+    "contactDetail": "Weather imaging pass in progress. Partial data dropout between 14:32-14:35 UTC. Backup recorder active.",
+    "contactBeginTimestamp": 1699994000000,
+    "contactEndTimestamp": 1699997000000,
+    "alerts": [
+      {
+        "errorId": "err-008",
+        "errorSeverity": "serious",
+        "errorCategory": "software",
+        "errorMessage": "Data recorder checksum mismatch on ORION-MET-3 pass",
+        "errorTime": 1699995500000,
+        "contactRef": "contact-005",
+        "contactName": "ORION-MET-3",
+        "contactBeginTimestamp": 1699994000000,
+        "contactEndTimestamp": 1699997000000
+      },
+      {
+        "errorId": "err-009",
+        "errorSeverity": "caution",
+        "errorCategory": "hardware",
+        "errorMessage": "Cooling system temperature elevated on DISH-09 receiver",
+        "errorTime": 1699994800000,
+        "contactRef": "contact-005",
+        "contactName": "ORION-MET-3",
+        "contactBeginTimestamp": 1699994000000,
+        "contactEndTimestamp": 1699997000000
+      }
+    ]
+  }
+]

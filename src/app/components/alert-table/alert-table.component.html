@@ -1,0 +1,213 @@
+
+
+
+
+<div class="dashboard">
+
+  <!-- Summary Cards -->
+  <div class="summary-bar">
+    <div class="summary-card critical">
+        <div class="status-wrapper">
+      <rux-status status="critical"></rux-status>
+      </div>
+      <div class="summary-info">
+        <span class="summary-count">{{ criticalCount }}</span>
+        <span class="summary-label">Critical</span>
+      </div>
+    </div>
+
+    <div class="summary-card serious">
+        <div class="status-wrapper">
+      <rux-status status="serious"></rux-status>
+      </div>
+      <div class="summary-info">
+        <span class="summary-count">{{ seriousCount }}</span>
+        <span class="summary-label">Serious</span>
+      </div>
+    </div>
+
+    <div class="summary-card caution">
+        <div class="status-wrapper">
+      <rux-status status="caution"></rux-status>
+      </div>
+      <div class="summary-info">
+        <span class="summary-count">{{ cautionCount }}</span>
+        <span class="summary-label">Caution</span>
+      </div>
+    </div>
+
+    <div class="summary-card total">
+        <div class="status-wrapper"></div>
+      <div class="summary-info">
+        <span class="summary-count">{{ unacknowledgedCount }}</span>
+        <span class="summary-label">Unacknowledged</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <h2 class="section-title">Active Alerts</h2>
+      <span class="alert-count-badge">{{ filteredAlerts.length }}</span>
+    </div>
+    <div class="toolbar-right">
+      <label class="filter-label" for="severity-filter">Filter by Severity</label>
+      <rux-select
+        id="severity-filter"
+        value="all"
+        size="small"
+        (ruxchange)="onSeverityChange($event)">
+        <rux-option
+          *ngFor="let opt of severityOptions"
+          [value]="opt.value"
+          [label]="opt.label">
+        </rux-option>
+      </rux-select>
+    </div>
+  </div>
+
+  <!-- Alerts Table -->
+  <rux-table>
+    <rux-table-header>
+      <rux-table-header-row>
+        <rux-table-header-cell>Severity</rux-table-header-cell>
+        <rux-table-header-cell>Alert Message</rux-table-header-cell>
+        <rux-table-header-cell>Contact</rux-table-header-cell>
+        <rux-table-header-cell>Alert Time</rux-table-header-cell>
+        <rux-table-header-cell>Contact Window</rux-table-header-cell>
+        <rux-table-header-cell>Status</rux-table-header-cell>
+        <rux-table-header-cell>Actions</rux-table-header-cell>
+      </rux-table-header-row>
+    </rux-table-header>
+    <rux-table-body>
+      <rux-table-row
+        *ngFor="let alert of filteredAlerts; trackBy: trackByErrorId"
+        [class.acknowledged-row]="alert.acknowledged"
+        [class.severity-critical]="alert.errorSeverity === 'critical' && !alert.acknowledged"
+        [class.severity-serious]="alert.errorSeverity === 'serious' && !alert.acknowledged"
+        [class.severity-caution]="alert.errorSeverity === 'caution' && !alert.acknowledged">
+
+        <rux-table-cell>
+          <div class="severity-cell">
+            <rux-status
+              [status]="alert.acknowledged ? 'normal' : alert.errorSeverity">
+            </rux-status>
+            <span class="severity-label"
+              [class]="'sev-' + alert.errorSeverity">
+              {{ alert.errorSeverity | titlecase }}
+            </span>
+          </div>
+        </rux-table-cell>
+
+        <rux-table-cell>
+          <span [class.acknowledged-text]="alert.acknowledged">
+            {{ alert.errorMessage }}
+          </span>
+        </rux-table-cell>
+
+        <rux-table-cell>
+          <span [class.acknowledged-text]="alert.acknowledged">
+            {{ alert.contactName }}
+          </span>
+        </rux-table-cell>
+
+        <rux-table-cell>
+          <span [class.acknowledged-text]="alert.acknowledged">
+            {{ formatTimestamp(alert.errorTime) }}
+          </span>
+        </rux-table-cell>
+
+        <rux-table-cell>
+          <span [class.acknowledged-text]="alert.acknowledged">
+            {{ formatTimeRange(alert.contactBeginTimestamp, alert.contactEndTimestamp) }}
+          </span>
+        </rux-table-cell>
+
+        <rux-table-cell>
+          <span class="status-badge"
+            [class.badge-acknowledged]="alert.acknowledged"
+            [class.badge-active]="!alert.acknowledged">
+            {{ alert.acknowledged ? 'Acknowledged' : 'Active' }}
+          </span>
+        </rux-table-cell>
+
+        <rux-table-cell>
+          <div class="actions-cell">
+            <rux-button size="small" secondary
+              (click)="showDetails(alert)">
+              Show Details
+            </rux-button>
+            <rux-button size="small"
+              [disabled]="alert.acknowledged"
+              (click)="acknowledge(alert)">
+              {{ alert.acknowledged ? 'Acknowledged' : 'Acknowledge' }}
+            </rux-button>
+          </div>
+        </rux-table-cell>
+
+      </rux-table-row>
+
+      <!-- Empty State -->
+      <rux-table-row *ngIf="filteredAlerts.length === 0">
+        <rux-table-cell>
+          <div class="empty-state">
+            <p>No alerts for selected severity level</p>
+          </div>
+        </rux-table-cell>
+      </rux-table-row>
+
+    </rux-table-body>
+  </rux-table>
+
+</div>
+
+<!-- Detail Dialog -->
+<rux-dialog
+  [open]="dialogOpen"
+  confirmText="Close"
+  denyText=""
+  (ruxdialogclosed)="onDialogClosed()">
+  <span slot="header">
+    Alert Details — {{ selectedAlert?.contactName }}
+  </span>
+  <div class="dialog-content" *ngIf="selectedAlert">
+    <div class="dialog-field">
+      <span class="dialog-label">Satellite</span>
+      <span class="dialog-value">{{ selectedAlert.contactSatellite }}</span>
+    </div>
+    <div class="dialog-field">
+      <span class="dialog-label">Severity</span>
+      <div class="dialog-severity">
+        <rux-status [status]="selectedAlert.errorSeverity"></rux-status>
+        <span class="severity-label"
+          [class]="'sev-' + selectedAlert.errorSeverity">
+          {{ selectedAlert.errorSeverity | titlecase }}
+        </span>
+      </div>
+    </div>
+    <div class="dialog-field">
+      <span class="dialog-label">Alert Message</span>
+      <span class="dialog-value">{{ selectedAlert.errorMessage }}</span>
+    </div>
+    <div class="dialog-field">
+      <span class="dialog-label">Contact Detail</span>
+      <span class="dialog-value">{{ selectedAlert.contactDetail }}</span>
+    </div>
+    <div class="dialog-field">
+      <span class="dialog-label">Contact Window</span>
+      <span class="dialog-value">
+        {{ formatTimeRange(selectedAlert.contactBeginTimestamp,
+           selectedAlert.contactEndTimestamp) }}
+      </span>
+    </div>
+    <div class="dialog-field">
+      <span class="dialog-label">Status</span>
+      <span class="status-badge"
+        [class.badge-acknowledged]="selectedAlert.acknowledged"
+        [class.badge-active]="!selectedAlert.acknowledged">
+        {{ selectedAlert.acknowledged ? 'Acknowledged' : 'Active' }}
+      </span>
+    </div>
+  </div>
+</rux-dialog>

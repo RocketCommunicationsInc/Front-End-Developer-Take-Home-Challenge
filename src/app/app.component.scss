@@ -1,0 +1,13 @@
+
+
+.main-content {
+  min-height: calc(100vh - 56px);
+  background: var(--color-background-base-default, #101923);
+  padding: 1rem 0;
+}
+
+.status-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
